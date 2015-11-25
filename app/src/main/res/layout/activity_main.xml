@@ -312,7 +312,7 @@
         android:layout_gravity="center_horizontal">
 
         <TextView
-            android:id="@+id/ans_million"
+            android:id="@+id/ans_tenthousand"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
@@ -332,7 +332,7 @@
             android:layout_marginRight="6dp"/>
 
         <TextView
-            android:id="@+id/ans_ans_hundred"
+            android:id="@+id/ans_hundred"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
@@ -458,11 +458,25 @@
         android:layout_marginRight="16dp" >
 
         <Button
+            android:id="@+id/button_clear"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="clear" />
+
+        <Button
             android:id="@+id/button_0"
             android:layout_width="wrap_content"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="0" />
+
+        <Button
+            android:id="@+id/button_enter"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="입력" />
 
     </LinearLayout>
 
