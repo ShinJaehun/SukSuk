@@ -1,17 +1,14 @@
 package com.shinjaehun.suksuk;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -33,8 +30,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public int operand1, operand2;
     TextView currentTextViewA, currentTextViewB;
 
-//    private ArrayList<TextView> numbers = new ArrayList<TextView>(17);
-    Stack numbers = new Stack<TextView>();
+//    private ArrayList<TextView> answers = new ArrayList<TextView>(17);
+    Stack answers = new Stack<TextView>();
     boolean isCarrying = true;
     //boolean userInput = false;
     int currentAnswer = 0;
@@ -45,7 +42,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         init();
-        operand();
+
+        stageOne();
+
 
 //        if (userInput) {
 //            stageOne();
@@ -94,41 +93,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.button_clear).setOnClickListener(this);
         findViewById(R.id.button_enter).setOnClickListener(this);
 
-//        numbers.add(carrying_ten);
-//        numbers.add(ans_down_one);
-//        numbers.add(carrying_hundred);
-//        numbers.add(ans_top_ten);
-//        numbers.add(ans_top_thousand);
-//        numbers.add(ans_top_hundred);
-//        numbers.add(carrying_ten);
-//        numbers.add(ans_down_one);
-//        numbers.add(carrying_hundred);
-//        numbers.add(ans_down_ten);
-//        numbers.add(ans_down_thousand);
-//        numbers.add(ans_down_hundred);
-//        numbers.add(ans_one);
-//        numbers.add(ans_ten);
-//        numbers.add(ans_hundred);
-//        numbers.add(ans_thousand);
-//        numbers.add(ans_tenthousand);
+//        answers.add(carrying_ten);
+//        answers.add(ans_down_one);
+//        answers.add(carrying_hundred);
+//        answers.add(ans_top_ten);
+//        answers.add(ans_top_thousand);
+//        answers.add(ans_top_hundred);
+//        answers.add(carrying_ten);
+//        answers.add(ans_down_one);
+//        answers.add(carrying_hundred);
+//        answers.add(ans_down_ten);
+//        answers.add(ans_down_thousand);
+//        answers.add(ans_down_hundred);
+//        answers.add(ans_one);
+//        answers.add(ans_ten);
+//        answers.add(ans_hundred);
+//        answers.add(ans_thousand);
+//        answers.add(ans_tenthousand);
 
-        numbers.push(ans_tenthousand);
-        numbers.push(ans_thousand);
-        numbers.push(ans_hundred);
-        numbers.push(ans_ten);
-        numbers.push(ans_one);
-        numbers.push(ans_down_hundred);
-        numbers.push(ans_down_thousand);
-        numbers.push(ans_down_ten);
-        numbers.push(carrying_hundred);
-        numbers.push(ans_down_one);
-        numbers.push(carrying_ten);
-        numbers.push(ans_top_hundred);
-        numbers.push(ans_top_thousand);
-        numbers.push(ans_top_ten);
-        numbers.push(carrying_hundred);
-        numbers.push(ans_top_one);
-        numbers.push(carrying_ten);
+        answers.push(ans_tenthousand);
+        answers.push(ans_thousand);
+        answers.push(ans_hundred);
+        answers.push(ans_ten);
+        answers.push(ans_one);
+        answers.push(ans_down_hundred);
+        answers.push(ans_down_thousand);
+        answers.push(ans_down_ten);
+        answers.push(carrying_hundred);
+        answers.push(ans_down_one);
+        answers.push(carrying_ten);
+        answers.push(ans_top_hundred);
+        answers.push(ans_top_thousand);
+        answers.push(ans_top_ten);
+        answers.push(carrying_hundred);
+        answers.push(ans_top_one);
+        answers.push(carrying_ten);
 
         initNumbers();
 
@@ -246,7 +245,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //
 //        if (ans <= 10) {
 //            current.setText('0');
-//            numbers.remove(current);
+//            answers.remove(current);
 //        } else if (ans / 10 == num){
 //            current.setText(String.valueOf(num));
 //        }
@@ -272,12 +271,65 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //
 //    }
 
-    private void operand() {
-        currentTextViewA = (TextView)numbers.pop();
-        currentTextViewB = (TextView)numbers.pop();
-        currentTextViewA.setText("A");
-        currentTextViewB.setText("?");
+    private void stageOne() {
+        top_one.setTextColor(Color.RED);
+        down_one.setTextColor(Color.RED);
 
+        userInput();
+
+        operand1 = topOne;
+        operand2 = downOne;
+
+//        if(result(topOne, downOne)) {
+//            top_one.setTextColor(Color.GRAY);
+//            down_one.setTextColor(Color.GRAY);
+//            return;
+//        }
+    }
+
+    private void nextStage() {
+        top_ten.setTextColor(Color.RED);
+
+        userInput();
+
+        operand1 = topTen;
+
+
+    }
+
+    private boolean result() {
+
+        int ans = operand1 * operand2;
+        Log.v(LOG_TAG, String.valueOf(operand1) + '*' + String.valueOf(operand2) + '=' + String.valueOf(ans));
+
+        int temp1 = Integer.parseInt(currentTextViewA.getText().toString());
+        Log.v(LOG_TAG, "temp1 : " + String.valueOf(temp1));
+
+        int temp2 = Integer.parseInt(currentTextViewB.getText().toString());
+        Log.v(LOG_TAG, "temp2 : " + String.valueOf(temp2));
+
+        int temp = temp1 * 10 + temp2;
+        Log.v(LOG_TAG, "temp : " + String.valueOf(temp));
+
+        if (ans == temp) {
+            Toast toast = Toast.makeText(getApplicationContext(), "딩동댕", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+            return true;
+        } else {
+            Toast toast = Toast.makeText(getApplicationContext(), temp +"는 틀렸어. 바보야.", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+            return false;
+        }
+    }
+
+
+    private void userInput() {
+        currentTextViewA = (TextView) answers.pop();
+        currentTextViewB = (TextView) answers.pop();
+        currentTextViewA.setText("A");
+        currentTextViewB.setText("B");
     }
 //int ans = topOne * downOne;
 //        Log.v(LOG_TAG, String.valueOf(topOne) + '*' + String.valueOf(downOne) + '=' + String.valueOf(ans));
@@ -298,20 +350,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        }
 
     private void buttonClicked(int num) {
-        if (currentAnswer < 10) {
-            currentAnswer = currentAnswer * 10 + num;
-            currentTextViewA.setText(String.valueOf(num));
-            Log.v(LOG_TAG, "currentAnswer1 : " + String.valueOf(currentAnswer));
-
 
 //        if (currentAnswer < 10) {
 //            currentAnswer = currentAnswer * 10 + num;
 //            Log.v(LOG_TAG, "currentAnswer : " + String.valueOf(currentAnswer));
 
+        if (currentAnswer < 10) {
+            if (num == 0) {
+                currentTextViewA.setText("0");
+                currentAnswer = 10;
+                Log.v(LOG_TAG, "currentAnswer1 : " + String.valueOf(currentAnswer));
+            } else {
+                currentTextViewA.setText(String.valueOf(num));
+                currentAnswer = num * 10;
+                Log.v(LOG_TAG, "currentAnswer2 : " + String.valueOf(currentAnswer));
+            }
         } else {
             currentTextViewB.setText(String.valueOf(num));
-            Log.v(LOG_TAG, "currentAnswer2 : " + String.valueOf(currentAnswer));
-            //구현이 끝난 다음
             currentAnswer = 0;
             Log.v(LOG_TAG, "currentAnswer3 : " + String.valueOf(currentAnswer));
         }
@@ -319,56 +374,55 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     public void onClick(View view) {
-        int num = 0;
-
         switch (view.getId()) {
 
             case R.id.button_1:
                 Log.v(LOG_TAG, "Button 1 Clicked");
-                num = 1;
+                buttonClicked(1);
                 break;
             case R.id.button_2:
                 Log.v(LOG_TAG, "Button 2 Clicked");
-                num = 2;
+                buttonClicked(2);
                 break;
             case R.id.button_3:
                 Log.v(LOG_TAG, "Button 3 Clicked");
-                num = 3;
+                buttonClicked(3);
                 break;
             case R.id.button_4:
-                num = 4;
+                buttonClicked(4);
                 break;
             case R.id.button_5:
-                num = 5;
+                buttonClicked(5);
                 break;
             case R.id.button_6:
-                num = 6;
+                buttonClicked(6);
                 break;
             case R.id.button_7:
-                num = 7;
+                buttonClicked(7);
                 break;
             case R.id.button_8:
-                num = 8;
+                buttonClicked(8);
                 break;
             case R.id.button_9:
-                num = 9;
+                buttonClicked(9);
                 break;
             case R.id.button_0:
-                num = 0;
+                buttonClicked(0);
                 break;
             case R.id.button_clear:
                 break;
             case R.id.button_enter:
+                if (result()) {
+                    nextStage();
+                }
                 break;
             default:
-                num = -1;
                 break;
         }
 
 //        stageOne(num, topOne, downOne, false, carrying_ten);
 //        stageTwo(num, topOne, downOne, false, ans_top_one);
 
-        buttonClicked(num);
 
     }
 
