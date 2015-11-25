@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Stack numbers = new Stack<TextView>();
     boolean isCarrying = true;
     //boolean userInput = false;
-    int currentAnswer;
+    int currentAnswer = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -275,7 +275,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void operand() {
         currentTextViewA = (TextView)numbers.pop();
         currentTextViewB = (TextView)numbers.pop();
-        currentTextViewA.setText("?");
+        currentTextViewA.setText("A");
         currentTextViewB.setText("?");
 
     }
@@ -300,13 +300,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void buttonClicked(int num) {
         if (currentAnswer < 10) {
             currentAnswer = currentAnswer * 10 + num;
-            currentTextViewB.setText(String.valueOf(num));
+            currentTextViewA.setText(String.valueOf(num));
+            Log.v(LOG_TAG, "currentAnswer1 : " + String.valueOf(currentAnswer));
+
 
 //        if (currentAnswer < 10) {
 //            currentAnswer = currentAnswer * 10 + num;
 //            Log.v(LOG_TAG, "currentAnswer : " + String.valueOf(currentAnswer));
 
-        } currentTextViewA.setText(String.valueOf(num));
+        } else {
+            currentTextViewB.setText(String.valueOf(num));
+            Log.v(LOG_TAG, "currentAnswer2 : " + String.valueOf(currentAnswer));
+            //구현이 끝난 다음
+            currentAnswer = 0;
+            Log.v(LOG_TAG, "currentAnswer3 : " + String.valueOf(currentAnswer));
+        }
     }
 
 
