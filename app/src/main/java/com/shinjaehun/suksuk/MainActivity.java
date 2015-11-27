@@ -28,13 +28,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView ans_one, ans_ten, ans_hundred, ans_thousand, ans_tenthousand;
 
     public int operand1, operand2;
-    TextView currentTextViewA, currentTextViewB;
+//    TextView currentTextViewA, currentTextViewB;
+
+    TextView operandTextView1, operandTextView2, inputTextView1, inputTextView2;
 
 //    private ArrayList<TextView> answers = new ArrayList<TextView>(17);
     Stack answers = new Stack<TextView>();
     boolean isCarrying = true;
     //boolean userInput = false;
     int currentAnswer = 0;
+    int currentStage = 0;
+    int ans = 0;
+    int totalCarry = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +49,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         init();
 
-        stageOne();
+//        stageOne();
 
+        nextStage();
 
 //        if (userInput) {
 //            stageOne();
@@ -271,66 +278,288 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //
 //    }
 
-    private void stageOne() {
-        top_one.setTextColor(Color.RED);
-        down_one.setTextColor(Color.RED);
+//    private void stageOne() {
+//        top_one.setTextColor(Color.RED);
+//        down_one.setTextColor(Color.RED);
+//
+//        userInput();
+//
+//        operand1 = topOne;
+//        operand2 = downOne;
+//
+////        if(result(topOne, downOne)) {
+////            top_one.setTextColor(Color.GRAY);
+////            down_one.setTextColor(Color.GRAY);
+////            return;
+////        }
+//    }
 
-        userInput();
-
-        operand1 = topOne;
-        operand2 = downOne;
-
-//        if(result(topOne, downOne)) {
-//            top_one.setTextColor(Color.GRAY);
-//            down_one.setTextColor(Color.GRAY);
-//            return;
-//        }
-    }
+//    private void nextStage() {
+//        top_ten.setTextColor(Color.RED);
+//
+//        userInput();
+//
+//        operand1 = topTen;
+//
+//
+//    }
 
     private void nextStage() {
-        top_ten.setTextColor(Color.RED);
 
-        userInput();
+        currentStage += 1;
+        Log.v(LOG_TAG, "Current Stage : " + String.valueOf(currentStage));
 
-        operand1 = topTen;
 
+//        userInput();
+
+        switch (currentStage) {
+            case 1:
+                operand1 = topOne;
+                operand2 = downOne;
+                operandTextView1 = top_one;
+                operandTextView2 = down_one;
+                ans = operand1 * operand2;
+                inputTextView1 = carrying_ten;
+                inputTextView2 = ans_top_one;
+                break;
+
+            case 2:
+                operand1 = topTen;
+                operand2 = downOne;
+                operandTextView1 = top_ten;
+                operandTextView2 = down_one;
+                ans = operand1 * operand2 + Integer.parseInt(carrying_ten.getText().toString());
+                inputTextView1 = carrying_hundred;
+                inputTextView2 = ans_top_ten;
+                break;
+
+            case 3:
+                operand1 = topHundred;
+                operand2 = downOne;
+                operandTextView1  = top_hundred;
+                operandTextView2 = down_one;
+                ans = operand1 * operand2 + Integer.parseInt(carrying_hundred.getText().toString());
+                inputTextView1 = ans_top_thousand;
+                inputTextView2 = ans_top_hundred;
+                break;
+
+            case 4:
+                operand1 = topOne;
+                operand2 = downTen;
+                operandTextView1 = top_one;
+                operandTextView2 = down_ten;
+                ans = operand1 * operand2;
+                inputTextView1 = carrying_ten;
+                inputTextView2 = ans_down_one;
+                break;
+
+            case 5:
+                operand1 = topTen;
+                operand2 = downTen;
+                operandTextView1 = top_ten;
+                operandTextView2 = down_ten;
+                ans = operand1 * operand2 + Integer.parseInt(carrying_ten.getText().toString());
+                inputTextView1 = carrying_hundred;
+                inputTextView2 = ans_down_ten;
+                break;
+
+            case 6:
+                operand1 = topHundred;
+                operand2 = downTen;
+                operandTextView1 = top_hundred;
+                operandTextView2 = down_ten;
+                ans = operand1 * operand2 + Integer.parseInt(carrying_hundred.getText().toString());
+                inputTextView1 = ans_down_thousand;
+                inputTextView2 = ans_down_hundred;
+                break;
+
+            case 7:
+                operandTextView1 = ans_top_one;
+                operandTextView2 = null;
+                ans = Integer.parseInt(ans_top_one.getText().toString());
+                inputTextView1 = ans_one;
+                inputTextView2 = null;
+                break;
+
+            case 8:
+                operandTextView1 = ans_top_ten;
+                operandTextView2 = ans_down_one;
+                ans = Integer.parseInt(ans_top_ten.getText().toString())
+                    + Integer.parseInt(ans_down_one.getText().toString())
+                    + totalCarry;
+                totalCarry = 0;
+                inputTextView1 = ans_ten;
+                inputTextView2 = null;
+                break;
+
+            case 9:
+                operandTextView1 = ans_top_hundred;
+                operandTextView2 = ans_down_ten;
+                ans = Integer.parseInt(ans_top_hundred.getText().toString())
+                        + Integer.parseInt(ans_down_ten.getText().toString())
+                        + totalCarry;
+                totalCarry = 0;
+                inputTextView1 = ans_hundred;
+                inputTextView2 = null;
+                break;
+
+            case 10:
+                operandTextView1 = ans_top_thousand;
+                operandTextView2 = ans_down_hundred;
+                ans = Integer.parseInt(ans_top_thousand.getText().toString())
+                        + Integer.parseInt(ans_down_hundred.getText().toString())
+                        + totalCarry;
+                totalCarry = 0;
+                inputTextView1 = ans_thousand;
+                inputTextView2 = null;
+                break;
+
+            case 11:
+                operandTextView2 = null;
+                operandTextView1 = ans_down_thousand;
+                ans = Integer.parseInt(ans_down_thousand.getText().toString()) + totalCarry;
+                totalCarry = 0;
+                inputTextView1 = ans_tenthousand;
+                inputTextView2 = null;
+                break;
+
+            default:
+                break;
+
+        }
+
+        if (operandTextView1 != null) {
+            operandTextView1.setTextColor(Color.RED);
+        }
+        if (operandTextView2 != null) {
+            operandTextView2.setTextColor(Color.RED);
+        }
+        if(inputTextView1 != null) {
+            inputTextView1.setText("A");
+        }
+        if (inputTextView2 != null) {
+            inputTextView2.setText("B");
+        }
+
+
+        if (currentStage >= 7 && ans >= 10) {
+            totalCarry = ans/10;
+            ans = ans%10;
+        }
 
     }
 
     private boolean result() {
 
-        int ans = operand1 * operand2;
-        Log.v(LOG_TAG, String.valueOf(operand1) + '*' + String.valueOf(operand2) + '=' + String.valueOf(ans));
+//        int ans = operand1 * operand2;
+//        Log.v(LOG_TAG, String.valueOf(operand1) + '*' + String.valueOf(operand2) + '=' + String.valueOf(ans));
 
-        int temp1 = Integer.parseInt(currentTextViewA.getText().toString());
-        Log.v(LOG_TAG, "temp1 : " + String.valueOf(temp1));
+        int temp = 0, temp1 = 0, temp2 = 0;
 
-        int temp2 = Integer.parseInt(currentTextViewB.getText().toString());
-        Log.v(LOG_TAG, "temp2 : " + String.valueOf(temp2));
+        if (currentStage < 7) {
 
-        int temp = temp1 * 10 + temp2;
-        Log.v(LOG_TAG, "temp : " + String.valueOf(temp));
+            temp1 = Integer.parseInt(inputTextView1.getText().toString());
+            Log.v(LOG_TAG, "temp1 : " + String.valueOf(temp1));
+
+            temp2 = Integer.parseInt(inputTextView2.getText().toString());
+            Log.v(LOG_TAG, "temp2 : " + String.valueOf(temp2));
+
+            temp = temp1 * 10 + temp2;
+            Log.v(LOG_TAG, "temp : " + String.valueOf(temp));
+        } else {
+            if(inputTextView1 != null) {
+                temp = Integer.parseInt(inputTextView1.getText().toString());
+                Log.v(LOG_TAG, "ans : " + String.valueOf(ans));
+                Log.v(LOG_TAG, "temp : " + String.valueOf(temp));
+
+            }
+//            if (inputTextView2 != null) {
+//                temp2 = Integer.parseInt(inputTextView2.getText().toString());
+//                Log.v(LOG_TAG, "temp2 : " + String.valueOf(temp2));
+//
+//            }
+//            temp = temp1 + temp2;
+//            Log.v(LOG_TAG, "temp : " + String.valueOf(temp));
+
+        }
 
         if (ans == temp) {
             Toast toast = Toast.makeText(getApplicationContext(), "딩동댕", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
+
+            if (operandTextView1 != null) {
+                operandTextView1.setTextColor(Color.GRAY);
+            }
+            if (operandTextView2 != null) {
+                operandTextView2.setTextColor(Color.GRAY);
+            }
+
+            if (currentStage == 11) {
+
+                finalStage();
+
+            }
+
             return true;
         } else {
             Toast toast = Toast.makeText(getApplicationContext(), temp +"는 틀렸어. 바보야.", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
+
+            if(inputTextView1 != null) {
+                inputTextView1.setText("A");
+            }
+            if (inputTextView2 != null) {
+                inputTextView2.setText("B");
+            }
+
             return false;
         }
     }
 
+    private void finalStage() {
+        Toast toastR = Toast.makeText(getApplicationContext(), "축하합니다!", Toast.LENGTH_LONG);
+        toastR.setGravity(Gravity.CENTER, 0, 0);
+        toastR.show();
+        currentStage = 0;
 
-    private void userInput() {
-        currentTextViewA = (TextView) answers.pop();
-        currentTextViewB = (TextView) answers.pop();
-        currentTextViewA.setText("A");
-        currentTextViewB.setText("B");
+        carrying_hundred.setText(String.valueOf("0"));
+        carrying_ten.setText(String.valueOf("0"));
+
+                    top_hundred.setText(String.valueOf("0"));
+                    top_ten.setText(String.valueOf("0"));
+                    top_one.setText(String.valueOf("0"));
+
+                    down_ten.setText(String.valueOf("0"));
+                    down_one.setText(String.valueOf("0"));
+
+        ans_top_one.setText(String.valueOf("0"));
+        ans_top_ten.setText(String.valueOf("0"));
+        ans_top_hundred.setText(String.valueOf("0"));
+        ans_top_thousand.setText(String.valueOf("0"));
+
+        ans_down_one.setText(String.valueOf("0"));
+        ans_down_ten.setText(String.valueOf("0"));
+        ans_down_hundred.setText(String.valueOf("0"));
+        ans_down_thousand.setText(String.valueOf("0"));
+
+        ans_one.setText(String.valueOf("0"));
+        ans_ten.setText(String.valueOf("0"));
+        ans_hundred.setText(String.valueOf("0"));
+        ans_thousand.setText(String.valueOf("0"));
+        ans_tenthousand.setText(String.valueOf("0"));
+
+
+        initNumbers();
     }
+
+//    private void userInput() {
+//        currentTextViewA = (TextView) answers.pop();
+//        currentTextViewB = (TextView) answers.pop();
+//        currentTextViewA.setText("A");
+//        currentTextViewB.setText("B");
+//    }
 //int ans = topOne * downOne;
 //        Log.v(LOG_TAG, String.valueOf(topOne) + '*' + String.valueOf(downOne) + '=' + String.valueOf(ans));
 //        Log.v(LOG_TAG, String.valueOf(ans/10));
@@ -349,29 +578,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            toast.show();
 //        }
 
-    private void buttonClicked(int num) {
-
+//    private void buttonClicked(int num) {
+//
+////        if (currentAnswer < 10) {
+////            currentAnswer = currentAnswer * 10 + num;
+////            Log.v(LOG_TAG, "currentAnswer : " + String.valueOf(currentAnswer));
+//
 //        if (currentAnswer < 10) {
-//            currentAnswer = currentAnswer * 10 + num;
-//            Log.v(LOG_TAG, "currentAnswer : " + String.valueOf(currentAnswer));
+//            if (num == 0) {
+//                currentTextViewA.setText("0");
+//                currentAnswer = 10;
+//                Log.v(LOG_TAG, "currentAnswer1 : " + String.valueOf(currentAnswer));
+//            } else {
+//                currentTextViewA.setText(String.valueOf(num));
+//                currentAnswer = num * 10;
+//                Log.v(LOG_TAG, "currentAnswer2 : " + String.valueOf(currentAnswer));
+//            }
+//        } else {
+//            currentTextViewB.setText(String.valueOf(num));
+//            currentAnswer = 0;
+//            Log.v(LOG_TAG, "currentAnswer3 : " + String.valueOf(currentAnswer));
+//        }
+//    }
 
-        if (currentAnswer < 10) {
-            if (num == 0) {
-                currentTextViewA.setText("0");
-                currentAnswer = 10;
-                Log.v(LOG_TAG, "currentAnswer1 : " + String.valueOf(currentAnswer));
+
+    private void buttonClicked(int num) {
+        if (currentStage < 7) {
+            if (isCarrying) {
+                if (num == 0) {
+                    inputTextView1.setText("0");
+                    isCarrying = false;
+                } else {
+                    inputTextView1.setText(String.valueOf(num));
+                    isCarrying = false;
+                }
             } else {
-                currentTextViewA.setText(String.valueOf(num));
-                currentAnswer = num * 10;
-                Log.v(LOG_TAG, "currentAnswer2 : " + String.valueOf(currentAnswer));
+                inputTextView2.setText(String.valueOf(num));
+                isCarrying = true;
             }
         } else {
-            currentTextViewB.setText(String.valueOf(num));
-            currentAnswer = 0;
-            Log.v(LOG_TAG, "currentAnswer3 : " + String.valueOf(currentAnswer));
+            inputTextView1.setText(String.valueOf(num));
         }
-    }
 
+    }
 
     public void onClick(View view) {
         switch (view.getId()) {
@@ -412,10 +661,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.button_clear:
                 break;
             case R.id.button_enter:
+
+
                 if (result()) {
                     nextStage();
+                    break;
                 }
-                break;
             default:
                 break;
         }
