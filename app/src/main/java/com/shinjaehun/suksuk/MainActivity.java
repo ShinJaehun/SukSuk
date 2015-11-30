@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import java.util.Stack;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
@@ -27,20 +27,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView ans_down_one, ans_down_ten, ans_down_hundred, ans_down_thousand;
     TextView ans_one, ans_ten, ans_hundred, ans_thousand, ans_tenthousand;
 
-    public int operand1, operand2;
+//    public int operand1, operand2;
 //    TextView currentTextViewA, currentTextViewB;
 
-    TextView operandTextView1, operandTextView2, inputTextView1, inputTextView2;
+    TextView operand1TextView, operand2TextView, input1TextView, input2TextView;
 
-//    private ArrayList<TextView> answers = new ArrayList<TextView>(17);
-    Stack answers = new Stack<TextView>();
-    boolean isCarrying = true;
+    //    private ArrayList<TextView> answers = new ArrayList<TextView>(17);
+//    Stack answers = new Stack<TextView>();
+    boolean carrying = true;
     //boolean userInput = false;
-    int currentAnswer = 0;
+//    int currentAnswer = 0;
     int currentStage = 0;
     int ans = 0;
     int totalCarry = 0;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,31 +60,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void init() {
 
-        carrying_hundred = (TextView)findViewById(R.id.carrying_hundred);
-        carrying_ten = (TextView)findViewById(R.id.carrying_ten);
+        carrying_hundred = (TextView) findViewById(R.id.carrying_hundred);
+        carrying_ten = (TextView) findViewById(R.id.carrying_ten);
 
-        top_hundred = (TextView)findViewById(R.id.top_hundred);
-        top_ten =  (TextView)findViewById(R.id.top_ten);
-        top_one = (TextView)findViewById(R.id.top_one);
+        top_hundred = (TextView) findViewById(R.id.top_hundred);
+        top_ten = (TextView) findViewById(R.id.top_ten);
+        top_one = (TextView) findViewById(R.id.top_one);
 
-        down_ten = (TextView)findViewById(R.id.down_ten);
-        down_one = (TextView)findViewById(R.id.down_one);
+        down_ten = (TextView) findViewById(R.id.down_ten);
+        down_one = (TextView) findViewById(R.id.down_one);
 
-        ans_top_one = (TextView)findViewById(R.id.ans_top_oen);
-        ans_top_ten = (TextView)findViewById(R.id.ans_top_ten);
-        ans_top_hundred = (TextView)findViewById(R.id.ans_top_hundred);
-        ans_top_thousand = (TextView)findViewById(R.id.ans_top_thousand);
+        ans_top_one = (TextView) findViewById(R.id.ans_top_oen);
+        ans_top_ten = (TextView) findViewById(R.id.ans_top_ten);
+        ans_top_hundred = (TextView) findViewById(R.id.ans_top_hundred);
+        ans_top_thousand = (TextView) findViewById(R.id.ans_top_thousand);
 
-        ans_down_one = (TextView)findViewById(R.id.ans_down_one);
-        ans_down_ten = (TextView)findViewById(R.id.ans_down_ten);
-        ans_down_hundred = (TextView)findViewById(R.id.ans_down_hundred);
-        ans_down_thousand = (TextView)findViewById(R.id.ans_down_thousand);
+        ans_down_one = (TextView) findViewById(R.id.ans_down_one);
+        ans_down_ten = (TextView) findViewById(R.id.ans_down_ten);
+        ans_down_hundred = (TextView) findViewById(R.id.ans_down_hundred);
+        ans_down_thousand = (TextView) findViewById(R.id.ans_down_thousand);
 
-        ans_one = (TextView)findViewById(R.id.ans_one);
-        ans_ten = (TextView)findViewById(R.id.ans_ten);
-        ans_hundred = (TextView)findViewById(R.id.ans_hundred);
-        ans_thousand = (TextView)findViewById(R.id.ans_thousand);
-        ans_tenthousand = (TextView)findViewById(R.id.ans_tenthousand);
+        ans_one = (TextView) findViewById(R.id.ans_one);
+        ans_ten = (TextView) findViewById(R.id.ans_ten);
+        ans_hundred = (TextView) findViewById(R.id.ans_hundred);
+        ans_thousand = (TextView) findViewById(R.id.ans_thousand);
+        ans_tenthousand = (TextView) findViewById(R.id.ans_tenthousand);
 
         findViewById(R.id.button_1).setOnClickListener(this);
         findViewById(R.id.button_2).setOnClickListener(this);
@@ -118,29 +117,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        answers.add(ans_thousand);
 //        answers.add(ans_tenthousand);
 
-        answers.push(ans_tenthousand);
-        answers.push(ans_thousand);
-        answers.push(ans_hundred);
-        answers.push(ans_ten);
-        answers.push(ans_one);
-        answers.push(ans_down_hundred);
-        answers.push(ans_down_thousand);
-        answers.push(ans_down_ten);
-        answers.push(carrying_hundred);
-        answers.push(ans_down_one);
-        answers.push(carrying_ten);
-        answers.push(ans_top_hundred);
-        answers.push(ans_top_thousand);
-        answers.push(ans_top_ten);
-        answers.push(carrying_hundred);
-        answers.push(ans_top_one);
-        answers.push(carrying_ten);
+//        answers.push(ans_tenthousand);
+//        answers.push(ans_thousand);
+//        answers.push(ans_hundred);
+//        answers.push(ans_ten);
+//        answers.push(ans_one);
+//        answers.push(ans_down_hundred);
+//        answers.push(ans_down_thousand);
+//        answers.push(ans_down_ten);
+//        answers.push(carrying_hundred);
+//        answers.push(ans_down_one);
+//        answers.push(carrying_ten);
+//        answers.push(ans_top_hundred);
+//        answers.push(ans_top_thousand);
+//        answers.push(ans_top_ten);
+//        answers.push(carrying_hundred);
+//        answers.push(ans_top_one);
+//        answers.push(carrying_ten);
 
-        initNumbers();
+        initOperands();
 
     }
 
-    public void initNumbers() {
+    public void initOperands() {
         /*난수 테스트
         for (int i = 0; i < 100; i++) {
             top = (int) (Math.random() * 900) + 100;
@@ -150,18 +149,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         top = (int) (Math.random() * 900) + 100;
 //        Log.v(LOG_TAG, String.valueOf(top));
 
-        down = (int)(Math.random() * 90) + 10;
+        down = (int) (Math.random() * 90) + 10;
 //        Log.v(LOG_TAG, String.valueOf(down));
 
-        topHundred = top/100%10;
-        topTen = top/10%10;
-        topOne = top%10;
+        topHundred = top / 100 % 10;
+        topTen = top / 10 % 10;
+        topOne = top % 10;
 //        Log.v(LOG_TAG, String.valueOf(topHundred));
 //        Log.v(LOG_TAG, String.valueOf(topTen));
 //        Log.v(LOG_TAG, String.valueOf(topOne));
 
-        downTen = down/10%10;
-        downOne = down%10;
+        downTen = down / 10 % 10;
+        downOne = down % 10;
 
 //        Log.v(LOG_TAG, String.valueOf(downTen));
 //        Log.v(LOG_TAG, String.valueOf(downOne));
@@ -231,20 +230,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        }
 //    }
 
-    private void stageTwo(int num, int operand1, int operand2, boolean last, TextView value) {
-        int ans = operand1 * operand2;
-        Log.v(LOG_TAG, String.valueOf(operand1) + '*' + String.valueOf(operand2) + '=' + String.valueOf(ans));
-        Log.v(LOG_TAG, String.valueOf(ans / 10));
-
-        if (ans % 10 == num) {
-            value.setText(String.valueOf(num));
-        } else {
-            Toast toast = Toast.makeText(getApplicationContext(), num + " 은 잘못된 숫자입니다", Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
-        }
-    }
-
 //    private void logic_carry(int num, int operand1, int operand2, boolean isCarrying) {
 //        int ans = operand1 * operand2;
 //        Log.v(LOG_TAG, String.valueOf(operand1) + '*' + String.valueOf(operand2) + '=' + String.valueOf(ans));
@@ -309,118 +294,105 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         currentStage += 1;
         Log.v(LOG_TAG, "Current Stage : " + String.valueOf(currentStage));
 
-
 //        userInput();
 
         switch (currentStage) {
             case 1:
-                operand1 = topOne;
-                operand2 = downOne;
-                operandTextView1 = top_one;
-                operandTextView2 = down_one;
-                ans = operand1 * operand2;
-                inputTextView1 = carrying_ten;
-                inputTextView2 = ans_top_one;
+                operand1TextView = top_one;
+                operand2TextView = down_one;
+                ans = topOne * downOne;
+                input1TextView = carrying_ten;
+                input2TextView = ans_top_one;
                 break;
 
             case 2:
-                operand1 = topTen;
-                operand2 = downOne;
-                operandTextView1 = top_ten;
-                operandTextView2 = down_one;
-                ans = operand1 * operand2 + Integer.parseInt(carrying_ten.getText().toString());
-                inputTextView1 = carrying_hundred;
-                inputTextView2 = ans_top_ten;
+                operand1TextView = top_ten;
+                operand2TextView = down_one;
+                ans = topTen * downOne + Integer.parseInt(carrying_ten.getText().toString());
+                input1TextView = carrying_hundred;
+                input2TextView = ans_top_ten;
                 break;
 
             case 3:
-                operand1 = topHundred;
-                operand2 = downOne;
-                operandTextView1  = top_hundred;
-                operandTextView2 = down_one;
-                ans = operand1 * operand2 + Integer.parseInt(carrying_hundred.getText().toString());
-                inputTextView1 = ans_top_thousand;
-                inputTextView2 = ans_top_hundred;
+                operand1TextView = top_hundred;
+                operand2TextView = down_one;
+                ans = topHundred * downOne + Integer.parseInt(carrying_hundred.getText().toString());
+                input1TextView = ans_top_thousand;
+                input2TextView = ans_top_hundred;
                 break;
 
             case 4:
-                operand1 = topOne;
-                operand2 = downTen;
-                operandTextView1 = top_one;
-                operandTextView2 = down_ten;
-                ans = operand1 * operand2;
-                inputTextView1 = carrying_ten;
-                inputTextView2 = ans_down_one;
+                operand1TextView = top_one;
+                operand2TextView = down_ten;
+                ans = topOne * downTen;
+                input1TextView = carrying_ten;
+                input2TextView = ans_down_one;
                 break;
 
             case 5:
-                operand1 = topTen;
-                operand2 = downTen;
-                operandTextView1 = top_ten;
-                operandTextView2 = down_ten;
-                ans = operand1 * operand2 + Integer.parseInt(carrying_ten.getText().toString());
-                inputTextView1 = carrying_hundred;
-                inputTextView2 = ans_down_ten;
+                operand1TextView = top_ten;
+                operand2TextView = down_ten;
+                ans = topTen * downTen + Integer.parseInt(carrying_ten.getText().toString());
+                input1TextView = carrying_hundred;
+                input2TextView = ans_down_ten;
                 break;
 
             case 6:
-                operand1 = topHundred;
-                operand2 = downTen;
-                operandTextView1 = top_hundred;
-                operandTextView2 = down_ten;
-                ans = operand1 * operand2 + Integer.parseInt(carrying_hundred.getText().toString());
-                inputTextView1 = ans_down_thousand;
-                inputTextView2 = ans_down_hundred;
+                operand1TextView = top_hundred;
+                operand2TextView = down_ten;
+                ans = topHundred * downTen + Integer.parseInt(carrying_hundred.getText().toString());
+                input1TextView = ans_down_thousand;
+                input2TextView = ans_down_hundred;
                 break;
 
             case 7:
-                operandTextView1 = ans_top_one;
-                operandTextView2 = null;
+                operand1TextView = ans_top_one;
+                operand2TextView = null;
                 ans = Integer.parseInt(ans_top_one.getText().toString());
-                inputTextView1 = ans_one;
-                inputTextView2 = null;
+                input1TextView = ans_one;
+                input2TextView = null;
                 break;
 
             case 8:
-                operandTextView1 = ans_top_ten;
-                operandTextView2 = ans_down_one;
+                operand1TextView = ans_top_ten;
+                operand2TextView = ans_down_one;
                 ans = Integer.parseInt(ans_top_ten.getText().toString())
-                    + Integer.parseInt(ans_down_one.getText().toString())
-                    + totalCarry;
+                        + Integer.parseInt(ans_down_one.getText().toString())
+                        + totalCarry;
                 totalCarry = 0;
-                inputTextView1 = ans_ten;
-                inputTextView2 = null;
+                input1TextView = ans_ten;
+                input2TextView = null;
                 break;
 
             case 9:
-                operandTextView1 = ans_top_hundred;
-                operandTextView2 = ans_down_ten;
+                operand1TextView = ans_top_hundred;
+                operand2TextView = ans_down_ten;
                 ans = Integer.parseInt(ans_top_hundred.getText().toString())
                         + Integer.parseInt(ans_down_ten.getText().toString())
                         + totalCarry;
                 totalCarry = 0;
-                inputTextView1 = ans_hundred;
-                inputTextView2 = null;
+                input1TextView = ans_hundred;
+                input2TextView = null;
                 break;
 
             case 10:
-                operandTextView1 = ans_top_thousand;
-                operandTextView2 = ans_down_hundred;
+                operand1TextView = ans_top_thousand;
+                operand2TextView = ans_down_hundred;
                 ans = Integer.parseInt(ans_top_thousand.getText().toString())
                         + Integer.parseInt(ans_down_hundred.getText().toString())
                         + totalCarry;
                 totalCarry = 0;
-                inputTextView1 = ans_thousand;
-                inputTextView2 = null;
+                input1TextView = ans_thousand;
+                input2TextView = null;
                 break;
 
             case 11:
-                operandTextView2 = null;
-                operandTextView1 = ans_down_thousand;
+                operand2TextView = null;
+                operand1TextView = ans_down_thousand;
                 ans = Integer.parseInt(ans_down_thousand.getText().toString()) + totalCarry;
                 totalCarry = 0;
-                inputTextView1 = ans_tenthousand;
-                inputTextView2 = null;
+                input1TextView = ans_tenthousand;
+                input2TextView = null;
                 break;
 
             default:
@@ -428,23 +400,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
 
-        if (operandTextView1 != null) {
-            operandTextView1.setTextColor(Color.RED);
+        if (operand1TextView != null) {
+            operand1TextView.setTextColor(Color.RED);
         }
-        if (operandTextView2 != null) {
-            operandTextView2.setTextColor(Color.RED);
+        if (operand2TextView != null) {
+            operand2TextView.setTextColor(Color.RED);
         }
-        if(inputTextView1 != null) {
-            inputTextView1.setText("A");
+        if (input1TextView != null) {
+            input1TextView.setText("A");
         }
-        if (inputTextView2 != null) {
-            inputTextView2.setText("B");
+        if (input2TextView != null) {
+            input2TextView.setText("B");
         }
 
 
         if (currentStage >= 7 && ans >= 10) {
-            totalCarry = ans/10;
-            ans = ans%10;
+            totalCarry = ans / 10;
+            ans = ans % 10;
         }
 
     }
@@ -458,17 +430,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (currentStage < 7) {
 
-            temp1 = Integer.parseInt(inputTextView1.getText().toString());
-            Log.v(LOG_TAG, "temp1 : " + String.valueOf(temp1));
+            try {
+                temp1 = Integer.parseInt(input1TextView.getText().toString());
+                Log.v(LOG_TAG, "temp1 : " + String.valueOf(temp1));
+            } catch(NumberFormatException nfe) {
+                return wrongAnswer(input1TextView.getText().toString());
+            }
 
-            temp2 = Integer.parseInt(inputTextView2.getText().toString());
-            Log.v(LOG_TAG, "temp2 : " + String.valueOf(temp2));
+            try {
+                temp2 = Integer.parseInt(input2TextView.getText().toString());
+                Log.v(LOG_TAG, "temp2 : " + String.valueOf(temp1));
+            } catch(NumberFormatException nfe) {
+                return wrongAnswer(input2TextView.getText().toString());
+            }
+
+//            temp2 = Integer.parseInt(input2TextView.getText().toString());
+//            Log.v(LOG_TAG, "temp2 : " + String.valueOf(temp2));
 
             temp = temp1 * 10 + temp2;
             Log.v(LOG_TAG, "temp : " + String.valueOf(temp));
+
         } else {
-            if(inputTextView1 != null) {
-                temp = Integer.parseInt(inputTextView1.getText().toString());
+            if (input1TextView != null) {
+                temp = Integer.parseInt(input1TextView.getText().toString());
                 Log.v(LOG_TAG, "ans : " + String.valueOf(ans));
                 Log.v(LOG_TAG, "temp : " + String.valueOf(temp));
 
@@ -484,55 +468,74 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if (ans == temp) {
-            Toast toast = Toast.makeText(getApplicationContext(), "딩동댕", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(getApplicationContext(), "딩동댕", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
 
-            if (operandTextView1 != null) {
-                operandTextView1.setTextColor(Color.GRAY);
+            if (operand1TextView != null) {
+                operand1TextView.setTextColor(Color.GRAY);
             }
-            if (operandTextView2 != null) {
-                operandTextView2.setTextColor(Color.GRAY);
+
+            if (operand2TextView != null) {
+                operand2TextView.setTextColor(Color.GRAY);
             }
 
             if (currentStage == 11) {
-
                 finalStage();
-
             }
-
             return true;
+
         } else {
-            Toast toast = Toast.makeText(getApplicationContext(), temp +"는 틀렸어. 바보야.", Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
-
-            if(inputTextView1 != null) {
-                inputTextView1.setText("A");
-            }
-            if (inputTextView2 != null) {
-                inputTextView2.setText("B");
-            }
-
-            return false;
+            return wrongAnswer(String.valueOf(temp));
         }
+    }
+
+    private boolean wrongAnswer(String temp) {
+        Toast toast = Toast.makeText(getApplicationContext(), temp + "는 틀렸어. 바보야.", Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
+
+        if (input1TextView != null) {
+            input1TextView.setText("A");
+        }
+        if (input2TextView != null) {
+            input2TextView.setText("B");
+        }
+        carrying = true;
+        return false;
     }
 
     private void finalStage() {
         Toast toastR = Toast.makeText(getApplicationContext(), "축하합니다!", Toast.LENGTH_LONG);
         toastR.setGravity(Gravity.CENTER, 0, 0);
         toastR.show();
+
         currentStage = 0;
+        totalCarry = 0;
+        carrying = true;
+
+        top_hundred.setText(String.valueOf("0"));
+        top_ten.setText(String.valueOf("0"));
+        top_one.setText(String.valueOf("0"));
+
+        down_ten.setText(String.valueOf("0"));
+        down_one.setText(String.valueOf("0"));
+
+        initOperands();
+        initNumbers();
+    }
+
+    private void initNumbers() {
+
+        if (operand1TextView != null) {
+            operand1TextView.setTextColor(Color.GRAY);
+        }
+        if (operand2TextView != null) {
+            operand2TextView.setTextColor(Color.GRAY);
+        }
 
         carrying_hundred.setText(String.valueOf("0"));
         carrying_ten.setText(String.valueOf("0"));
-
-                    top_hundred.setText(String.valueOf("0"));
-                    top_ten.setText(String.valueOf("0"));
-                    top_one.setText(String.valueOf("0"));
-
-                    down_ten.setText(String.valueOf("0"));
-                    down_one.setText(String.valueOf("0"));
 
         ans_top_one.setText(String.valueOf("0"));
         ans_top_ten.setText(String.valueOf("0"));
@@ -550,8 +553,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ans_thousand.setText(String.valueOf("0"));
         ans_tenthousand.setText(String.valueOf("0"));
 
-
-        initNumbers();
     }
 
 //    private void userInput() {
@@ -601,40 +602,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        }
 //    }
 
+//    private void buttonClicked(int num) {
+//        if (currentStage < 7) {
+//            if (carrying) {
+//                if (num == 0) {
+//                    input1TextView.setText("0");
+//                    carrying = false;
+//                } else {
+//                    input1TextView.setText(String.valueOf(num));
+//                    carrying = false;
+//                }
+//            } else {
+//                input2TextView.setText(String.valueOf(num));
+//                carrying = true;
+//            }
+//        } else {
+//            input1TextView.setText(String.valueOf(num));
+//        }
+//    }
 
     private void buttonClicked(int num) {
         if (currentStage < 7) {
-            if (isCarrying) {
-                if (num == 0) {
-                    inputTextView1.setText("0");
-                    isCarrying = false;
+            if (carrying) {
+                input1TextView.setText(String.valueOf(num));
+                carrying = false;
                 } else {
-                    inputTextView1.setText(String.valueOf(num));
-                    isCarrying = false;
-                }
-            } else {
-                inputTextView2.setText(String.valueOf(num));
-                isCarrying = true;
+                input2TextView.setText(String.valueOf(num));
+                carrying = true;
             }
         } else {
-            inputTextView1.setText(String.valueOf(num));
+            input1TextView.setText(String.valueOf(num));
         }
-
     }
 
     public void onClick(View view) {
         switch (view.getId()) {
 
             case R.id.button_1:
-                Log.v(LOG_TAG, "Button 1 Clicked");
                 buttonClicked(1);
                 break;
             case R.id.button_2:
-                Log.v(LOG_TAG, "Button 2 Clicked");
                 buttonClicked(2);
                 break;
             case R.id.button_3:
-                Log.v(LOG_TAG, "Button 3 Clicked");
                 buttonClicked(3);
                 break;
             case R.id.button_4:
@@ -659,10 +669,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 buttonClicked(0);
                 break;
             case R.id.button_clear:
+                currentStage = 0;
+                totalCarry = 0;
+                carrying = true;
+                initNumbers();
+                nextStage();
                 break;
             case R.id.button_enter:
-
-
                 if (result()) {
                     nextStage();
                     break;
@@ -676,8 +689,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
-
-
 
 
 }
