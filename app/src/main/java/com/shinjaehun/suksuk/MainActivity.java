@@ -1,15 +1,13 @@
 package com.shinjaehun.suksuk;
 
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -30,9 +28,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView operand1TextView, operand2TextView, input1TextView, input2TextView;
 
     boolean carrying = true;
+    boolean zeroCarrying = false;
     int currentStage = 0;
     int ans = 0;
     int totalCarry = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +95,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         top = (int) (Math.random() * 900) + 100;
         down = (int) (Math.random() * 90) + 10;
+
+//        top = 90;
+//        down = 57;
 
         topHundred = top / 100 % 10;
         topTen = top / 10 % 10;
@@ -228,24 +231,76 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             input2TextView.setText("B");
         }
 
-        if (currentStage >= 7 && ans >= 10) {
+//        if (currentStage >= 7 && ans >= 10) {
+//            totalCarry = ans / 10;
+//            ans = ans % 10;
+//        }
+
+
+//        if (currentStage < 7 && (Integer.parseInt(operand1TextView.getText().toString()) == 0
+//                || Integer.parseInt(operand2TextView.getText().toString()) == 0)) {
+//            if (Integer.parseInt(input1TextView.getText().toString()) != 0) {
+//                input2TextView.setText(input1TextView.getText().toString());
+//            } else {
+//                input1TextView.setText("0");
+//                input2TextView.setText("0");
+//            }
+//            operand1TextView.setTextColor(Color.GRAY);
+//            operand2TextView.setTextColor(Color.GRAY);
+//            nextStage();
+//        }
+        if (currentStage < 7) {
+            if (Integer.parseInt(operand1TextView.getText().toString()) == 0 || ans < 10) {
+                input1TextView.setText("0");
+                zeroCarrying = true;
+//            operand1TextView.setTextColor(Color.GRAY);
+//            operand2TextView.setTextColor(Color.GRAY);
+//            nextStage();
+            } else {
+                zeroCarrying = false;
+            }
+        } else {
             totalCarry = ans / 10;
             ans = ans % 10;
         }
     }
 
+//    private void buttonClicked(int num) {
+//        if (currentStage < 7) {
+//            if (carrying) {
+//                input1TextView.setText(String.valueOf(num));
+//                carrying = false;
+//            } else {
+//                input2TextView.setText(String.valueOf(num));
+//                carrying = true;
+//            }
+//        } else {
+//            input1TextView.setText(String.valueOf(num));
+//        }
+//        Log.v(LOG_TAG, "zeroCarrying : " + String.valueOf(zeroCarrying));
+//        Log.v(LOG_TAG, "carrying : " + String.valueOf(carrying));
+//        Log.v(LOG_TAG, "totalCarry : " + String.valueOf(totalCarry));
+//    }
+
     private void buttonClicked(int num) {
         if (currentStage < 7) {
-            if (carrying) {
-                input1TextView.setText(String.valueOf(num));
-                carrying = false;
-                } else {
+            if (zeroCarrying) {
                 input2TextView.setText(String.valueOf(num));
-                carrying = true;
+            } else {
+                if (carrying) {
+                    input1TextView.setText(String.valueOf(num));
+                    carrying = false;
+                } else {
+                    input2TextView.setText(String.valueOf(num));
+                    carrying = true;
+                }
             }
         } else {
             input1TextView.setText(String.valueOf(num));
         }
+        Log.v(LOG_TAG, "zeroCarrying : " + String.valueOf(zeroCarrying));
+        Log.v(LOG_TAG, "carrying : " + String.valueOf(carrying));
+        Log.v(LOG_TAG, "totalCarry : " + String.valueOf(totalCarry));
     }
 
     public void onClick(View view) {
@@ -305,14 +360,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             try {
                 temp1 = Integer.parseInt(input1TextView.getText().toString());
                 Log.v(LOG_TAG, "temp1 : " + String.valueOf(temp1));
-            } catch(NumberFormatException nfe) {
+            } catch (NumberFormatException nfe) {
                 return wrongAnswer(input1TextView.getText().toString());
             }
 
             try {
                 temp2 = Integer.parseInt(input2TextView.getText().toString());
                 Log.v(LOG_TAG, "temp2 : " + String.valueOf(temp2));
-            } catch(NumberFormatException nfe) {
+            } catch (NumberFormatException nfe) {
                 return wrongAnswer(input2TextView.getText().toString());
             }
 
@@ -360,9 +415,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (input1TextView != null) {
             input1TextView.setText("A");
         }
+
         if (input2TextView != null) {
             input2TextView.setText("B");
         }
+
+        if (zeroCarrying) {
+            input1TextView.setText("0");
+            carrying = false;
+            return false;
+        }
+
         carrying = true;
         return false;
     }
