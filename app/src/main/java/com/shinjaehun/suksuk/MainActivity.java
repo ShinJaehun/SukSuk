@@ -27,10 +27,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     TextView operand1TextView, operand2TextView, input1TextView, input2TextView;
 
+    //곱셈 결과를 입력할 순서 저장
     boolean carrying = true;
+
+    //세 자리 수 중 하나가 0이거나 곱셈 결과가 받아올림이 없는 경우를 처리할 스위치
     boolean zeroCarrying = false;
+
+    //현재 과정
     int currentStage = 0;
+
+    //곱셈 결과
     int ans = 0;
+
+    //일의 자리, 십의 자리 곱셈 결과를 더할 때 받아올림 값 저장
     int totalCarry = 0;
 
 
@@ -44,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void init() {
+        //각 TextView findViewById
         carrying_hundred = (TextView) findViewById(R.id.carrying_hundred);
         carrying_ten = (TextView) findViewById(R.id.carrying_ten);
 
@@ -70,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ans_thousand = (TextView) findViewById(R.id.ans_thousand);
         ans_tenthousand = (TextView) findViewById(R.id.ans_tenthousand);
 
+        //각 버튼에 listener set on
         findViewById(R.id.button_1).setOnClickListener(this);
         findViewById(R.id.button_2).setOnClickListener(this);
         findViewById(R.id.button_3).setOnClickListener(this);
@@ -87,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void initOperands() {
+        /* 피연산자 생성 */
         /*난수 테스트
         for (int i = 0; i < 100; i++) {
             top = (int) (Math.random() * 900) + 100;
@@ -106,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         downTen = down / 10 % 10;
         downOne = down % 10;
 
+        //피연산자 표시
         top_hundred.setText(String.valueOf(topHundred));
         top_ten.setText(String.valueOf(topTen));
         top_one.setText(String.valueOf(topOne));
@@ -118,6 +131,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         currentStage += 1;
         Log.v(LOG_TAG, "Current Stage : " + String.valueOf(currentStage));
 
+        //currentStage에 따라 곱셈할 자리수, 곱셈 결과, 입력할 자리수 지정
         switch (currentStage) {
             case 1:
                 operand1TextView = top_one;
@@ -216,14 +230,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 break;
         }
+
+        //일의 자리, 십의 자리 곱셈 결과에 받아올린 값을 더한 후 totalCarry는 다시 0으로
         totalCarry = 0;
 
+        //곱셈할 각 자리수를 빨간색으로 표시
         if (operand1TextView != null) {
             operand1TextView.setTextColor(Color.RED);
         }
         if (operand2TextView != null) {
             operand2TextView.setTextColor(Color.RED);
         }
+
+        //입력할 텍스트 뷰를 임시로 'A'와 'B'로 표시
         if (input1TextView != null) {
             input1TextView.setText("A");
         }
@@ -231,71 +250,48 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             input2TextView.setText("B");
         }
 
-//        if (currentStage >= 7 && ans >= 10) {
-//            totalCarry = ans / 10;
-//            ans = ans % 10;
-//        }
-
-
-//        if (currentStage < 7 && (Integer.parseInt(operand1TextView.getText().toString()) == 0
-//                || Integer.parseInt(operand2TextView.getText().toString()) == 0)) {
-//            if (Integer.parseInt(input1TextView.getText().toString()) != 0) {
-//                input2TextView.setText(input1TextView.getText().toString());
-//            } else {
-//                input1TextView.setText("0");
-//                input2TextView.setText("0");
-//            }
-//            operand1TextView.setTextColor(Color.GRAY);
-//            operand2TextView.setTextColor(Color.GRAY);
-//            nextStage();
-//        }
+        //일의 자리, 십의 자리 곱셈 결과를 더하는 과정
         if (currentStage < 7) {
+
+            //세 자리 수 중 하나가 0이거나 곱셈 결과가 받아올림이 없는 경우
             if (Integer.parseInt(operand1TextView.getText().toString()) == 0 || ans < 10) {
                 input1TextView.setText("0");
                 zeroCarrying = true;
-//            operand1TextView.setTextColor(Color.GRAY);
-//            operand2TextView.setTextColor(Color.GRAY);
-//            nextStage();
             } else {
                 zeroCarrying = false;
             }
+
         } else {
+
+            //곱셈 결과에서 받아올림이 발생했을 때 값 저장
             totalCarry = ans / 10;
+            //곱셈 결과 값 다시 저장
             ans = ans % 10;
         }
     }
 
-//    private void buttonClicked(int num) {
-//        if (currentStage < 7) {
-//            if (carrying) {
-//                input1TextView.setText(String.valueOf(num));
-//                carrying = false;
-//            } else {
-//                input2TextView.setText(String.valueOf(num));
-//                carrying = true;
-//            }
-//        } else {
-//            input1TextView.setText(String.valueOf(num));
-//        }
-//        Log.v(LOG_TAG, "zeroCarrying : " + String.valueOf(zeroCarrying));
-//        Log.v(LOG_TAG, "carrying : " + String.valueOf(carrying));
-//        Log.v(LOG_TAG, "totalCarry : " + String.valueOf(totalCarry));
-//    }
-
     private void buttonClicked(int num) {
+        /* 버튼이 클릭되었을 때 처리 */
+
+        //각 자리수를 곱하는 과정 처리
         if (currentStage < 7) {
+            //세 자리 수 중 하나가 0이거나 곱셈 결과가 받아올림이 없는 경우 0을 입력하는 수고를 덜도록
+            //사용자는 input2TextView에만 값을 입력함
             if (zeroCarrying) {
                 input2TextView.setText(String.valueOf(num));
             } else {
+                //사용자 입력 처리 : 첫번째 입력인 경우 input1TextView에 값을 입력함
                 if (carrying) {
                     input1TextView.setText(String.valueOf(num));
                     carrying = false;
                 } else {
+                    //두번째 입력인 경우 input2TextView에 값을 입력함
                     input2TextView.setText(String.valueOf(num));
                     carrying = true;
                 }
             }
         } else {
+            //일의 자리, 십의 자리 곱셈 결과를 더하는 과정 처리 : input1TextView에만 값을 입력함
             input1TextView.setText(String.valueOf(num));
         }
         Log.v(LOG_TAG, "zeroCarrying : " + String.valueOf(zeroCarrying));
@@ -304,8 +300,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void onClick(View view) {
+        //입력한 버튼에 따라 buttonClicked로 값을 넘김
         switch (view.getId()) {
-
             case R.id.button_1:
                 buttonClicked(1);
                 break;
@@ -336,18 +332,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.button_0:
                 buttonClicked(0);
                 break;
+
+            //입력 초기화
             case R.id.button_clear:
                 currentStage = 0;
                 totalCarry = 0;
                 carrying = true;
+                ans = 0;
                 initNumbers();
                 nextStage();
                 break;
+
+            //사용자가 입력한 결과 : result() 결과에 따라 다음 과정으로 진행함
             case R.id.button_enter:
                 if (result()) {
                     nextStage();
                     break;
                 }
+
             default:
                 break;
         }
@@ -356,7 +358,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean result() {
         int temp = 0, temp1 = 0, temp2 = 0;
 
+        //각 자리수를 곱하는 과정 처리
         if (currentStage < 7) {
+
+            //temp1에 사용자의 첫번째 입력 값 저장
             try {
                 temp1 = Integer.parseInt(input1TextView.getText().toString());
                 Log.v(LOG_TAG, "temp1 : " + String.valueOf(temp1));
@@ -364,6 +369,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return wrongAnswer(input1TextView.getText().toString());
             }
 
+            //temp2에 사용자의 두번째 입력 값 저장
             try {
                 temp2 = Integer.parseInt(input2TextView.getText().toString());
                 Log.v(LOG_TAG, "temp2 : " + String.valueOf(temp2));
@@ -371,9 +377,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return wrongAnswer(input2TextView.getText().toString());
             }
 
+            //사용자가 입력한 값을 바탕으로 곱셈 결과 temp에 저장
             temp = temp1 * 10 + temp2;
             Log.v(LOG_TAG, "temp : " + String.valueOf(temp));
+
+        //일의 자리, 십의 자리 곱셈 결과를 더하는 과정 처리
         } else {
+
+            //사용자가 입력한 값을 temp에 저장
             if (input1TextView != null) {
                 try {
                     temp = Integer.parseInt(input1TextView.getText().toString());
@@ -385,23 +396,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
+        //정답처리
         if (ans == temp) {
             Toast toast = Toast.makeText(getApplicationContext(), "딩동댕", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
 
+            //연산했던 자리수를 다시 회색으로 되돌리기
             if (operand1TextView != null) {
                 operand1TextView.setTextColor(Color.GRAY);
             }
-
             if (operand2TextView != null) {
                 operand2TextView.setTextColor(Color.GRAY);
             }
 
+            //모든 연산이 끝나면
             if (currentStage == 11) {
                 finalStage();
             }
             return true;
+
+        //오답처리
         } else {
             return wrongAnswer(String.valueOf(temp));
         }
@@ -412,34 +427,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
 
+        //사용자가 입력할 텍스트 뷰를 다시 'A'와 'B'로 되돌림
         if (input1TextView != null) {
             input1TextView.setText("A");
         }
-
         if (input2TextView != null) {
             input2TextView.setText("B");
         }
 
+        //받아올림이 없는 곱셈에서는 input1TextView를 0으로 되돌림
         if (zeroCarrying) {
             input1TextView.setText("0");
-            carrying = false;
             return false;
         }
 
+        //다시 첫번째 입력으로 되돌림
         carrying = true;
         return false;
     }
 
     private void finalStage() {
+        /* finalStage()에서 값을 초기화한 후 다시 nextStage()를 호출하지는 않는데
+        * 어차피 입력 버튼을 누르면 nextStage()를 호출하기 때문 */
+
         Toast toastR = Toast.makeText(getApplicationContext(), "축하합니다!", Toast.LENGTH_LONG);
         toastR.setGravity(Gravity.CENTER, 0, 0);
         toastR.show();
 
+        //모든 변수 초기화
         currentStage = 0;
         totalCarry = 0;
         carrying = true;
+        ans = 0;
 
+        //피연산자 초기화
         initOperands();
+        //피연산자를 제외한 나머지 모든 숫자 초기화
         initNumbers();
     }
 
