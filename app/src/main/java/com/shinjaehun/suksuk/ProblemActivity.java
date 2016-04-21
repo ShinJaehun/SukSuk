@@ -1,33 +1,23 @@
 package com.shinjaehun.suksuk;
 
-import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Created by shinjaehun on 2016-04-16.
  */
-public class Multiply32Activity extends AppCompatActivity {
+public class ProblemActivity extends AppCompatActivity {
 
-    private static final String LOG_TAG = Multiply32Activity.class.getSimpleName();
-
-    private ProblemsPresenter presenter;
+    private static final String LOG_TAG = ProblemActivity.class.getSimpleName();
+    private NumberpadFragment numberpadFragment;
+    private Multiply32Fragment multiply32Fragment;
 
     @Override
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
-        setContentView(R.layout.multiply32);
+        setContentView(R.layout.activity_problems);
 
-        presenter = new ProblemsPresenter(this);
 
     }
 
@@ -35,8 +25,12 @@ public class Multiply32Activity extends AppCompatActivity {
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
-        presenter.setNumberpadFragment((NumberpadFragment)getFragmentManager().findFragmentById(R.id.numberPadFragment));
-        presenter.startPractice();
+
+        numberpadFragment = (NumberpadFragment)getFragmentManager().findFragmentById(R.id.numberPadFragment);
+        multiply32Fragment = (Multiply32Fragment)getFragmentManager().findFragmentById(R.id.multiply32Fragment);
+
+        numberpadFragment.setClickListener(multiply32Fragment);
+        multiply32Fragment.startPractice();
     }
 
 

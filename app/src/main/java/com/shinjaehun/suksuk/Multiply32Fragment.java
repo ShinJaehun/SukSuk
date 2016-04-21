@@ -1,20 +1,27 @@
 package com.shinjaehun.suksuk;
 
+import android.app.Fragment;
+import android.content.Context;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 /**
  * Created by shinjaehun on 2016-04-19.
  */
-public class ProblemsPresenter implements NumberpadClickListener {
+public class Multiply32Fragment extends Fragment implements NumberpadClickListener {
 
-    private static final String LOG_TAG = ProblemsPresenter.class.getSimpleName();
+    private static final String LOG_TAG = Multiply32Fragment.class.getSimpleName();
 
-    private NumberpadFragment numberpadFragment;
-    private Multiply32Activity activity;
+    //private NumberpadFragment numberpadFragment;
+    private Context mContext = null;
 
     public int top, down;
     public int topHundred, topTen, topOne;
@@ -45,52 +52,52 @@ public class ProblemsPresenter implements NumberpadClickListener {
     //일의 자리, 십의 자리 곱셈 결과를 더할 때 받아올림 값 저장
     int totalCarry = 0;
 
-    public ProblemsPresenter(Multiply32Activity mulActivity) {
-        activity = mulActivity;
-
-    }
-
-    public void setNumberpadFragment(NumberpadFragment numberpadFragment) {
-        this.numberpadFragment = numberpadFragment;
-        numberpadFragment.setClickListener(this);
-    }
 
     public void startPractice() {
-        init();
+        initOperands();
         nextStage();
     }
 
-
-    public void init() {
-        //각 TextView findViewById
-        carrying_hundred = (TextView)activity.findViewById(R.id.carrying_hundred);
-        carrying_ten = (TextView)activity.findViewById(R.id.carrying_ten);
-
-        top_hundred = (TextView)activity.findViewById(R.id.top_hundred);
-        top_ten = (TextView)activity.findViewById(R.id.top_ten);
-        top_one = (TextView)activity.findViewById(R.id.top_one);
-
-        down_ten = (TextView)activity.findViewById(R.id.down_ten);
-        down_one = (TextView)activity.findViewById(R.id.down_one);
-
-        ans_top_one = (TextView)activity.findViewById(R.id.ans_top_oen);
-        ans_top_ten = (TextView)activity.findViewById(R.id.ans_top_ten);
-        ans_top_hundred = (TextView)activity.findViewById(R.id.ans_top_hundred);
-        ans_top_thousand = (TextView)activity.findViewById(R.id.ans_top_thousand);
-
-        ans_down_one = (TextView)activity.findViewById(R.id.ans_down_one);
-        ans_down_ten = (TextView)activity.findViewById(R.id.ans_down_ten);
-        ans_down_hundred = (TextView)activity.findViewById(R.id.ans_down_hundred);
-        ans_down_thousand = (TextView)activity.findViewById(R.id.ans_down_thousand);
-
-        ans_one = (TextView)activity.findViewById(R.id.ans_one);
-        ans_ten = (TextView)activity.findViewById(R.id.ans_ten);
-        ans_hundred = (TextView)activity.findViewById(R.id.ans_hundred);
-        ans_thousand = (TextView)activity.findViewById(R.id.ans_thousand);
-        ans_tenthousand = (TextView)activity.findViewById(R.id.ans_tenthousand);
-
-        initOperands();
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.mContext = context;
     }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_multiply32, container);
+
+        carrying_hundred = (TextView)v.findViewById(R.id.carrying_hundred);
+        carrying_ten = (TextView)v.findViewById(R.id.carrying_ten);
+
+        top_hundred = (TextView)v.findViewById(R.id.top_hundred);
+        top_ten = (TextView)v.findViewById(R.id.top_ten);
+        top_one = (TextView)v.findViewById(R.id.top_one);
+
+        down_ten = (TextView)v.findViewById(R.id.down_ten);
+        down_one = (TextView)v.findViewById(R.id.down_one);
+
+        ans_top_one = (TextView)v.findViewById(R.id.ans_top_oen);
+        ans_top_ten = (TextView)v.findViewById(R.id.ans_top_ten);
+        ans_top_hundred = (TextView)v.findViewById(R.id.ans_top_hundred);
+        ans_top_thousand = (TextView)v.findViewById(R.id.ans_top_thousand);
+
+        ans_down_one = (TextView)v.findViewById(R.id.ans_down_one);
+        ans_down_ten = (TextView)v.findViewById(R.id.ans_down_ten);
+        ans_down_hundred = (TextView)v.findViewById(R.id.ans_down_hundred);
+        ans_down_thousand = (TextView)v.findViewById(R.id.ans_down_thousand);
+
+        ans_one = (TextView)v.findViewById(R.id.ans_one);
+        ans_ten = (TextView)v.findViewById(R.id.ans_ten);
+        ans_hundred = (TextView)v.findViewById(R.id.ans_hundred);
+        ans_thousand = (TextView)v.findViewById(R.id.ans_thousand);
+        ans_tenthousand = (TextView)v.findViewById(R.id.ans_tenthousand);
+
+        return v;
+    }
+
 
     public void initOperands() {
         /* 피연산자 생성 */
@@ -308,7 +315,7 @@ public class ProblemsPresenter implements NumberpadClickListener {
 
         //정답처리
         if (ans == temp) {
-            Toast toast = Toast.makeText(activity.getApplicationContext(), "딩동댕", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(mContext, "딩동댕", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
 
@@ -333,7 +340,7 @@ public class ProblemsPresenter implements NumberpadClickListener {
     }
 
     private boolean wrongAnswer(String temp) {
-        Toast toast = Toast.makeText(activity.getApplicationContext(), temp + "는 틀렸어. 바보야.", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(mContext, temp + "는 틀렸어. 바보야.", Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
 
@@ -360,7 +367,7 @@ public class ProblemsPresenter implements NumberpadClickListener {
         /* finalStage()에서 값을 초기화한 후 다시 nextStage()를 호출하지는 않는데
         * 어차피 입력 버튼을 누르면 nextStage()를 호출하기 때문 */
 
-        Toast toastR = Toast.makeText(activity.getApplicationContext(), "축하합니다!", Toast.LENGTH_LONG);
+        Toast toastR = Toast.makeText(mContext, "축하합니다!", Toast.LENGTH_LONG);
         toastR.setGravity(Gravity.CENTER, 0, 0);
         toastR.show();
 

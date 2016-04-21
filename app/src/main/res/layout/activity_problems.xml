@@ -17,11 +17,17 @@
             android:layout_margin="20dp"
             android:theme="@style/AppTheme" />-->
 
-        <LinearLayout
+
+        <fragment
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/multiply32Fragment"
+            android:name="com.shinjaehun.suksuk.Multiply32Fragment"
+            tools:layout="@layout/fragment_multiply32"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:id="@+id/problem_layout"/>
+            android:layout_gravity="center_horizontal"
+            android:theme="@style/AppTheme" />
 
         <fragment
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -29,8 +35,7 @@
             android:id="@+id/numberPadFragment"
             android:name="com.shinjaehun.suksuk.NumberpadFragment"
             tools:layout="@layout/fragment_numberpad"
-            android:layout_margin="20dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:theme="@style/AppTheme" />
