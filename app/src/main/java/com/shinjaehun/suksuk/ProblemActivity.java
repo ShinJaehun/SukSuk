@@ -1,5 +1,6 @@
 package com.shinjaehun.suksuk;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -13,30 +14,48 @@ public class ProblemActivity extends AppCompatActivity {
     private NumberpadFragment numberpadFragment;
     private Multiply32Fragment multiply32Fragment;
 
+
     @Override
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_problems);
-
-
-    }
-
-    @Override
-    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-
 
         numberpadFragment = (NumberpadFragment)getFragmentManager().findFragmentById(R.id.numberPadFragment);
         multiply32Fragment = (Multiply32Fragment)getFragmentManager().findFragmentById(R.id.multiply32Fragment);
 
         numberpadFragment.setClickListener(multiply32Fragment);
         multiply32Fragment.startPractice();
+
+    }
+/*
+    나름대로 Multipane 모드를 구현하려고 했으나 potrait에서 landscape로 전환할 때 다시 activity가 oncreate 해버려서
+    다시 처음부터 실행되는 문제가 있었다. saveinstance 할 정보가 많지 않으면 문제가 없겠으나 너무 많아서... 포기
+    걍 potrait를 고정시키는 것으로 문제를 해결했다.
+
+    @Override
+    protected void onCreate(Bundle saveInstanceState) {
+        super.onCreate(saveInstanceState);
+
+        if(isMultipane()) {
+            setContentView(R.layout.activity_problems_multipane);
+        } else {
+            setContentView(R.layout.activity_problems);
+        }
+        deployFragments();
+
     }
 
+    public boolean isMultipane() {
+        return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+    }
 
+    public void deployFragments() {
+        numberpadFragment = (NumberpadFragment)getFragmentManager().findFragmentById(R.id.numberPadFragment);
+        multiply32Fragment = (Multiply32Fragment)getFragmentManager().findFragmentById(R.id.multiply32Fragment);
 
-
-
+        numberpadFragment.setClickListener(multiply32Fragment);
+        multiply32Fragment.startPractice();
+    }*/
 
 
   /*  private void buttonClicked(int num) {

@@ -20,7 +20,8 @@
             android:textSize="16sp"
             android:textAlignment="center"
             android:layout_marginLeft="118dp"
-            android:layout_marginRight="6dp"/>
+            android:layout_marginRight="6dp"
+            android:textColor="@color/colorBackground"/>
 
         <TextView
             android:id="@+id/carrying_ten"
@@ -30,7 +31,8 @@
             android:textSize="16sp"
             android:textAlignment="center"
             android:layout_marginLeft="16dp"
-            android:layout_marginRight="6dp"/>
+            android:layout_marginRight="6dp"
+            android:textColor="@color/colorBackground"/>
 
     </LinearLayout>
 
@@ -160,15 +162,68 @@
         android:layout_width="180dp"
         android:layout_height="3dp"
         android:layout_marginTop="4dp"
-        android:layout_marginLeft="60dp"
+        android:layout_marginLeft="50dp"
         android:background="@android:color/darker_gray" />
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="48dp"
+        android:layout_gravity="center_horizontal">
+
+
+        <TextView
+            android:id="@+id/ans_carrying_tenthousand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="16sp"
+            android:textAlignment="center"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="6dp"
+            android:textColor="@color/colorBackground"/>
+
+        <TextView
+            android:id="@+id/ans_carrying_thousand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="16sp"
+            android:textAlignment="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="6dp"
+            android:textColor="@color/colorBackground"/>
+
+        <TextView
+            android:id="@+id/ans_carrying_hundred"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="16sp"
+            android:textAlignment="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="6dp"
+            android:textColor="@color/colorBackground"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="16sp"
+            android:textAlignment="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="6dp"
+            android:textColor="@color/colorBackground"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="48dp"
         android:layout_gravity="center_horizontal">
@@ -191,7 +246,8 @@
             android:textSize="32sp"
             android:textAlignment="center"
             android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"/>
+            android:layout_marginRight="6dp"
+            android:textColor="@color/colorBackground"/>
 
         <TextView
             android:id="@+id/ans_top_hundred"
@@ -201,7 +257,8 @@
             android:textSize="32sp"
             android:textAlignment="center"
             android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"/>
+            android:layout_marginRight="6dp"
+            android:textColor="@color/colorBackground"/>
 
         <TextView
             android:id="@+id/ans_top_ten"
@@ -211,7 +268,8 @@
             android:textSize="32sp"
             android:textAlignment="center"
             android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"/>
+            android:layout_marginRight="6dp"
+            android:textColor="@color/colorBackground"/>
 
         <TextView
             android:id="@+id/ans_top_oen"
@@ -221,7 +279,8 @@
             android:textSize="32sp"
             android:textAlignment="center"
             android:layout_marginLeft="6dp"
-            android:layout_marginRight="48dp"/>
+            android:layout_marginRight="48dp"
+            android:textColor="@color/colorBackground"/>
 
     </LinearLayout>
 
@@ -233,7 +292,8 @@
         android:layout_marginTop="4dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="48dp"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/colorBackground">
 
         <TextView
             android:id="@+id/ans_down_thousand"
@@ -243,7 +303,8 @@
             android:textSize="32sp"
             android:textAlignment="center"
             android:layout_marginLeft="55dp"
-            android:layout_marginRight="6dp"/>
+            android:layout_marginRight="6dp"
+            android:textColor="@color/colorBackground"/>
 
         <TextView
             android:id="@+id/ans_down_hundred"
@@ -253,7 +314,8 @@
             android:textSize="32sp"
             android:textAlignment="center"
             android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"/>
+            android:layout_marginRight="6dp"
+            android:textColor="@color/colorBackground"/>
 
         <TextView
             android:id="@+id/ans_down_ten"
@@ -263,7 +325,8 @@
             android:textSize="32sp"
             android:textAlignment="center"
             android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"/>
+            android:layout_marginRight="6dp"
+            android:textColor="@color/colorBackground"/>
 
         <TextView
             android:id="@+id/ans_down_one"
@@ -273,7 +336,8 @@
             android:textSize="32sp"
             android:textAlignment="center"
             android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"/>
+            android:layout_marginRight="6dp"
+            android:textColor="@color/colorBackground"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -283,16 +347,17 @@
             android:textColor="@color/colorBackground"
             android:textAlignment="center"
             android:layout_marginLeft="6dp"
-            android:layout_marginRight="48dp"/>
+            android:layout_marginRight="48dp" />
 
     </LinearLayout>
 
     <View
+        android:id="@+id/ans_line"
         android:layout_width="180dp"
         android:layout_height="3dp"
         android:layout_marginTop="4dp"
         android:layout_marginLeft="40dp"
-        android:background="@android:color/darker_gray" />
+        android:background="@color/colorBackground"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -301,7 +366,8 @@
         android:layout_marginTop="4dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="48dp"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/colorBackground">
 
         <TextView
             android:id="@+id/ans_tenthousand"
@@ -311,7 +377,8 @@
             android:textSize="32sp"
             android:textAlignment="center"
             android:layout_marginLeft="55dp"
-            android:layout_marginRight="6dp"/>
+            android:layout_marginRight="6dp"
+            android:textColor="@color/colorBackground"/>
 
         <TextView
             android:id="@+id/ans_thousand"
@@ -321,7 +388,8 @@
             android:textSize="32sp"
             android:textAlignment="center"
             android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"/>
+            android:layout_marginRight="6dp"
+            android:textColor="@color/colorBackground"/>
 
         <TextView
             android:id="@+id/ans_hundred"
@@ -331,7 +399,8 @@
             android:textSize="32sp"
             android:textAlignment="center"
             android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"/>
+            android:layout_marginRight="6dp"
+            android:textColor="@color/colorBackground"/>
 
         <TextView
             android:id="@+id/ans_ten"
@@ -341,7 +410,8 @@
             android:textSize="32sp"
             android:textAlignment="center"
             android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"/>
+            android:layout_marginRight="6dp"
+            android:textColor="@color/colorBackground"/>
 
         <TextView
             android:id="@+id/ans_one"
@@ -351,7 +421,8 @@
             android:textSize="32sp"
             android:textAlignment="center"
             android:layout_marginLeft="6dp"
-            android:layout_marginRight="48dp"/>
+            android:layout_marginRight="48dp"
+            android:textColor="@color/colorBackground"/>
 
     </LinearLayout>
 

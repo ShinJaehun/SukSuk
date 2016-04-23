@@ -2,6 +2,8 @@ package com.shinjaehun.suksuk;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 /**
  * Created by shinjaehun on 2016-04-19.
  */
@@ -20,17 +24,19 @@ public class Multiply32Fragment extends Fragment implements NumberpadClickListen
 
     private static final String LOG_TAG = Multiply32Fragment.class.getSimpleName();
 
-    //private NumberpadFragment numberpadFragment;
     private Context mContext = null;
 
     public int top, down;
     public int topHundred, topTen, topOne;
     public int downTen, downOne;
 
+    View ans_line;
+
     TextView top_hundred, top_ten, top_one;
     TextView down_ten, down_one;
 
     TextView carrying_hundred, carrying_ten;
+    TextView ans_carrying_tenthousand, ans_carrying_thousand, ans_carrying_hundred;
     TextView ans_top_one, ans_top_ten, ans_top_hundred, ans_top_thousand;
     TextView ans_down_one, ans_down_ten, ans_down_hundred, ans_down_thousand;
     TextView ans_one, ans_ten, ans_hundred, ans_thousand, ans_tenthousand;
@@ -41,6 +47,7 @@ public class Multiply32Fragment extends Fragment implements NumberpadClickListen
     boolean carrying = true;
 
     //세 자리 수 중 하나가 0이거나 곱셈 결과가 받아올림이 없는 경우를 처리할 스위치
+    //곱셈 결과를 더할 때 받아올림이 있는 경우에도 사용함
     boolean zeroCarrying = false;
 
     //현재 과정
@@ -48,10 +55,6 @@ public class Multiply32Fragment extends Fragment implements NumberpadClickListen
 
     //곱셈 결과
     int ans = 0;
-
-    //일의 자리, 십의 자리 곱셈 결과를 더할 때 받아올림 값 저장
-    int totalCarry = 0;
-
 
     public void startPractice() {
         initOperands();
@@ -79,6 +82,10 @@ public class Multiply32Fragment extends Fragment implements NumberpadClickListen
         down_ten = (TextView)v.findViewById(R.id.down_ten);
         down_one = (TextView)v.findViewById(R.id.down_one);
 
+        ans_carrying_tenthousand = (TextView)v.findViewById(R.id.ans_carrying_tenthousand);
+        ans_carrying_thousand = (TextView)v.findViewById(R.id.ans_carrying_thousand);
+        ans_carrying_hundred = (TextView)v.findViewById(R.id.ans_carrying_hundred);
+
         ans_top_one = (TextView)v.findViewById(R.id.ans_top_oen);
         ans_top_ten = (TextView)v.findViewById(R.id.ans_top_ten);
         ans_top_hundred = (TextView)v.findViewById(R.id.ans_top_hundred);
@@ -88,6 +95,8 @@ public class Multiply32Fragment extends Fragment implements NumberpadClickListen
         ans_down_ten = (TextView)v.findViewById(R.id.ans_down_ten);
         ans_down_hundred = (TextView)v.findViewById(R.id.ans_down_hundred);
         ans_down_thousand = (TextView)v.findViewById(R.id.ans_down_thousand);
+
+        ans_line = (View)v.findViewById(R.id.ans_line);
 
         ans_one = (TextView)v.findViewById(R.id.ans_one);
         ans_ten = (TextView)v.findViewById(R.id.ans_ten);
@@ -110,7 +119,7 @@ public class Multiply32Fragment extends Fragment implements NumberpadClickListen
         top = (int) (Math.random() * 900) + 100;
         down = (int) (Math.random() * 90) + 10;
 
-//        top = 90;
+//        top = 798;
 //        down = 57;
 
         topHundred = top / 100 % 10;
@@ -160,6 +169,22 @@ public class Multiply32Fragment extends Fragment implements NumberpadClickListen
                 break;
 
             case 4:
+                //십의 자리 곱셈을 하기 전 받아올림 내용을 삭제
+                carrying_hundred.setText("0");
+                carrying_hundred.setTextColor(Color.WHITE);
+                carrying_ten.setText("0");
+                carrying_ten.setTextColor(Color.WHITE);
+
+                //곱셈 결과를 회색으로 처리
+                if (Integer.parseInt(ans_top_thousand.getText().toString()) == 0) {
+                    ans_top_thousand.setTextColor(Color.WHITE);
+                } else {
+                    ans_top_thousand.setTextColor(Color.GRAY);
+                }
+                ans_top_hundred.setTextColor(Color.GRAY);
+                ans_top_ten.setTextColor(Color.GRAY);
+                ans_top_one.setTextColor(Color.GRAY);
+
                 operand1TextView = top_one;
                 operand2TextView = down_ten;
                 ans = topOne * downTen;
@@ -184,21 +209,39 @@ public class Multiply32Fragment extends Fragment implements NumberpadClickListen
                 break;
 
             case 7:
+                //곱셈 결과를 더하기 전에 받아올림 내용을 삭제
+                carrying_hundred.setText("0");
+                carrying_hundred.setTextColor(Color.WHITE);
+                carrying_ten.setText("0");
+                carrying_ten.setTextColor(Color.WHITE);
+
+                //곱셈 결과를 회색으로 처리
+                if (Integer.parseInt(ans_down_thousand.getText().toString()) == 0) {
+                    ans_down_thousand.setTextColor(Color.WHITE);
+                } else {
+                    ans_down_thousand.setTextColor(Color.GRAY);
+                }
+                ans_down_hundred.setTextColor(Color.GRAY);
+                ans_down_ten.setTextColor(Color.GRAY);
+                ans_down_one.setTextColor(Color.GRAY);
+
+                //곱셈 결과를 더하기 전에 아래 선 긋기
+                ans_line.setBackgroundColor(Color.GRAY);
+
                 operand1TextView = ans_top_one;
                 operand2TextView = null;
                 ans = Integer.parseInt(ans_top_one.getText().toString());
-                input1TextView = ans_one;
-                input2TextView = null;
+                input1TextView = null;
+                input2TextView = ans_one;
                 break;
 
             case 8:
                 operand1TextView = ans_top_ten;
                 operand2TextView = ans_down_one;
                 ans = Integer.parseInt(ans_top_ten.getText().toString())
-                        + Integer.parseInt(ans_down_one.getText().toString())
-                        + totalCarry;
-                input1TextView = ans_ten;
-                input2TextView = null;
+                        + Integer.parseInt(ans_down_one.getText().toString());
+                input1TextView = ans_carrying_hundred;
+                input2TextView = ans_ten;
                 break;
 
             case 9:
@@ -206,9 +249,9 @@ public class Multiply32Fragment extends Fragment implements NumberpadClickListen
                 operand2TextView = ans_down_ten;
                 ans = Integer.parseInt(ans_top_hundred.getText().toString())
                         + Integer.parseInt(ans_down_ten.getText().toString())
-                        + totalCarry;
-                input1TextView = ans_hundred;
-                input2TextView = null;
+                        + Integer.parseInt(ans_carrying_hundred.getText().toString());
+                input1TextView = ans_carrying_thousand;
+                input2TextView = ans_hundred;
                 break;
 
             case 10:
@@ -216,25 +259,23 @@ public class Multiply32Fragment extends Fragment implements NumberpadClickListen
                 operand2TextView = ans_down_hundred;
                 ans = Integer.parseInt(ans_top_thousand.getText().toString())
                         + Integer.parseInt(ans_down_hundred.getText().toString())
-                        + totalCarry;
-                input1TextView = ans_thousand;
-                input2TextView = null;
+                        + Integer.parseInt(ans_carrying_thousand.getText().toString());
+                input1TextView = ans_carrying_tenthousand;
+                input2TextView = ans_thousand;
                 break;
 
             case 11:
-                operand1TextView = ans_down_thousand;
-                operand2TextView = null;
-                ans = Integer.parseInt(ans_down_thousand.getText().toString()) + totalCarry;
-                input1TextView = ans_tenthousand;
-                input2TextView = null;
+                operand1TextView = null;
+                operand2TextView = ans_down_thousand;
+                ans = Integer.parseInt(ans_down_thousand.getText().toString())
+                        + Integer.parseInt(ans_carrying_tenthousand.getText().toString());
+                input1TextView = null;
+                input2TextView = ans_tenthousand;
                 break;
 
             default:
                 break;
         }
-
-        //일의 자리, 십의 자리 곱셈 결과에 받아올린 값을 더한 후 totalCarry는 다시 0으로
-        totalCarry = 0;
 
         //곱셈할 각 자리수를 빨간색으로 표시
         if (operand1TextView != null) {
@@ -246,72 +287,90 @@ public class Multiply32Fragment extends Fragment implements NumberpadClickListen
 
         //입력할 텍스트 뷰를 임시로 'A'와 'B'로 표시
         if (input1TextView != null) {
-            input1TextView.setText("A");
+            input1TextView.setText("?");
+            input1TextView.setTextColor(Color.BLACK);
         }
         if (input2TextView != null) {
-            input2TextView.setText("B");
+            input2TextView.setText("?");
+            input2TextView.setTextColor(Color.BLACK);
         }
 
-        //일의 자리, 십의 자리 곱셈 결과를 더하는 과정
         if (currentStage < 7) {
-
             //세 자리 수 중 하나가 0이거나 곱셈 결과가 받아올림이 없는 경우
             if (Integer.parseInt(operand1TextView.getText().toString()) == 0 || ans < 10) {
                 input1TextView.setText("0");
+                input1TextView.setTextColor(Color.WHITE);
                 zeroCarrying = true;
             } else {
                 zeroCarrying = false;
             }
-
         } else {
-
-            //곱셈 결과에서 받아올림이 발생했을 때 값 저장
-            totalCarry = ans / 10;
-            //곱셈 결과 값 다시 저장
-            ans = ans % 10;
+            //곱셈 결과를 더하는 과정에서 받아올림이 없는 경우
+            if (ans < 10) {
+                if (input1TextView != null) {
+                    input1TextView.setText("0");
+                    input1TextView.setTextColor(Color.WHITE);
+                }
+                //carrying = false;
+                zeroCarrying = true;
+            } else {
+                zeroCarrying = false;
+            }
         }
     }
 
     private boolean result() {
         int temp = 0, temp1 = 0, temp2 = 0;
 
-        //각 자리수를 곱하는 과정 처리
-        if (currentStage < 7) {
-
-            //temp1에 사용자의 첫번째 입력 값 저장
+        //temp1에 사용자의 첫번째 입력 값 저장
+        if (input1TextView == null) {
+            temp1 = 0;
+        } else {
             try {
                 temp1 = Integer.parseInt(input1TextView.getText().toString());
                 Log.v(LOG_TAG, "temp1 : " + String.valueOf(temp1));
             } catch (NumberFormatException nfe) {
                 return wrongAnswer(input1TextView.getText().toString());
             }
+        }
 
-            //temp2에 사용자의 두번째 입력 값 저장
+        //temp2에 사용자의 두번째 입력 값 저장
+        if (input2TextView == null) {
+            temp2 = 0;
+        } else {
             try {
                 temp2 = Integer.parseInt(input2TextView.getText().toString());
                 Log.v(LOG_TAG, "temp2 : " + String.valueOf(temp2));
             } catch (NumberFormatException nfe) {
                 return wrongAnswer(input2TextView.getText().toString());
             }
-
-            //사용자가 입력한 값을 바탕으로 곱셈 결과 temp에 저장
-            temp = temp1 * 10 + temp2;
-            Log.v(LOG_TAG, "temp : " + String.valueOf(temp));
-
-            //일의 자리, 십의 자리 곱셈 결과를 더하는 과정 처리
-        } else {
-
-            //사용자가 입력한 값을 temp에 저장
-            if (input1TextView != null) {
-                try {
-                    temp = Integer.parseInt(input1TextView.getText().toString());
-                    Log.v(LOG_TAG, "ans : " + String.valueOf(ans));
-                    Log.v(LOG_TAG, "temp : " + String.valueOf(temp));
-                } catch (NumberFormatException nfe) {
-                    return wrongAnswer(input1TextView.getText().toString());
-                }
-            }
         }
+
+        temp = temp1 * 10 + temp2;
+
+//        //각 자리수를 곱하는 과정 처리
+//        if (currentStage < 7) {
+//            //사용자가 입력한 값을 바탕으로 곱셈 결과 temp에 저장
+//            temp = temp1 * 10 + temp2;
+//            Log.v(LOG_TAG, "temp : " + String.valueOf(temp));
+//
+//        //일의 자리, 십의 자리 곱셈 결과를 더하는 과정 처리
+//        } else {
+//
+//            //사용자가 입력한 값을 temp에 저장
+//            if (input2TextView == null) {
+//                temp = temp1;
+////                try {
+////                    temp = Integer.parseInt(input1TextView.getText().toString());
+////                    Log.v(LOG_TAG, "ans : " + String.valueOf(ans));
+////                    Log.v(LOG_TAG, "temp : " + String.valueOf(temp));
+////                } catch (NumberFormatException nfe) {
+////                    return wrongAnswer(input1TextView.getText().toString());
+////                }
+//            } else {
+//                temp = temp1 * 10 + temp2;
+//            }
+//        }
 
         //정답처리
         if (ans == temp) {
@@ -346,21 +405,47 @@ public class Multiply32Fragment extends Fragment implements NumberpadClickListen
 
         //사용자가 입력할 텍스트 뷰를 다시 'A'와 'B'로 되돌림
         if (input1TextView != null) {
-            input1TextView.setText("A");
+            input1TextView.setText("?");
+            input1TextView.setTextColor(Color.BLACK);
         }
         if (input2TextView != null) {
-            input2TextView.setText("B");
+            input2TextView.setText("?");
+            input2TextView.setTextColor(Color.BLACK);
         }
 
-        //받아올림이 없는 곱셈에서는 input1TextView를 0으로 되돌림
         if (zeroCarrying) {
-            input1TextView.setText("0");
-            return false;
+            if (input1TextView != null) {
+                input1TextView.setText("0");
+                input1TextView.setTextColor(Color.WHITE);
+            }
         }
 
-        //다시 첫번째 입력으로 되돌림
-        carrying = true;
         return false;
+
+//        if (currentStage < 7) {
+//            //받아올림이 없는 곱셈에서는 input1TextView를 0으로 되돌림
+//            if (zeroCarrying) {
+//                input1TextView.setText("0");
+//                input1TextView.setTextColor(Color.WHITE);
+//                return false;
+//            }
+//
+//            //다시 첫번째 입력으로 되돌림
+//            carrying = true;
+//            return false;
+//        } else {
+//            if (ans < 10) {
+//                if (input1TextView != null) {
+//                    input1TextView.setText("0");
+//                    input1TextView.setTextColor(Color.WHITE);
+//                }
+//                carrying = false;
+//                return false;
+//            }
+//            carrying = true;
+//            return false;
+//        }
+
     }
 
     private void finalStage() {
@@ -373,7 +458,7 @@ public class Multiply32Fragment extends Fragment implements NumberpadClickListen
 
         //모든 변수 초기화
         currentStage = 0;
-        totalCarry = 0;
+        zeroCarrying = false;
         carrying = true;
         ans = 0;
 
@@ -392,62 +477,108 @@ public class Multiply32Fragment extends Fragment implements NumberpadClickListen
         }
 
         carrying_hundred.setText(String.valueOf("0"));
+        carrying_hundred.setTextColor(Color.WHITE);
         carrying_ten.setText(String.valueOf("0"));
+        carrying_ten.setTextColor(Color.WHITE);
+
+        ans_carrying_tenthousand.setText(String.valueOf("0"));
+        ans_carrying_tenthousand.setTextColor(Color.WHITE);
+        ans_carrying_thousand.setText(String.valueOf("0"));
+        ans_carrying_thousand.setTextColor(Color.WHITE);
+        ans_carrying_hundred.setText(String.valueOf("0"));
+        ans_carrying_hundred.setTextColor(Color.WHITE);
 
         ans_top_one.setText(String.valueOf("0"));
+        ans_top_one.setTextColor(Color.WHITE);
         ans_top_ten.setText(String.valueOf("0"));
+        ans_top_ten.setTextColor(Color.WHITE);
         ans_top_hundred.setText(String.valueOf("0"));
+        ans_top_hundred.setTextColor(Color.WHITE);
         ans_top_thousand.setText(String.valueOf("0"));
+        ans_top_thousand.setTextColor(Color.WHITE);
 
         ans_down_one.setText(String.valueOf("0"));
+        ans_down_one.setTextColor(Color.WHITE);
         ans_down_ten.setText(String.valueOf("0"));
+        ans_down_ten.setTextColor(Color.WHITE);
         ans_down_hundred.setText(String.valueOf("0"));
+        ans_down_hundred.setTextColor(Color.WHITE);
         ans_down_thousand.setText(String.valueOf("0"));
+        ans_down_thousand.setTextColor(Color.WHITE);
+
+        ans_line.setBackgroundColor(Color.WHITE);
 
         ans_one.setText(String.valueOf("0"));
+        ans_one.setTextColor(Color.WHITE);
         ans_ten.setText(String.valueOf("0"));
+        ans_ten.setTextColor(Color.WHITE);
         ans_hundred.setText(String.valueOf("0"));
+        ans_hundred.setTextColor(Color.WHITE);
         ans_thousand.setText(String.valueOf("0"));
+        ans_thousand.setTextColor(Color.WHITE);
         ans_tenthousand.setText(String.valueOf("0"));
+        ans_tenthousand.setTextColor(Color.WHITE);
     }
 
     @Override
     public void onNumberClicked(int number) {
 
-                /* 버튼이 클릭되었을 때 처리 */
-
-        //각 자리수를 곱하는 과정 처리
-        if (currentStage < 7) {
-            //세 자리 수 중 하나가 0이거나 곱셈 결과가 받아올림이 없는 경우 0을 입력하는 수고를 덜도록
-            //사용자는 input2TextView에만 값을 입력함
-            if (zeroCarrying) {
+        /* 버튼이 클릭되었을 때 처리 */
+        if (zeroCarrying) {
+            if (input2TextView != null) {
                 input2TextView.setText(String.valueOf(number));
-            } else {
-                //사용자 입력 처리 : 첫번째 입력인 경우 input1TextView에 값을 입력함
-                if (carrying) {
-                    input1TextView.setText(String.valueOf(number));
-                    carrying = false;
-                } else {
-                    //두번째 입력인 경우 input2TextView에 값을 입력함
-                    input2TextView.setText(String.valueOf(number));
-                    carrying = true;
-                }
             }
+
         } else {
-            //일의 자리, 십의 자리 곱셈 결과를 더하는 과정 처리 : input1TextView에만 값을 입력함
-            input1TextView.setText(String.valueOf(number));
+            //사용자 입력 처리 : 첫번째 입력인 경우 input1TextView에 값을 입력함
+            if (carrying) {
+                if (input1TextView != null) {
+                    input1TextView.setText(String.valueOf(number));
+                }
+                carrying = false;
+            } else {
+                //두번째 입력인 경우 input2TextView에 값을 입력함
+                if (input2TextView != null) {
+                    input2TextView.setText(String.valueOf(number));
+                }
+                carrying = true;
+            }
         }
+//        //각 자리수를 곱하는 과정 처리
+//        if (currentStage < 7) {
+//            //세 자리 수 중 하나가 0이거나 곱셈 결과가 받아올림이 없는 경우 0을 입력하는 수고를 덜도록
+//            //사용자는 input2TextView에만 값을 입력함
+//            if (zeroCarrying) {
+//                input2TextView.setText(String.valueOf(number));
+//            } else {
+//                //사용자 입력 처리 : 첫번째 입력인 경우 input1TextView에 값을 입력함
+//                if (carrying) {
+//                    input1TextView.setText(String.valueOf(number));
+//                    carrying = false;
+//                } else {
+//                    //두번째 입력인 경우 input2TextView에 값을 입력함
+//                    input2TextView.setText(String.valueOf(number));
+//                    carrying = true;
+//                }
+//            }
+//        } else {
+//
+//            if (input1TextView != null) {
+//                input1TextView.setText(String.valueOf(number));
+//            }
+//            if (input2TextView != null) {
+//                input2TextView.setText(String.valueOf(number));
+//            }
+//        }
         Log.v(LOG_TAG, "zeroCarrying : " + String.valueOf(zeroCarrying));
         Log.v(LOG_TAG, "carrying : " + String.valueOf(carrying));
-        Log.v(LOG_TAG, "totalCarry : " + String.valueOf(totalCarry));
-
 
     }
 
     public void onClearClicked() {
         currentStage = 0;
-        totalCarry = 0;
         carrying = true;
+        zeroCarrying = false;
         ans = 0;
         initNumbers();
         nextStage();
