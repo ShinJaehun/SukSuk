@@ -12,9 +12,15 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/go"
+        android:id="@+id/multiply22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="GO"/>
+        android:text="두자리수 곱하기 두자리수"/>
+
+    <Button
+        android:id="@+id/multiply32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="세자리수 곱하기 두자리수"/>
 
 </LinearLayout>

@@ -6,28 +6,11 @@
         android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-<!--        <fragment
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/progressBarFragment"
-            android:name="com.kevinja.multipliculous.ProgressBarFragment"
-            tools:layout="@layout/fragment_progressbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:theme="@style/AppTheme" />-->
 
-
-        <fragment
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/multiply32Fragment"
-            android:name="com.shinjaehun.suksuk.Multiply32Fragment"
-            tools:layout="@layout/fragment_multiply32"
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:theme="@style/AppTheme" />
+            android:layout_height="wrap_content" />
 
         <fragment
             xmlns:android="http://schemas.android.com/apk/res/android"

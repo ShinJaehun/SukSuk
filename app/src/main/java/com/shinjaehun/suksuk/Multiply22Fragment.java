@@ -16,10 +16,11 @@ import android.widget.Toast;
 /**
  * Created by shinjaehun on 2016-04-19.
  */
-public class Multiply32Fragment extends Fragment implements NumberpadClickListener {
+public class Multiply22Fragment extends Fragment implements NumberpadClickListener {
 
-    private static final String LOG_TAG = Multiply32Fragment.class.getSimpleName();
-    public Context mContext = null;
+    private static final String LOG_TAG = Multiply22Fragment.class.getSimpleName();
+
+    private Context mContext = null;
 
     public int top, down;
     public int topHundred, topTen, topOne;
@@ -65,7 +66,7 @@ public class Multiply32Fragment extends Fragment implements NumberpadClickListen
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_multiply32, container, false);
+        View v = inflater.inflate(R.layout.fragment_multiply22, container, false);
 
         carrying_hundred = (TextView)v.findViewById(R.id.carrying_hundred);
         carrying_ten = (TextView)v.findViewById(R.id.carrying_ten);
@@ -100,8 +101,8 @@ public class Multiply32Fragment extends Fragment implements NumberpadClickListen
         ans_tenthousand = (TextView)v.findViewById(R.id.ans_tenthousand);
 
         return v;
-
     }
+
 
     public void initOperands() {
         /* 피연산자 생성 */

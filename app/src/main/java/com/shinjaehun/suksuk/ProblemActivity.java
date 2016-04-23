@@ -1,9 +1,12 @@
 package com.shinjaehun.suksuk;
 
-import android.content.res.Configuration;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 /**
  * Created by shinjaehun on 2016-04-16.
@@ -13,21 +16,55 @@ public class ProblemActivity extends AppCompatActivity {
     private static final String LOG_TAG = ProblemActivity.class.getSimpleName();
     private NumberpadFragment numberpadFragment;
     private Multiply32Fragment multiply32Fragment;
+    private Multiply22Fragment multiply22Fragment;
 
+    String multiply;
 
     @Override
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_problems);
+        Intent intent = getIntent();
+        multiply = intent.getStringExtra("multiply");
 
-        numberpadFragment = (NumberpadFragment)getFragmentManager().findFragmentById(R.id.numberPadFragment);
-        multiply32Fragment = (Multiply32Fragment)getFragmentManager().findFragmentById(R.id.multiply32Fragment);
+        numberpadFragment = (NumberpadFragment) getFragmentManager().findFragmentById(R.id.numberPadFragment);
 
-        numberpadFragment.setClickListener(multiply32Fragment);
-        multiply32Fragment.startPractice();
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+
+        if (intent != null) {
+            switch (multiply) {
+                case "multiply32":
+                    multiply32Fragment = new Multiply32Fragment();
+                    ft.add(R.id.fragment_container, multiply32Fragment).commit();
+                    break;
+                case "multiply22":
+                    multiply22Fragment = new Multiply22Fragment();
+                    ft.add(R.id.fragment_container, multiply22Fragment).commit();
+                    break;
+            }
+        }
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        switch (multiply) {
+            case "multiply32":
+                numberpadFragment.setClickListener(multiply32Fragment);
+                multiply32Fragment.startPractice();
+                break;
+            case "multiply22":
+                numberpadFragment.setClickListener(multiply22Fragment);
+                multiply22Fragment.startPractice();
+                break;
+        }
 
     }
-/*
+
+
+
+    /*
     나름대로 Multipane 모드를 구현하려고 했으나 potrait에서 landscape로 전환할 때 다시 activity가 oncreate 해버려서
     다시 처음부터 실행되는 문제가 있었다. saveinstance 할 정보가 많지 않으면 문제가 없겠으나 너무 많아서... 포기
     걍 potrait를 고정시키는 것으로 문제를 해결했다.
@@ -117,9 +154,5 @@ public class ProblemActivity extends AppCompatActivity {
                 break;
         }
     }*/
-
-
-
-
 
 }
