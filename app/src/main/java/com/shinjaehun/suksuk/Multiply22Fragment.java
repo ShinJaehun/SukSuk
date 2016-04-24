@@ -4,6 +4,8 @@ import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.Gravity;
@@ -23,19 +25,19 @@ public class Multiply22Fragment extends Fragment implements NumberpadClickListen
     private Context mContext = null;
 
     public int top, down;
-    public int topHundred, topTen, topOne;
+    public int topTen, topOne;
     public int downTen, downOne;
 
     View ans_line;
 
-    TextView top_hundred, top_ten, top_one;
+    TextView top_ten, top_one;
     TextView down_ten, down_one;
 
-    TextView carrying_hundred, carrying_ten;
-    TextView ans_carrying_tenthousand, ans_carrying_thousand, ans_carrying_hundred;
-    TextView ans_top_one, ans_top_ten, ans_top_hundred, ans_top_thousand;
-    TextView ans_down_one, ans_down_ten, ans_down_hundred, ans_down_thousand;
-    TextView ans_one, ans_ten, ans_hundred, ans_thousand, ans_tenthousand;
+    TextView carrying_ten;
+    TextView ans_carrying_thousand, ans_carrying_hundred;
+    TextView ans_top_one, ans_top_ten, ans_top_hundred;
+    TextView ans_down_one, ans_down_ten, ans_down_hundred;
+    TextView ans_one, ans_ten, ans_hundred, ans_thousand;
 
     TextView operand1TextView, operand2TextView, input1TextView, input2TextView;
 
@@ -68,29 +70,24 @@ public class Multiply22Fragment extends Fragment implements NumberpadClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_multiply22, container, false);
 
-        carrying_hundred = (TextView)v.findViewById(R.id.carrying_hundred);
         carrying_ten = (TextView)v.findViewById(R.id.carrying_ten);
 
-        top_hundred = (TextView)v.findViewById(R.id.top_hundred);
         top_ten = (TextView)v.findViewById(R.id.top_ten);
         top_one = (TextView)v.findViewById(R.id.top_one);
 
         down_ten = (TextView)v.findViewById(R.id.down_ten);
         down_one = (TextView)v.findViewById(R.id.down_one);
 
-        ans_carrying_tenthousand = (TextView)v.findViewById(R.id.ans_carrying_tenthousand);
         ans_carrying_thousand = (TextView)v.findViewById(R.id.ans_carrying_thousand);
         ans_carrying_hundred = (TextView)v.findViewById(R.id.ans_carrying_hundred);
 
         ans_top_one = (TextView)v.findViewById(R.id.ans_top_oen);
         ans_top_ten = (TextView)v.findViewById(R.id.ans_top_ten);
         ans_top_hundred = (TextView)v.findViewById(R.id.ans_top_hundred);
-        ans_top_thousand = (TextView)v.findViewById(R.id.ans_top_thousand);
 
         ans_down_one = (TextView)v.findViewById(R.id.ans_down_one);
         ans_down_ten = (TextView)v.findViewById(R.id.ans_down_ten);
         ans_down_hundred = (TextView)v.findViewById(R.id.ans_down_hundred);
-        ans_down_thousand = (TextView)v.findViewById(R.id.ans_down_thousand);
 
         ans_line = (View)v.findViewById(R.id.ans_line);
 
@@ -98,7 +95,6 @@ public class Multiply22Fragment extends Fragment implements NumberpadClickListen
         ans_ten = (TextView)v.findViewById(R.id.ans_ten);
         ans_hundred = (TextView)v.findViewById(R.id.ans_hundred);
         ans_thousand = (TextView)v.findViewById(R.id.ans_thousand);
-        ans_tenthousand = (TextView)v.findViewById(R.id.ans_tenthousand);
 
         return v;
     }
@@ -112,13 +108,12 @@ public class Multiply22Fragment extends Fragment implements NumberpadClickListen
             Log.v(LOG_TAG, String.valueOf(top));
         }*/
 
-        top = (int) (Math.random() * 900) + 100;
+        top = (int) (Math.random() * 90) + 10;
         down = (int) (Math.random() * 90) + 10;
 
 //        top = 798;
 //        down = 57;
 
-        topHundred = top / 100 % 10;
         topTen = top / 10 % 10;
         topOne = top % 10;
 
@@ -126,7 +121,6 @@ public class Multiply22Fragment extends Fragment implements NumberpadClickListen
         downOne = down % 10;
 
         //피연산자 표시
-        top_hundred.setText(String.valueOf(topHundred));
         top_ten.setText(String.valueOf(topTen));
         top_one.setText(String.valueOf(topOne));
 
@@ -152,32 +146,21 @@ public class Multiply22Fragment extends Fragment implements NumberpadClickListen
                 operand1TextView = top_ten;
                 operand2TextView = down_one;
                 ans = topTen * downOne + Integer.parseInt(carrying_ten.getText().toString());
-                input1TextView = carrying_hundred;
+                input1TextView = ans_top_hundred;
                 input2TextView = ans_top_ten;
                 break;
 
             case 3:
-                operand1TextView = top_hundred;
-                operand2TextView = down_one;
-                ans = topHundred * downOne + Integer.parseInt(carrying_hundred.getText().toString());
-                input1TextView = ans_top_thousand;
-                input2TextView = ans_top_hundred;
-                break;
-
-            case 4:
                 //십의 자리 곱셈을 하기 전 받아올림 내용을 삭제
-                carrying_hundred.setText("0");
-                carrying_hundred.setTextColor(Color.WHITE);
                 carrying_ten.setText("0");
                 carrying_ten.setTextColor(Color.WHITE);
 
                 //곱셈 결과를 회색으로 처리
-                if (Integer.parseInt(ans_top_thousand.getText().toString()) == 0) {
-                    ans_top_thousand.setTextColor(Color.WHITE);
+                if (Integer.parseInt(ans_top_hundred.getText().toString()) == 0) {
+                    ans_top_hundred.setTextColor(Color.WHITE);
                 } else {
-                    ans_top_thousand.setTextColor(Color.GRAY);
+                    ans_top_hundred.setTextColor(Color.GRAY);
                 }
-                ans_top_hundred.setTextColor(Color.GRAY);
                 ans_top_ten.setTextColor(Color.GRAY);
                 ans_top_one.setTextColor(Color.GRAY);
 
@@ -188,36 +171,25 @@ public class Multiply22Fragment extends Fragment implements NumberpadClickListen
                 input2TextView = ans_down_one;
                 break;
 
-            case 5:
+            case 4:
                 operand1TextView = top_ten;
                 operand2TextView = down_ten;
                 ans = topTen * downTen + Integer.parseInt(carrying_ten.getText().toString());
-                input1TextView = carrying_hundred;
+                input1TextView = ans_down_hundred;
                 input2TextView = ans_down_ten;
                 break;
 
-            case 6:
-                operand1TextView = top_hundred;
-                operand2TextView = down_ten;
-                ans = topHundred * downTen + Integer.parseInt(carrying_hundred.getText().toString());
-                input1TextView = ans_down_thousand;
-                input2TextView = ans_down_hundred;
-                break;
-
-            case 7:
-                //곱셈 결과를 더하기 전에 받아올림 내용을 삭제
-                carrying_hundred.setText("0");
-                carrying_hundred.setTextColor(Color.WHITE);
+            case 5:
+                //십의 자리 곱셈을 하기 전 받아올림 내용을 삭제
                 carrying_ten.setText("0");
                 carrying_ten.setTextColor(Color.WHITE);
 
                 //곱셈 결과를 회색으로 처리
-                if (Integer.parseInt(ans_down_thousand.getText().toString()) == 0) {
-                    ans_down_thousand.setTextColor(Color.WHITE);
+                if (Integer.parseInt(ans_down_hundred.getText().toString()) == 0) {
+                    ans_down_hundred.setTextColor(Color.WHITE);
                 } else {
-                    ans_down_thousand.setTextColor(Color.GRAY);
+                    ans_down_hundred.setTextColor(Color.GRAY);
                 }
-                ans_down_hundred.setTextColor(Color.GRAY);
                 ans_down_ten.setTextColor(Color.GRAY);
                 ans_down_one.setTextColor(Color.GRAY);
 
@@ -231,7 +203,7 @@ public class Multiply22Fragment extends Fragment implements NumberpadClickListen
                 input2TextView = ans_one;
                 break;
 
-            case 8:
+            case 6:
                 operand1TextView = ans_top_ten;
                 operand2TextView = ans_down_one;
                 ans = Integer.parseInt(ans_top_ten.getText().toString())
@@ -240,7 +212,7 @@ public class Multiply22Fragment extends Fragment implements NumberpadClickListen
                 input2TextView = ans_ten;
                 break;
 
-            case 9:
+            case 7:
                 operand1TextView = ans_top_hundred;
                 operand2TextView = ans_down_ten;
                 ans = Integer.parseInt(ans_top_hundred.getText().toString())
@@ -250,23 +222,13 @@ public class Multiply22Fragment extends Fragment implements NumberpadClickListen
                 input2TextView = ans_hundred;
                 break;
 
-            case 10:
-                operand1TextView = ans_top_thousand;
-                operand2TextView = ans_down_hundred;
-                ans = Integer.parseInt(ans_top_thousand.getText().toString())
-                        + Integer.parseInt(ans_down_hundred.getText().toString())
-                        + Integer.parseInt(ans_carrying_thousand.getText().toString());
-                input1TextView = ans_carrying_tenthousand;
-                input2TextView = ans_thousand;
-                break;
-
-            case 11:
+            case 8:
                 operand1TextView = null;
-                operand2TextView = ans_down_thousand;
-                ans = Integer.parseInt(ans_down_thousand.getText().toString())
-                        + Integer.parseInt(ans_carrying_tenthousand.getText().toString());
+                operand2TextView = ans_down_hundred;
+                ans = Integer.parseInt(ans_carrying_thousand.getText().toString())
+                        + Integer.parseInt(ans_down_hundred.getText().toString());
                 input1TextView = null;
-                input2TextView = ans_tenthousand;
+                input2TextView = ans_thousand;
                 break;
 
             default:
@@ -291,7 +253,7 @@ public class Multiply22Fragment extends Fragment implements NumberpadClickListen
             input2TextView.setTextColor(Color.BLACK);
         }
 
-        if (currentStage < 7) {
+        if (currentStage < 5) {
             //세 자리 수 중 하나가 0이거나 곱셈 결과가 받아올림이 없는 경우
             if (Integer.parseInt(operand1TextView.getText().toString()) == 0 || ans < 10) {
                 input1TextView.setText("0");
@@ -383,7 +345,7 @@ public class Multiply22Fragment extends Fragment implements NumberpadClickListen
             }
 
             //모든 연산이 끝나면
-            if (currentStage == 11) {
+            if (currentStage == 8) {
                 finalStage();
             }
             return true;
@@ -452,6 +414,31 @@ public class Multiply22Fragment extends Fragment implements NumberpadClickListen
         toastR.setGravity(Gravity.CENTER, 0, 0);
         toastR.show();
 
+//        new CountDownTimer(5000, 1000) {
+//            @Override
+//            public void onTick(long millisUntilFinished) {
+//
+//            }
+//
+//            @Override
+//            public void onFinish() {
+//
+//            }
+//
+//        }.start();
+
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {}
+
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//            }
+//        }, 5000);
+
         //모든 변수 초기화
         currentStage = 0;
         zeroCarrying = false;
@@ -472,13 +459,9 @@ public class Multiply22Fragment extends Fragment implements NumberpadClickListen
             operand2TextView.setTextColor(Color.GRAY);
         }
 
-        carrying_hundred.setText(String.valueOf("0"));
-        carrying_hundred.setTextColor(Color.WHITE);
         carrying_ten.setText(String.valueOf("0"));
         carrying_ten.setTextColor(Color.WHITE);
 
-        ans_carrying_tenthousand.setText(String.valueOf("0"));
-        ans_carrying_tenthousand.setTextColor(Color.WHITE);
         ans_carrying_thousand.setText(String.valueOf("0"));
         ans_carrying_thousand.setTextColor(Color.WHITE);
         ans_carrying_hundred.setText(String.valueOf("0"));
@@ -490,8 +473,6 @@ public class Multiply22Fragment extends Fragment implements NumberpadClickListen
         ans_top_ten.setTextColor(Color.WHITE);
         ans_top_hundred.setText(String.valueOf("0"));
         ans_top_hundred.setTextColor(Color.WHITE);
-        ans_top_thousand.setText(String.valueOf("0"));
-        ans_top_thousand.setTextColor(Color.WHITE);
 
         ans_down_one.setText(String.valueOf("0"));
         ans_down_one.setTextColor(Color.WHITE);
@@ -499,8 +480,6 @@ public class Multiply22Fragment extends Fragment implements NumberpadClickListen
         ans_down_ten.setTextColor(Color.WHITE);
         ans_down_hundred.setText(String.valueOf("0"));
         ans_down_hundred.setTextColor(Color.WHITE);
-        ans_down_thousand.setText(String.valueOf("0"));
-        ans_down_thousand.setTextColor(Color.WHITE);
 
         ans_line.setBackgroundColor(Color.WHITE);
 
@@ -512,8 +491,6 @@ public class Multiply22Fragment extends Fragment implements NumberpadClickListen
         ans_hundred.setTextColor(Color.WHITE);
         ans_thousand.setText(String.valueOf("0"));
         ans_thousand.setTextColor(Color.WHITE);
-        ans_tenthousand.setText(String.valueOf("0"));
-        ans_tenthousand.setTextColor(Color.WHITE);
     }
 
     @Override
