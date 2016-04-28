@@ -41,6 +41,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button div32 = (Button)findViewById(R.id.divide32);
+        div32.setOnClickListener(new Button.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ProblemActivity.class);
+                intent.putExtra("multiply", "divide32");
+
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override

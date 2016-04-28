@@ -17,6 +17,7 @@ public class ProblemActivity extends AppCompatActivity {
     private NumberpadFragment numberpadFragment;
     private Multiply32Fragment multiply32Fragment;
     private Multiply22Fragment multiply22Fragment;
+    private Divide32Fragment divide32Fragment;
 
     String multiply;
 
@@ -42,6 +43,10 @@ public class ProblemActivity extends AppCompatActivity {
                     multiply22Fragment = new Multiply22Fragment();
                     ft.add(R.id.fragment_container, multiply22Fragment).commit();
                     break;
+                case "divide32":
+                    divide32Fragment = new Divide32Fragment();
+                    ft.add(R.id.fragment_container, divide32Fragment).commit();
+                    break;
             }
         }
     }
@@ -58,6 +63,9 @@ public class ProblemActivity extends AppCompatActivity {
                 numberpadFragment.setClickListener(multiply22Fragment);
                 multiply22Fragment.startPractice();
                 break;
+            case "divide32":
+                numberpadFragment.setClickListener(divide32Fragment);
+                divide32Fragment.startPractice();
         }
 
     }
