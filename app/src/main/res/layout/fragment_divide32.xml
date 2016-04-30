@@ -31,6 +31,7 @@
             android:layout_marginRight="6dp"
             android:text="0"
             android:textAlignment="center"
+            android:textColor="@color/colorBackground"
             android:textSize="30sp"/>
 
         <TextView
@@ -41,6 +42,7 @@
             android:layout_marginRight="48dp"
             android:text="0"
             android:textAlignment="center"
+            android:textColor="@color/colorBackground"
             android:textSize="30sp"/>
 
     </LinearLayout>
@@ -234,7 +236,8 @@
             android:layout_marginRight="6dp"
             android:text="0"
             android:textAlignment="center"
-            android:textSize="30sp"/>
+            android:textSize="30sp"
+            android:textColor="@color/colorBackground"/>
 
         <TextView
             android:id="@+id/first_multiply_ten"
@@ -244,7 +247,8 @@
             android:layout_marginRight="6dp"
             android:text="0"
             android:textAlignment="center"
-            android:textSize="30sp"/>
+            android:textSize="30sp"
+            android:textColor="@color/colorBackground"/>
 
         <TextView
             android:id="@+id/first_multiply_one"
@@ -254,7 +258,8 @@
             android:layout_marginRight="48dp"
             android:text="0"
             android:textAlignment="center"
-            android:textSize="30sp"/>
+            android:textSize="30sp"
+            android:textColor="@color/colorBackground"/>
 
     </LinearLayout>
 
@@ -263,7 +268,7 @@
         android:layout_width="110dp"
         android:layout_height="3dp"
         android:layout_marginLeft="120dp"
-        android:background="@android:color/darker_gray" />
+        android:background="@color/colorBackground" />
 
     <!--
     <LinearLayout
@@ -314,7 +319,8 @@
             android:layout_marginRight="6dp"
             android:text="0"
             android:textAlignment="center"
-            android:textSize="30sp"/>
+            android:textSize="30sp"
+            android:textColor="@color/colorBackground"/>
 
         <TextView
             android:id="@+id/first_subtract_ten"
@@ -324,7 +330,8 @@
             android:layout_marginRight="6dp"
             android:text="0"
             android:textAlignment="center"
-            android:textSize="30sp"/>
+            android:textSize="30sp"
+            android:textColor="@color/colorBackground"/>
 
         <TextView
             android:id="@+id/first_subtract_one"
@@ -334,7 +341,8 @@
             android:layout_marginRight="48dp"
             android:text="0"
             android:textAlignment="center"
-            android:textSize="30sp"/>
+            android:textSize="30sp"
+            android:textColor="@color/colorBackground"/>
 
     </LinearLayout>
 
@@ -345,7 +353,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginLeft="104dp"
         android:layout_marginRight="48dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:textColor="@color/colorBackground">
 
         <TextView
             android:id="@+id/second_multiply_hundred"
@@ -355,7 +364,8 @@
             android:layout_marginRight="6dp"
             android:text="0"
             android:textAlignment="center"
-            android:textSize="30sp"/>
+            android:textSize="30sp"
+            android:textColor="@color/colorBackground"/>
 
         <TextView
             android:id="@+id/second_multiply_ten"
@@ -365,7 +375,8 @@
             android:layout_marginRight="6dp"
             android:text="0"
             android:textAlignment="center"
-            android:textSize="30sp"/>
+            android:textSize="30sp"
+            android:textColor="@color/colorBackground"/>
 
         <TextView
             android:id="@+id/second_multiply_one"
@@ -375,7 +386,8 @@
             android:layout_marginRight="48dp"
             android:text="0"
             android:textAlignment="center"
-            android:textSize="30sp"/>
+            android:textSize="30sp"
+            android:textColor="@color/colorBackground"/>
 
     </LinearLayout>
 
@@ -384,7 +396,7 @@
         android:layout_width="110dp"
         android:layout_height="3dp"
         android:layout_marginLeft="120dp"
-        android:background="@android:color/darker_gray" />
+        android:background="@color/colorBackground" />
 
     <LinearLayout
         android:id="@+id/remainder"
@@ -413,7 +425,8 @@
             android:layout_marginRight="6dp"
             android:text="0"
             android:textAlignment="center"
-            android:textSize="30sp"/>
+            android:textSize="30sp"
+            android:textColor="@color/colorBackground"/>
 
         <TextView
             android:id="@+id/remainder_one"
@@ -423,7 +436,8 @@
             android:layout_marginRight="48dp"
             android:text="0"
             android:textAlignment="center"
-            android:textSize="30sp"/>
+            android:textSize="30sp"
+            android:textColor="@color/colorBackground"/>
 
     </LinearLayout>
 

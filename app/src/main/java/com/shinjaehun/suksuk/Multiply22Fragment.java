@@ -452,12 +452,18 @@ public class Multiply22Fragment extends Fragment implements NumberpadClickListen
     }
 
     private void initNumbers() {
-        if (operand1TextView != null) {
-            operand1TextView.setTextColor(Color.GRAY);
-        }
-        if (operand2TextView != null) {
-            operand2TextView.setTextColor(Color.GRAY);
-        }
+//        if (operand1TextView != null) {
+//            operand1TextView.setTextColor(Color.GRAY);
+//        }
+//        if (operand2TextView != null) {
+//            operand2TextView.setTextColor(Color.GRAY);
+//        }
+
+        top_ten.setTextColor(Color.GRAY);
+        top_one.setTextColor(Color.GRAY);
+
+        down_ten.setTextColor(Color.GRAY);
+        down_one.setTextColor(Color.GRAY);
 
         carrying_ten.setText(String.valueOf("0"));
         carrying_ten.setTextColor(Color.WHITE);

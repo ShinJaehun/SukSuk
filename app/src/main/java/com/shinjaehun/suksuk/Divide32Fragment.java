@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringDef;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -41,7 +42,8 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
     TextView input1TextView, input2TextView, input3TextView;
 
     boolean isFullMultiply = true;
-    int switching = 0;
+    int inputEntry = 0;
+    int inputNext = 0;
 
     //곱셈 결과를 입력할 순서 저장
     boolean carrying = true;
@@ -115,6 +117,9 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
 
         dividend = (int) (Math.random() * 900) + 100;
         divisor = (int) (Math.random() * 90) + 10;
+//        dividend = 202;
+//        divisor = 20;
+
         quotient = dividend / divisor;
 
 //        top = 798;
@@ -141,6 +146,7 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
 
         divisor_ten.setText(String.valueOf(divisorTen));
         divisor_one.setText(String.valueOf(divisorOne));
+
     }
 
     private void nextStage() {
@@ -172,9 +178,9 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
                 }
 
                 if (isFullMultiply) {
-                    ans = (dividendHundred * 10 + dividendTen) / divisor;
+                    ans = quotientTen;
                 } else {
-                    ans = dividend / divisor;
+                    ans = quotientOne;
                 }
 
                 break;
@@ -242,6 +248,8 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
                     operand6TextView = first_multiply_one;
                 }
 
+                ans_first_line.setBackgroundColor(Color.GRAY);
+
                 if (isFullMultiply) {
                     ans = (dividendHundred * 10 + dividendTen) - (divisor * quotientTen);
                 } else {
@@ -286,7 +294,11 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
                     first_subtract_hundred.setTextColor(Color.GRAY);
                 }
 
-                first_subtract_ten.setTextColor(Color.GRAY);
+                if (Integer.parseInt(first_subtract_ten.getText().toString()) == 0) {
+                    first_subtract_ten.setTextColor(Color.WHITE);
+                } else {
+                    first_subtract_ten.setTextColor(Color.GRAY);
+                }
 
                 operand1TextView = dividend_one;
                 operand2TextView = null;
@@ -295,9 +307,9 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
                 operand5TextView = null;
                 operand6TextView = null;
 
-                input1TextView = first_subtract_one;
+                input1TextView = null;
                 input2TextView = null;
-                input3TextView = null;
+                input3TextView = first_subtract_one;
 
                 ans = dividendOne;
 
@@ -310,6 +322,34 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
                 operand1TextView = divisor_ten;
                 operand2TextView = divisor_one;
                 operand3TextView = null;
+
+                if (Integer.parseInt(first_subtract_hundred.getText().toString()) == 0) {
+                    operand4TextView = null;
+                } else {
+                    operand4TextView = first_subtract_hundred;
+                }
+
+                if (Integer.parseInt(first_subtract_ten.getText().toString()) == 0) {
+                    operand5TextView = null;
+                } else {
+                    operand5TextView = first_subtract_ten;
+                }
+
+                operand6TextView = first_subtract_one;
+
+                input1TextView = null;
+                input2TextView = null;
+                input3TextView = quotient_one;
+
+                ans = quotientOne;
+
+                break;
+
+            case 6:
+
+                operand1TextView = divisor_ten;
+                operand2TextView = divisor_one;
+                operand3TextView = null;
                 operand4TextView = quotient_one;
                 operand5TextView = null;
                 operand6TextView = null;
@@ -318,7 +358,11 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
 
                 if (ans < 100) {
                     input1TextView = null;
-                    input2TextView = second_multiply_ten;
+                    if (Integer.parseInt(first_subtract_ten.getText().toString()) == 0) {
+                        input2TextView = null;
+                    } else {
+                        input2TextView = second_multiply_ten;
+                    }
                     input3TextView = second_multiply_one;
                 } else {
                     input1TextView = second_multiply_hundred;
@@ -328,7 +372,7 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
 
                 break;
 
-            case 6:
+            case 7:
                 divisor_ten.setTextColor(Color.GRAY);
                 divisor_one.setTextColor(Color.GRAY);
 
@@ -339,7 +383,11 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
                 } else {
                     operand1TextView = first_multiply_hundred;
                 }
-                operand2TextView = first_subtract_ten;
+                if (Integer.parseInt(first_subtract_ten.getText().toString()) == 0) {
+                    operand2TextView = null;
+                } else {
+                    operand2TextView = first_subtract_ten;
+                }
                 operand3TextView = first_subtract_one;
 
                 if (Integer.parseInt(second_multiply_hundred.getText().toString()) == 0) {
@@ -347,8 +395,14 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
                 } else {
                     operand4TextView = second_multiply_hundred;
                 }
-                operand5TextView = second_multiply_ten;
+                if (Integer.parseInt(second_multiply_ten.getText().toString()) == 0) {
+                    operand5TextView = null;
+                } else {
+                    operand5TextView = second_multiply_ten;
+                }
                 operand6TextView = second_multiply_one;
+
+                ans_second_line.setBackgroundColor(Color.GRAY);
 
                 ans = (Integer.parseInt(first_subtract_hundred.getText().toString()) * 100 +
                         Integer.parseInt(first_subtract_ten.getText().toString()) * 10 +
@@ -405,6 +459,16 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
             input3TextView.setText("?");
             input3TextView.setTextColor(Color.BLACK);
         }
+
+        if (input1TextView != null) {
+            inputEntry = 1;
+        } else if (input2TextView != null) {
+            inputEntry = 2;
+        } else {
+            inputEntry = 3;
+        }
+
+        inputNext = 1;
 //
 //        if (currentStage < 7) {
 //            //세 자리 수 중 하나가 0이거나 곱셈 결과가 받아올림이 없는 경우
@@ -512,7 +576,7 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
             }
 
             //모든 연산이 끝나면
-            if ((currentStage == 3 && isFullMultiply) || currentStage == 6) {
+            if ((currentStage == 3 && !isFullMultiply) || currentStage == 7) {
                 finalStage();
             }
             return true;
@@ -591,6 +655,8 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
         carrying = true;
         ans = 0;
 
+        isFullMultiply = true;
+
         //피연산자 초기화
         initOperands();
         //피연산자를 제외한 나머지 모든 숫자 초기화
@@ -598,15 +664,59 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
     }
 
     private void initNumbers() {
-        if (operand1TextView != null) {
-            operand1TextView.setTextColor(Color.GRAY);
-        }
-        if (operand2TextView != null) {
-            operand2TextView.setTextColor(Color.GRAY);
-        }
-        if (operand3TextView != null) {
-            operand3TextView.setTextColor(Color.GRAY);
-        }
+//        if (operand1TextView != null) {
+//            operand1TextView.setTextColor(Color.GRAY);
+//        }
+//        if (operand2TextView != null) {
+//            operand2TextView.setTextColor(Color.GRAY);
+//        }
+//        if (operand3TextView != null) {
+//            operand3TextView.setTextColor(Color.GRAY);
+//        }
+
+
+        divisor_ten.setTextColor(Color.GRAY);
+        divisor_one.setTextColor(Color.GRAY);
+
+        dividend_hundred.setTextColor(Color.GRAY);
+        dividend_ten.setTextColor(Color.GRAY);
+        dividend_one.setTextColor(Color.GRAY);
+
+        quotient_ten.setText(String.valueOf("0"));
+        quotient_ten.setTextColor(Color.WHITE);
+        quotient_one.setText(String.valueOf("0"));
+        quotient_one.setTextColor(Color.WHITE);
+
+        first_multiply_hundred.setText(String.valueOf("0"));
+        first_multiply_hundred.setTextColor(Color.WHITE);
+        first_multiply_ten.setText(String.valueOf("0"));
+        first_multiply_ten.setTextColor(Color.WHITE);
+        first_multiply_one.setText(String.valueOf("0"));
+        first_multiply_one.setTextColor(Color.WHITE);
+
+        ans_first_line.setBackgroundColor(Color.WHITE);
+
+        first_subtract_hundred.setText(String.valueOf("0"));
+        first_subtract_hundred.setTextColor(Color.WHITE);
+        first_subtract_ten.setText(String.valueOf("0"));
+        first_subtract_ten.setTextColor(Color.WHITE);
+        first_subtract_one.setText(String.valueOf("0"));
+        first_subtract_one.setTextColor(Color.WHITE);
+
+        second_multiply_hundred.setText(String.valueOf("0"));
+        second_multiply_hundred.setTextColor(Color.WHITE);
+        second_multiply_ten.setText(String.valueOf("0"));
+        second_multiply_ten.setTextColor(Color.WHITE);
+        second_multiply_one.setText(String.valueOf("0"));
+        second_multiply_one.setTextColor(Color.WHITE);
+
+        ans_second_line.setBackgroundColor(Color.WHITE);
+
+        remainder_ten.setText(String.valueOf("0"));
+        remainder_ten.setTextColor(Color.WHITE);
+        remainder_one.setText(String.valueOf("0"));
+        remainder_one.setTextColor(Color.WHITE);
+
 //
 //        carrying_hundred.setText(String.valueOf("0"));
 //        carrying_hundred.setTextColor(Color.WHITE);
@@ -655,17 +765,68 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
     @Override
     public void onNumberClicked(int number) {
 
-        if (switching == 0 && input1TextView != null) {
-            input1TextView.setText(String.valueOf(number));
-            switching = 1;
-        } else if (switching == 1 && input2TextView != null) {
-            input2TextView.setText(String.valueOf(number));
-            switching = 2;
-        } else {
-            if (input3TextView != null) {
-                input3TextView.setText(String.valueOf(number));
-            }
-            switching = 0;
+//        if (switching == 0 && input1TextView != null) {
+//            input1TextView.setText(String.valueOf(number));
+//            switching = 1;
+//        } else if (switching == 1 && input2TextView != null) {
+//            input2TextView.setText(String.valueOf(number));
+//            switching = 2;
+//        } else {
+//            if (input3TextView != null) {
+//                input3TextView.setText(String.valueOf(number));
+//            }
+//            switching = 0;
+//        }
+
+
+
+        switch (inputNext) {
+            case 1:
+                switch (inputEntry) {
+                    case 1:
+                        if (input1TextView != null) {
+                            input1TextView.setText(String.valueOf(number));
+                        }
+                        inputNext = 2;
+                        break;
+                    case 2:
+                        input2TextView.setText(String.valueOf(number));
+                        inputNext = 2;
+                        break;
+                    case 3:
+                        input3TextView.setText(String.valueOf(number));
+                        inputNext = 1;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case 2:
+                switch (inputEntry) {
+                    case 1:
+                        input2TextView.setText(String.valueOf(number));
+                        inputNext = 3;
+                        break;
+                    case 2:
+                        input3TextView.setText(String.valueOf(number));
+                        inputNext = 1;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case 3:
+                switch (inputEntry) {
+                    case 1:
+                        input3TextView.setText(String.valueOf(number));
+                        inputNext = 1;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            default:
+                break;
         }
 
 //        /* 버튼이 클릭되었을 때 처리 */
@@ -727,12 +888,14 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
         ans = 0;
         initNumbers();
         nextStage();
+        inputNext = 1;
     }
 
     public void onOKClicked() {
         if (result()) {
             nextStage();
         }
+        inputNext = 1;
     }
 
 }
