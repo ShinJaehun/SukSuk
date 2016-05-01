@@ -117,8 +117,8 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
 
         dividend = (int) (Math.random() * 900) + 100;
         divisor = (int) (Math.random() * 90) + 10;
-//        dividend = 202;
-//        divisor = 20;
+//        dividend = 868;
+//        divisor = 56;
 
         quotient = dividend / divisor;
 
@@ -294,7 +294,8 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
                     first_subtract_hundred.setTextColor(Color.GRAY);
                 }
 
-                if (Integer.parseInt(first_subtract_ten.getText().toString()) == 0) {
+                if ((Integer.parseInt(first_subtract_hundred.getText().toString()) == 0)
+                    && (Integer.parseInt(first_subtract_ten.getText().toString()) == 0)) {
                     first_subtract_ten.setTextColor(Color.WHITE);
                 } else {
                     first_subtract_ten.setTextColor(Color.GRAY);
@@ -329,7 +330,8 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
                     operand4TextView = first_subtract_hundred;
                 }
 
-                if (Integer.parseInt(first_subtract_ten.getText().toString()) == 0) {
+                if ((Integer.parseInt(first_subtract_hundred.getText().toString()) == 0)
+                    && (Integer.parseInt(first_subtract_ten.getText().toString()) == 0)) {
                     operand5TextView = null;
                 } else {
                     operand5TextView = first_subtract_ten;
@@ -383,7 +385,8 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
                 } else {
                     operand1TextView = first_multiply_hundred;
                 }
-                if (Integer.parseInt(first_subtract_ten.getText().toString()) == 0) {
+                if ((Integer.parseInt(first_subtract_hundred.getText().toString()) == 0)
+                    && (Integer.parseInt(first_subtract_ten.getText().toString()) == 0)) {
                     operand2TextView = null;
                 } else {
                     operand2TextView = first_subtract_ten;
@@ -395,7 +398,8 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
                 } else {
                     operand4TextView = second_multiply_hundred;
                 }
-                if (Integer.parseInt(second_multiply_ten.getText().toString()) == 0) {
+                if((Integer.parseInt(second_multiply_hundred.getText().toString()) == 0)
+                   && (Integer.parseInt(second_multiply_ten.getText().toString()) == 0)) {
                     operand5TextView = null;
                 } else {
                     operand5TextView = second_multiply_ten;
