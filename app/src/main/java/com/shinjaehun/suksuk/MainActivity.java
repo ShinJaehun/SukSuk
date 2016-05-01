@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ProblemActivity.class);
                 //startActivity(new Intent(getApplicationContext(), ProblemActivity.class));
-                intent.putExtra("multiply", "multiply22");
+                intent.putExtra("operation", "multiply22");
                 startActivityForResult(intent, 1);
 
             }
@@ -32,12 +32,22 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ProblemActivity.class);
                 //startActivity(new Intent(getApplicationContext(), ProblemActivity.class));
-                intent.putExtra("multiply", "multiply32");
+                intent.putExtra("operation", "multiply32");
 
                 startActivity(intent);
 
 //                startActivityForResult(intent, 1);
 
+            }
+        });
+
+        Button div22 = (Button)findViewById(R.id.divide22);
+        div22.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ProblemActivity.class);
+                //startActivity(new Intent(getApplicationContext(), ProblemActivity.class));
+                intent.putExtra("operation", "divide22");
+                startActivity(intent);
             }
         });
 
@@ -47,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ProblemActivity.class);
-                intent.putExtra("multiply", "divide32");
+                intent.putExtra("operation", "divide32");
 
                 startActivity(intent);
             }

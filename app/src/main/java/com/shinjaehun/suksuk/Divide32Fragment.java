@@ -45,13 +45,6 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
     int inputEntry = 0;
     int inputNext = 0;
 
-    //곱셈 결과를 입력할 순서 저장
-    boolean carrying = true;
-
-    //세 자리 수 중 하나가 0이거나 곱셈 결과가 받아올림이 없는 경우를 처리할 스위치
-    //곱셈 결과를 더할 때 받아올림이 있는 경우에도 사용함
-    boolean zeroCarrying = false;
-
     //현재 과정
     int currentStage = 0;
 
@@ -656,7 +649,6 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
         //모든 변수 초기화
         currentStage = 0;
 //        zeroCarrying = false;
-        carrying = true;
         ans = 0;
 
         isFullMultiply = true;
@@ -720,70 +712,10 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
         remainder_ten.setTextColor(Color.WHITE);
         remainder_one.setText(String.valueOf("0"));
         remainder_one.setTextColor(Color.WHITE);
-
-//
-//        carrying_hundred.setText(String.valueOf("0"));
-//        carrying_hundred.setTextColor(Color.WHITE);
-//        carrying_ten.setText(String.valueOf("0"));
-//        carrying_ten.setTextColor(Color.WHITE);
-//
-//        ans_carrying_tenthousand.setText(String.valueOf("0"));
-//        ans_carrying_tenthousand.setTextColor(Color.WHITE);
-//        ans_carrying_thousand.setText(String.valueOf("0"));
-//        ans_carrying_thousand.setTextColor(Color.WHITE);
-//        ans_carrying_hundred.setText(String.valueOf("0"));
-//        ans_carrying_hundred.setTextColor(Color.WHITE);
-//
-//        ans_top_one.setText(String.valueOf("0"));
-//        ans_top_one.setTextColor(Color.WHITE);
-//        ans_top_ten.setText(String.valueOf("0"));
-//        ans_top_ten.setTextColor(Color.WHITE);
-//        ans_top_hundred.setText(String.valueOf("0"));
-//        ans_top_hundred.setTextColor(Color.WHITE);
-//        ans_top_thousand.setText(String.valueOf("0"));
-//        ans_top_thousand.setTextColor(Color.WHITE);
-//
-//        ans_down_one.setText(String.valueOf("0"));
-//        ans_down_one.setTextColor(Color.WHITE);
-//        ans_down_ten.setText(String.valueOf("0"));
-//        ans_down_ten.setTextColor(Color.WHITE);
-//        ans_down_hundred.setText(String.valueOf("0"));
-//        ans_down_hundred.setTextColor(Color.WHITE);
-//        ans_down_thousand.setText(String.valueOf("0"));
-//        ans_down_thousand.setTextColor(Color.WHITE);
-//
-//        ans_line.setBackgroundColor(Color.WHITE);
-//
-//        ans_one.setText(String.valueOf("0"));
-//        ans_one.setTextColor(Color.WHITE);
-//        ans_ten.setText(String.valueOf("0"));
-//        ans_ten.setTextColor(Color.WHITE);
-//        ans_hundred.setText(String.valueOf("0"));
-//        ans_hundred.setTextColor(Color.WHITE);
-//        ans_thousand.setText(String.valueOf("0"));
-//        ans_thousand.setTextColor(Color.WHITE);
-//        ans_tenthousand.setText(String.valueOf("0"));
-//        ans_tenthousand.setTextColor(Color.WHITE);
     }
 
     @Override
     public void onNumberClicked(int number) {
-
-//        if (switching == 0 && input1TextView != null) {
-//            input1TextView.setText(String.valueOf(number));
-//            switching = 1;
-//        } else if (switching == 1 && input2TextView != null) {
-//            input2TextView.setText(String.valueOf(number));
-//            switching = 2;
-//        } else {
-//            if (input3TextView != null) {
-//                input3TextView.setText(String.valueOf(number));
-//            }
-//            switching = 0;
-//        }
-
-
-
         switch (inputNext) {
             case 1:
                 switch (inputEntry) {
@@ -832,63 +764,10 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
             default:
                 break;
         }
-
-//        /* 버튼이 클릭되었을 때 처리 */
-//        if (zeroCarrying) {
-//            if (input2TextView != null) {
-//                input2TextView.setText(String.valueOf(number));
-//            }
-//
-//        } else {
-//            //사용자 입력 처리 : 첫번째 입력인 경우 input1TextView에 값을 입력함
-//            if (carrying) {
-//                if (input1TextView != null) {
-//                    input1TextView.setText(String.valueOf(number));
-//                }
-//                carrying = false;
-//            } else {
-//                //두번째 입력인 경우 input2TextView에 값을 입력함
-//                if (input2TextView != null) {
-//                    input2TextView.setText(String.valueOf(number));
-//                }
-//                carrying = true;
-//            }
-//        }
-//        //각 자리수를 곱하는 과정 처리
-//        if (currentStage < 7) {
-//            //세 자리 수 중 하나가 0이거나 곱셈 결과가 받아올림이 없는 경우 0을 입력하는 수고를 덜도록
-//            //사용자는 input2TextView에만 값을 입력함
-//            if (zeroCarrying) {
-//                input2TextView.setText(String.valueOf(number));
-//            } else {
-//                //사용자 입력 처리 : 첫번째 입력인 경우 input1TextView에 값을 입력함
-//                if (carrying) {
-//                    input1TextView.setText(String.valueOf(number));
-//                    carrying = false;
-//                } else {
-//                    //두번째 입력인 경우 input2TextView에 값을 입력함
-//                    input2TextView.setText(String.valueOf(number));
-//                    carrying = true;
-//                }
-//            }
-//        } else {
-//
-//            if (input1TextView != null) {
-//                input1TextView.setText(String.valueOf(number));
-//            }
-//            if (input2TextView != null) {
-//                input2TextView.setText(String.valueOf(number));
-//            }
-//        }
-//        Log.v(LOG_TAG, "zeroCarrying : " + String.valueOf(zeroCarrying));
-        Log.v(LOG_TAG, "carrying : " + String.valueOf(carrying));
-
     }
 
     public void onClearClicked() {
         currentStage = 0;
-        carrying = true;
-//        zeroCarrying = false;
         ans = 0;
         initNumbers();
         nextStage();

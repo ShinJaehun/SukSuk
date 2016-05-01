@@ -17,16 +17,17 @@ public class ProblemActivity extends AppCompatActivity {
     private NumberpadFragment numberpadFragment;
     private Multiply32Fragment multiply32Fragment;
     private Multiply22Fragment multiply22Fragment;
+    private Divide22Fragment divide22Fragment;
     private Divide32Fragment divide32Fragment;
 
-    String multiply;
+    String operation;
 
     @Override
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_problems);
         Intent intent = getIntent();
-        multiply = intent.getStringExtra("multiply");
+        operation = intent.getStringExtra("operation");
 
         numberpadFragment = (NumberpadFragment) getFragmentManager().findFragmentById(R.id.numberPadFragment);
 
@@ -34,7 +35,7 @@ public class ProblemActivity extends AppCompatActivity {
         FragmentTransaction ft = fm.beginTransaction();
 
         if (intent != null) {
-            switch (multiply) {
+            switch (operation) {
                 case "multiply32":
                     multiply32Fragment = new Multiply32Fragment();
                     ft.add(R.id.fragment_container, multiply32Fragment).commit();
@@ -42,6 +43,10 @@ public class ProblemActivity extends AppCompatActivity {
                 case "multiply22":
                     multiply22Fragment = new Multiply22Fragment();
                     ft.add(R.id.fragment_container, multiply22Fragment).commit();
+                    break;
+                case "divide22":
+                    divide22Fragment = new Divide22Fragment();
+                    ft.add(R.id.fragment_container, divide22Fragment).commit();
                     break;
                 case "divide32":
                     divide32Fragment = new Divide32Fragment();
@@ -54,7 +59,7 @@ public class ProblemActivity extends AppCompatActivity {
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        switch (multiply) {
+        switch (operation) {
             case "multiply32":
                 numberpadFragment.setClickListener(multiply32Fragment);
                 multiply32Fragment.startPractice();
@@ -63,9 +68,14 @@ public class ProblemActivity extends AppCompatActivity {
                 numberpadFragment.setClickListener(multiply22Fragment);
                 multiply22Fragment.startPractice();
                 break;
+            case "divide22":
+                numberpadFragment.setClickListener(divide22Fragment);
+                divide22Fragment.startPractice();
+                break;
             case "divide32":
                 numberpadFragment.setClickListener(divide32Fragment);
                 divide32Fragment.startPractice();
+                break;
         }
 
     }
