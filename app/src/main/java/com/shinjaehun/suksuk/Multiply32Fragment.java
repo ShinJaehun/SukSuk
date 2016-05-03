@@ -369,7 +369,7 @@ public class Multiply32Fragment extends Fragment implements NumberpadClickListen
 
         //정답처리
         if (ans == temp) {
-            Toast toast = Toast.makeText(mContext, "딩동댕", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getActivity(), "딩동댕", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
 
@@ -394,7 +394,7 @@ public class Multiply32Fragment extends Fragment implements NumberpadClickListen
     }
 
     private boolean wrongAnswer(String temp) {
-        Toast toast = Toast.makeText(mContext, temp + "는 틀렸어. 바보야.", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(getActivity(), temp + "는 틀렸어. 바보야.", Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
 
@@ -447,7 +447,7 @@ public class Multiply32Fragment extends Fragment implements NumberpadClickListen
         /* finalStage()에서 값을 초기화한 후 다시 nextStage()를 호출하지는 않는데
         * 어차피 입력 버튼을 누르면 nextStage()를 호출하기 때문 */
 
-        Toast toastR = Toast.makeText(mContext, "축하합니다!", Toast.LENGTH_LONG);
+        Toast toastR = Toast.makeText(getActivity(), "축하합니다!", Toast.LENGTH_LONG);
         toastR.setGravity(Gravity.CENTER, 0, 0);
         toastR.show();
 
