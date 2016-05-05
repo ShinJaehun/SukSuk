@@ -22,8 +22,6 @@ public class Multiply22Fragment extends Fragment implements NumberpadClickListen
 
     private static final String LOG_TAG = Multiply22Fragment.class.getSimpleName();
 
-    private Context mContext = null;
-
     public int top, down;
     public int topTen, topOne;
     public int downTen, downOne;
@@ -57,12 +55,6 @@ public class Multiply22Fragment extends Fragment implements NumberpadClickListen
     public void startPractice() {
         initOperands();
         nextStage();
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        this.mContext = context;
     }
 
     @Nullable
@@ -288,7 +280,7 @@ public class Multiply22Fragment extends Fragment implements NumberpadClickListen
                 temp1 = Integer.parseInt(input1TextView.getText().toString());
                 Log.v(LOG_TAG, "temp1 : " + String.valueOf(temp1));
             } catch (NumberFormatException nfe) {
-                return wrongAnswer(input1TextView.getText().toString());
+                nfe.printStackTrace();
             }
         }
 
@@ -300,7 +292,7 @@ public class Multiply22Fragment extends Fragment implements NumberpadClickListen
                 temp2 = Integer.parseInt(input2TextView.getText().toString());
                 Log.v(LOG_TAG, "temp2 : " + String.valueOf(temp2));
             } catch (NumberFormatException nfe) {
-                return wrongAnswer(input2TextView.getText().toString());
+                nfe.printStackTrace();
             }
         }
 
@@ -332,9 +324,7 @@ public class Multiply22Fragment extends Fragment implements NumberpadClickListen
 
         //정답처리
         if (ans == temp) {
-            Toast toast = Toast.makeText(getActivity(), "딩동댕", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
+            flashText(true);
 
             //연산했던 자리수를 다시 회색으로 되돌리기
             if (operand1TextView != null) {
@@ -352,58 +342,80 @@ public class Multiply22Fragment extends Fragment implements NumberpadClickListen
 
             //오답처리
         } else {
-            return wrongAnswer(String.valueOf(temp));
-        }
+            flashText(false);
+
+            //사용자가 입력할 텍스트 뷰를 다시 'A'와 'B'로 되돌림
+            if (input1TextView != null) {
+                input1TextView.setText("?");
+                input1TextView.setTextColor(Color.BLACK);
+            }
+            if (input2TextView != null) {
+                input2TextView.setText("?");
+                input2TextView.setTextColor(Color.BLACK);
+            }
+
+            if (zeroCarrying) {
+                if (input1TextView != null) {
+                    input1TextView.setText("0");
+                    input1TextView.setTextColor(Color.WHITE);
+                }
+            }
+
+            return false;        }
     }
 
-    private boolean wrongAnswer(String temp) {
-        Toast toast = Toast.makeText(getActivity(), temp + "는 틀렸어. 바보야.", Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.show();
-
-        //사용자가 입력할 텍스트 뷰를 다시 'A'와 'B'로 되돌림
-        if (input1TextView != null) {
-            input1TextView.setText("?");
-            input1TextView.setTextColor(Color.BLACK);
-        }
-        if (input2TextView != null) {
-            input2TextView.setText("?");
-            input2TextView.setTextColor(Color.BLACK);
-        }
-
-        if (zeroCarrying) {
-            if (input1TextView != null) {
-                input1TextView.setText("0");
-                input1TextView.setTextColor(Color.WHITE);
+    private void flashText(boolean trueOrFalse) {
+        TextView textView;
+        String answer = null;
+        int random = (int)(Math.random() * 5) + 1;
+        if (trueOrFalse) {
+            textView = (TextView)getActivity().findViewById(R.id.answer_right);
+            switch (random) {
+                case 1:
+                    answer = "정답!";
+                    break;
+                case 2:
+                    answer = "제법인데~";
+                    break;
+                case 3:
+                    answer = "훌륭해!";
+                    break;
+                case 4:
+                    answer = "꽤 하는걸?";
+                    break;
+                case 5:
+                    answer = "맞았어!";
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            textView = (TextView)getActivity().findViewById(R.id.answer_wrong);
+            switch (random) {
+                case 1:
+                    answer = "아니거든!";
+                    break;
+                case 2:
+                    answer = "땡!!!";
+                    break;
+                case 3:
+                    answer = "메롱메롱~";
+                    break;
+                case 4:
+                    answer = "제대로 해봐!";
+                    break;
+                case 5:
+                    answer = "다시 해보셈!";
+                    break;
+                default:
+                    break;
             }
         }
 
-        return false;
-
-//        if (currentStage < 7) {
-//            //받아올림이 없는 곱셈에서는 input1TextView를 0으로 되돌림
-//            if (zeroCarrying) {
-//                input1TextView.setText("0");
-//                input1TextView.setTextColor(Color.WHITE);
-//                return false;
-//            }
-//
-//            //다시 첫번째 입력으로 되돌림
-//            carrying = true;
-//            return false;
-//        } else {
-//            if (ans < 10) {
-//                if (input1TextView != null) {
-//                    input1TextView.setText("0");
-//                    input1TextView.setTextColor(Color.WHITE);
-//                }
-//                carrying = false;
-//                return false;
-//            }
-//            carrying = true;
-//            return false;
-//        }
-
+        textView.setText(answer);
+        textView.setVisibility(View.VISIBLE);
+        textView.setAlpha(1.0f);
+        textView.animate().alpha(0.0f).setDuration(1000).start();
     }
 
     private void finalStage() {

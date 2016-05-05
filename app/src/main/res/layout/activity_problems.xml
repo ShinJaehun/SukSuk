@@ -21,27 +21,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
             android:theme="@style/AppTheme" />
 
     </LinearLayout>
-<!--    <TextView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="60dp"
         android:layout_gravity="center"
         android:id="@+id/answer_right"
         android:visibility="gone"
-        android:textColor="@color/primary"
-        android:text="Right!" />
+        android:textColor="@color/colorRight"
+        android:text="정답!" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="60dp"
         android:layout_gravity="center"
         android:id="@+id/answer_wrong"
+        android:textColor="@color/colorWrong"
         android:visibility="gone"
-        android:textColor="@color/accent"
-        android:text="Oops." /> -->
-
+        android:text="메롱메롱~" />
 
 </FrameLayout>
