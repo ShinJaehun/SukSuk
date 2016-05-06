@@ -22,37 +22,37 @@ public class Multiply32Fragment extends Fragment implements NumberpadClickListen
 
     private static final String LOG_TAG = Multiply32Fragment.class.getSimpleName();
 
-    public int top, down;
-    public int topHundred, topTen, topOne;
-    public int downTen, downOne;
+    private int top, down;
+    private int topHundred, topTen, topOne;
+    private int downTen, downOne;
 
-    View ans_line;
+    private View ans_line;
 
-    TextView top_hundred, top_ten, top_one;
-    TextView down_ten, down_one;
+    private TextView top_hundred, top_ten, top_one;
+    private TextView down_ten, down_one;
 
-    TextView carrying_hundred, carrying_ten;
-    TextView ans_carrying_tenthousand, ans_carrying_thousand, ans_carrying_hundred;
-    TextView ans_top_one, ans_top_ten, ans_top_hundred, ans_top_thousand;
-    TextView ans_down_one, ans_down_ten, ans_down_hundred, ans_down_thousand;
-    TextView ans_one, ans_ten, ans_hundred, ans_thousand, ans_tenthousand;
+    private TextView carrying_hundred, carrying_ten;
+    private TextView ans_carrying_tenthousand, ans_carrying_thousand, ans_carrying_hundred;
+    private TextView ans_top_one, ans_top_ten, ans_top_hundred, ans_top_thousand;
+    private TextView ans_down_one, ans_down_ten, ans_down_hundred, ans_down_thousand;
+    private TextView ans_one, ans_ten, ans_hundred, ans_thousand, ans_tenthousand;
 
-    TextView operand1TextView, operand2TextView, input1TextView, input2TextView;
+    private TextView operand1TextView, operand2TextView, input1TextView, input2TextView;
 
-    Button help;
+    private Button help;
 
     //곱셈 결과를 입력할 순서 저장
-    boolean carrying = true;
+    private boolean carrying = true;
 
     //세 자리 수 중 하나가 0이거나 곱셈 결과가 받아올림이 없는 경우를 처리할 스위치
     //곱셈 결과를 더할 때 받아올림이 있는 경우에도 사용함
-    boolean zeroCarrying = false;
+    private boolean zeroCarrying = false;
 
     //현재 과정
-    int currentStage = 0;
+    private int currentStage = 0;
 
     //곱셈 결과
-    int ans = 0;
+    private int ans = 0;
 
     public void startPractice() {
         initOperands();
@@ -111,7 +111,7 @@ public class Multiply32Fragment extends Fragment implements NumberpadClickListen
 
     }
 
-    public void initOperands() {
+    private  void initOperands() {
         /* 피연산자 생성 */
         /*난수 테스트
         for (int i = 0; i < 100; i++) {

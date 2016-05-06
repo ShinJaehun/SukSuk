@@ -26,8 +26,17 @@ public class HelpActivity extends AppCompatActivity {
 
         if (intent != null) {
             switch (help) {
+                case "multiply22" :
+                    url = "https://www.youtube.com/embed/wNkOkrOGURk";
+                    break;
                 case "multiply32" :
                     url = "https://www.youtube.com/embed/5HXXk5H-hCs";
+                    break;
+                case "divide22" :
+                    url = "https://www.youtube.com/embed/ZiwXgBjDk48";
+                    break;
+                case "divide32" :
+                    url = "https://www.youtube.com/embed/pIXC7Zxg-m0";
                     break;
                 default:
                     break;
@@ -55,7 +64,6 @@ public class HelpActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -64,7 +72,6 @@ public class HelpActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @Override

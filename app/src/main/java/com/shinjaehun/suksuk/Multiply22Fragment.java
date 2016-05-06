@@ -2,6 +2,7 @@ package com.shinjaehun.suksuk;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -12,6 +13,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,35 +24,37 @@ public class Multiply22Fragment extends Fragment implements NumberpadClickListen
 
     private static final String LOG_TAG = Multiply22Fragment.class.getSimpleName();
 
-    public int top, down;
-    public int topTen, topOne;
-    public int downTen, downOne;
+    private int top, down;
+    private int topTen, topOne;
+    private int downTen, downOne;
 
-    View ans_line;
+    private View ans_line;
 
-    TextView top_ten, top_one;
-    TextView down_ten, down_one;
+    private TextView top_ten, top_one;
+    private TextView down_ten, down_one;
 
-    TextView carrying_ten;
-    TextView ans_carrying_thousand, ans_carrying_hundred;
-    TextView ans_top_one, ans_top_ten, ans_top_hundred;
-    TextView ans_down_one, ans_down_ten, ans_down_hundred;
-    TextView ans_one, ans_ten, ans_hundred, ans_thousand;
+    private TextView carrying_ten;
+    private TextView ans_carrying_thousand, ans_carrying_hundred;
+    private TextView ans_top_one, ans_top_ten, ans_top_hundred;
+    private TextView ans_down_one, ans_down_ten, ans_down_hundred;
+    private TextView ans_one, ans_ten, ans_hundred, ans_thousand;
 
-    TextView operand1TextView, operand2TextView, input1TextView, input2TextView;
+    private TextView operand1TextView, operand2TextView, input1TextView, input2TextView;
+
+    private Button help;
 
     //곱셈 결과를 입력할 순서 저장
-    boolean carrying = true;
+    private boolean carrying = true;
 
     //세 자리 수 중 하나가 0이거나 곱셈 결과가 받아올림이 없는 경우를 처리할 스위치
     //곱셈 결과를 더할 때 받아올림이 있는 경우에도 사용함
-    boolean zeroCarrying = false;
+    private boolean zeroCarrying = false;
 
     //현재 과정
-    int currentStage = 0;
+    private int currentStage = 0;
 
     //곱셈 결과
-    int ans = 0;
+    private int ans = 0;
 
     public void startPractice() {
         initOperands();
@@ -88,11 +92,22 @@ public class Multiply22Fragment extends Fragment implements NumberpadClickListen
         ans_hundred = (TextView)v.findViewById(R.id.ans_hundred);
         ans_thousand = (TextView)v.findViewById(R.id.ans_thousand);
 
+        help = (Button)v.findViewById(R.id.help);
+        help.setOnClickListener(new Button.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
+                intent.putExtra("help", "multiply22");
+                startActivity(intent);
+            }
+        });
+
         return v;
     }
 
 
-    public void initOperands() {
+    private void initOperands() {
         /* 피연산자 생성 */
         /*난수 테스트
         for (int i = 0; i < 100; i++) {

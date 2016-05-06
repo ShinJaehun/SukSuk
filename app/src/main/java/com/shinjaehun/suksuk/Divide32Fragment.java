@@ -2,6 +2,7 @@ package com.shinjaehun.suksuk;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,34 +23,39 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
 
     private static final String LOG_TAG = Divide32Fragment.class.getSimpleName();
 
-    public int divisor, dividend, quotient;
-    public int dividendHundred, dividendTen, dividendOne;
-    public int divisorTen, divisorOne;
-    public int quotientTen, quotientOne;
+    private int divisor, dividend, quotient;
+    private int dividendHundred, dividendTen, dividendOne;
+    private int divisorTen, divisorOne;
+    private int quotientTen, quotientOne;
 
-    View ans_first_line, ans_second_line;
+    private View ans_first_line, ans_second_line;
 
-    TextView quotient_ten, quotient_one;
-    TextView divisor_ten, divisor_one;
-    TextView dividend_hundred, dividend_ten, dividend_one;
+    private TextView quotient_ten, quotient_one;
+    private TextView divisor_ten, divisor_one;
+    private TextView dividend_hundred, dividend_ten, dividend_one;
 
-    TextView first_multiply_hundred, first_multiply_ten, first_multiply_one;
-    TextView first_subtract_hundred, first_subtract_ten, first_subtract_one;
-    TextView second_multiply_hundred, second_multiply_ten, second_multiply_one;
-    TextView remainder_ten, remainder_one;
+    private TextView first_multiply_hundred, first_multiply_ten, first_multiply_one;
+    private TextView first_subtract_hundred, first_subtract_ten, first_subtract_one;
+    private TextView second_multiply_hundred, second_multiply_ten, second_multiply_one;
+    private TextView remainder_ten, remainder_one;
 
-    TextView operand1TextView, operand2TextView, operand3TextView, operand4TextView, operand5TextView, operand6TextView;
-    TextView input1TextView, input2TextView, input3TextView;
+    private TextView operand1TextView, operand2TextView, operand3TextView, operand4TextView, operand5TextView, operand6TextView;
+    private TextView input1TextView, input2TextView, input3TextView;
 
-    boolean isFullMultiply = true;
-    int inputEntry = 0;
-    int inputNext = 0;
+    private Button help;
+
+    //몫이 두 자리 수인 경우 체크하는 스위치
+    private boolean isFullMultiply = true;
+
+    //세개의 inputTextView 입력을 받기 위한 스위치
+    private int inputEntry = 0;
+    private int inputNext = 0;
 
     //현재 과정
-    int currentStage = 0;
+    private int currentStage = 0;
 
     //곱셈 결과
-    int ans = 0;
+    private int ans = 0;
 
     public void startPractice() {
         initOperands();
@@ -89,11 +96,22 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
         remainder_ten = (TextView)v.findViewById(R.id.remainder_ten);
         remainder_one = (TextView)v.findViewById(R.id.remainder_one);
 
+        help = (Button)v.findViewById(R.id.help);
+        help.setOnClickListener(new Button.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
+                intent.putExtra("help", "divide32");
+                startActivity(intent);
+            }
+        });
+
         return v;
 
     }
 
-    public void initOperands() {
+    private void initOperands() {
         /* 피연산자 생성 */
         /*난수 테스트
         for (int i = 0; i < 100; i++) {
@@ -369,7 +387,7 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
                 if (Integer.parseInt(first_subtract_hundred.getText().toString()) == 0) {
                     operand1TextView = null;
                 } else {
-                    operand1TextView = first_multiply_hundred;
+                    operand1TextView = first_subtract_hundred;
                 }
                 if ((Integer.parseInt(first_subtract_hundred.getText().toString()) == 0)
                     && (Integer.parseInt(first_subtract_ten.getText().toString()) == 0)) {
