@@ -24,6 +24,12 @@
         android:text="세자리수 곱하기 두자리수"/>
 
     <Button
+        android:id="@+id/divide21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="두자리수 나누기 한자리수"/>
+
+    <Button
         android:id="@+id/divide22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

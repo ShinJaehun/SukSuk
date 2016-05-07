@@ -340,7 +340,7 @@ public class Multiply32Fragment extends Fragment implements NumberpadClickListen
         int temp = 0, temp1 = 0, temp2 = 0;
 
         //temp1에 사용자의 첫번째 입력 값 저장
-        if (input1TextView == null) {
+        if (input1TextView == null || !input1TextView.getText().toString().matches("[0-9]")) {
             temp1 = 0;
         } else {
             try {
@@ -352,7 +352,7 @@ public class Multiply32Fragment extends Fragment implements NumberpadClickListen
         }
 
         //temp2에 사용자의 두번째 입력 값 저장
-        if (input2TextView == null) {
+        if (input2TextView == null || !input2TextView.getText().toString().matches("[0-9]")) {
             temp2 = 0;
         } else {
             try {

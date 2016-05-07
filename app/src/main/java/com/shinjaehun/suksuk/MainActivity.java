@@ -41,6 +41,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button div21 = (Button)findViewById(R.id.divide21);
+        div21.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ProblemActivity.class);
+                //startActivity(new Intent(getApplicationContext(), ProblemActivity.class));
+                intent.putExtra("operation", "divide21");
+                startActivity(intent);
+            }
+        });
+
         Button div22 = (Button)findViewById(R.id.divide22);
         div22.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {

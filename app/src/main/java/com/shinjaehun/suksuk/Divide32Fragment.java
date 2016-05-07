@@ -1,12 +1,10 @@
 package com.shinjaehun.suksuk;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringDef;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -45,7 +43,7 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
     private Button help;
 
     //몫이 두 자리 수인 경우 체크하는 스위치
-    private boolean isFullMultiply = true;
+    private boolean isFullDivide = true;
 
     //세개의 inputTextView 입력을 받기 위한 스위치
     private int inputEntry = 0;
@@ -140,7 +138,7 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
         quotientOne = quotient % 10;
 
         if (dividendHundred * 10 + dividendTen < divisor) {
-            isFullMultiply = false;
+            isFullDivide = false;
         }
 
         //피연산자 표시
@@ -166,7 +164,7 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
                 operand4TextView = dividend_hundred;
                 operand5TextView = dividend_ten;
 
-                if (isFullMultiply) {
+                if (isFullDivide) {
                     operand6TextView = null;
                 } else {
                     operand6TextView = dividend_one;
@@ -175,13 +173,13 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
                 input1TextView = null;
                 input2TextView = null;
 
-                if (isFullMultiply) {
+                if (isFullDivide) {
                     input3TextView = quotient_ten;
                 } else {
                     input3TextView = quotient_one;
                 }
 
-                if (isFullMultiply) {
+                if (isFullDivide) {
                     ans = quotientTen;
                 } else {
                     ans = quotientOne;
@@ -198,7 +196,7 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
                 operand2TextView = divisor_one;
                 operand3TextView = null;
 
-                if (isFullMultiply) {
+                if (isFullDivide) {
                     operand4TextView = quotient_ten;
                 } else {
                     operand4TextView = quotient_one;
@@ -206,7 +204,7 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
                 operand5TextView = null;
                 operand6TextView = null;
 
-                if (isFullMultiply) {
+                if (isFullDivide) {
                     input1TextView = null;
                     input2TextView = first_multiply_hundred;
                     input3TextView = first_multiply_ten;
@@ -216,7 +214,7 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
                     input3TextView = first_multiply_one;
                 }
 
-                if (isFullMultiply) {
+                if (isFullDivide) {
                     ans = divisor * quotientTen;
                 } else {
                     ans = divisor * quotientOne;
@@ -228,7 +226,7 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
                 divisor_ten.setTextColor(Color.GRAY);
                 divisor_one.setTextColor(Color.GRAY);
 
-                if (isFullMultiply) {
+                if (isFullDivide) {
                     quotient_ten.setTextColor(Color.GRAY);
                 } else {
                     quotient_one.setTextColor(Color.GRAY);
@@ -237,7 +235,7 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
                 operand1TextView = dividend_hundred;
                 operand2TextView = dividend_ten;
 
-                if (isFullMultiply) {
+                if (isFullDivide) {
                     operand3TextView = null;
                 } else {
                     operand3TextView = dividend_one;
@@ -246,7 +244,7 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
                 operand4TextView = first_multiply_hundred;
                 operand5TextView = first_multiply_ten;
 
-                if (isFullMultiply) {
+                if (isFullDivide) {
                     operand6TextView = null;
                 } else {
                     operand6TextView = first_multiply_one;
@@ -254,13 +252,13 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
 
                 ans_first_line.setBackgroundColor(Color.GRAY);
 
-                if (isFullMultiply) {
+                if (isFullDivide) {
                     ans = (dividendHundred * 10 + dividendTen) - (divisor * quotientTen);
                 } else {
                     ans = dividend - (divisor * quotientOne);
                 }
 
-                if (isFullMultiply) {
+                if (isFullDivide) {
                     if (ans < 10) {
                         input1TextView = null;
                         input2TextView = null;
@@ -506,7 +504,7 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
         int temp = 0, temp1 = 0, temp2 = 0, temp3 = 0;
 
         //temp1에 사용자의 첫번째 입력 값 저장
-        if (input1TextView == null) {
+        if (input1TextView == null || !input1TextView.getText().toString().matches("[0-9]")) {
             temp1 = 0;
         } else {
             try {
@@ -518,7 +516,7 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
         }
 
         //temp2에 사용자의 두번째 입력 값 저장
-        if (input2TextView == null) {
+        if (input2TextView == null || !input2TextView.getText().toString().matches("[0-9]")) {
             temp2 = 0;
         } else {
             try {
@@ -529,7 +527,7 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
             }
         }
 
-        if (input3TextView == null) {
+        if (input3TextView == null || !input3TextView.getText().toString().matches("[0-9]")) {
             temp3 = 0;
         } else {
             try {
@@ -582,7 +580,7 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
             }
 
             //모든 연산이 끝나면
-            if ((currentStage == 3 && !isFullMultiply) || currentStage == 7) {
+            if ((currentStage == 3 && !isFullDivide) || currentStage == 7) {
                 finalStage();
             }
             return true;
@@ -677,7 +675,7 @@ public class Divide32Fragment extends Fragment implements NumberpadClickListener
 //        zeroCarrying = false;
         ans = 0;
 
-        isFullMultiply = true;
+        isFullDivide = true;
 
         //피연산자 초기화
         initOperands();

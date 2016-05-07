@@ -32,6 +32,9 @@ public class HelpActivity extends AppCompatActivity {
                 case "multiply32" :
                     url = "https://www.youtube.com/embed/5HXXk5H-hCs";
                     break;
+                case "divide21" :
+                    url = "https://www.youtube.com/embed/ZiwXgBjDk48";
+                    break;
                 case "divide22" :
                     url = "https://www.youtube.com/embed/ZiwXgBjDk48";
                     break;
