@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.Gravity;
@@ -411,6 +412,11 @@ public class Multiply32Fragment extends Fragment implements NumberpadClickListen
 
             //오답처리
         } else {
+            //진동 발사
+            Vibrator vibrator = (Vibrator)getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+            vibrator.vibrate(300);
+
+            //오답 텍스트 보여주기
             flashText(false);
 
             //사용자가 입력할 텍스트 뷰를 다시 'A'와 'B'로 되돌림
