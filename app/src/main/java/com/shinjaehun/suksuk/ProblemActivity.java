@@ -15,11 +15,13 @@ public class ProblemActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = ProblemActivity.class.getSimpleName();
     private NumberpadFragment numberpadFragment;
-    private Multiply32Fragment multiply32Fragment;
-    private Multiply22Fragment multiply22Fragment;
-    private Divide21Fragment divide21Fragment;
-    private Divide22Fragment divide22Fragment;
-    private Divide32Fragment divide32Fragment;
+    private ProblemFragment problemFragment;
+
+//    private Multiply32Fragment multiply32Fragment;
+//    private Multiply22Fragment multiply22Fragment;
+//    private Divide21Fragment divide21Fragment;
+//    private Divide22Fragment divide22Fragment;
+//    private Divide32Fragment divide32Fragment;
 
     String operation;
 
@@ -35,61 +37,115 @@ public class ProblemActivity extends AppCompatActivity {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
 
+//        if (intent != null) {
+//            switch (operation) {
+//                case "multiply32":
+////                    multiply32Fragment = new Multiply32Fragment();
+////                    ft.add(R.id.fragment_container, multiply32Fragment).commit();
+////                    break;
+//                    problemFragment = new Multiply32Fragment();
+//                    ft.add(R.id.fragment_container, problemFragment).commit();
+//                    break;
+//
+//                case "multiply22":
+//                    multiply22Fragment = new Multiply22Fragment();
+//                    ft.add(R.id.fragment_container, multiply22Fragment).commit();
+//                    break;
+//                case "divide21":
+//                    divide21Fragment = new Divide21Fragment();
+//                    ft.add(R.id.fragment_container, divide21Fragment).commit();
+//                    break;
+//                case "divide22":
+//                    divide22Fragment = new Divide22Fragment();
+//                    ft.add(R.id.fragment_container, divide22Fragment).commit();
+//                    break;
+//                case "divide32":
+//                    divide32Fragment = new Divide32Fragment();
+//                    ft.add(R.id.fragment_container, divide32Fragment).commit();
+//                    break;
+//            }
+//        }
+
         if (intent != null) {
             switch (operation) {
                 case "multiply32":
-                    multiply32Fragment = new Multiply32Fragment();
-                    ft.add(R.id.fragment_container, multiply32Fragment).commit();
+//                    multiply32Fragment = new Multiply32Fragment();
+//                    ft.add(R.id.fragment_container, multiply32Fragment).commit();
+//                    break;
+                    problemFragment = new Multiply32Fragment();
                     break;
                 case "multiply22":
-                    multiply22Fragment = new Multiply22Fragment();
-                    ft.add(R.id.fragment_container, multiply22Fragment).commit();
+                    problemFragment = new Multiply22Fragment();
                     break;
                 case "divide21":
-                    divide21Fragment = new Divide21Fragment();
-                    ft.add(R.id.fragment_container, divide21Fragment).commit();
+                    problemFragment = new Divide21Fragment();
                     break;
                 case "divide22":
-                    divide22Fragment = new Divide22Fragment();
-                    ft.add(R.id.fragment_container, divide22Fragment).commit();
+                    problemFragment = new Divide22Fragment();
                     break;
                 case "divide32":
-                    divide32Fragment = new Divide32Fragment();
-                    ft.add(R.id.fragment_container, divide32Fragment).commit();
+                    problemFragment = new Divide32Fragment();
                     break;
             }
         }
+        ft.add(R.id.fragment_container, problemFragment).commit();
+
     }
+
+//    @Override
+//    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+//        super.onPostCreate(savedInstanceState);
+//        switch (operation) {
+//            case "multiply32":
+//                numberpadFragment.setClickListener(multiply32Fragment);
+//                multiply32Fragment.startPractice();
+//                break;
+//            case "multiply22":
+//                numberpadFragment.setClickListener(multiply22Fragment);
+//                multiply22Fragment.startPractice();
+//                break;
+//            case "divide21":
+//                numberpadFragment.setClickListener(divide21Fragment);
+//                divide21Fragment.startPractice();
+//                break;
+//            case "divide22":
+//                numberpadFragment.setClickListener(divide22Fragment);
+//                divide22Fragment.startPractice();
+//                break;
+//            case "divide32":
+//                numberpadFragment.setClickListener(divide32Fragment);
+//                divide32Fragment.startPractice();
+//                break;
+//        }
+//
+//    }
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         switch (operation) {
             case "multiply32":
-                numberpadFragment.setClickListener(multiply32Fragment);
-                multiply32Fragment.startPractice();
+//                numberpadFragment.setClickListener(multiply32Fragment);
+//                multiply32Fragment.startPractice();
+//                break;
+                numberpadFragment.setClickListener((Multiply32Fragment)problemFragment);
                 break;
             case "multiply22":
-                numberpadFragment.setClickListener(multiply22Fragment);
-                multiply22Fragment.startPractice();
+                numberpadFragment.setClickListener((Multiply22Fragment)problemFragment);
                 break;
             case "divide21":
-                numberpadFragment.setClickListener(divide21Fragment);
-                divide21Fragment.startPractice();
+                numberpadFragment.setClickListener((Divide21Fragment)problemFragment);
                 break;
             case "divide22":
-                numberpadFragment.setClickListener(divide22Fragment);
-                divide22Fragment.startPractice();
+                numberpadFragment.setClickListener((Divide22Fragment)problemFragment);
                 break;
             case "divide32":
-                numberpadFragment.setClickListener(divide32Fragment);
-                divide32Fragment.startPractice();
+                numberpadFragment.setClickListener((Divide32Fragment)problemFragment);
                 break;
         }
+        problemFragment.startPractice();
 
     }
-
-
 
     /*
     나름대로 Multipane 모드를 구현하려고 했으나 potrait에서 landscape로 전환할 때 다시 activity가 oncreate 해버려서
