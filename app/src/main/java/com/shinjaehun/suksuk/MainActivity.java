@@ -22,8 +22,8 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), ProblemActivity.class);
                 //startActivity(new Intent(getApplicationContext(), ProblemActivity.class));
                 intent.putExtra("operation", "multiply22");
-                startActivityForResult(intent, 1);
-
+//                startActivityForResult(intent, 1);
+                startActivity(intent);
             }
         });
 
