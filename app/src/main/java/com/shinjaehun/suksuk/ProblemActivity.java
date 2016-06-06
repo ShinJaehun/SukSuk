@@ -90,8 +90,6 @@ public class ProblemActivity extends AppCompatActivity {
         }
         ft.add(R.id.fragment_container, problemFragment).commit();
 
-        setListener(operation);
-
     }
 
 //    @Override
@@ -125,33 +123,8 @@ public class ProblemActivity extends AppCompatActivity {
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        setListener(operation);
-//        switch (operation) {
-//            case "multiply32":
-////                numberpadFragment.setClickListener(multiply32Fragment);
-////                multiply32Fragment.startPractice();
-////                break;
-//                numberpadFragment.setClickListener((Multiply32Fragment)problemFragment);
-//                break;
-//            case "multiply22":
-//                numberpadFragment.setClickListener((Multiply22Fragment)problemFragment);
-//                break;
-//            case "divide21":
-//                numberpadFragment.setClickListener((Divide21Fragment)problemFragment);
-//                break;
-//            case "divide22":
-//                numberpadFragment.setClickListener((Divide22Fragment)problemFragment);
-//                break;
-//            case "divide32":
-//                numberpadFragment.setClickListener((Divide32Fragment)problemFragment);
-//                break;
-//        }
-        problemFragment.startPractice();
-
-    }
-
-    public void setListener(String op) {
-        switch (op) {
+//        setListener(operation);
+        switch (operation) {
             case "multiply32":
 //                numberpadFragment.setClickListener(multiply32Fragment);
 //                multiply32Fragment.startPractice();
@@ -171,7 +144,34 @@ public class ProblemActivity extends AppCompatActivity {
                 numberpadFragment.setClickListener((Divide32Fragment)problemFragment);
                 break;
         }
+        problemFragment.startPractice();
+
     }
+
+    //ClickListener를 set 했다 unset 했다 할 일이 있을까봐 이렇게 따로 구현했는데
+    //Activity를 다시 시작하는 과정을 통해 자동적으로 ClickListener가 재시작되므로 필요가 없어졌다.
+//    public void setListener(String op) {
+//        switch (op) {
+//            case "multiply32":
+////                numberpadFragment.setClickListener(multiply32Fragment);
+////                multiply32Fragment.startPractice();
+////                break;
+//                numberpadFragment.setClickListener((Multiply32Fragment)problemFragment);
+//                break;
+//            case "multiply22":
+//                numberpadFragment.setClickListener((Multiply22Fragment)problemFragment);
+//                break;
+//            case "divide21":
+//                numberpadFragment.setClickListener((Divide21Fragment)problemFragment);
+//                break;
+//            case "divide22":
+//                numberpadFragment.setClickListener((Divide22Fragment)problemFragment);
+//                break;
+//            case "divide32":
+//                numberpadFragment.setClickListener((Divide32Fragment)problemFragment);
+//                break;
+//        }
+//    }
 
     public void unSetListener() {
         numberpadFragment.unSetClickListener();

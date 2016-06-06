@@ -443,7 +443,7 @@ public class Multiply32Fragment extends ProblemFragment implements NumberpadClic
         }
     }
 
-    // 이 내용을 ProblemFragment로 옮겼습니다~
+//flashText()와 finalStage()를 ProblemFragment로 옮겼다.
 //    private void flashText(boolean trueOrFalse) {
 //        TextView textView;
 //        String answer = null;

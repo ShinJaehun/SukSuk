@@ -544,6 +544,7 @@ public class Divide21Fragment extends ProblemFragment implements NumberpadClickL
         }
     }
 
+    //flashText()와 finalStage()를 ProblemFragment로 옮겼다.
 //    private void finalStage() {
 //        /* finalStage()에서 값을 초기화한 후 다시 nextStage()를 호출하지는 않는데
 //        * 어차피 입력 버튼을 누르면 nextStage()를 호출하기 때문 */
