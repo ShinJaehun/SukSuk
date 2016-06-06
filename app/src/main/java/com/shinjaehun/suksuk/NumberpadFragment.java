@@ -125,6 +125,7 @@ public class NumberpadFragment extends Fragment{
     }
 
     public void setClickListener(NumberpadClickListener listener) { this.listener = listener; }
+    public void unSetClickListener() { this.listener = null; }
 
     public void onNumberClicked(View v) {
         switch (v.getId()) {
@@ -170,9 +171,19 @@ public class NumberpadFragment extends Fragment{
     }
 
     public void buttonClicked(int num) {
-        listener.onNumberClicked(num);
+        if (listener != null) {
+            listener.onNumberClicked(num);
+        }
     }
-    public void onOKClicked() { listener.onOKClicked(); }
-    public void onClearClicked() { listener.onClearClicked(); }
+    public void onOKClicked() {
+        if (listener != null) {
+            listener.onOKClicked();
+        }
+    }
+    public void onClearClicked() {
+        if (listener != null) {
+            listener.onClearClicked();
+        }
+    }
 
 }

@@ -44,4 +44,12 @@
         android:visibility="gone"
         android:text="메롱메롱~" />
 
+    <ImageView
+        android:id="@+id/verygood"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/verygood"
+        android:layout_gravity="right|center"
+        android:visibility="gone"/>
+
 </FrameLayout>

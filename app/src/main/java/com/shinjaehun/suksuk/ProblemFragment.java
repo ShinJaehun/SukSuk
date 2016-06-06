@@ -1,19 +1,43 @@
 package com.shinjaehun.suksuk;
 
 import android.app.Fragment;
+import android.content.Intent;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by shinjaehun on 2016-06-06.
  */
 public class ProblemFragment extends Fragment {
 
-    public void startPractice() {
+    public final static Map<String, Integer> myRecords = new HashMap<String, Integer>() {
+        //결국 이 Map 값도 Object로 외부로 넘겨야 하지 않을까 싶다...
+        {
+//            put("triple", 0);
+//            put("fifth", 0);
+            put("nomiss", 0);
+            put("mul22first", 0);
+            put("mul22expert", 0); //five times
+            put("mul22master", 0); //ten times
+            put("mul22fastest", 0);
+        }
+    };
 
+    public int score = 0;
+    //score 값은 activity가 재실행되면서 다시 0으로 리셋된다.
+
+    public void startPractice() {
     }
 
     public void flashText(boolean trueOrFalse) {
+        //이딴 식으로 구현하지 말고... 배열에다 문자열 집어 넣어서... random으로 선택하라면 되잖어!!!!!
         TextView textView;
         String answer = null;
         int random = (int)(Math.random() * 5) + 1;
@@ -66,4 +90,68 @@ public class ProblemFragment extends Fragment {
         textView.setAlpha(1.0f);
         textView.animate().alpha(0.0f).setDuration(1000).start();
     }
+
+
+    public void finalStage() {
+        /* finalStage()에서 값을 초기화한 후 다시 nextStage()를 호출하지는 않는데
+        * 어차피 입력 버튼을 누르면 nextStage()를 호출하기 때문 */
+
+        Toast toastR = Toast.makeText(getActivity(), "축하합니다!", Toast.LENGTH_LONG);
+        toastR.setGravity(Gravity.CENTER, 0, 0);
+        toastR.show();
+
+        //참잘했어요 이미지 표시하기
+        ImageView verygood = (ImageView)getActivity().findViewById(R.id.verygood);
+        verygood.setVisibility(View.VISIBLE);
+
+        //참잘했어요 이미지 나온 이후에 버튼 입력 해제
+        ((ProblemActivity)getActivity()).unSetListener();
+
+        //이미지 클릭하면 액티비티 재시작!
+        verygood.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = getActivity().getIntent();
+                getActivity().finish();
+                startActivity(intent);
+            }
+        });
+
+//        new CountDownTimer(5000, 1000) {
+//            @Override
+//            public void onTick(long millisUntilFinished) {
+//
+//            }
+//
+//            @Override
+//            public void onFinish() {
+//
+//            }
+//
+//        }.start();
+
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {}
+
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//            }
+//        }, 5000);
+
+//        //모든 변수 초기화
+//        currentStage = 0;
+//        zeroCarrying = false;
+//        carrying = true;
+//        ans = 0;
+//
+//        //피연산자 초기화
+//        initOperands();
+//        //피연산자를 제외한 나머지 모든 숫자 초기화
+//        initNumbers();
+    }
+
 }

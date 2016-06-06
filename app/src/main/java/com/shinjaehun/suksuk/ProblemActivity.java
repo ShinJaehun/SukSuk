@@ -90,6 +90,8 @@ public class ProblemActivity extends AppCompatActivity {
         }
         ft.add(R.id.fragment_container, problemFragment).commit();
 
+        setListener(operation);
+
     }
 
 //    @Override
@@ -123,7 +125,33 @@ public class ProblemActivity extends AppCompatActivity {
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        switch (operation) {
+        setListener(operation);
+//        switch (operation) {
+//            case "multiply32":
+////                numberpadFragment.setClickListener(multiply32Fragment);
+////                multiply32Fragment.startPractice();
+////                break;
+//                numberpadFragment.setClickListener((Multiply32Fragment)problemFragment);
+//                break;
+//            case "multiply22":
+//                numberpadFragment.setClickListener((Multiply22Fragment)problemFragment);
+//                break;
+//            case "divide21":
+//                numberpadFragment.setClickListener((Divide21Fragment)problemFragment);
+//                break;
+//            case "divide22":
+//                numberpadFragment.setClickListener((Divide22Fragment)problemFragment);
+//                break;
+//            case "divide32":
+//                numberpadFragment.setClickListener((Divide32Fragment)problemFragment);
+//                break;
+//        }
+        problemFragment.startPractice();
+
+    }
+
+    public void setListener(String op) {
+        switch (op) {
             case "multiply32":
 //                numberpadFragment.setClickListener(multiply32Fragment);
 //                multiply32Fragment.startPractice();
@@ -143,8 +171,10 @@ public class ProblemActivity extends AppCompatActivity {
                 numberpadFragment.setClickListener((Divide32Fragment)problemFragment);
                 break;
         }
-        problemFragment.startPractice();
+    }
 
+    public void unSetListener() {
+        numberpadFragment.unSetClickListener();
     }
 
     /*

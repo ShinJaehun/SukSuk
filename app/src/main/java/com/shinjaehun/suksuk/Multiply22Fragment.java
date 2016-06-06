@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -341,6 +342,8 @@ public class Multiply22Fragment extends ProblemFragment implements NumberpadClic
         //정답처리
         if (ans == temp) {
             flashText(true);
+            score++;
+            Log.v(LOG_TAG, "현재 스코어는 : " + score);
 
             //연산했던 자리수를 다시 회색으로 되돌리기
             if (operand1TextView != null) {
@@ -353,6 +356,9 @@ public class Multiply22Fragment extends ProblemFragment implements NumberpadClic
             //모든 연산이 끝나면
             if (currentStage == 8) {
                 finalStage();
+                return false;
+                //여기에 false를 넣지 않으면 finalStage로 가면서 nextStage()가 한번 더 실행된다!!
+                //잡기 어려웠던 버그 중 하나!
             }
             return true;
 
@@ -364,6 +370,8 @@ public class Multiply22Fragment extends ProblemFragment implements NumberpadClic
 
             //오답 텍스트 보여주기
             flashText(false);
+            score--;
+            Log.v(LOG_TAG, "현재 스코어는 : " + score);
 
             //사용자가 입력할 텍스트 뷰를 다시 'A'와 'B'로 되돌림
             if (input1TextView != null) {
@@ -382,53 +390,71 @@ public class Multiply22Fragment extends ProblemFragment implements NumberpadClic
                 }
             }
 
-            return false;        }
+            return false;
+        }
     }
-
-    private void finalStage() {
-        /* finalStage()에서 값을 초기화한 후 다시 nextStage()를 호출하지는 않는데
-        * 어차피 입력 버튼을 누르면 nextStage()를 호출하기 때문 */
-
-        Toast toastR = Toast.makeText(getActivity(), "축하합니다!", Toast.LENGTH_LONG);
-        toastR.setGravity(Gravity.CENTER, 0, 0);
-        toastR.show();
-
-//        new CountDownTimer(5000, 1000) {
+//
+//    private void finalStage() {
+//        /* finalStage()에서 값을 초기화한 후 다시 nextStage()를 호출하지는 않는데
+//        * 어차피 입력 버튼을 누르면 nextStage()를 호출하기 때문 */
+//
+//        Toast toastR = Toast.makeText(getActivity(), "축하합니다!", Toast.LENGTH_LONG);
+//        toastR.setGravity(Gravity.CENTER, 0, 0);
+//        toastR.show();
+//
+//        //참잘했어요 이미지 표시하기
+//        ImageView verygood = (ImageView)getActivity().findViewById(R.id.verygood);
+//        verygood.setVisibility(View.VISIBLE);
+//
+//        //참잘했어요 이미지 나온 이후에 버튼 입력 해제
+//        ((ProblemActivity)getActivity()).unSetListener();
+//
+//        //이미지 클릭하면 액티비티 재시작!
+//        verygood.setOnClickListener(new Button.OnClickListener() {
 //            @Override
-//            public void onTick(long millisUntilFinished) {
-//
+//            public void onClick(View v) {
+//                Intent intent = getActivity().getIntent();
+//                getActivity().finish();
+//                startActivity(intent);
 //            }
+//        });
 //
-//            @Override
-//            public void onFinish() {
+////        new CountDownTimer(5000, 1000) {
+////            @Override
+////            public void onTick(long millisUntilFinished) {
+////
+////            }
+////
+////            @Override
+////            public void onFinish() {
+////
+////            }
+////
+////        }.start();
 //
-//            }
+////        try {
+////            Thread.sleep(5000);
+////        } catch (InterruptedException e) {}
 //
-//        }.start();
-
-//        try {
-//            Thread.sleep(5000);
-//        } catch (InterruptedException e) {}
-
-//        Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
+////        Handler handler = new Handler();
+////        handler.postDelayed(new Runnable() {
+////            @Override
+////            public void run() {
+////
+////            }
+////        }, 5000);
 //
-//            }
-//        }, 5000);
-
-        //모든 변수 초기화
-        currentStage = 0;
-        zeroCarrying = false;
-        carrying = true;
-        ans = 0;
-
-        //피연산자 초기화
-        initOperands();
-        //피연산자를 제외한 나머지 모든 숫자 초기화
-        initNumbers();
-    }
+////        //모든 변수 초기화
+////        currentStage = 0;
+////        zeroCarrying = false;
+////        carrying = true;
+////        ans = 0;
+////
+////        //피연산자 초기화
+////        initOperands();
+////        //피연산자를 제외한 나머지 모든 숫자 초기화
+////        initNumbers();
+//    }
 
     private void initNumbers() {
 //        if (operand1TextView != null) {
