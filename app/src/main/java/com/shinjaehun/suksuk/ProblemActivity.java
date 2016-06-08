@@ -3,6 +3,8 @@ package com.shinjaehun.suksuk;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +18,10 @@ public class ProblemActivity extends AppCompatActivity {
     private static final String LOG_TAG = ProblemActivity.class.getSimpleName();
     private NumberpadFragment numberpadFragment;
     private ProblemFragment problemFragment;
+
+
+//    private SoundPool soundPool;
+//    private int soundBeep;
 
 //    private Multiply32Fragment multiply32Fragment;
 //    private Multiply22Fragment multiply22Fragment;
@@ -32,6 +38,9 @@ public class ProblemActivity extends AppCompatActivity {
         Intent intent = getIntent();
         operation = intent.getStringExtra("operation");
 
+//        initSound();
+
+        Effects.getInstance().init(this);
         numberpadFragment = (NumberpadFragment) getFragmentManager().findFragmentById(R.id.numberPadFragment);
 
         FragmentManager fm = getFragmentManager();
@@ -90,7 +99,14 @@ public class ProblemActivity extends AppCompatActivity {
         }
         ft.add(R.id.fragment_container, problemFragment).commit();
 
+
     }
+
+
+//    private void initSound() {
+//        soundPool = new SoundPool(1, AudioManager.STREAM_ALARM, 0);
+//        soundBeep = soundPool.load(getApplicationContext(), R.raw.beep, 1);
+//    }
 
 //    @Override
 //    protected void onPostCreate(@Nullable Bundle savedInstanceState) {

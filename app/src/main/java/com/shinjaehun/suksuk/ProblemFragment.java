@@ -2,6 +2,8 @@ package com.shinjaehun.suksuk;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +19,11 @@ import java.util.Map;
  * Created by shinjaehun on 2016-06-06.
  */
 public class ProblemFragment extends Fragment {
+
+//    private SoundPool soundPool;
+//    private int soundBeep;
+
+    private int i = 0;
 
     public final static Map<String, Integer> myRecords = new HashMap<String, Integer>() {
         //결국 이 Map 값도 Object로 외부로 넘겨야 하지 않을까 싶다...
@@ -37,56 +45,83 @@ public class ProblemFragment extends Fragment {
     public void startPractice() {
     }
 
-    public void flashText(boolean trueOrFalse) {
-        //이딴 식으로 구현하지 말고... 배열에다 문자열 집어 넣어서... random으로 선택하라면 되잖어!!!!!
+
+
+//    private void initSound() {
+//        soundPool = new SoundPool(1, AudioManager.STREAM_ALARM, 0);
+//        soundBeep = soundPool.load(getActivity().getApplicationContext(), R.raw.beep, 1);
+//    }
+
+    public void flashText(boolean result) {
         TextView textView;
-        String answer = null;
-        int random = (int)(Math.random() * 5) + 1;
-        if (trueOrFalse) {
+
+//        initSound();
+//        soundPool.play(soundBeep, 1f, 1f, 0, 0, 1f);
+
+
+        Effects.getInstance().playBeep(Effects.SOUND_1);
+
+        String[] correctMsg = {"정답!", "제법인데~", "훌륭해!", "꽤 하는걸?", "맞았어!",
+                "잘했어!", "끝내준다!", "바로 그거야", "축하축하", "짝짝짝"};
+        String[] wrongMsg = {"아니거든!", "땡~", "메롱메롱~", "제대로 해봐!", "다시 해보셈",
+                "ㅋㅋㅋ", "약오르지~", "틀리셨습니다", "아니라고!", "실수했구나"};
+
+        if (result) {
             textView = (TextView)getActivity().findViewById(R.id.answer_right);
-            switch (random) {
-                case 1:
-                    answer = "정답!";
-                    break;
-                case 2:
-                    answer = "제법인데~";
-                    break;
-                case 3:
-                    answer = "훌륭해!";
-                    break;
-                case 4:
-                    answer = "꽤 하는걸?";
-                    break;
-                case 5:
-                    answer = "맞았어!";
-                    break;
-                default:
-                    break;
-            }
+            textView.setText(correctMsg[(int)(Math.random() * correctMsg.length)]);
         } else {
             textView = (TextView)getActivity().findViewById(R.id.answer_wrong);
-            switch (random) {
-                case 1:
-                    answer = "아니거든!";
-                    break;
-                case 2:
-                    answer = "땡!!!";
-                    break;
-                case 3:
-                    answer = "메롱메롱~";
-                    break;
-                case 4:
-                    answer = "제대로 해봐!";
-                    break;
-                case 5:
-                    answer = "다시 해보셈!";
-                    break;
-                default:
-                    break;
-            }
+            textView.setText(wrongMsg[(int)(Math.random() * wrongMsg.length)]);
         }
 
-        textView.setText(answer);
+        //이딴 식으로 구현하지 말고... 배열에다 문자열 집어 넣어서... random으로 선택하라면 되잖어!!!!!
+//        String answer = null;
+//        int random = (int)(Math.random() * 5) + 1;
+//        if (result) {
+//            textView = (TextView)getActivity().findViewById(R.id.answer_right);
+//            switch (random) {
+//                case 1:
+//                    answer = "정답!";
+//                    break;
+//                case 2:
+//                    answer = "제법인데~";
+//                    break;
+//                case 3:
+//                    answer = "훌륭해!";
+//                    break;
+//                case 4:
+//                    answer = "꽤 하는걸?";
+//                    break;
+//                case 5:
+//                    answer = "맞았어!";
+//                    break;
+//                default:
+//                    break;
+//            }
+//        } else {
+//            textView = (TextView)getActivity().findViewById(R.id.answer_wrong);
+//            switch (random) {
+//                case 1:
+//                    answer = "아니거든!";
+//                    break;
+//                case 2:
+//                    answer = "땡!!!";
+//                    break;
+//                case 3:
+//                    answer = "메롱메롱~";
+//                    break;
+//                case 4:
+//                    answer = "제대로 해봐!";
+//                    break;
+//                case 5:
+//                    answer = "다시 해보셈!";
+//                    break;
+//                default:
+//                    break;
+//            }
+//        }
+//
+//        textView.setText(answer);
         textView.setVisibility(View.VISIBLE);
         textView.setAlpha(1.0f);
         textView.animate().alpha(0.0f).setDuration(1000).start();
@@ -100,6 +135,9 @@ public class ProblemFragment extends Fragment {
         Toast toastR = Toast.makeText(getActivity(), "축하합니다!", Toast.LENGTH_LONG);
         toastR.setGravity(Gravity.CENTER, 0, 0);
         toastR.show();
+
+        Effects.getInstance().playTada(Effects.SOUND_2);
+
 
         //참잘했어요 이미지 표시하기
         ImageView verygood = (ImageView)getActivity().findViewById(R.id.verygood);
