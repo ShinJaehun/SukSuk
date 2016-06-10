@@ -29,9 +29,7 @@ public class Effects {
     }
 
     private SoundPool soundPool;
-    private SoundPool soundPool2;
     private HashMap<Integer, Integer> soundPoolMap;
-    private HashMap<Integer, Integer> soundPoolMap2;
 //    int priority = 1;
 //    int no_loop = 0;
 //    private int volume;
@@ -45,9 +43,6 @@ public class Effects {
 
         soundPoolMap = new HashMap<Integer, Integer>();
         soundPoolMap.put(SOUND_1, soundPool.load(context, R.raw.beep, 1));
-
-//        soundPool2 = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-//        soundPoolMap = new HashMap<Integer, Integer>();
         soundPoolMap.put(SOUND_2, soundPool.load(context, R.raw.tada, 1));
 
 //        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
@@ -62,7 +57,6 @@ public class Effects {
     }
 
     public void playTada(int soundId) {
-//        soundPool.play(soundId, volume, volume, priority, no_loop, normal_playback_rate);
         soundPool.play(soundId, 1, 1, 0, 0, 1);
     }
 }
