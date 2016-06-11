@@ -31,7 +31,7 @@ public class Divide32NewFragment extends ProblemFragment implements NumberpadCli
 
     private TextView quotient_ten, quotient_one;
 
-    private LinearLayout carrying_l2_divisor_ten;
+    private LinearLayout carrying_l2_divisor_ten, carrying_l2_divisor_one;
 
     private TextView carrying_divisor_ten;
     private TextView divisor_ten, divisor_one;
@@ -43,6 +43,8 @@ public class Divide32NewFragment extends ProblemFragment implements NumberpadCli
     private TextView carrying_dividend_hundred, carrying_dividend_ten_10, carrying_dividend_ten_1;
     private TextView carrying_dividend_one_10, carrying_dividend_one_1;
     private ImageView carrying_dividend_ten_cover;
+
+    private ImageView currentMark;
 
     private ImageView dividend_hundred_cover, dividend_ten_cover, dividend_one_cover;
     private TextView dividend_hundred, dividend_ten, dividend_one;
@@ -68,9 +70,13 @@ public class Divide32NewFragment extends ProblemFragment implements NumberpadCli
     //몫이 두 자리 수인 경우 체크하는 스위치
     private boolean isFullDivide = true;
 
-    //세개의 inputTextView 입력을 받기 위한 스위치
-    private int inputEntry = 0;
-    private int inputNext = 0;
+//    //세개의 inputTextView 입력을 받기 위한 스위치
+//    private int inputEntry = 0;
+//    private int inputNext = 0;
+
+    private boolean carrying = true;
+
+    private boolean zeroCarrying = false;
 
     //현재 과정
     private int currentStage = 0;
@@ -93,6 +99,8 @@ public class Divide32NewFragment extends ProblemFragment implements NumberpadCli
 
         carrying_l2_divisor_ten = (LinearLayout)v.findViewById(R.id.carrying_l2_divisor_ten);
         carrying_divisor_ten = (TextView)v.findViewById(R.id.carrying_divisor_ten);
+
+        carrying_l2_divisor_one = (LinearLayout)v.findViewById(R.id.carrying_l2_divisor_one);
 
         divisor_ten = (TextView)v.findViewById(R.id.divisor_ten);
         divisor_one = (TextView)v.findViewById(R.id.divisor_one);
@@ -181,10 +189,10 @@ public class Divide32NewFragment extends ProblemFragment implements NumberpadCli
             Log.v(LOG_TAG, String.valueOf(top));
         }*/
 
-        dividend = (int) (Math.random() * 900) + 100;
-        divisor = (int) (Math.random() * 90) + 10;
-//        dividend = 868;
-//        divisor = 56;
+//        dividend = (int) (Math.random() * 900) + 100;
+//        divisor = (int) (Math.random() * 90) + 10;
+        dividend = 801;
+        divisor = 49;
 
         quotient = dividend / divisor;
 
@@ -224,161 +232,100 @@ public class Divide32NewFragment extends ProblemFragment implements NumberpadCli
             case 1:
                 operand1TextView = divisor_ten;
                 operand2TextView = divisor_one;
-                operand3TextView = null;
-                operand4TextView = dividend_hundred;
-                operand5TextView = dividend_ten;
+                operand3TextView = dividend_hundred;
+                operand4TextView = dividend_ten;
 
-                if (isFullDivide) {
-                    operand6TextView = null;
-                } else {
-                    operand6TextView = dividend_one;
-                }
+                //곱셈에 따라 여기서 operand5Text를 사용할 수도 있음
+                operand5TextView = null;
 
                 input1TextView = null;
-                input2TextView = null;
+                input2TextView = quotient_ten;
 
-                if (isFullDivide) {
-                    input3TextView = quotient_ten;
-                } else {
-                    input3TextView = quotient_one;
-                }
-
-                if (isFullDivide) {
-                    ans = quotientTen;
-                } else {
-                    ans = quotientOne;
-                }
+                ans = quotientTen;
+                zeroCarrying = true;
 
                 break;
 
             case 2:
+                //나누어지는 수 회색으로
                 dividend_hundred.setTextColor(Color.GRAY);
                 dividend_ten.setTextColor(Color.GRAY);
-                dividend_one.setTextColor(Color.GRAY);
 
-                operand1TextView = divisor_ten;
-                operand2TextView = divisor_one;
+                //나누는 수 십의 자리 회색으로
+                divisor_ten.setTextColor(Color.GRAY);
+
+                operand1TextView = divisor_one;
+                operand2TextView = quotient_ten;
                 operand3TextView = null;
-
-                if (isFullDivide) {
-                    operand4TextView = quotient_ten;
-                } else {
-                    operand4TextView = quotient_one;
-                }
+                operand4TextView = null;
                 operand5TextView = null;
-                operand6TextView = null;
 
-                if (isFullDivide) {
-                    input1TextView = null;
-                    input2TextView = first_multiply_hundred;
-                    input3TextView = first_multiply_ten;
-                } else {
-                    input1TextView = first_multiply_hundred;
-                    input2TextView = first_multiply_ten;
-                    input3TextView = first_multiply_one;
-                }
+                input1TextView = carrying_divisor_ten;
+                input2TextView = first_multiply_ten;
 
-                if (isFullDivide) {
-                    ans = divisor * quotientTen;
-                } else {
-                    ans = divisor * quotientOne;
-                }
+                ans = divisorOne * quotientTen;
 
                 break;
 
             case 3:
-                divisor_ten.setTextColor(Color.GRAY);
+                //나누는 수 일의 자리 회색으로
                 divisor_one.setTextColor(Color.GRAY);
 
-                if (isFullDivide) {
-                    quotient_ten.setTextColor(Color.GRAY);
-                } else {
-                    quotient_one.setTextColor(Color.GRAY);
-                }
+                operand1TextView = divisor_ten;
+                operand2TextView = quotient_ten;
+                operand3TextView = null;
+                operand4TextView = null;
+                operand5TextView = null;
 
-                operand1TextView = dividend_hundred;
-                operand2TextView = dividend_ten;
+                input1TextView = null;
+                input2TextView = first_multiply_hundred;
 
-                if (isFullDivide) {
-                    operand3TextView = null;
-                } else {
-                    operand3TextView = dividend_one;
-                }
-
-                operand4TextView = first_multiply_hundred;
-                operand5TextView = first_multiply_ten;
-
-                if (isFullDivide) {
-                    operand6TextView = null;
-                } else {
-                    operand6TextView = first_multiply_one;
-                }
-
-                ans_first_line.setBackgroundColor(Color.GRAY);
-
-                if (isFullDivide) {
-                    ans = (dividendHundred * 10 + dividendTen) - (divisor * quotientTen);
-                } else {
-                    ans = dividend - (divisor * quotientOne);
-                }
-
-                if (isFullDivide) {
-                    if (ans < 10) {
-                        input1TextView = null;
-                        input2TextView = null;
-                        input3TextView = first_subtract_ten;
-                    } else {
-                        input1TextView = null;
-                        input2TextView = first_subtract_hundred;
-                        input3TextView = first_subtract_ten;
-                    }
-                } else {
-                    input1TextView = null;
-                    if (ans < 10) {
-                        input2TextView = null;
-                        input3TextView = first_subtract_one;
-                    } else {
-                        input2TextView = first_subtract_ten;
-                        input3TextView = first_subtract_one;
-                    }
-                }
+                ans = divisorTen * quotientTen +
+                        Integer.parseInt(carrying_divisor_ten.getText().toString());
+                zeroCarrying = true;
 
                 break;
 
             case 4:
-                dividend_hundred.setTextColor(Color.GRAY);
-                dividend_ten.setTextColor(Color.GRAY);
-                dividend_one.setTextColor(Color.GRAY);
+                //나누는 수 십의 자리 회색으로
+                divisor_ten.setTextColor(Color.GRAY);
 
+                //1차 곱셈 결과 회색으로
                 first_multiply_hundred.setTextColor(Color.GRAY);
                 first_multiply_ten.setTextColor(Color.GRAY);
-                first_multiply_one.setTextColor(Color.GRAY);
 
-                if (Integer.parseInt(first_subtract_hundred.getText().toString()) == 0) {
-                    first_subtract_hundred.setTextColor(Color.WHITE);
-                } else {
-                    first_subtract_hundred.setTextColor(Color.GRAY);
-                }
+                //받아올림 내용 삭제
+                carrying_divisor_ten.setText("0");
+                carrying_divisor_ten.setTextColor(Color.WHITE);
 
-                if ((Integer.parseInt(first_subtract_hundred.getText().toString()) == 0)
-                    && (Integer.parseInt(first_subtract_ten.getText().toString()) == 0)) {
-                    first_subtract_ten.setTextColor(Color.WHITE);
-                } else {
-                    first_subtract_ten.setTextColor(Color.GRAY);
-                }
+                //나눗셈 형태 확인
+                // 0 < 9 라면...
 
-                operand1TextView = dividend_one;
+                //first line의 레이아웃 2 활성화
+                carrying_l2_divisor_ten.setVisibility(View.VISIBLE);
+                carrying_l2_divisor_one.setVisibility(View.VISIBLE);
+                carrying_l2_dividend_hundred.setVisibility(View.VISIBLE);
+                carrying_l2_dividend_ten.setVisibility(View.VISIBLE);
+                carrying_l2_dividend_one.setVisibility(View.VISIBLE);
+
+                operand1TextView = dividend_hundred;
                 operand2TextView = null;
                 operand3TextView = null;
                 operand4TextView = null;
                 operand5TextView = null;
-                operand6TextView = null;
+
+                currentMark = dividend_hundred_cover;
+                markOn(currentMark);
+
+                //받아내림 표시하기
+//                dividend_hundred_cover.setVisibility(View.VISIBLE);
+//                dividend_hundred_cover.setImageResource(R.drawable.slash_red);
 
                 input1TextView = null;
-                input2TextView = null;
-                input3TextView = first_subtract_one;
+                input2TextView = carrying_dividend_hundred;
 
-                ans = dividendOne;
+                ans = dividendHundred - 1;
+                zeroCarrying = true;
 
                 break;
 
@@ -397,7 +344,7 @@ public class Divide32NewFragment extends ProblemFragment implements NumberpadCli
                 }
 
                 if ((Integer.parseInt(first_subtract_hundred.getText().toString()) == 0)
-                    && (Integer.parseInt(first_subtract_ten.getText().toString()) == 0)) {
+                        && (Integer.parseInt(first_subtract_ten.getText().toString()) == 0)) {
                     operand5TextView = null;
                 } else {
                     operand5TextView = first_subtract_ten;
@@ -452,7 +399,7 @@ public class Divide32NewFragment extends ProblemFragment implements NumberpadCli
                     operand1TextView = first_subtract_hundred;
                 }
                 if ((Integer.parseInt(first_subtract_hundred.getText().toString()) == 0)
-                    && (Integer.parseInt(first_subtract_ten.getText().toString()) == 0)) {
+                        && (Integer.parseInt(first_subtract_ten.getText().toString()) == 0)) {
                     operand2TextView = null;
                 } else {
                     operand2TextView = first_subtract_ten;
@@ -464,8 +411,8 @@ public class Divide32NewFragment extends ProblemFragment implements NumberpadCli
                 } else {
                     operand4TextView = second_multiply_hundred;
                 }
-                if((Integer.parseInt(second_multiply_hundred.getText().toString()) == 0)
-                   && (Integer.parseInt(second_multiply_ten.getText().toString()) == 0)) {
+                if ((Integer.parseInt(second_multiply_hundred.getText().toString()) == 0)
+                        && (Integer.parseInt(second_multiply_ten.getText().toString()) == 0)) {
                     operand5TextView = null;
                 } else {
                     operand5TextView = second_multiply_ten;
@@ -525,20 +472,33 @@ public class Divide32NewFragment extends ProblemFragment implements NumberpadCli
             input2TextView.setText("?");
             input2TextView.setTextColor(Color.BLACK);
         }
-        if (input3TextView != null) {
-            input3TextView.setText("?");
-            input3TextView.setTextColor(Color.BLACK);
+
+//        if (currentStage < 4 || (currentStage > 8 && currentStage < 12)) {
+        if (currentStage == 2) {
+
+            //곱셈 과정에서 받아올림이 없는 경우
+            if (ans < 10) {
+                input1TextView.setText("0");
+                input1TextView.setTextColor(Color.WHITE);
+                zeroCarrying = true;
+            } else {
+                zeroCarrying = false;
+            }
+            //곱셈 결과를 더하는 과정에서는?
+
+
         }
 
-        if (input1TextView != null) {
-            inputEntry = 1;
-        } else if (input2TextView != null) {
-            inputEntry = 2;
-        } else {
-            inputEntry = 3;
-        }
-
-        inputNext = 1;
+//
+//        if (input1TextView != null) {
+//            inputEntry = 1;
+//        } else if (input2TextView != null) {
+//            inputEntry = 2;
+//        } else {
+//            inputEntry = 3;
+//        }
+//
+//        inputNext = 1;
 //
 //        if (currentStage < 7) {
 //            //세 자리 수 중 하나가 0이거나 곱셈 결과가 받아올림이 없는 경우
@@ -564,8 +524,19 @@ public class Divide32NewFragment extends ProblemFragment implements NumberpadCli
 //        }
     }
 
+    private void markOn(ImageView iv) {
+        iv.setVisibility(View.VISIBLE);
+        iv.setImageResource(R.drawable.slash_red);
+    }
+
+    private void markOff(ImageView iv) {
+        //완전히 삭제해버릴 필요는 없겠지?
+//        iv.setVisibility(View.INVISIBLE);
+        iv.setImageResource(R.drawable.slash_gray);
+    }
+
     private boolean result() {
-        int temp = 0, temp1 = 0, temp2 = 0, temp3 = 0;
+        int temp = 0, temp1 = 0, temp2 = 0;
 
         //temp1에 사용자의 첫번째 입력 값 저장
         if (input1TextView == null || !input1TextView.getText().toString().matches("[0-9]")) {
@@ -591,18 +562,18 @@ public class Divide32NewFragment extends ProblemFragment implements NumberpadCli
             }
         }
 
-        if (input3TextView == null || !input3TextView.getText().toString().matches("[0-9]")) {
-            temp3 = 0;
-        } else {
-            try {
-                temp3 = Integer.parseInt(input3TextView.getText().toString());
-                Log.v(LOG_TAG, "temp3 : " + String.valueOf(temp2));
-            } catch (NumberFormatException nfe) {
-                nfe.printStackTrace();
-            }
-        }
+//        if (input3TextView == null || !input3TextView.getText().toString().matches("[0-9]")) {
+//            temp3 = 0;
+//        } else {
+//            try {
+//                temp3 = Integer.parseInt(input3TextView.getText().toString());
+//                Log.v(LOG_TAG, "temp3 : " + String.valueOf(temp2));
+//            } catch (NumberFormatException nfe) {
+//                nfe.printStackTrace();
+//            }
+//        }
 
-        temp = temp1 * 100 + temp2 * 10 + temp3;
+        temp = temp1 * 10 + temp2;
 
 //        //각 자리수를 곱하는 과정 처리
 //        if (currentStage < 7) {
@@ -642,6 +613,16 @@ public class Divide32NewFragment extends ProblemFragment implements NumberpadCli
             if (operand3TextView != null) {
                 operand3TextView.setTextColor(Color.GRAY);
             }
+            if (operand4TextView != null) {
+                operand4TextView.setTextColor(Color.GRAY);
+            }
+            if (operand5TextView != null) {
+                operand5TextView.setTextColor(Color.GRAY);
+            }
+
+            if (currentMark != null) {
+                markOff(currentMark);
+            }
 
             //모든 연산이 끝나면
             if ((currentStage == 3 && !isFullDivide) || currentStage == 7) {
@@ -670,10 +651,7 @@ public class Divide32NewFragment extends ProblemFragment implements NumberpadCli
                 input2TextView.setText("?");
                 input2TextView.setTextColor(Color.BLACK);
             }
-            if (input3TextView != null) {
-                input3TextView.setText("?");
-                input3TextView.setTextColor(Color.BLACK);
-            }
+
 
             return false;
         }
@@ -758,53 +736,73 @@ public class Divide32NewFragment extends ProblemFragment implements NumberpadCli
 
     @Override
     public void onNumberClicked(int number) {
-        switch (inputNext) {
-            case 1:
-                switch (inputEntry) {
-                    case 1:
-                        if (input1TextView != null) {
-                            input1TextView.setText(String.valueOf(number));
-                        }
-                        inputNext = 2;
-                        break;
-                    case 2:
-                        input2TextView.setText(String.valueOf(number));
-                        inputNext = 2;
-                        break;
-                    case 3:
-                        input3TextView.setText(String.valueOf(number));
-                        inputNext = 1;
-                        break;
-                    default:
-                        break;
+//        switch (inputNext) {
+//            case 1:
+//                switch (inputEntry) {
+//                    case 1:
+//                        if (input1TextView != null) {
+//                            input1TextView.setText(String.valueOf(number));
+//                        }
+//                        inputNext = 2;
+//                        break;
+//                    case 2:
+//                        input2TextView.setText(String.valueOf(number));
+//                        inputNext = 2;
+//                        break;
+//                    case 3:
+//                        input3TextView.setText(String.valueOf(number));
+//                        inputNext = 1;
+//                        break;
+//                    default:
+//                        break;
+//                }
+//                break;
+//            case 2:
+//                switch (inputEntry) {
+//                    case 1:
+//                        input2TextView.setText(String.valueOf(number));
+//                        inputNext = 3;
+//                        break;
+//                    case 2:
+//                        input3TextView.setText(String.valueOf(number));
+//                        inputNext = 1;
+//                        break;
+//                    default:
+//                        break;
+//                }
+//                break;
+//            case 3:
+//                switch (inputEntry) {
+//                    case 1:
+//                        input3TextView.setText(String.valueOf(number));
+//                        inputNext = 1;
+//                        break;
+//                    default:
+//                        break;
+//                }
+//                break;
+//            default:
+//                break;
+//        }
+
+        if (zeroCarrying) {
+            if (input2TextView != null) {
+                input2TextView.setText(String.valueOf(number));
+            }
+        } else {
+            //사용자 입력 처리 : 첫번째 입력인 경우 input1TextView에 값을 입력함
+            if (carrying) {
+                if (input1TextView != null) {
+                    input1TextView.setText(String.valueOf(number));
                 }
-                break;
-            case 2:
-                switch (inputEntry) {
-                    case 1:
-                        input2TextView.setText(String.valueOf(number));
-                        inputNext = 3;
-                        break;
-                    case 2:
-                        input3TextView.setText(String.valueOf(number));
-                        inputNext = 1;
-                        break;
-                    default:
-                        break;
+                carrying = false;
+            } else {
+                //두번째 입력인 경우 input2TextView에 값을 입력함
+                if (input2TextView != null) {
+                    input2TextView.setText(String.valueOf(number));
                 }
-                break;
-            case 3:
-                switch (inputEntry) {
-                    case 1:
-                        input3TextView.setText(String.valueOf(number));
-                        inputNext = 1;
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            default:
-                break;
+                carrying = true;
+            }
         }
     }
 
@@ -813,14 +811,12 @@ public class Divide32NewFragment extends ProblemFragment implements NumberpadCli
         ans = 0;
         initNumbers();
         nextStage();
-        inputNext = 1;
     }
 
     public void onOKClicked() {
         if (result()) {
             nextStage();
         }
-        inputNext = 1;
     }
 
 }

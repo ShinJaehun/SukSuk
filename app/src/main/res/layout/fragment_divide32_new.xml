@@ -121,15 +121,15 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:orientation="horizontal"
-                            >
+                            android:visibility="gone">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0"
                                 android:textAlignment="center"
-                                android:textSize="10sp"
-                                android:textColor="@color/colorBackground"/>
+                                android:textColor="@color/colorBackground"
+                                android:textSize="10sp"/>
 
                         </LinearLayout>
 
@@ -172,19 +172,20 @@
                         android:orientation="vertical">
 
                         <LinearLayout
+                            android:id="@+id/carrying_l2_divisor_one"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:orientation="horizontal"
-                            >
+                            android:visibility="gone">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0"
                                 android:textAlignment="center"
-                                android:textSize="10sp"
-                                android:textColor="@color/colorBackground"/>
+                                android:textColor="@color/colorBackground"
+                                android:textSize="10sp"/>
 
                         </LinearLayout>
 
@@ -285,8 +286,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="6dp"
-                        android:orientation="vertical">
-
+                        android:orientation="vertical"
+                        android:gravity="center">
 
                         <LinearLayout
                             android:id="@+id/carrying_l2_dividend_hundred"
@@ -294,15 +295,15 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:orientation="horizontal"
-                            >
+                            android:visibility="gone">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0"
                                 android:textAlignment="center"
-                                android:textSize="10sp"
-                                android:textColor="@color/colorBackground"/>
+                                android:textColor="@color/colorBackground"
+                                android:textSize="10sp"/>
                         </LinearLayout>
 
 
@@ -311,12 +312,11 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal">
 
-
                             <ImageView
                                 android:layout_width="15dp"
                                 android:layout_height="15dp"
-                                android:src="@drawable/slash_gray"
                                 android:layout_gravity="center"
+                                android:src="@drawable/slash_gray"
                                 android:visibility="invisible"/>
 
                             <TextView
@@ -325,7 +325,8 @@
                                 android:layout_height="wrap_content"
                                 android:text="0"
                                 android:textAlignment="center"
-                                android:textSize="10sp"/>
+                                android:textSize="10sp"
+                                android:layout_marginLeft="4dp" />
 
                         </FrameLayout>
 
@@ -338,8 +339,8 @@
                                 android:id="@+id/dividend_hundred_cover"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/slash_gray"
-                                android:layout_gravity="center_vertical"/>
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/slash_gray"/>
 
                             <TextView
                                 android:id="@+id/dividend_hundred"
@@ -359,8 +360,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="6dp"
                         android:layout_marginRight="6dp"
-                        android:orientation="vertical"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:orientation="vertical">
 
                         <LinearLayout
                             android:id="@+id/carrying_l2_dividend_ten"
@@ -368,7 +369,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:orientation="horizontal"
-                            >
+                            android:visibility="gone">
 
                             <TextView
                                 android:id="@+id/carrying_l2_dividend_ten_10"
@@ -396,8 +397,8 @@
                                 android:id="@+id/carrying_dividend_ten_cover"
                                 android:layout_width="15dp"
                                 android:layout_height="15dp"
-                                android:src="@drawable/slash_gray"
-                                android:layout_gravity="center"/>
+                                android:layout_gravity="center"
+                                android:src="@drawable/slash_gray"/>
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -431,8 +432,8 @@
                                 android:id="@+id/dividend_ten_cover"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/slash_gray"
-                                android:layout_gravity="center_vertical"/>
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/slash_gray"/>
 
                             <TextView
                                 android:id="@+id/dividend_ten"
@@ -449,7 +450,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="6dp"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:gravity="center">
 
 
                         <LinearLayout
@@ -458,24 +460,23 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:orientation="horizontal"
-                            >
-
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="0"
-                                android:textAlignment="center"
-                                android:textSize="10sp"
-                                android:textColor="@color/colorBackground"/>
+                            android:visibility="gone">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0"
                                 android:textAlignment="center"
-                                android:textSize="10sp"
-                                android:textColor="@color/colorBackground"/>
+                                android:textColor="@color/colorBackground"
+                                android:textSize="10sp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorBackground"
+                                android:textSize="10sp"/>
                         </LinearLayout>
 
                         <FrameLayout
@@ -485,35 +486,32 @@
                             <ImageView
                                 android:layout_width="15dp"
                                 android:layout_height="15dp"
-                                android:src="@drawable/slash_gray"
                                 android:layout_gravity="center"
+                                android:src="@drawable/slash_gray"
                                 android:visibility="invisible"/>
 
-
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_gravity="center_horizontal">
-
-
-                            <TextView
-                                android:id="@+id/carrying_dividend_one_10"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="0"
-                                android:textAlignment="center"
-                                android:textSize="10sp"/>
+                                android:layout_gravity="center_horizontal"
+                                android:orientation="horizontal">
 
-                            <TextView
-                                android:id="@+id/carrying_dividend_one_1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="0"
-                                android:textAlignment="center"
-                                android:textSize="10sp"/>
-                        </LinearLayout>
+                                <TextView
+                                    android:id="@+id/carrying_dividend_one_10"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0"
+                                    android:textAlignment="center"
+                                    android:textSize="10sp"/>
+
+                                <TextView
+                                    android:id="@+id/carrying_dividend_one_1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0"
+                                    android:textAlignment="center"
+                                    android:textSize="10sp"/>
+                            </LinearLayout>
 
                         </FrameLayout>
 
@@ -522,20 +520,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
-
-
-
                             <ImageView
                                 android:id="@+id/dividend_one_cover"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/slash_gray"
-                                android:layout_gravity="center"/>
-
-
-
-
-
+                                android:layout_gravity="center"
+                                android:src="@drawable/slash_gray"/>
 
                             <TextView
                                 android:id="@+id/dividend_one"
@@ -544,6 +534,7 @@
                                 android:text="0"
                                 android:textAlignment="center"
                                 android:textSize="30sp" />
+
                         </FrameLayout>
 
                     </LinearLayout>
@@ -698,8 +689,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="6dp"
-                    android:orientation="vertical"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:id="@+id/carrying_l2_first_subtract_hundred"
@@ -707,15 +698,15 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:orientation="horizontal"
-                        >
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
                             android:textAlignment="center"
-                            android:textSize="10sp"
-                            android:textColor="@color/colorBackground"/>
+                            android:textColor="@color/colorBackground"
+                            android:textSize="10sp"/>
                     </LinearLayout>
 
                     <FrameLayout
@@ -726,17 +717,17 @@
                         <ImageView
                             android:layout_width="15dp"
                             android:layout_height="15dp"
-                            android:src="@drawable/slash_gray"
                             android:layout_gravity="center"
+                            android:src="@drawable/slash_gray"
                             android:visibility="invisible"/>
 
                         <TextView
                             android:id="@+id/carrying_first_subtract_hundred"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:text="0"
                             android:textAlignment="center"
-                            android:layout_gravity="center"
                             android:textSize="10sp"/>
 
                     </FrameLayout>
@@ -749,8 +740,8 @@
                             android:id="@+id/first_subtract_hundred_cover"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/slash_gray"
-                            android:layout_gravity="center" />
+                            android:layout_gravity="center"
+                            android:src="@drawable/slash_gray" />
 
                         <TextView
                             android:id="@+id/first_subtract_hundred"
@@ -770,8 +761,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="6dp"
                     android:layout_marginRight="6dp"
-                    android:orientation="vertical"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:id="@+id/carrying_l2_first_subtract_ten"
@@ -779,7 +770,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:orientation="horizontal"
-                        >
+                        android:visibility="gone">
 
                         <TextView
                             android:id="@+id/carrying_l2_first_subtract_ten_10"
@@ -807,8 +798,8 @@
                             android:id="@+id/carrying_first_subtract_ten_cover"
                             android:layout_width="15dp"
                             android:layout_height="15dp"
-                            android:src="@drawable/slash_gray"
-                            android:layout_gravity="center"/>
+                            android:layout_gravity="center"
+                            android:src="@drawable/slash_gray"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -844,8 +835,8 @@
                             android:id="@+id/first_subtract_ten_cover"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/slash_gray"
-                            android:layout_gravity="center"/>
+                            android:layout_gravity="center"
+                            android:src="@drawable/slash_gray"/>
 
                         <TextView
                             android:id="@+id/first_subtract_ten"
@@ -862,8 +853,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="6dp"
-                    android:orientation="vertical"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
 
                     <LinearLayout
@@ -872,23 +863,23 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:orientation="horizontal"
-                        >
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
                             android:textAlignment="center"
-                            android:textSize="10sp"
-                            android:textColor="@color/colorBackground"/>
+                            android:textColor="@color/colorBackground"
+                            android:textSize="10sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
                             android:textAlignment="center"
-                            android:textSize="10sp"
-                            android:textColor="@color/colorBackground"/>
+                            android:textColor="@color/colorBackground"
+                            android:textSize="10sp"/>
                     </LinearLayout>
 
 
@@ -896,36 +887,36 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/slash_gray"
-                        android:layout_gravity="center"
-                        android:visibility="invisible"/>
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/slash_gray"
+                            android:visibility="invisible"/>
 
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/carrying_first_subtract_one_10"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"
-                            android:textAlignment="center"
-                            android:textSize="10sp"/>
+                            android:layout_gravity="center_horizontal"
+                            android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/carrying_first_subtract_one_1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="0"
-                            android:textAlignment="center"
-                            android:textSize="10sp"/>
-                    </LinearLayout>
+                            <TextView
+                                android:id="@+id/carrying_first_subtract_one_10"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textAlignment="center"
+                                android:textSize="10sp"/>
+
+                            <TextView
+                                android:id="@+id/carrying_first_subtract_one_1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textAlignment="center"
+                                android:textSize="10sp"/>
+                        </LinearLayout>
 
                     </FrameLayout>
                     <FrameLayout
@@ -936,8 +927,8 @@
                             android:id="@+id/first_subtract_one_cover"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/slash_gray"
-                            android:layout_gravity="center"/>
+                            android:layout_gravity="center"
+                            android:src="@drawable/slash_gray"/>
 
                         <TextView
                             android:id="@+id/first_subtract_one"

@@ -93,7 +93,7 @@ public class ProblemActivity extends AppCompatActivity {
                     problemFragment = new Divide22Fragment();
                     break;
                 case "divide32":
-                    problemFragment = new Divide32Fragment();
+                    problemFragment = new Divide32NewFragment();
                     break;
             }
         }
@@ -157,7 +157,7 @@ public class ProblemActivity extends AppCompatActivity {
                 numberpadFragment.setClickListener((Divide22Fragment)problemFragment);
                 break;
             case "divide32":
-                numberpadFragment.setClickListener((Divide32Fragment)problemFragment);
+                numberpadFragment.setClickListener((Divide32NewFragment)problemFragment);
                 break;
         }
         problemFragment.startPractice();
