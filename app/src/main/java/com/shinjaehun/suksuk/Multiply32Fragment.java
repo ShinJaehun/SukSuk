@@ -1,6 +1,5 @@
 package com.shinjaehun.suksuk;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -8,13 +7,11 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Created by shinjaehun on 2016-04-19.
@@ -47,7 +44,7 @@ public class Multiply32Fragment extends ProblemFragment implements NumberpadClic
 
     //세 자리 수 중 하나가 0이거나 곱셈 결과가 받아올림이 없는 경우를 처리할 스위치
     //곱셈 결과를 더할 때 받아올림이 있는 경우에도 사용함
-    private boolean zeroCarrying = false;
+    private boolean multiInput = false;
 
     //현재 과정
     private int currentStage = 0;
@@ -123,8 +120,8 @@ public class Multiply32Fragment extends ProblemFragment implements NumberpadClic
         top = (int) (Math.random() * 900) + 100;
         down = (int) (Math.random() * 90) + 10;
 
-//        top = 111;
-//        down = 11;
+//        top = 453;
+//        down = 32;
 
         topHundred = top / 100 % 10;
         topTen = top / 10 % 10;
@@ -152,7 +149,13 @@ public class Multiply32Fragment extends ProblemFragment implements NumberpadClic
                 operand1TextView = top_one;
                 operand2TextView = down_one;
                 ans = topOne * downOne;
-                input1TextView = carrying_ten;
+
+                if (ans < 10) {
+                    //받아올림이 없으면 입력은 하나만...
+                    input1TextView = null;
+                } else {
+                    input1TextView = carrying_ten;
+                }
                 input2TextView = ans_top_one;
                 break;
 
@@ -160,7 +163,13 @@ public class Multiply32Fragment extends ProblemFragment implements NumberpadClic
                 operand1TextView = top_ten;
                 operand2TextView = down_one;
                 ans = topTen * downOne + Integer.parseInt(carrying_ten.getText().toString());
-                input1TextView = carrying_hundred;
+
+                if (ans < 10) {
+                    //받아올림이 없으면 입력은 하나만...
+                    input1TextView = null;
+                } else {
+                    input1TextView = carrying_hundred;
+                }
                 input2TextView = ans_top_ten;
                 break;
 
@@ -168,7 +177,14 @@ public class Multiply32Fragment extends ProblemFragment implements NumberpadClic
                 operand1TextView = top_hundred;
                 operand2TextView = down_one;
                 ans = topHundred * downOne + Integer.parseInt(carrying_hundred.getText().toString());
-                input1TextView = ans_top_thousand;
+
+                if (ans < 10) {
+                    //곱셈 결과가 백의 자리 밖에 되지 않는다면 입력은 하나만...
+                    input1TextView = null;
+                } else {
+                    input1TextView = ans_top_thousand;
+                }
+
                 input2TextView = ans_top_hundred;
                 break;
 
@@ -179,20 +195,27 @@ public class Multiply32Fragment extends ProblemFragment implements NumberpadClic
                 carrying_ten.setText("0");
                 carrying_ten.setTextColor(Color.WHITE);
 
-                //곱셈 결과를 회색으로 처리
+                //곱셈 결과를 천의 자리가 0이면 지우기
                 if (Integer.parseInt(ans_top_thousand.getText().toString()) == 0) {
                     ans_top_thousand.setTextColor(Color.WHITE);
-                } else {
-                    ans_top_thousand.setTextColor(Color.GRAY);
                 }
-                ans_top_hundred.setTextColor(Color.GRAY);
-                ans_top_ten.setTextColor(Color.GRAY);
-                ans_top_one.setTextColor(Color.GRAY);
+//                else {
+//                    ans_top_thousand.setTextColor(Color.GRAY);
+//                }
+//                ans_top_hundred.setTextColor(Color.GRAY);
+//                ans_top_ten.setTextColor(Color.GRAY);
+//                ans_top_one.setTextColor(Color.GRAY);
 
                 operand1TextView = top_one;
                 operand2TextView = down_ten;
                 ans = topOne * downTen;
-                input1TextView = carrying_ten;
+
+                if (ans < 10) {
+                    //받아올림이 없으면 입력은 하나만...
+                    input1TextView = null;
+                } else {
+                    input1TextView = carrying_ten;
+                }
                 input2TextView = ans_down_one;
                 break;
 
@@ -200,7 +223,13 @@ public class Multiply32Fragment extends ProblemFragment implements NumberpadClic
                 operand1TextView = top_ten;
                 operand2TextView = down_ten;
                 ans = topTen * downTen + Integer.parseInt(carrying_ten.getText().toString());
-                input1TextView = carrying_hundred;
+
+                if (ans < 10) {
+                    //받아올림이 없으면 입력은 하나만...
+                    input1TextView = null;
+                } else {
+                    input1TextView = carrying_hundred;
+                }
                 input2TextView = ans_down_ten;
                 break;
 
@@ -208,7 +237,13 @@ public class Multiply32Fragment extends ProblemFragment implements NumberpadClic
                 operand1TextView = top_hundred;
                 operand2TextView = down_ten;
                 ans = topHundred * downTen + Integer.parseInt(carrying_hundred.getText().toString());
-                input1TextView = ans_down_thousand;
+
+                if (ans < 10) {
+                    //곱셈 결과 백의 자리 밖에 되지 않는다면 입력은 하나만
+                    input1TextView = null;
+                } else {
+                    input1TextView = ans_down_thousand;
+                }
                 input2TextView = ans_down_hundred;
                 break;
 
@@ -219,15 +254,16 @@ public class Multiply32Fragment extends ProblemFragment implements NumberpadClic
                 carrying_ten.setText("0");
                 carrying_ten.setTextColor(Color.WHITE);
 
-                //곱셈 결과를 회색으로 처리
+                //곱셈 결과를 천의 자리가 0이면 지우기
                 if (Integer.parseInt(ans_down_thousand.getText().toString()) == 0) {
                     ans_down_thousand.setTextColor(Color.WHITE);
-                } else {
-                    ans_down_thousand.setTextColor(Color.GRAY);
                 }
-                ans_down_hundred.setTextColor(Color.GRAY);
-                ans_down_ten.setTextColor(Color.GRAY);
-                ans_down_one.setTextColor(Color.GRAY);
+//                else {
+//                    ans_down_thousand.setTextColor(Color.GRAY);
+//                }
+//                ans_down_hundred.setTextColor(Color.GRAY);
+//                ans_down_ten.setTextColor(Color.GRAY);
+//                ans_down_one.setTextColor(Color.GRAY);
 
                 //곱셈 결과를 더하기 전에 아래 선 긋기
                 ans_line.setBackgroundColor(Color.GRAY);
@@ -244,7 +280,13 @@ public class Multiply32Fragment extends ProblemFragment implements NumberpadClic
                 operand2TextView = ans_down_one;
                 ans = Integer.parseInt(ans_top_ten.getText().toString())
                         + Integer.parseInt(ans_down_one.getText().toString());
-                input1TextView = ans_carrying_hundred;
+
+                if (ans < 10) {
+                    //받아올림이 없는 경우 입력은 하나만...
+                    input1TextView = null;
+                } else {
+                    input1TextView = ans_carrying_hundred;
+                }
                 input2TextView = ans_ten;
                 break;
 
@@ -254,7 +296,13 @@ public class Multiply32Fragment extends ProblemFragment implements NumberpadClic
                 ans = Integer.parseInt(ans_top_hundred.getText().toString())
                         + Integer.parseInt(ans_down_ten.getText().toString())
                         + Integer.parseInt(ans_carrying_hundred.getText().toString());
-                input1TextView = ans_carrying_thousand;
+
+                if (ans < 10) {
+                    //덧셈 결과 받아올림이 없으면 입력은 하나만...
+                    input1TextView = null;
+                } else {
+                    input1TextView = ans_carrying_thousand;
+                }
                 input2TextView = ans_hundred;
                 break;
 
@@ -268,7 +316,13 @@ public class Multiply32Fragment extends ProblemFragment implements NumberpadClic
                 ans = Integer.parseInt(ans_top_thousand.getText().toString())
                         + Integer.parseInt(ans_down_hundred.getText().toString())
                         + Integer.parseInt(ans_carrying_thousand.getText().toString());
-                input1TextView = ans_carrying_tenthousand;
+
+                if (ans < 10) {
+                    //덧셈 결과 받아올림이 없으면 입력은 하나만...
+                    input1TextView = null;
+                } else {
+                    input1TextView = ans_carrying_tenthousand;
+                }
                 input2TextView = ans_thousand;
                 break;
 
@@ -301,40 +355,47 @@ public class Multiply32Fragment extends ProblemFragment implements NumberpadClic
         //입력할 텍스트 뷰를 임시로 'A'와 'B'로 표시
         if (input1TextView != null) {
             input1TextView.setText("?");
-            input1TextView.setTextColor(Color.BLACK);
+            input1TextView.setTextColor(Color.BLUE);
         }
         if (input2TextView != null) {
             input2TextView.setText("?");
-            input2TextView.setTextColor(Color.BLACK);
+            input2TextView.setTextColor(Color.BLUE);
         }
 
-        if (currentStage < 7) {
-            //세 자리 수 중 하나가 0이거나 곱셈 결과가 받아올림이 없는 경우
-            if (Integer.parseInt(operand1TextView.getText().toString()) == 0 || ans < 10) {
-                input1TextView.setText("0");
-                input1TextView.setTextColor(Color.WHITE);
-                zeroCarrying = true;
-            } else {
-                zeroCarrying = false;
-            }
+
+        if (input1TextView != null && input2TextView != null) {
+            multiInput = true;
         } else {
-            //곱셈 결과를 더하는 과정에서 받아올림이 없는 경우
-            if (ans < 10) {
-                if (operand1TextView == null && operand2TextView == null) {
-                    finalStage();
-                    nextStage();
-                }
-
-                if (input1TextView != null) {
-                    input1TextView.setText("0");
-                    input1TextView.setTextColor(Color.WHITE);
-                }
-                //carrying = false;
-                zeroCarrying = true;
-            } else {
-                zeroCarrying = false;
-            }
+            multiInput = false;
         }
+
+//        if (currentStage < 7) {
+//            //세 자리 수 중 하나가 0이거나 곱셈 결과가 받아올림이 없는 경우
+//            if (Integer.parseInt(operand1TextView.getText().toString()) == 0 || ans < 10) {
+//                input1TextView.setText("0");
+//                input1TextView.setTextColor(Color.WHITE);
+//                multiInput = true;
+//            } else {
+//                multiInput = false;
+//            }
+//        } else {
+//            //곱셈 결과를 더하는 과정에서 받아올림이 없는 경우
+//            if (ans < 10) {
+//                if (operand1TextView == null && operand2TextView == null) {
+//                    finalStage();
+//                    nextStage();
+//                }
+//
+//                if (input1TextView != null) {
+//                    input1TextView.setText("0");
+//                    input1TextView.setTextColor(Color.WHITE);
+//                }
+//                //carrying = false;
+//                multiInput = true;
+//            } else {
+//                multiInput = false;
+//            }
+//        }
     }
 
     private boolean result() {
@@ -365,7 +426,6 @@ public class Multiply32Fragment extends ProblemFragment implements NumberpadClic
         }
 
         temp = temp1 * 10 + temp2;
-
 
 
 //        //각 자리수를 곱하는 과정 처리
@@ -404,6 +464,14 @@ public class Multiply32Fragment extends ProblemFragment implements NumberpadClic
                 operand2TextView.setTextColor(Color.GRAY);
             }
 
+            //입력했던 내용 회색으로 되돌리기
+            if (input1TextView != null) {
+                input1TextView.setTextColor(Color.GRAY);
+            }
+            if (input2TextView != null) {
+                input2TextView.setTextColor(Color.GRAY);
+            }
+
             //모든 연산이 끝나면
             if (currentStage == 11) {
                 finalStage();
@@ -425,19 +493,19 @@ public class Multiply32Fragment extends ProblemFragment implements NumberpadClic
             //사용자가 입력할 텍스트 뷰를 다시 'A'와 'B'로 되돌림
             if (input1TextView != null) {
                 input1TextView.setText("?");
-                input1TextView.setTextColor(Color.BLACK);
+                input1TextView.setTextColor(Color.BLUE);
             }
             if (input2TextView != null) {
                 input2TextView.setText("?");
-                input2TextView.setTextColor(Color.BLACK);
+                input2TextView.setTextColor(Color.BLUE);
             }
-
-            if (zeroCarrying) {
-                if (input1TextView != null) {
-                    input1TextView.setText("0");
-                    input1TextView.setTextColor(Color.WHITE);
-                }
-            }
+//
+//            if (multiInput) {
+//                if (input1TextView != null) {
+//                    input1TextView.setText("0");
+//                    input1TextView.setTextColor(Color.WHITE);
+//                }
+//            }
 
             return false;
         }
@@ -508,7 +576,7 @@ public class Multiply32Fragment extends ProblemFragment implements NumberpadClic
 //
 //        //모든 변수 초기화
 //        currentStage = 0;
-//        zeroCarrying = false;
+//        multiInput = false;
 //        carrying = true;
 //        ans = 0;
 //
@@ -580,7 +648,7 @@ public class Multiply32Fragment extends ProblemFragment implements NumberpadClic
     public void onNumberClicked(int number) {
 
         /* 버튼이 클릭되었을 때 처리 */
-        if (zeroCarrying) {
+        if (!multiInput) {
             if (input2TextView != null) {
                 input2TextView.setText(String.valueOf(number));
             }
@@ -604,7 +672,7 @@ public class Multiply32Fragment extends ProblemFragment implements NumberpadClic
 //        if (currentStage < 7) {
 //            //세 자리 수 중 하나가 0이거나 곱셈 결과가 받아올림이 없는 경우 0을 입력하는 수고를 덜도록
 //            //사용자는 input2TextView에만 값을 입력함
-//            if (zeroCarrying) {
+//            if (multiInput) {
 //                input2TextView.setText(String.valueOf(number));
 //            } else {
 //                //사용자 입력 처리 : 첫번째 입력인 경우 input1TextView에 값을 입력함
@@ -626,18 +694,27 @@ public class Multiply32Fragment extends ProblemFragment implements NumberpadClic
 //                input2TextView.setText(String.valueOf(number));
 //            }
 //        }
-        Log.v(LOG_TAG, "zeroCarrying : " + String.valueOf(zeroCarrying));
         Log.v(LOG_TAG, "carrying : " + String.valueOf(carrying));
 
     }
 
     public void onClearClicked() {
-        currentStage = 0;
+//        currentStage = 0;
+//        ans = 0;
+//        initNumbers();
+//        nextStage();
+
+        //사용자가 입력할 텍스트 뷰를 다시 'A'와 'B'로 되돌림
+        if (input1TextView != null) {
+            input1TextView.setText("?");
+            input1TextView.setTextColor(Color.BLUE);
+        }
+        if (input2TextView != null) {
+            input2TextView.setText("?");
+            input2TextView.setTextColor(Color.BLUE);
+        }
         carrying = true;
-        zeroCarrying = false;
-        ans = 0;
-        initNumbers();
-        nextStage();
+
     }
 
     public void onOKClicked() {

@@ -5,6 +5,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorRight">#009900</color>
     <color name="colorWrong">#FF0000</color>
-
+<color name="defaultColor">#808080</color>
     <color name="colorBackground">#FFFFFF</color>
 </resources>
