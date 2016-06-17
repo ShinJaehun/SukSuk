@@ -209,8 +209,8 @@ public class Divide32Fragment extends ProblemFragment implements NumberpadClickL
             divisor = a;
         }
 
-//        dividend = 340;
-//        divisor = 23;
+//        dividend = 744;
+//        divisor = 27;
 
         quotient = dividend / divisor;
 
@@ -458,8 +458,6 @@ public class Divide32Fragment extends ProblemFragment implements NumberpadClickL
                 input2TextView = first_subtract_one;
 
                 ans = dividendOne;
-
-
 
                 break;
 
@@ -725,11 +723,17 @@ public class Divide32Fragment extends ProblemFragment implements NumberpadClickL
                     currentMark = carrying_first_subtract_ten_cover;
                     markOn();
 
-                    input1TextView = carrying_l2_first_subtract_ten_10;
-                    input2TextView = carrying_l2_first_subtract_ten_1;
-
                     ans = Integer.parseInt(carrying_first_subtract_ten_10.getText().toString()) * 10 +
                             Integer.parseInt(carrying_first_subtract_ten_1.getText().toString()) - 1;
+
+                    if (ans < 10) {
+                        //2단계 받아내림 값이 10보다 작다면 input은 하나만 입력하도록 한다.
+                        input1TextView = null;
+                    } else {
+                        input1TextView = carrying_l2_first_subtract_ten_10;
+                    }
+                    input2TextView = carrying_l2_first_subtract_ten_1;
+
                 }
                 break;
 
