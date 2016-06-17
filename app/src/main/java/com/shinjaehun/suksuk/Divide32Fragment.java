@@ -18,9 +18,9 @@ import android.widget.TextView;
 /**
  * Created by shinjaehun on 2016-04-19.
  */
-public class Divide32NewFragment extends ProblemFragment implements NumberpadClickListener {
+public class Divide32Fragment extends ProblemFragment implements NumberpadClickListener {
 
-    private static final String LOG_TAG = Divide32NewFragment.class.getSimpleName();
+    private static final String LOG_TAG = Divide32Fragment.class.getSimpleName();
 
     private int divisor, dividend, quotient;
     private int dividendHundred, dividendTen, dividendOne;
@@ -97,7 +97,7 @@ public class Divide32NewFragment extends ProblemFragment implements NumberpadCli
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_divide32_new, container, false);
+        View v = inflater.inflate(R.layout.fragment_divide32, container, false);
 
         quotient_ten = (TextView)v.findViewById(R.id.quotient_ten);
         quotient_one = (TextView)v.findViewById(R.id.quotient_one);
@@ -564,17 +564,23 @@ public class Divide32NewFragment extends ProblemFragment implements NumberpadCli
                     operand4TextView = second_multiply_one;
                     operand5TextView = null;
 
-                    input1TextView = remainder_ten;
-                    input2TextView = remainder_one;
-
                     ans = (Integer.parseInt(first_subtract_ten.getText().toString()) * 10 +
                         Integer.parseInt(first_subtract_one.getText().toString())) -
                             (Integer.parseInt(second_multiply_ten.getText().toString()) * 10 +
                             Integer.parseInt(second_multiply_one.getText().toString()));
 
+                    if (ans < 10) {
+                        //뺄셈 결과 나머지가 일의 자리이면 입력은 일의 자리만...
+                        input1TextView = null;
+                    } else {
+                        input1TextView = remainder_ten;
+                    }
+                    input2TextView = remainder_one;
+
                     ans_second_line.setVisibility(View.VISIBLE);
 
                     isFinal = true;
+                    //두번째 뺄셈 결과는 반드시 두 자리 이하여야 하므로 곱셈에서처럼 백의 자리를 걱정할 필요는 없다.
 
                 } else if ((Integer.parseInt(first_subtract_ten.getText().toString()) >=
                             Integer.parseInt(second_multiply_ten.getText().toString())) &&

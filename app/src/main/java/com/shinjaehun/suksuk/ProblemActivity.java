@@ -3,12 +3,9 @@ package com.shinjaehun.suksuk;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.media.AudioManager;
-import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 /**
  * Created by shinjaehun on 2016-04-16.
@@ -93,7 +90,7 @@ public class ProblemActivity extends AppCompatActivity {
                     problemFragment = new Divide22Fragment();
                     break;
                 case "divide32":
-                    problemFragment = new Divide32NewFragment();
+                    problemFragment = new Divide32Fragment();
                     break;
             }
         }
@@ -157,7 +154,7 @@ public class ProblemActivity extends AppCompatActivity {
                 numberpadFragment.setClickListener((Divide22Fragment)problemFragment);
                 break;
             case "divide32":
-                numberpadFragment.setClickListener((Divide32NewFragment)problemFragment);
+                numberpadFragment.setClickListener((Divide32Fragment)problemFragment);
                 break;
         }
         problemFragment.startPractice();
