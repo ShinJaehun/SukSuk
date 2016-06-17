@@ -41,6 +41,7 @@ public class ProblemFragment extends Fragment {
     public int score = 0;
     //score 값은 activity가 재실행되면서 다시 0으로 리셋된다.
     //이걸 이용하면 '한번도 틀리지 않고 문제 해결하기' 기록을 구현할 수 있겠다.
+    //현재 Multiply22Fragment에서 테스트중;;;;;
 
     public void startPractice() {
     }

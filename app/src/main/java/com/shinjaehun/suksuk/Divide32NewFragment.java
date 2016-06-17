@@ -83,6 +83,7 @@ public class Divide32NewFragment extends ProblemFragment implements NumberpadCli
     //현재 과정
     private int currentStage = 0;
 
+    //최종 단계인가?
     private boolean isFinal = false;
 
     //곱셈 결과
@@ -932,7 +933,7 @@ public class Divide32NewFragment extends ProblemFragment implements NumberpadCli
         int temp = 0, temp1 = 0, temp2 = 0;
 
         //temp1에 사용자의 첫번째 입력 값 저장
-        if (input1TextView == null || !input1TextView.getText().toString().matches("[0-9]")) {
+        if (input1TextView == null) {
             temp1 = 0;
         } else {
             try {
@@ -944,7 +945,7 @@ public class Divide32NewFragment extends ProblemFragment implements NumberpadCli
         }
 
         //temp2에 사용자의 두번째 입력 값 저장
-        if (input2TextView == null || !input2TextView.getText().toString().matches("[0-9]")) {
+        if (input2TextView == null) {
             temp2 = 0;
         } else {
             try {
@@ -1100,60 +1101,60 @@ public class Divide32NewFragment extends ProblemFragment implements NumberpadCli
 //        initNumbers();
 //    }
 
-    private void initNumbers() {
-//        if (operand1TextView != null) {
-//            operand1TextView.setTextColor(Color.GRAY);
-//        }
-//        if (operand2TextView != null) {
-//            operand2TextView.setTextColor(Color.GRAY);
-//        }
-//        if (operand3TextView != null) {
-//            operand3TextView.setTextColor(Color.GRAY);
-//        }
-
-
-        divisor_ten.setTextColor(Color.GRAY);
-        divisor_one.setTextColor(Color.GRAY);
-
-        dividend_hundred.setTextColor(Color.GRAY);
-        dividend_ten.setTextColor(Color.GRAY);
-        dividend_one.setTextColor(Color.GRAY);
-
-        quotient_ten.setText(String.valueOf("0"));
-        quotient_ten.setTextColor(Color.WHITE);
-        quotient_one.setText(String.valueOf("0"));
-        quotient_one.setTextColor(Color.WHITE);
-
-        first_multiply_hundred.setText(String.valueOf("0"));
-        first_multiply_hundred.setTextColor(Color.WHITE);
-        first_multiply_ten.setText(String.valueOf("0"));
-        first_multiply_ten.setTextColor(Color.WHITE);
-        first_multiply_one.setText(String.valueOf("0"));
-        first_multiply_one.setTextColor(Color.WHITE);
-
-        ans_first_line.setBackgroundColor(Color.WHITE);
-
-        first_subtract_hundred.setText(String.valueOf("0"));
-        first_subtract_hundred.setTextColor(Color.WHITE);
-        first_subtract_ten.setText(String.valueOf("0"));
-        first_subtract_ten.setTextColor(Color.WHITE);
-        first_subtract_one.setText(String.valueOf("0"));
-        first_subtract_one.setTextColor(Color.WHITE);
-
-        second_multiply_hundred.setText(String.valueOf("0"));
-        second_multiply_hundred.setTextColor(Color.WHITE);
-        second_multiply_ten.setText(String.valueOf("0"));
-        second_multiply_ten.setTextColor(Color.WHITE);
-        second_multiply_one.setText(String.valueOf("0"));
-        second_multiply_one.setTextColor(Color.WHITE);
-
-        ans_second_line.setBackgroundColor(Color.WHITE);
-
-        remainder_ten.setText(String.valueOf("0"));
-        remainder_ten.setTextColor(Color.WHITE);
-        remainder_one.setText(String.valueOf("0"));
-        remainder_one.setTextColor(Color.WHITE);
-    }
+//    private void initNumbers() {
+////        if (operand1TextView != null) {
+////            operand1TextView.setTextColor(Color.GRAY);
+////        }
+////        if (operand2TextView != null) {
+////            operand2TextView.setTextColor(Color.GRAY);
+////        }
+////        if (operand3TextView != null) {
+////            operand3TextView.setTextColor(Color.GRAY);
+////        }
+//
+//
+//        divisor_ten.setTextColor(Color.GRAY);
+//        divisor_one.setTextColor(Color.GRAY);
+//
+//        dividend_hundred.setTextColor(Color.GRAY);
+//        dividend_ten.setTextColor(Color.GRAY);
+//        dividend_one.setTextColor(Color.GRAY);
+//
+//        quotient_ten.setText(String.valueOf("0"));
+//        quotient_ten.setTextColor(Color.WHITE);
+//        quotient_one.setText(String.valueOf("0"));
+//        quotient_one.setTextColor(Color.WHITE);
+//
+//        first_multiply_hundred.setText(String.valueOf("0"));
+//        first_multiply_hundred.setTextColor(Color.WHITE);
+//        first_multiply_ten.setText(String.valueOf("0"));
+//        first_multiply_ten.setTextColor(Color.WHITE);
+//        first_multiply_one.setText(String.valueOf("0"));
+//        first_multiply_one.setTextColor(Color.WHITE);
+//
+//        ans_first_line.setBackgroundColor(Color.WHITE);
+//
+//        first_subtract_hundred.setText(String.valueOf("0"));
+//        first_subtract_hundred.setTextColor(Color.WHITE);
+//        first_subtract_ten.setText(String.valueOf("0"));
+//        first_subtract_ten.setTextColor(Color.WHITE);
+//        first_subtract_one.setText(String.valueOf("0"));
+//        first_subtract_one.setTextColor(Color.WHITE);
+//
+//        second_multiply_hundred.setText(String.valueOf("0"));
+//        second_multiply_hundred.setTextColor(Color.WHITE);
+//        second_multiply_ten.setText(String.valueOf("0"));
+//        second_multiply_ten.setTextColor(Color.WHITE);
+//        second_multiply_one.setText(String.valueOf("0"));
+//        second_multiply_one.setTextColor(Color.WHITE);
+//
+//        ans_second_line.setBackgroundColor(Color.WHITE);
+//
+//        remainder_ten.setText(String.valueOf("0"));
+//        remainder_ten.setTextColor(Color.WHITE);
+//        remainder_one.setText(String.valueOf("0"));
+//        remainder_one.setTextColor(Color.WHITE);
+//    }
 
     @Override
     public void onNumberClicked(int number) {
@@ -1247,9 +1248,21 @@ public class Divide32NewFragment extends ProblemFragment implements NumberpadCli
     }
 
     public void onOKClicked() {
-        if (result()) {
-            nextStage();
-        }
+        if (input1TextView == null) {
+            if (input2TextView.getText().toString().matches("[0-9]")) {
+                if (result()) {
+                    nextStage();
+                }            }
+        } else {
+            if (input1TextView.getText().toString().matches("[0-9]") && input2TextView.getText().toString().matches("[0-9]"))
+                if (result()) {
+                    nextStage();
+                }        }
+
+//
+//        if (result()) {
+//            nextStage();
+//        }
     }
 
 }

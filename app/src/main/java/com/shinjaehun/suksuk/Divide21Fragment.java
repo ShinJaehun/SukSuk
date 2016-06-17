@@ -446,6 +446,7 @@ public class Divide21Fragment extends ProblemFragment implements NumberpadClickL
             }
         }
 
+
         //temp2에 사용자의 두번째 입력 값 저장
         if (input2TextView == null || !input2TextView.getText().toString().matches("[0-9]")) {
 //            if (input2TextView == null) {
