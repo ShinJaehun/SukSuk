@@ -31,14 +31,8 @@ public class Divide32Fragment extends ProblemFragment implements NumberpadClickL
 
     private TextView quotient_ten, quotient_one;
 
-    private LinearLayout carrying_l2_divisor_ten, carrying_l2_divisor_one;
-
     private TextView carrying_divisor_ten;
     private TextView divisor_ten, divisor_one;
-
-    private LinearLayout carrying_l2_dividend_hundred, carrying_l2_dividend_ten, carrying_l2_dividend_one;
-
-    private TextView carrying_l2_dividend_ten_10, carrying_l2_dividend_ten_1;
 
     private TextView carrying_dividend_hundred, carrying_dividend_ten_10, carrying_dividend_ten_1;
     private TextView carrying_dividend_one_10, carrying_dividend_one_1;
@@ -67,8 +61,8 @@ public class Divide32Fragment extends ProblemFragment implements NumberpadClickL
 
     private Button help;
 
-    //몫이 두 자리 수인 경우 체크하는 스위치
-    private boolean isFullDivide = true;
+//    //몫이 두 자리 수인 경우 체크하는 스위치
+//    private boolean isFullDivide = true;
 
 //    //세개의 inputTextView 입력을 받기 위한 스위치
 //    private int inputEntry = 0;
@@ -102,20 +96,10 @@ public class Divide32Fragment extends ProblemFragment implements NumberpadClickL
         quotient_ten = (TextView)v.findViewById(R.id.quotient_ten);
         quotient_one = (TextView)v.findViewById(R.id.quotient_one);
 
-        carrying_l2_divisor_ten = (LinearLayout)v.findViewById(R.id.carrying_l2_divisor_ten);
         carrying_divisor_ten = (TextView)v.findViewById(R.id.carrying_divisor_ten);
-
-        carrying_l2_divisor_one = (LinearLayout)v.findViewById(R.id.carrying_l2_divisor_one);
 
         divisor_ten = (TextView)v.findViewById(R.id.divisor_ten);
         divisor_one = (TextView)v.findViewById(R.id.divisor_one);
-
-        carrying_l2_dividend_hundred = (LinearLayout)v.findViewById(R.id.carrying_l2_dividend_hundred);
-        carrying_l2_dividend_ten = (LinearLayout)v.findViewById(R.id.carrying_l2_dividend_ten);
-        carrying_l2_dividend_one = (LinearLayout)v.findViewById(R.id.carrying_l2_dividend_one);
-
-        carrying_l2_dividend_ten_10 = (TextView)v.findViewById(R.id.carrying_l2_dividend_ten_10);
-        carrying_l2_dividend_ten_1 =  (TextView)v.findViewById(R.id.carrying_l2_dividend_ten_1);
 
         carrying_dividend_hundred = (TextView)v.findViewById(R.id.carrying_dividend_hundred);
         carrying_dividend_ten_10 = (TextView)v.findViewById(R.id.carrying_dividend_ten_10);
@@ -227,9 +211,9 @@ public class Divide32Fragment extends ProblemFragment implements NumberpadClickL
         quotientTen = quotient / 10 % 10;
         quotientOne = quotient % 10;
 
-        if (dividendHundred * 10 + dividendTen < divisor) {
-            isFullDivide = false;
-        }
+//        if (dividendHundred * 10 + dividendTen < divisor) {
+//            isFullDivide = false;
+//        }
 
         //피연산자 표시
         dividend_hundred.setText(String.valueOf(dividendHundred));

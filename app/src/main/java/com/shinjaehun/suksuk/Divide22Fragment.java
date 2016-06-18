@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +36,15 @@ public class Divide22Fragment extends ProblemFragment implements NumberpadClickL
     private View ans_first_line;
 
     private TextView quotient_one;
+
+    private TextView carrying_divisor_ten;
+
     private TextView divisor_ten, divisor_one;
+
+    private TextView carrying_dividend_ten;
+
+    private ImageView dividend_ten_cover;
+
     private TextView dividend_ten, dividend_one;
     private TextView first_multiply_ten, first_multiply_one;
     private TextView remainder_ten, remainder_one;
@@ -45,9 +54,11 @@ public class Divide22Fragment extends ProblemFragment implements NumberpadClickL
 
     private Button help;
 
-    //세개의 inputTextView 입력을 받기 위한 스위치
-    private int inputEntry = 0;
-    private int inputNext = 0;
+//    //세개의 inputTextView 입력을 받기 위한 스위치
+//    private int inputEntry = 0;
+//    private int inputNext = 0;
+
+    private boolean multiInput = false;
 
     //현재 과정
     int currentStage = 0;
@@ -119,17 +130,16 @@ public class Divide22Fragment extends ProblemFragment implements NumberpadClickL
 //        dividend = 868;
 //        divisor = 56;
 
-        int temp1 = (int) (Math.random() * 90) + 10;
-        int temp2 = (int) (Math.random() * 90) + 10;
+        int a = (int) (Math.random() * 90) + 10;
+        int b = (int) (Math.random() * 90) + 10;
 
-        if (temp1 > temp2) {
-            dividend = temp1;
-            divisor = temp2;
+        if (a > b) {
+            dividend = a;
+            divisor = b;
         } else {
-            dividend = temp2;
-            divisor = temp1;
+            dividend = b;
+            divisor = a;
         }
-
 
         quotient = dividend / divisor;
 
@@ -239,13 +249,13 @@ public class Divide22Fragment extends ProblemFragment implements NumberpadClickL
             input2TextView.setTextColor(Color.BLACK);
         }
 
-        if (input1TextView != null) {
-            inputEntry = 1;
-        } else {
-            inputEntry = 2;
-        }
-
-        inputNext = 1;
+//        if (input1TextView != null) {
+//            inputEntry = 1;
+//        } else {
+//            inputEntry = 2;
+//        }
+//
+//        inputNext = 1;
 
 //
 //        if (currentStage < 7) {
@@ -435,39 +445,39 @@ public class Divide22Fragment extends ProblemFragment implements NumberpadClickL
 
     @Override
     public void onNumberClicked(int number) {
-        switch (inputNext) {
-            case 1:
-                switch (inputEntry) {
-                    case 1:
-                        if (input1TextView != null) {
-                            input1TextView.setText(String.valueOf(number));
-                        }
-                        inputNext = 2;
-                        break;
-                    case 2:
-                        input2TextView.setText(String.valueOf(number));
-                        inputNext = 1;
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            case 2:
-                switch (inputEntry) {
-                    case 1:
-                        if (input2TextView != null) {
-                            input2TextView.setText(String.valueOf(number));
-                        }
-                        inputNext = 1;
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            default:
-                break;
-
-        }
+//        switch (inputNext) {
+//            case 1:
+//                switch (inputEntry) {
+//                    case 1:
+//                        if (input1TextView != null) {
+//                            input1TextView.setText(String.valueOf(number));
+//                        }
+//                        inputNext = 2;
+//                        break;
+//                    case 2:
+//                        input2TextView.setText(String.valueOf(number));
+//                        inputNext = 1;
+//                        break;
+//                    default:
+//                        break;
+//                }
+//                break;
+//            case 2:
+//                switch (inputEntry) {
+//                    case 1:
+//                        if (input2TextView != null) {
+//                            input2TextView.setText(String.valueOf(number));
+//                        }
+//                        inputNext = 1;
+//                        break;
+//                    default:
+//                        break;
+//                }
+//                break;
+//            default:
+//                break;
+//
+//        }
     }
 
     public void onClearClicked() {
@@ -475,14 +485,14 @@ public class Divide22Fragment extends ProblemFragment implements NumberpadClickL
         ans = 0;
         initNumbers();
         nextStage();
-        inputNext = 1;
+//        inputNext = 1;
     }
 
     public void onOKClicked() {
         if (result()) {
             nextStage();
         }
-        inputNext = 1;
+//        inputNext = 1;
     }
 
 }
