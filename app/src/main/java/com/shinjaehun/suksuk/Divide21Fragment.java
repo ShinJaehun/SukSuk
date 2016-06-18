@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,11 @@ public class Divide21Fragment extends ProblemFragment implements NumberpadClickL
     private View ans_first_line, ans_second_line;
 
     private TextView quotient_ten, quotient_one;
+
+    private TextView carrying_dividend_ten, carrying_dividend_one_10, carrying_dividend_one_1;
+
+    private ImageView dividend_ten_cover, dividend_one_cover;
+
     private TextView divisor_one;
     private TextView dividend_ten, dividend_one;
     private TextView first_multiply_ten, first_multiply_one;
@@ -41,24 +47,24 @@ public class Divide21Fragment extends ProblemFragment implements NumberpadClickL
     private TextView second_multiply_ten, second_multiply_one;
     private TextView remainder_one;
 
-    private TextView operand1TextView, operand2TextView, operand3TextView, operand4TextView;
-    private TextView input1TextView, input2TextView;
+//    private TextView operand1TextView, operand2TextView, operand3TextView, operand4TextView;
+//    private TextView input1TextView, input2TextView;
+//
+//    private Button help;
 
-    private Button help;
-
-    private boolean isFullDivide = true;
+//    private boolean isFullDivide = true;
 
     //세개의 inputTextView 입력을 받기 위한 스위치
 //    private int inputEntry = 0;
 //    private int inputNext = 0;
-    private int inputEntry = 0;
-    private int inputNext = 0;
-
-    //현재 과정
-    private int currentStage = 0;
-
-    //곱셈 결과
-    private int ans = 0;
+//    private int inputEntry = 0;
+//    private int inputNext = 0;
+//
+//    //현재 과정
+//    private int currentStage = 0;
+//
+//    //곱셈 결과
+//    private int ans = 0;
 
     public void startPractice() {
         initOperands();
@@ -80,6 +86,13 @@ public class Divide21Fragment extends ProblemFragment implements NumberpadClickL
         quotient_one = (TextView)v.findViewById(R.id.quotient_one);
 
         divisor_one = (TextView)v.findViewById(R.id.divisor_one);
+
+        carrying_dividend_ten = (TextView)v.findViewById(R.id.carrying_dividend_ten);
+        carrying_dividend_one_10 = (TextView)v.findViewById(R.id.carrying_dividend_one_10);
+        carrying_dividend_one_1 = (TextView)v.findViewById(R.id.carrying_dividend_one_1);
+
+        dividend_ten_cover = (ImageView)v.findViewById(R.id.dividend_ten_cover);
+        dividend_one_cover = (ImageView)v.findViewById(R.id.dividend_one_cover);
 
         dividend_ten = (TextView)v.findViewById(R.id.dividend_ten);
         dividend_one = (TextView)v.findViewById(R.id.dividend_one);
@@ -151,11 +164,11 @@ public class Divide21Fragment extends ProblemFragment implements NumberpadClickL
         quotientTen = quotient / 10 % 10;
         quotientOne = quotient % 10;
 
-        if (dividendTen < divisor) {
-            isFullDivide = false;
-        }
+//        if (dividendTen < divisor) {
+//            isFullDivide = false;
+//        }
 
-        Log.v(LOG_TAG, String.valueOf("isFullDivide? : " + String.valueOf(isFullDivide)));
+//        Log.v(LOG_TAG, String.valueOf("isFullDivide? : " + String.valueOf(isFullDivide)));
 
 
         //피연산자 표시
@@ -173,113 +186,112 @@ public class Divide21Fragment extends ProblemFragment implements NumberpadClickL
         //currentStage에 따라 곱셈할 자리수, 곱셈 결과, 입력할 자리수 지정
         switch (currentStage) {
             case 1:
-                operand1TextView = divisor_one;
-                operand2TextView = dividend_ten;
-
-                if (isFullDivide) {
-                    operand3TextView = null;
-                } else {
+                if (divisor > dividendTen) {
+                    operand1TextView = divisor_one;
+                    operand2TextView = dividend_ten;
                     operand3TextView = dividend_one;
-                }
+                    operand4TextView = null;
 
-                operand4TextView = null;
-
-                input1TextView = null;
-
-                if (isFullDivide) {
-                    input2TextView = quotient_ten;
-                } else {
+                    input1TextView = null;
                     input2TextView = quotient_one;
-                }
 
-                if (isFullDivide) {
-                    ans = quotientTen;
-                } else {
                     ans = quotientOne;
+                } else {
+                    operand1TextView = divisor_one;
+                    operand2TextView = dividend_ten;
+                    operand3TextView = null;
+                    operand4TextView = null;
+
+                    input1TextView = null;
+                    input2TextView = quotient_ten;
+
+                    ans = quotientTen;
                 }
 
                 break;
 
             case 2:
-                dividend_ten.setTextColor(Color.GRAY);
-                dividend_one.setTextColor(Color.GRAY);
-
-                operand1TextView = divisor_one;
-
-                if (isFullDivide) {
-                    operand2TextView = quotient_ten;
-                } else {
-                    operand2TextView = quotient_one;
-                }
-
                 operand3TextView = null;
                 operand4TextView = null;
 
-                if (isFullDivide) {
+                if (divisor > dividendTen) {
+                    operand1TextView = divisor_one;
+                    operand2TextView = quotient_one;
+
+                    ans = divisorOne * quotientOne;
+
+                    if (ans < 10) {
+                        input1TextView = null;
+                    } else {
+                        input1TextView = first_multiply_ten;
+                    }
+                    input2TextView = first_multiply_one;
+
+                }  else {
+                    operand1TextView = divisor_one;
+                    operand2TextView = quotient_ten;
+
+                    ans = divisorOne * quotientTen;
+
                     input1TextView = null;
                     input2TextView = first_multiply_ten;
-                } else {
-                    input1TextView = first_multiply_ten;
-                    input2TextView = first_multiply_one;
-                }
 
-                if (isFullDivide) {
-                    ans = divisor * quotientTen;
-                } else {
-                    ans = divisor * quotientOne;
                 }
-
 
                 break;
 
             case 3:
-                divisor_one.setTextColor(Color.GRAY);
-                if (isFullDivide) {
-                    quotient_ten.setTextColor(Color.GRAY);
-                } else {
-                    quotient_one.setTextColor(Color.GRAY);
-                }
+                if (divisor > dividendTen) {
+                    if(dividendOne >
+                            Integer.parseInt(first_multiply_one.getText().toString())) {
+                        operand1TextView = dividend_ten;
+                        operand2TextView = dividend_one;
+                        operand3TextView = first_multiply_ten;
+                        operand4TextView = first_multiply_one;
 
-                if (isFullDivide) {
+                        ans = dividend % divisor;
+
+                        input1TextView = null;
+                        input2TextView = first_subtract_one;
+
+                        ans_first_line.setVisibility(View.VISIBLE);
+
+                        isFinal = true;
+                    } else {
+                        operand1TextView = dividend_ten;
+                        operand2TextView = null;
+                        operand3TextView = null;
+                        operand4TextView = null;
+
+                        //여기서부터 구현해!!!!!!
+                        //받아내림 첫번째 단계!!!!!!!!!!!!!!!
+
+
+                    }
+
+                } else {
                     operand1TextView = dividend_ten;
                     operand2TextView = first_multiply_ten;
                     operand3TextView = null;
                     operand4TextView = null;
-                } else {
-                    operand1TextView = dividend_ten;
-                    operand2TextView = dividend_one;
-                    operand3TextView = first_multiply_ten;
-                    operand4TextView = first_multiply_one;
-                }
 
-                ans_first_line.setBackgroundColor(Color.GRAY);
-                input1TextView = null;
+                    ans = dividendTen -
+                            Integer.parseInt(first_multiply_ten.getText().toString());
 
-                if (isFullDivide) {
-                    ans = dividendTen - (divisor * quotientTen);
+                    ans_first_line.setVisibility(View.VISIBLE);
+
+
+                    input1TextView = null;
                     input2TextView = first_subtract_ten;
-                } else {
-                    ans = dividend - (divisor * quotient);
-                    input2TextView = first_subtract_one;
+
                 }
 
                 break;
 
             case 4:
-                if (isFullDivide) {
-                    dividend_ten.setTextColor(Color.GRAY);
-                } else {
-                    dividend_one.setTextColor(Color.GRAY);
-                }
-                first_multiply_ten.setTextColor(Color.GRAY);
-                first_multiply_one.setTextColor(Color.GRAY);
-                first_subtract_ten.setTextColor(Color.GRAY);
-                first_subtract_one.setTextColor(Color.GRAY);
-
                 if (Integer.parseInt(first_subtract_ten.getText().toString()) == 0) {
+                    first_subtract_ten.setText("0");
                     first_subtract_ten.setTextColor(Color.WHITE);
-                } else {
-                    first_subtract_ten.setTextColor(Color.GRAY);
                 }
 
                 operand1TextView = dividend_one;
@@ -295,76 +307,70 @@ public class Divide21Fragment extends ProblemFragment implements NumberpadClickL
                 break;
 
             case 5:
-                dividend_one.setTextColor(Color.GRAY);
-
                 operand1TextView = divisor_one;
 
                 if (Integer.parseInt(first_subtract_ten.getText().toString()) == 0) {
-                    operand2TextView = first_subtract_one;
-                    operand3TextView = null;
+                    operand2TextView = null;
                 } else {
                     operand2TextView = first_subtract_ten;
-                    operand3TextView = first_subtract_one;
                 }
-
+                operand3TextView = first_subtract_one;
                 operand4TextView = null;
 
                 ans = quotientOne;
 
                 input1TextView = null;
-                input2TextView = quotient_one;;
+                input2TextView = quotient_one;
+
+                if (divisor >
+                        Integer.parseInt(first_subtract_ten.getText().toString()) * 10 +
+                        Integer.parseInt(first_subtract_one.getText().toString())) {
+                    //첫번째 뺄셈 결과가 나누는 수 보다 작으면 연산 종료
+                    isFinal = true;
+                }
 
                 break;
 
             case 6:
-                if (Integer.parseInt(first_subtract_ten.getText().toString()) == 0) {
-                    first_subtract_ten.setTextColor(Color.WHITE);
-                } else {
-                    first_subtract_ten.setTextColor(Color.GRAY);
-                }
-
                 operand1TextView = divisor_one;
                 operand2TextView = quotient_one;
                 operand3TextView = null;
                 operand4TextView = null;
 
-                ans = divisor * quotientOne;
+                ans = divisorOne * quotientOne;
 
                 if (ans < 10) {
                     input1TextView = null;
-                    input2TextView = second_multiply_one;
                 } else {
                     input1TextView = second_multiply_ten;
-                    input2TextView = second_multiply_one;
                 }
+                input2TextView = second_multiply_one;
 
                 break;
 
             case 7:
-                dividend_one.setTextColor(Color.GRAY);
-                quotient_one.setTextColor(Color.GRAY);
-
                 if (Integer.parseInt(first_subtract_ten.getText().toString()) == 0) {
-                    operand1TextView = first_subtract_one;
-                    operand2TextView = second_multiply_one;
-                    operand3TextView = null;
-                    operand4TextView = null;
+                    operand1TextView = null;
                 } else {
                     operand1TextView = first_subtract_ten;
-                    operand2TextView = first_subtract_one;
-                    operand3TextView = second_multiply_ten;
-                    operand4TextView = second_multiply_one;
                 }
+                operand2TextView = first_subtract_one;
 
-                ans_second_line.setBackgroundColor(Color.GRAY);
+                if (Integer.parseInt(second_multiply_ten.getText().toString()) == 0) {
+                    operand3TextView = null;
+                } else {
+                    operand3TextView = second_multiply_ten;
+                }
+                operand4TextView = second_multiply_one;
 
-                ans = (Integer.parseInt(first_subtract_ten.getText().toString()) * 10 +
-                        Integer.parseInt(first_subtract_one.getText().toString())) -
-                        (Integer.parseInt(second_multiply_ten.getText().toString()) * 10 +
-                        Integer.parseInt(second_multiply_one.getText().toString()));
+                ans = dividend % divisor;
+
+                ans_second_line.setVisibility(View.VISIBLE);
 
                 input1TextView = null;
                 input2TextView = remainder_one;
+
+                isFinal = true;
 
                 break;
 
@@ -372,38 +378,42 @@ public class Divide21Fragment extends ProblemFragment implements NumberpadClickL
                 break;
         }
 
-        //곱셈할 각 자리수를 빨간색으로 표시
-        if (operand1TextView != null) {
-            operand1TextView.setTextColor(Color.RED);
-        }
-        if (operand2TextView != null) {
-            operand2TextView.setTextColor(Color.RED);
-        }
-        if (operand3TextView != null) {
-            operand3TextView.setTextColor(Color.RED);
-        }
-        if (operand4TextView != null) {
-            operand4TextView.setTextColor(Color.RED);
-        }
-
-        //입력할 텍스트 뷰를 임시로 'A'와 'B'로 표시
-        if (input1TextView != null) {
-            input1TextView.setText("?");
-            input1TextView.setTextColor(Color.BLACK);
-        }
-        if (input2TextView != null) {
-            input2TextView.setText("?");
-            input2TextView.setTextColor(Color.BLACK);
-        }
+        markOperandAndInput();
 
 
-        if (input1TextView != null) {
-            inputEntry = 1;
-        } else {
-            inputEntry = 2;
-        }
-
-        inputNext = 1;
+//
+//        //곱셈할 각 자리수를 빨간색으로 표시
+//        if (operand1TextView != null) {
+//            operand1TextView.setTextColor(Color.RED);
+//        }
+//        if (operand2TextView != null) {
+//            operand2TextView.setTextColor(Color.RED);
+//        }
+//        if (operand3TextView != null) {
+//            operand3TextView.setTextColor(Color.RED);
+//        }
+//        if (operand4TextView != null) {
+//            operand4TextView.setTextColor(Color.RED);
+//        }
+//
+//        //입력할 텍스트 뷰를 임시로 'A'와 'B'로 표시
+//        if (input1TextView != null) {
+//            input1TextView.setText("?");
+//            input1TextView.setTextColor(Color.BLACK);
+//        }
+//        if (input2TextView != null) {
+//            input2TextView.setText("?");
+//            input2TextView.setTextColor(Color.BLACK);
+//        }
+//
+//
+//        if (input1TextView != null) {
+//            inputEntry = 1;
+//        } else {
+//            inputEntry = 2;
+//        }
+//
+//        inputNext = 1;
 
 //
 //        if (currentStage < 7) {
@@ -613,55 +623,57 @@ public class Divide21Fragment extends ProblemFragment implements NumberpadClickL
 
     @Override
     public void onNumberClicked(int number) {
-        switch (inputNext) {
-            case 1:
-                switch (inputEntry) {
-                    case 1:
-                        if (input1TextView != null) {
-                            input1TextView.setText(String.valueOf(number));
-                        }
-                        inputNext = 2;
-                        break;
-                    case 2:
-                        input2TextView.setText(String.valueOf(number));
-                        inputNext = 1;
-                        break;
-                    default:
-                        break;
+        if (!multiInput) {
+            if (input2TextView != null) {
+                input2TextView.setText(String.valueOf(number));
+            }
+        } else {
+            //사용자 입력 처리 : 첫번째 입력인 경우 input1TextView에 값을 입력함
+            if (carrying) {
+                if (input1TextView != null) {
+                    input1TextView.setText(String.valueOf(number));
                 }
-                break;
-            case 2:
-                switch (inputEntry) {
-                    case 1:
-                        if (input2TextView != null) {
-                            input2TextView.setText(String.valueOf(number));
-                        }
-                        inputNext = 1;
-                        break;
-                    default:
-                        break;
+                carrying = false;
+            } else {
+                //두번째 입력인 경우 input2TextView에 값을 입력함
+                if (input2TextView != null) {
+                    input2TextView.setText(String.valueOf(number));
                 }
-                break;
-            default:
-                break;
-
+                carrying = true;
+            }
         }
     }
 
     public void onClearClicked() {
-        currentStage = 0;
-        ans = 0;
-//        initNumbers();
-        nextStage();
-        inputNext = 1;
+
+        //사용자가 입력할 텍스트 뷰를 다시 'A'와 'B'로 되돌림
+        if (input1TextView != null) {
+            input1TextView.setText("?");
+            input1TextView.setTextColor(Color.BLUE);
+        }
+        if (input2TextView != null) {
+            input2TextView.setText("?");
+            input2TextView.setTextColor(Color.BLUE);
+        }
+        carrying = true;
     }
 
     public void onOKClicked() {
-        if (result()) {
-            nextStage();
-        }
-        inputNext = 1;
+        if (input1TextView == null) {
+            if (input2TextView.getText().toString().matches("[0-9]")) {
+                if (result()) {
+                    nextStage();
+                }            }
+        } else {
+            if (input1TextView.getText().toString().matches("[0-9]") && input2TextView.getText().toString().matches("[0-9]"))
+                if (result()) {
+                    nextStage();
+                }        }
 
+//
+//        if (result()) {
+//            nextStage();
+//        }
     }
 
 }
