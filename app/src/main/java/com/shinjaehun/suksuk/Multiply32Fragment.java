@@ -35,25 +35,25 @@ public class Multiply32Fragment extends ProblemFragment implements NumberpadClic
     private TextView ans_down_one, ans_down_ten, ans_down_hundred, ans_down_thousand;
     private TextView ans_one, ans_ten, ans_hundred, ans_thousand, ans_tenthousand;
 
-    private TextView operand1TextView, operand2TextView, input1TextView, input2TextView;
+//    private TextView operand1TextView, operand2TextView, input1TextView, input2TextView;
+//
+//    private Button help;
 
-    private Button help;
-
-    //곱셈 결과를 입력할 순서 저장
-    private boolean carrying = true;
-
-    //세 자리 수 중 하나가 0이거나 곱셈 결과가 받아올림이 없는 경우를 처리할 스위치
-    //곱셈 결과를 더할 때 받아올림이 있는 경우에도 사용함
-    private boolean multiInput = false;
-
-    //현재 과정
-    private int currentStage = 0;
-
-    //곱셈 결과
-    private int ans = 0;
-
-    //최종 스테이지인가?
-    private boolean isFinal = false;
+//    //곱셈 결과를 입력할 순서 저장
+//    private boolean carrying = true;
+//
+//    //세 자리 수 중 하나가 0이거나 곱셈 결과가 받아올림이 없는 경우를 처리할 스위치
+//    //곱셈 결과를 더할 때 받아올림이 있는 경우에도 사용함
+//    private boolean multiInput = false;
+//
+//    //현재 과정
+//    private int currentStage = 0;
+//
+//    //곱셈 결과
+//    private int ans = 0;
+//
+//    //최종 스테이지인가?
+//    private boolean isFinal = false;
 
     public void startPractice() {
         initOperands();
@@ -336,6 +336,7 @@ public class Multiply32Fragment extends ProblemFragment implements NumberpadClic
 
             case 11:
                 operand1TextView = null;
+                //두번째 곱셈 결과 천의 자리가 0이고 만 자리의 받아올림 수가 0이면 두번째 곱셈 결과 천의 자리 '0'을 붉게 표시하지 않는다.
                 if ((Integer.parseInt(ans_down_thousand.getText().toString()) == 0)
                         && (Integer.parseInt(ans_carrying_tenthousand.getText().toString()) == 0)) {
                     operand2TextView = null;
@@ -353,29 +354,31 @@ public class Multiply32Fragment extends ProblemFragment implements NumberpadClic
                 break;
         }
 
-        //곱셈할 각 자리수를 빨간색으로 표시
-        if (operand1TextView != null) {
-            operand1TextView.setTextColor(Color.RED);
-        }
-        if (operand2TextView != null) {
-            operand2TextView.setTextColor(Color.RED);
-        }
+        markOperandAndInput();
 
-        //입력할 텍스트 뷰를 임시로 'A'와 'B'로 표시
-        if (input1TextView != null) {
-            input1TextView.setText("?");
-            input1TextView.setTextColor(Color.BLUE);
-        }
-        if (input2TextView != null) {
-            input2TextView.setText("?");
-            input2TextView.setTextColor(Color.BLUE);
-        }
-
-        if (input1TextView != null && input2TextView != null) {
-            multiInput = true;
-        } else {
-            multiInput = false;
-        }
+//        //곱셈할 각 자리수를 빨간색으로 표시
+//        if (operand1TextView != null) {
+//            operand1TextView.setTextColor(Color.RED);
+//        }
+//        if (operand2TextView != null) {
+//            operand2TextView.setTextColor(Color.RED);
+//        }
+//
+//        //입력할 텍스트 뷰를 임시로 'A'와 'B'로 표시
+//        if (input1TextView != null) {
+//            input1TextView.setText("?");
+//            input1TextView.setTextColor(Color.BLUE);
+//        }
+//        if (input2TextView != null) {
+//            input2TextView.setText("?");
+//            input2TextView.setTextColor(Color.BLUE);
+//        }
+//
+//        if (input1TextView != null && input2TextView != null) {
+//            multiInput = true;
+//        } else {
+//            multiInput = false;
+//        }
 
 //        if (currentStage < 7) {
 //            //세 자리 수 중 하나가 0이거나 곱셈 결과가 받아올림이 없는 경우
@@ -406,118 +409,118 @@ public class Multiply32Fragment extends ProblemFragment implements NumberpadClic
 //        }
     }
 
-    private boolean result() {
-        int temp = 0, temp1 = 0, temp2 = 0;
-
-        //temp1에 사용자의 첫번째 입력 값 저장
-        if (input1TextView == null) {
-            temp1 = 0;
-        } else {
-            try {
-                temp1 = Integer.parseInt(input1TextView.getText().toString());
-                Log.v(LOG_TAG, "temp1 : " + String.valueOf(temp1));
-            } catch (NumberFormatException nfe) {
-                nfe.printStackTrace();
-            }
-        }
-
-        //temp2에 사용자의 두번째 입력 값 저장
-        if (input2TextView == null) {
-            temp2 = 0;
-        } else {
-            try {
-                temp2 = Integer.parseInt(input2TextView.getText().toString());
-                Log.v(LOG_TAG, "temp2 : " + String.valueOf(temp2));
-            } catch (NumberFormatException nfe) {
-                nfe.printStackTrace();
-            }
-        }
-
-        temp = temp1 * 10 + temp2;
-
-
-//        //각 자리수를 곱하는 과정 처리
-//        if (currentStage < 7) {
-//            //사용자가 입력한 값을 바탕으로 곱셈 결과 temp에 저장
-//            temp = temp1 * 10 + temp2;
-//            Log.v(LOG_TAG, "temp : " + String.valueOf(temp));
+//    private boolean result() {
+//        int temp = 0, temp1 = 0, temp2 = 0;
 //
-//        //일의 자리, 십의 자리 곱셈 결과를 더하는 과정 처리
+//        //temp1에 사용자의 첫번째 입력 값 저장
+//        if (input1TextView == null) {
+//            temp1 = 0;
 //        } else {
-//
-//            //사용자가 입력한 값을 temp에 저장
-//            if (input2TextView == null) {
-//                temp = temp1;
-////                try {
-////                    temp = Integer.parseInt(input1TextView.getText().toString());
-////                    Log.v(LOG_TAG, "ans : " + String.valueOf(ans));
-////                    Log.v(LOG_TAG, "temp : " + String.valueOf(temp));
-////                } catch (NumberFormatException nfe) {
-////                    return wrongAnswer(input1TextView.getText().toString());
-////                }
-//            } else {
-//                temp = temp1 * 10 + temp2;
+//            try {
+//                temp1 = Integer.parseInt(input1TextView.getText().toString());
+//                Log.v(LOG_TAG, "temp1 : " + String.valueOf(temp1));
+//            } catch (NumberFormatException nfe) {
+//                nfe.printStackTrace();
 //            }
 //        }
-
-        //정답처리
-        if (ans == temp) {
-            flashText(true);
-
-            //연산했던 자리수를 다시 회색으로 되돌리기
-            if (operand1TextView != null) {
-                operand1TextView.setTextColor(Color.GRAY);
-            }
-            if (operand2TextView != null) {
-                operand2TextView.setTextColor(Color.GRAY);
-            }
-
-            //입력했던 내용 회색으로 되돌리기
-            if (input1TextView != null) {
-                input1TextView.setTextColor(Color.GRAY);
-            }
-            if (input2TextView != null) {
-                input2TextView.setTextColor(Color.GRAY);
-            }
-
-            //모든 연산이 끝나면
-            if (isFinal) {
-                finalStage();
-                return false;
-                //여기에 false를 넣지 않으면 finalStage로 가면서 nextStage()가 한번 더 실행된다!!
-                //잡기 어려웠던 버그 중 하나!
-            }
-            return true;
-
-            //오답처리
-        } else {
-            //진동 발사
-            Vibrator vibrator = (Vibrator)getActivity().getSystemService(Context.VIBRATOR_SERVICE);
-            vibrator.vibrate(300);
-
-            //오답 텍스트 보여주기
-            flashText(false);
-
-            //사용자가 입력할 텍스트 뷰를 다시 'A'와 'B'로 되돌림
-            if (input1TextView != null) {
-                input1TextView.setText("?");
-                input1TextView.setTextColor(Color.BLUE);
-            }
-            if (input2TextView != null) {
-                input2TextView.setText("?");
-                input2TextView.setTextColor(Color.BLUE);
-            }
 //
-//            if (multiInput) {
-//                if (input1TextView != null) {
-//                    input1TextView.setText("0");
-//                    input1TextView.setTextColor(Color.WHITE);
-//                }
+//        //temp2에 사용자의 두번째 입력 값 저장
+//        if (input2TextView == null) {
+//            temp2 = 0;
+//        } else {
+//            try {
+//                temp2 = Integer.parseInt(input2TextView.getText().toString());
+//                Log.v(LOG_TAG, "temp2 : " + String.valueOf(temp2));
+//            } catch (NumberFormatException nfe) {
+//                nfe.printStackTrace();
 //            }
-
-            return false;
-        }
-    }
+//        }
+//
+//        temp = temp1 * 10 + temp2;
+//
+//
+////        //각 자리수를 곱하는 과정 처리
+////        if (currentStage < 7) {
+////            //사용자가 입력한 값을 바탕으로 곱셈 결과 temp에 저장
+////            temp = temp1 * 10 + temp2;
+////            Log.v(LOG_TAG, "temp : " + String.valueOf(temp));
+////
+////        //일의 자리, 십의 자리 곱셈 결과를 더하는 과정 처리
+////        } else {
+////
+////            //사용자가 입력한 값을 temp에 저장
+////            if (input2TextView == null) {
+////                temp = temp1;
+//////                try {
+//////                    temp = Integer.parseInt(input1TextView.getText().toString());
+//////                    Log.v(LOG_TAG, "ans : " + String.valueOf(ans));
+//////                    Log.v(LOG_TAG, "temp : " + String.valueOf(temp));
+//////                } catch (NumberFormatException nfe) {
+//////                    return wrongAnswer(input1TextView.getText().toString());
+//////                }
+////            } else {
+////                temp = temp1 * 10 + temp2;
+////            }
+////        }
+//
+//        //정답처리
+//        if (ans == temp) {
+//            flashText(true);
+//
+//            //연산했던 자리수를 다시 회색으로 되돌리기
+//            if (operand1TextView != null) {
+//                operand1TextView.setTextColor(Color.GRAY);
+//            }
+//            if (operand2TextView != null) {
+//                operand2TextView.setTextColor(Color.GRAY);
+//            }
+//
+//            //입력했던 내용 회색으로 되돌리기
+//            if (input1TextView != null) {
+//                input1TextView.setTextColor(Color.GRAY);
+//            }
+//            if (input2TextView != null) {
+//                input2TextView.setTextColor(Color.GRAY);
+//            }
+//
+//            //모든 연산이 끝나면
+//            if (isFinal) {
+//                finalStage();
+//                return false;
+//                //여기에 false를 넣지 않으면 finalStage로 가면서 nextStage()가 한번 더 실행된다!!
+//                //잡기 어려웠던 버그 중 하나!
+//            }
+//            return true;
+//
+//            //오답처리
+//        } else {
+//            //진동 발사
+//            Vibrator vibrator = (Vibrator)getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+//            vibrator.vibrate(300);
+//
+//            //오답 텍스트 보여주기
+//            flashText(false);
+//
+//            //사용자가 입력할 텍스트 뷰를 다시 'A'와 'B'로 되돌림
+//            if (input1TextView != null) {
+//                input1TextView.setText("?");
+//                input1TextView.setTextColor(Color.BLUE);
+//            }
+//            if (input2TextView != null) {
+//                input2TextView.setText("?");
+//                input2TextView.setTextColor(Color.BLUE);
+//            }
+////
+////            if (multiInput) {
+////                if (input1TextView != null) {
+////                    input1TextView.setText("0");
+////                    input1TextView.setTextColor(Color.WHITE);
+////                }
+////            }
+//
+//            return false;
+//        }
+//    }
 
 //flashText()와 finalStage()를 ProblemFragment로 옮겼다.
 //    private void flashText(boolean trueOrFalse) {
@@ -722,6 +725,7 @@ public class Multiply32Fragment extends ProblemFragment implements NumberpadClic
             input2TextView.setTextColor(Color.BLUE);
         }
         carrying = true;
+//        Log.v(LOG_TAG, "carrying : " + carrying);
 
     }
 

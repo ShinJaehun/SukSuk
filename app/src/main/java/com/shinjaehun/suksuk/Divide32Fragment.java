@@ -1,10 +1,8 @@
 package com.shinjaehun.suksuk;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,7 +36,7 @@ public class Divide32Fragment extends ProblemFragment implements NumberpadClickL
     private TextView carrying_dividend_one_10, carrying_dividend_one_1;
     private ImageView carrying_dividend_ten_cover;
 
-    private ImageView currentMark;
+//    private ImageView currentMark;
 
     private ImageView dividend_hundred_cover, dividend_ten_cover, dividend_one_cover;
     private TextView dividend_hundred, dividend_ten, dividend_one;
@@ -56,10 +54,10 @@ public class Divide32Fragment extends ProblemFragment implements NumberpadClickL
     private TextView second_multiply_hundred, second_multiply_ten, second_multiply_one;
     private TextView remainder_ten, remainder_one;
 
-    private TextView operand1TextView, operand2TextView, operand3TextView, operand4TextView, operand5TextView, operand6TextView;
-    private TextView input1TextView, input2TextView, input3TextView;
-
-    private Button help;
+//    private TextView operand1TextView, operand2TextView, operand3TextView, operand4TextView, operand5TextView, operand6TextView;
+//    private TextView input1TextView, input2TextView, input3TextView;
+//
+//    private Button help;
 
 //    //몫이 두 자리 수인 경우 체크하는 스위치
 //    private boolean isFullDivide = true;
@@ -67,21 +65,21 @@ public class Divide32Fragment extends ProblemFragment implements NumberpadClickL
 //    //세개의 inputTextView 입력을 받기 위한 스위치
 //    private int inputEntry = 0;
 //    private int inputNext = 0;
-
-    private boolean carrying = true;
-
-    //여기서 multiInput은 입력할 inputTextView가 하나인지 둘인지를 결정하는 스위치
-    //multiInput이 true이면 입력 하나만, true이면 입력 둘
-    private boolean multiInput = false;
-
-    //현재 과정
-    private int currentStage = 0;
-
-    //최종 단계인가?
-    private boolean isFinal = false;
-
-    //곱셈 결과
-    private int ans = 0;
+//
+//    private boolean carrying = true;
+//
+//    //여기서 multiInput은 입력할 inputTextView가 하나인지 둘인지를 결정하는 스위치
+//    //multiInput이 true이면 입력 하나만, true이면 입력 둘
+//    private boolean multiInput = false;
+//
+//    //현재 과정
+//    private int currentStage = 0;
+//
+//    //최종 단계인가?
+//    private boolean isFinal = false;
+//
+//    //곱셈 결과
+//    private int ans = 0;
 
     public void startPractice() {
         initOperands();
@@ -193,8 +191,8 @@ public class Divide32Fragment extends ProblemFragment implements NumberpadClickL
             divisor = a;
         }
 
-//        dividend = 744;
-//        divisor = 27;
+//        dividend = 572;
+//        divisor = 47;
 
         quotient = dividend / divisor;
 
@@ -321,8 +319,8 @@ public class Divide32Fragment extends ProblemFragment implements NumberpadClickL
                 carrying_l2_dividend_ten.setVisibility(View.VISIBLE);
                 carrying_l2_dividend_one.setVisibility(View.VISIBLE);
 */
-                // 9 >= 9 라면...
                 if (dividendTen >= Integer.parseInt(first_multiply_ten.getText().toString())) {
+                    // 9 >= 9 라면...
 
                     operand1TextView = dividend_hundred;
                     operand2TextView = dividend_ten;
@@ -347,8 +345,8 @@ public class Divide32Fragment extends ProblemFragment implements NumberpadClickL
                     currentStage = 7;
                     // 이 스위치 한방으로 받아내림을 생략하고 바로 첫번재 뺄셈을 진행하게 된다.
 
-                // 0 < 9라면...
                 } else {
+                    // 0 < 9라면...
 
                     operand1TextView = dividend_hundred;
                     operand2TextView = null;
@@ -357,7 +355,7 @@ public class Divide32Fragment extends ProblemFragment implements NumberpadClickL
                     operand5TextView = null;
                     //받아내림 표시하기
                     currentMark = dividend_hundred_cover;
-                    markOn();
+                    markSlashOn();
 
                     input1TextView = null;
                     input2TextView = carrying_dividend_hundred;
@@ -377,7 +375,7 @@ public class Divide32Fragment extends ProblemFragment implements NumberpadClickL
                 operand5TextView = null;
 
                 currentMark = dividend_ten_cover;
-                markOn();
+                markSlashOn();
 
                 input1TextView = carrying_dividend_ten_10;
                 input2TextView = carrying_dividend_ten_1;
@@ -577,7 +575,7 @@ public class Divide32Fragment extends ProblemFragment implements NumberpadClickL
                     operand5TextView = null;
 
                     currentMark = first_subtract_ten_cover;
-                    markOn();
+                    markSlashOn();
 
                     input1TextView = null;
                     input2TextView = carrying_first_subtract_ten_1;
@@ -601,7 +599,7 @@ public class Divide32Fragment extends ProblemFragment implements NumberpadClickL
                     operand5TextView = null;
 
                     currentMark = first_subtract_hundred_cover;
-                    markOn();
+                    markSlashOn();
 
                     input1TextView = null;
                     input2TextView = carrying_first_subtract_hundred;
@@ -625,7 +623,7 @@ public class Divide32Fragment extends ProblemFragment implements NumberpadClickL
                     operand5TextView = null;
 
                     currentMark = first_subtract_one_cover;
-                    markOn();
+                    markSlashOn();
 
                     input1TextView = carrying_first_subtract_one_10;
                     input2TextView = carrying_first_subtract_one_1;
@@ -644,7 +642,7 @@ public class Divide32Fragment extends ProblemFragment implements NumberpadClickL
                     operand5TextView = null;
 
                     currentMark = first_subtract_ten_cover;
-                    markOn();
+                    markSlashOn();
 
                     input1TextView = carrying_first_subtract_ten_10;
                     input2TextView = carrying_first_subtract_ten_1;
@@ -674,6 +672,13 @@ public class Divide32Fragment extends ProblemFragment implements NumberpadClickL
                             Integer.parseInt(carrying_first_subtract_one_1.getText().toString()) -
                             Integer.parseInt(second_multiply_one.getText().toString());
 
+                    if (Integer.parseInt(carrying_first_subtract_ten_10.getText().toString()) * 10 +
+                            Integer.parseInt(carrying_first_subtract_ten_1.getText().toString()) -
+                            Integer.parseInt(second_multiply_ten.getText().toString()) == 0) {
+                        //바로 앞 자리(받아내림하고 남은 십의 자리 - 두번째 곱셈 십의 자리)가 0인 경우, 연산 종료
+                        isFinal = true;
+                    }
+
                     ans_second_line.setVisibility(View.VISIBLE);
 
                 } else if ((Integer.parseInt(first_subtract_ten.getText().toString()) <
@@ -694,6 +699,13 @@ public class Divide32Fragment extends ProblemFragment implements NumberpadClickL
                     ans = Integer.parseInt(first_subtract_one.getText().toString()) -
                             Integer.parseInt(second_multiply_one.getText().toString());
 
+                    if (Integer.parseInt(carrying_first_subtract_ten_10.getText().toString()) * 10 +
+                            Integer.parseInt(carrying_first_subtract_ten_1.getText().toString()) -
+                            Integer.parseInt(second_multiply_ten.getText().toString()) == 0) {
+                        //바로 앞 자리(받아내림하고 남은 십의 자리 - 두번째 곱셈 십의 자리)가 0인 경우, 연산 종료
+                        isFinal = true;
+                    }
+
                     ans_second_line.setVisibility(View.VISIBLE);
 
                 }else {
@@ -705,7 +717,7 @@ public class Divide32Fragment extends ProblemFragment implements NumberpadClickL
                     operand5TextView = null;
 
                     currentMark = carrying_first_subtract_ten_cover;
-                    markOn();
+                    markSlashOn();
 
                     ans = Integer.parseInt(carrying_first_subtract_ten_10.getText().toString()) * 10 +
                             Integer.parseInt(carrying_first_subtract_ten_1.getText().toString()) - 1;
@@ -774,7 +786,7 @@ public class Divide32Fragment extends ProblemFragment implements NumberpadClickL
                     operand5TextView = null;
 
                     currentMark = first_subtract_one_cover;
-                    markOn();
+                    markSlashOn();
 
                     input1TextView = carrying_first_subtract_one_10;
                     input2TextView = carrying_first_subtract_one_1;
@@ -798,6 +810,13 @@ public class Divide32Fragment extends ProblemFragment implements NumberpadClickL
                 ans = Integer.parseInt(carrying_first_subtract_one_10.getText().toString()) * 10 +
                     Integer.parseInt(carrying_first_subtract_one_1.getText().toString()) -
                     Integer.parseInt(second_multiply_one.getText().toString());
+
+                if (Integer.parseInt(carrying_l2_first_subtract_ten_10.getText().toString()) * 10 +
+                        Integer.parseInt(carrying_l2_first_subtract_ten_1.getText().toString()) -
+                        Integer.parseInt(second_multiply_ten.getText().toString()) == 0) {
+                    //바로 앞 자리(받아내림하고 남은 십의 자리 - 두번째 곱셈 십의 자리)가 0인 경우, 연산 종료
+                    isFinal = true;
+                }
 
                 break;
 
@@ -823,57 +842,56 @@ public class Divide32Fragment extends ProblemFragment implements NumberpadClickL
                 break;
         }
 
-        //곱셈할 각 자리수를 빨간색으로 표시
-        if (operand1TextView != null) {
-            operand1TextView.setTextColor(Color.RED);
-        }
-        if (operand2TextView != null) {
-            operand2TextView.setTextColor(Color.RED);
-        }
-        if (operand3TextView != null) {
-            operand3TextView.setTextColor(Color.RED);
-        }
-        if (operand4TextView != null) {
-            operand4TextView.setTextColor(Color.RED);
-        }
-        if (operand5TextView != null) {
-            operand5TextView.setTextColor(Color.RED);
-        }
-        if (operand6TextView != null) {
-            operand6TextView.setTextColor(Color.RED);
-        }
+        markOperandAndInput();
 
-        //입력할 텍스트 뷰를 임시로 'A'와 'B'로 표시
-        if (input1TextView != null) {
-            input1TextView.setText("?");
-            input1TextView.setTextColor(Color.BLUE);
-        }
-        if (input2TextView != null) {
-            input2TextView.setText("?");
-            input2TextView.setTextColor(Color.BLUE);
-        }
-
-////        if (currentStage < 4 || (currentStage > 8 && currentStage < 12)) {
-//        if (currentStage == 2) {
-//
-//            //곱셈 과정에서 받아올림이 없는 경우
-//            if (ans < 10) {
-//                input1TextView.setText("0");
-//                input1TextView.setTextColor(Color.WHITE);
-////                multiInput = true;
-//            } else {
-////                multiInput = false;
-//            }
-//            //곱셈 결과를 더하는 과정에서는?
-//
-//
+//        //곱셈할 각 자리수를 빨간색으로 표시
+//        if (operand1TextView != null) {
+//            operand1TextView.setTextColor(Color.RED);
 //        }
-
-        if (input1TextView != null && input2TextView != null) {
-            multiInput = true;
-        } else {
-            multiInput = false;
-        }
+//        if (operand2TextView != null) {
+//            operand2TextView.setTextColor(Color.RED);
+//        }
+//        if (operand3TextView != null) {
+//            operand3TextView.setTextColor(Color.RED);
+//        }
+//        if (operand4TextView != null) {
+//            operand4TextView.setTextColor(Color.RED);
+//        }
+//        if (operand5TextView != null) {
+//            operand5TextView.setTextColor(Color.RED);
+//        }
+//
+//        //입력할 텍스트 뷰를 임시로 'A'와 'B'로 표시
+//        if (input1TextView != null) {
+//            input1TextView.setText("?");
+//            input1TextView.setTextColor(Color.BLUE);
+//        }
+//        if (input2TextView != null) {
+//            input2TextView.setText("?");
+//            input2TextView.setTextColor(Color.BLUE);
+//        }
+//
+//////        if (currentStage < 4 || (currentStage > 8 && currentStage < 12)) {
+////        if (currentStage == 2) {
+////
+////            //곱셈 과정에서 받아올림이 없는 경우
+////            if (ans < 10) {
+////                input1TextView.setText("0");
+////                input1TextView.setTextColor(Color.WHITE);
+//////                multiInput = true;
+////            } else {
+//////                multiInput = false;
+////            }
+////            //곱셈 결과를 더하는 과정에서는?
+////
+////
+////        }
+//
+//        if (input1TextView != null && input2TextView != null) {
+//            multiInput = true;
+//        } else {
+//            multiInput = false;
+//        }
 
 
 //
@@ -911,167 +929,167 @@ public class Divide32Fragment extends ProblemFragment implements NumberpadClickL
 //        }
     }
 
-    private void markOn() {
-        currentMark.setVisibility(View.VISIBLE);
-        currentMark.setImageResource(R.drawable.slash_red);
-    }
+//    private void markSlashOn() {
+//        currentMark.setVisibility(View.VISIBLE);
+//        currentMark.setImageResource(R.drawable.slash_red);
+//    }
+//
+//    private void markSlashOff() {
+//        //완전히 삭제해버릴 필요는 없겠지?
+////        iv.setVisibility(View.INVISIBLE);
+//        currentMark.setImageResource(R.drawable.slash_gray);
+//        currentMark = null;
+//    }
 
-    private void markOff() {
-        //완전히 삭제해버릴 필요는 없겠지?
-//        iv.setVisibility(View.INVISIBLE);
-        currentMark.setImageResource(R.drawable.slash_gray);
-        currentMark = null;
-    }
-
-    private boolean result() {
-        int temp = 0, temp1 = 0, temp2 = 0;
-
-        //temp1에 사용자의 첫번째 입력 값 저장
-        if (input1TextView == null) {
-            temp1 = 0;
-        } else {
-            try {
-                temp1 = Integer.parseInt(input1TextView.getText().toString());
-                Log.v(LOG_TAG, "temp1 : " + String.valueOf(temp1));
-            } catch (NumberFormatException nfe) {
-                nfe.printStackTrace();
-            }
-        }
-
-        //temp2에 사용자의 두번째 입력 값 저장
-        if (input2TextView == null) {
-            temp2 = 0;
-        } else {
-            try {
-                temp2 = Integer.parseInt(input2TextView.getText().toString());
-                Log.v(LOG_TAG, "temp2 : " + String.valueOf(temp2));
-            } catch (NumberFormatException nfe) {
-                nfe.printStackTrace();
-            }
-        }
-
-//        if (input3TextView == null || !input3TextView.getText().toString().matches("[0-9]")) {
-//            temp3 = 0;
+//    private boolean result() {
+//        int temp = 0, temp1 = 0, temp2 = 0;
+//
+//        //temp1에 사용자의 첫번째 입력 값 저장
+//        if (input1TextView == null) {
+//            temp1 = 0;
 //        } else {
 //            try {
-//                temp3 = Integer.parseInt(input3TextView.getText().toString());
-//                Log.v(LOG_TAG, "temp3 : " + String.valueOf(temp2));
+//                temp1 = Integer.parseInt(input1TextView.getText().toString());
+//                Log.v(LOG_TAG, "temp1 : " + String.valueOf(temp1));
 //            } catch (NumberFormatException nfe) {
 //                nfe.printStackTrace();
 //            }
 //        }
-
-        temp = temp1 * 10 + temp2;
-
-//        //각 자리수를 곱하는 과정 처리
-//        if (currentStage < 7) {
-//            //사용자가 입력한 값을 바탕으로 곱셈 결과 temp에 저장
-//            temp = temp1 * 10 + temp2;
-//            Log.v(LOG_TAG, "temp : " + String.valueOf(temp));
 //
-//        //일의 자리, 십의 자리 곱셈 결과를 더하는 과정 처리
+//        //temp2에 사용자의 두번째 입력 값 저장
+//        if (input2TextView == null) {
+//            temp2 = 0;
 //        } else {
-//
-//            //사용자가 입력한 값을 temp에 저장
-//            if (input2TextView == null) {
-//                temp = temp1;
-////                try {
-////                    temp = Integer.parseInt(input1TextView.getText().toString());
-////                    Log.v(LOG_TAG, "ans : " + String.valueOf(ans));
-////                    Log.v(LOG_TAG, "temp : " + String.valueOf(temp));
-////                } catch (NumberFormatException nfe) {
-////                    return wrongAnswer(input1TextView.getText().toString());
-////                }
-//            } else {
-//                temp = temp1 * 10 + temp2;
+//            try {
+//                temp2 = Integer.parseInt(input2TextView.getText().toString());
+//                Log.v(LOG_TAG, "temp2 : " + String.valueOf(temp2));
+//            } catch (NumberFormatException nfe) {
+//                nfe.printStackTrace();
 //            }
 //        }
-
-        //정답처리
-        if (ans == temp) {
-            flashText(true);
-
-            //연산했던 자리수를 다시 회색으로 되돌리기
-            if (operand1TextView != null) {
-                operand1TextView.setTextColor(Color.GRAY);
-            }
-            if (operand2TextView != null) {
-                operand2TextView.setTextColor(Color.GRAY);
-            }
-            if (operand3TextView != null) {
-                operand3TextView.setTextColor(Color.GRAY);
-            }
-            if (operand4TextView != null) {
-                operand4TextView.setTextColor(Color.GRAY);
-            }
-            if (operand5TextView != null) {
-                operand5TextView.setTextColor(Color.GRAY);
-            }
-
-            //입력했던 내용 회색으로 되돌리기
-            if (input1TextView != null) {
-                input1TextView.setTextColor(Color.GRAY);
-            }
-            if (input2TextView != null) {
-                input2TextView.setTextColor(Color.GRAY);
-            }
-
-            //받아내림 표시 회색으로 되돌리기
-            if (currentMark != null) {
-                markOff();
-            }
-/* 없어도 되지 않는가??????
-
-            //첫 뺄셈 결과 백의 자리가 없는 경우 0을 삭제
-            //이거 어떵할꺼냐!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            if (currentStage == 8) {
-                if (Integer.parseInt(first_subtract_hundred.getText().toString()) == 0) {
-                    first_multiply_hundred.setText("0");
-                    first_multiply_hundred.setTextColor(Color.WHITE);
-                }
-
-            }
-*/
-
-
-/*
-            //모든 연산이 끝나면
-            if ((currentStage == 3 && !isFullDivide) || currentStage == 7) {
-                finalStage();
-                return false;
-                //여기에 false를 넣지 않으면 finalStage로 가면서 nextStage()가 한번 더 실행된다!!
-                //잡기 어려웠던 버그 중 하나!
-            }*/
-
-            if (isFinal) {
-                finalStage();
-                return false;
-            }
-
-            return true;
-
-            //오답처리
-        } else {
-            //진동 발사
-            Vibrator vibrator = (Vibrator)getActivity().getSystemService(Context.VIBRATOR_SERVICE);
-            vibrator.vibrate(300);
-
-            //오답 텍스트 보여주기
-            flashText(false);
-
-            //사용자가 입력할 텍스트 뷰를 다시 'A'와 'B'로 되돌림
-            if (input1TextView != null) {
-                input1TextView.setText("?");
-                input1TextView.setTextColor(Color.BLUE);
-            }
-            if (input2TextView != null) {
-                input2TextView.setText("?");
-                input2TextView.setTextColor(Color.BLUE);
-            }
-
-            return false;
-        }
-    }
+//
+////        if (input3TextView == null || !input3TextView.getText().toString().matches("[0-9]")) {
+////            temp3 = 0;
+////        } else {
+////            try {
+////                temp3 = Integer.parseInt(input3TextView.getText().toString());
+////                Log.v(LOG_TAG, "temp3 : " + String.valueOf(temp2));
+////            } catch (NumberFormatException nfe) {
+////                nfe.printStackTrace();
+////            }
+////        }
+//
+//        temp = temp1 * 10 + temp2;
+//
+////        //각 자리수를 곱하는 과정 처리
+////        if (currentStage < 7) {
+////            //사용자가 입력한 값을 바탕으로 곱셈 결과 temp에 저장
+////            temp = temp1 * 10 + temp2;
+////            Log.v(LOG_TAG, "temp : " + String.valueOf(temp));
+////
+////        //일의 자리, 십의 자리 곱셈 결과를 더하는 과정 처리
+////        } else {
+////
+////            //사용자가 입력한 값을 temp에 저장
+////            if (input2TextView == null) {
+////                temp = temp1;
+//////                try {
+//////                    temp = Integer.parseInt(input1TextView.getText().toString());
+//////                    Log.v(LOG_TAG, "ans : " + String.valueOf(ans));
+//////                    Log.v(LOG_TAG, "temp : " + String.valueOf(temp));
+//////                } catch (NumberFormatException nfe) {
+//////                    return wrongAnswer(input1TextView.getText().toString());
+//////                }
+////            } else {
+////                temp = temp1 * 10 + temp2;
+////            }
+////        }
+//
+//        //정답처리
+//        if (ans == temp) {
+//            flashText(true);
+//
+//            //연산했던 자리수를 다시 회색으로 되돌리기
+//            if (operand1TextView != null) {
+//                operand1TextView.setTextColor(Color.GRAY);
+//            }
+//            if (operand2TextView != null) {
+//                operand2TextView.setTextColor(Color.GRAY);
+//            }
+//            if (operand3TextView != null) {
+//                operand3TextView.setTextColor(Color.GRAY);
+//            }
+//            if (operand4TextView != null) {
+//                operand4TextView.setTextColor(Color.GRAY);
+//            }
+//            if (operand5TextView != null) {
+//                operand5TextView.setTextColor(Color.GRAY);
+//            }
+//
+//            //입력했던 내용 회색으로 되돌리기
+//            if (input1TextView != null) {
+//                input1TextView.setTextColor(Color.GRAY);
+//            }
+//            if (input2TextView != null) {
+//                input2TextView.setTextColor(Color.GRAY);
+//            }
+//
+//            //받아내림 표시 회색으로 되돌리기
+//            if (currentMark != null) {
+//                markSlashOff();
+//            }
+///* 없어도 되지 않는가??????
+//
+//            //첫 뺄셈 결과 백의 자리가 없는 경우 0을 삭제
+//            //이거 어떵할꺼냐!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//            if (currentStage == 8) {
+//                if (Integer.parseInt(first_subtract_hundred.getText().toString()) == 0) {
+//                    first_multiply_hundred.setText("0");
+//                    first_multiply_hundred.setTextColor(Color.WHITE);
+//                }
+//
+//            }
+//*/
+//
+//
+///*
+//            //모든 연산이 끝나면
+//            if ((currentStage == 3 && !isFullDivide) || currentStage == 7) {
+//                finalStage();
+//                return false;
+//                //여기에 false를 넣지 않으면 finalStage로 가면서 nextStage()가 한번 더 실행된다!!
+//                //잡기 어려웠던 버그 중 하나!
+//            }*/
+//
+//            if (isFinal) {
+//                finalStage();
+//                return false;
+//            }
+//
+//            return true;
+//
+//            //오답처리
+//        } else {
+//            //진동 발사
+//            Vibrator vibrator = (Vibrator)getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+//            vibrator.vibrate(300);
+//
+//            //오답 텍스트 보여주기
+//            flashText(false);
+//
+//            //사용자가 입력할 텍스트 뷰를 다시 'A'와 'B'로 되돌림
+//            if (input1TextView != null) {
+//                input1TextView.setText("?");
+//                input1TextView.setTextColor(Color.BLUE);
+//            }
+//            if (input2TextView != null) {
+//                input2TextView.setText("?");
+//                input2TextView.setTextColor(Color.BLUE);
+//            }
+//
+//            return false;
+//        }
+//    }
 
     //flashText()와 finalStage()를 ProblemFragment로 옮겼다.
 //    private void finalStage() {
@@ -1212,12 +1230,16 @@ public class Divide32Fragment extends ProblemFragment implements NumberpadClickL
                     input1TextView.setText(String.valueOf(number));
                 }
                 carrying = false;
+//                Log.v(LOG_TAG, "carrying : " + carrying);
+
             } else {
                 //두번째 입력인 경우 input2TextView에 값을 입력함
                 if (input2TextView != null) {
                     input2TextView.setText(String.valueOf(number));
                 }
                 carrying = true;
+//                Log.v(LOG_TAG, "carrying : " + carrying);
+
             }
         }
     }
@@ -1238,6 +1260,8 @@ public class Divide32Fragment extends ProblemFragment implements NumberpadClickL
             input2TextView.setTextColor(Color.BLUE);
         }
         carrying = true;
+        Log.v(LOG_TAG, "carrying : " + carrying);
+
 
     }
 
