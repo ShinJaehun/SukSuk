@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * Created by shinjaehun on 2016-06-06.
  */
-public class ProblemFragment extends Fragment {
+public class ProblemFragment extends Fragment implements NumberpadClickListener {
 
     private static final String LOG_TAG = ProblemFragment.class.getSimpleName();
 
@@ -91,6 +91,9 @@ public class ProblemFragment extends Fragment {
         }
         if (operand4TextView != null) {
             operand4TextView.setTextColor(Color.RED);
+        }
+        if (operand5TextView != null) {
+            operand5TextView.setTextColor(Color.RED);
         }
 
         //입력할 텍스트 뷰를 임시로 'A'와 'B'로 표시
@@ -278,5 +281,66 @@ public class ProblemFragment extends Fragment {
         });
 
     }
+
+
+    @Override
+    public void onNumberClicked(int number) {
+        if (!multiInput) {
+            if (input2TextView != null) {
+                input2TextView.setText(String.valueOf(number));
+            }
+        } else {
+            //사용자 입력 처리 : 첫번째 입력인 경우 input1TextView에 값을 입력함
+            if (carrying) {
+                if (input1TextView != null) {
+                    input1TextView.setText(String.valueOf(number));
+                }
+                carrying = false;
+            } else {
+                //두번째 입력인 경우 input2TextView에 값을 입력함
+                if (input2TextView != null) {
+                    input2TextView.setText(String.valueOf(number));
+                }
+                carrying = true;
+            }
+        }
+    }
+
+    public void nextStage(){
+
+    }
+
+    public void onClearClicked() {
+
+        //사용자가 입력할 텍스트 뷰를 다시 'A'와 'B'로 되돌림
+        if (input1TextView != null) {
+            input1TextView.setText("?");
+            input1TextView.setTextColor(Color.BLUE);
+        }
+        if (input2TextView != null) {
+            input2TextView.setText("?");
+            input2TextView.setTextColor(Color.BLUE);
+        }
+        carrying = true;
+    }
+
+    public void onOKClicked() {
+        if (input1TextView == null) {
+            if (input2TextView.getText().toString().matches("[0-9]")) {
+                if (result()) {
+                    nextStage();
+                }            }
+        } else {
+            if (input1TextView.getText().toString().matches("[0-9]") && input2TextView.getText().toString().matches("[0-9]"))
+                if (result()) {
+                    nextStage();
+                }        }
+
+//
+//        if (result()) {
+//            nextStage();
+//        }
+    }
+
 
 }

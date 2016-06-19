@@ -166,7 +166,7 @@ public class Divide22Fragment extends ProblemFragment implements NumberpadClickL
 
     }
 
-    private void nextStage() {
+    public void nextStage() {
         currentStage += 1;
         Log.v(LOG_TAG, "Current Stage : " + String.valueOf(currentStage));
 
@@ -584,98 +584,98 @@ public class Divide22Fragment extends ProblemFragment implements NumberpadClickL
 //        remainder_one.setTextColor(Color.WHITE);
 //    }
 
-    @Override
-    public void onNumberClicked(int number) {
-//        switch (inputNext) {
-//            case 1:
-//                switch (inputEntry) {
-//                    case 1:
-//                        if (input1TextView != null) {
-//                            input1TextView.setText(String.valueOf(number));
-//                        }
-//                        inputNext = 2;
-//                        break;
-//                    case 2:
-//                        input2TextView.setText(String.valueOf(number));
-//                        inputNext = 1;
-//                        break;
-//                    default:
-//                        break;
+//    @Override
+//    public void onNumberClicked(int number) {
+////        switch (inputNext) {
+////            case 1:
+////                switch (inputEntry) {
+////                    case 1:
+////                        if (input1TextView != null) {
+////                            input1TextView.setText(String.valueOf(number));
+////                        }
+////                        inputNext = 2;
+////                        break;
+////                    case 2:
+////                        input2TextView.setText(String.valueOf(number));
+////                        inputNext = 1;
+////                        break;
+////                    default:
+////                        break;
+////                }
+////                break;
+////            case 2:
+////                switch (inputEntry) {
+////                    case 1:
+////                        if (input2TextView != null) {
+////                            input2TextView.setText(String.valueOf(number));
+////                        }
+////                        inputNext = 1;
+////                        break;
+////                    default:
+////                        break;
+////                }
+////                break;
+////            default:
+////                break;
+////
+////        }
+//        if (!multiInput) {
+//            if (input2TextView != null) {
+//                input2TextView.setText(String.valueOf(number));
+//            }
+//        } else {
+//            //사용자 입력 처리 : 첫번째 입력인 경우 input1TextView에 값을 입력함
+//            if (carrying) {
+//                if (input1TextView != null) {
+//                    input1TextView.setText(String.valueOf(number));
 //                }
-//                break;
-//            case 2:
-//                switch (inputEntry) {
-//                    case 1:
-//                        if (input2TextView != null) {
-//                            input2TextView.setText(String.valueOf(number));
-//                        }
-//                        inputNext = 1;
-//                        break;
-//                    default:
-//                        break;
+//                carrying = false;
+//            } else {
+//                //두번째 입력인 경우 input2TextView에 값을 입력함
+//                if (input2TextView != null) {
+//                    input2TextView.setText(String.valueOf(number));
 //                }
-//                break;
-//            default:
-//                break;
-//
+//                carrying = true;
+//            }
 //        }
-        if (!multiInput) {
-            if (input2TextView != null) {
-                input2TextView.setText(String.valueOf(number));
-            }
-        } else {
-            //사용자 입력 처리 : 첫번째 입력인 경우 input1TextView에 값을 입력함
-            if (carrying) {
-                if (input1TextView != null) {
-                    input1TextView.setText(String.valueOf(number));
-                }
-                carrying = false;
-            } else {
-                //두번째 입력인 경우 input2TextView에 값을 입력함
-                if (input2TextView != null) {
-                    input2TextView.setText(String.valueOf(number));
-                }
-                carrying = true;
-            }
-        }
-
-    }
-
-    public void onClearClicked() {
-//        currentStage = 0;
-//        ans = 0;
-//        initNumbers();
-//        nextStage();
-//        inputNext = 1;
-
-        //사용자가 입력할 텍스트 뷰를 다시 'A'와 'B'로 되돌림
-        if (input1TextView != null) {
-            input1TextView.setText("?");
-            input1TextView.setTextColor(Color.BLUE);
-        }
-        if (input2TextView != null) {
-            input2TextView.setText("?");
-            input2TextView.setTextColor(Color.BLUE);
-        }
-        carrying = true;
-    }
-
-    public void onOKClicked() {
-        if (input1TextView == null) {
-            if (input2TextView.getText().toString().matches("[0-9]")) {
-                if (result()) {
-                    nextStage();
-                }            }
-        } else {
-            if (input1TextView.getText().toString().matches("[0-9]") && input2TextView.getText().toString().matches("[0-9]"))
-                if (result()) {
-                    nextStage();
-                }        }
-
 //
-//        if (result()) {
-//            nextStage();
+//    }
+//
+//    public void onClearClicked() {
+////        currentStage = 0;
+////        ans = 0;
+////        initNumbers();
+////        nextStage();
+////        inputNext = 1;
+//
+//        //사용자가 입력할 텍스트 뷰를 다시 'A'와 'B'로 되돌림
+//        if (input1TextView != null) {
+//            input1TextView.setText("?");
+//            input1TextView.setTextColor(Color.BLUE);
 //        }
-    }
+//        if (input2TextView != null) {
+//            input2TextView.setText("?");
+//            input2TextView.setTextColor(Color.BLUE);
+//        }
+//        carrying = true;
+//    }
+//
+//    public void onOKClicked() {
+//        if (input1TextView == null) {
+//            if (input2TextView.getText().toString().matches("[0-9]")) {
+//                if (result()) {
+//                    nextStage();
+//                }            }
+//        } else {
+//            if (input1TextView.getText().toString().matches("[0-9]") && input2TextView.getText().toString().matches("[0-9]"))
+//                if (result()) {
+//                    nextStage();
+//                }        }
+//
+////
+////        if (result()) {
+////            nextStage();
+////        }
+//    }
 
 }

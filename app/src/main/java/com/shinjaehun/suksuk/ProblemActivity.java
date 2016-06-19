@@ -137,26 +137,29 @@ public class ProblemActivity extends AppCompatActivity {
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 //        setListener(operation);
-        switch (operation) {
-            case "multiply32":
-//                numberpadFragment.setClickListener(multiply32Fragment);
-//                multiply32Fragment.startPractice();
+        numberpadFragment.setClickListener(problemFragment);
+
+//        switch (operation) {
+//            case "multiply32":
+////                numberpadFragment.setClickListener(multiply32Fragment);
+////                multiply32Fragment.startPractice();
+////                break;
+//                numberpadFragment.setClickListener((Multiply32Fragment)problemFragment);
 //                break;
-                numberpadFragment.setClickListener((Multiply32Fragment)problemFragment);
-                break;
-            case "multiply22":
-                numberpadFragment.setClickListener((Multiply22Fragment)problemFragment);
-                break;
-            case "divide21":
-                numberpadFragment.setClickListener((Divide21Fragment)problemFragment);
-                break;
-            case "divide22":
-                numberpadFragment.setClickListener((Divide22Fragment)problemFragment);
-                break;
-            case "divide32":
-                numberpadFragment.setClickListener((Divide32Fragment)problemFragment);
-                break;
-        }
+//            case "multiply22":
+//                numberpadFragment.setClickListener((Multiply22Fragment)problemFragment);
+//                break;
+//            case "divide21":
+//                numberpadFragment.setClickListener(problemFragment);
+////                numberpadFragment.setClickListener((Divide21Fragment)problemFragment);
+//                break;
+//            case "divide22":
+//                numberpadFragment.setClickListener((Divide22Fragment)problemFragment);
+//                break;
+//            case "divide32":
+//                numberpadFragment.setClickListener((Divide32Fragment)problemFragment);
+//                break;
+//        }
         problemFragment.startPractice();
 
     }

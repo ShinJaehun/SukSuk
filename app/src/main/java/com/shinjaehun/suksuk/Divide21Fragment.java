@@ -22,7 +22,7 @@ import org.w3c.dom.Text;
 /**
  * Created by shinjaehun on 2016-04-19.
  */
-public class Divide21Fragment extends ProblemFragment implements NumberpadClickListener {
+public class Divide21Fragment extends ProblemFragment {
 
     private static final String LOG_TAG = Divide21Fragment.class.getSimpleName();
 //    public Context mContext = null;
@@ -179,7 +179,7 @@ public class Divide21Fragment extends ProblemFragment implements NumberpadClickL
 
     }
 
-    private void nextStage() {
+    public void nextStage() {
         currentStage += 1;
         Log.v(LOG_TAG, "Current Stage : " + String.valueOf(currentStage));
 
@@ -187,6 +187,7 @@ public class Divide21Fragment extends ProblemFragment implements NumberpadClickL
         switch (currentStage) {
             case 1:
                 if (divisor > dividendTen) {
+                    //몫이 한 자리인 나눗셈
                     operand1TextView = divisor_one;
                     operand2TextView = dividend_ten;
                     operand3TextView = dividend_one;
@@ -197,6 +198,7 @@ public class Divide21Fragment extends ProblemFragment implements NumberpadClickL
 
                     ans = quotientOne;
                 } else {
+                    //몫이 두 자리인 나눗셈
                     operand1TextView = divisor_one;
                     operand2TextView = dividend_ten;
                     operand3TextView = null;
@@ -215,19 +217,22 @@ public class Divide21Fragment extends ProblemFragment implements NumberpadClickL
                 operand4TextView = null;
 
                 if (divisor > dividendTen) {
+                    //몫이 한 자리인 나눗셈
                     operand1TextView = divisor_one;
                     operand2TextView = quotient_one;
 
                     ans = divisorOne * quotientOne;
-
-                    if (ans < 10) {
-                        input1TextView = null;
-                    } else {
-                        input1TextView = first_multiply_ten;
-                    }
+                    //몫이 한 자리이면... 나누는 수 * 몫을 했을 때 분명 두 자리 수겠지?
+//                    if (ans < 10) {
+//                        input1TextView = null;
+//                    } else {
+//                        input1TextView = first_multiply_ten;
+//                    }
+                    input1TextView = first_multiply_ten;
                     input2TextView = first_multiply_one;
 
                 }  else {
+                    //몫이 두 자리인 나눗셈 : 나누는 수 * 몫 십의 자리
                     operand1TextView = divisor_one;
                     operand2TextView = quotient_ten;
 
@@ -242,8 +247,10 @@ public class Divide21Fragment extends ProblemFragment implements NumberpadClickL
 
             case 3:
                 if (divisor > dividendTen) {
-                    if(dividendOne >
+                    //몫이 한 자리인 나눗셈
+                    if(dividendOne >=
                             Integer.parseInt(first_multiply_one.getText().toString())) {
+                        //받아내림 없이 바로 뺄셈하고 연산 종료
                         operand1TextView = dividend_ten;
                         operand2TextView = dividend_one;
                         operand3TextView = first_multiply_ten;
@@ -258,18 +265,24 @@ public class Divide21Fragment extends ProblemFragment implements NumberpadClickL
 
                         isFinal = true;
                     } else {
+                        //나누어지는 수 일의 자리가 첫번째 곱셈 일의 자리보다 작아서 받아내림 시작
                         operand1TextView = dividend_ten;
                         operand2TextView = null;
                         operand3TextView = null;
                         operand4TextView = null;
 
-                        //여기서부터 구현해!!!!!!
-                        //받아내림 첫번째 단계!!!!!!!!!!!!!!!
+                        currentMark = dividend_ten_cover;
+                        markSlashOn();
 
+                        ans = dividendTen - 1;
+
+                        input1TextView = null;
+                        input2TextView = carrying_dividend_ten;
 
                     }
 
                 } else {
+                    //몫이 두 자리인 나눗셈 : 나누어지는 수 십의 자리와 첫번째 곱셉 십의 자리 뻴셈
                     operand1TextView = dividend_ten;
                     operand2TextView = first_multiply_ten;
                     operand3TextView = null;
@@ -290,48 +303,96 @@ public class Divide21Fragment extends ProblemFragment implements NumberpadClickL
 
             case 4:
                 if (Integer.parseInt(first_subtract_ten.getText().toString()) == 0) {
+                    //첫번째 뺄셈 십의 자리 수가 0일때 지우기
                     first_subtract_ten.setText("0");
                     first_subtract_ten.setTextColor(Color.WHITE);
                 }
 
-                operand1TextView = dividend_one;
-                operand2TextView = null;
-                operand3TextView = null;
-                operand4TextView = null;
+                if (divisor > dividendTen && dividendOne <
+                    Integer.parseInt(first_multiply_one.getText().toString())) {
+                    //몫이 한 자리인 나눗셈이며
+                    //나누는 수 일의 자리가 첫번째 곱셈 일의 자리보다 작아 받아내림
+                    //십의 자리에서 내린 값 10 더하기
+                    operand1TextView = dividend_one;
+                    operand2TextView = null;
+                    operand3TextView = null;
+                    operand4TextView = null;
 
-                input1TextView = null;
-                input2TextView = first_subtract_one;
+                    currentMark = dividend_one_cover;
+                    markSlashOn();
 
-                ans = dividendOne;
+                    ans = dividendOne + 10;
+
+                    input1TextView = carrying_dividend_one_10;
+                    input2TextView = carrying_dividend_one_1;
+
+                } else {
+                    //몫이 두 자리인 나눗셈 : 나누어지는 수 일의 자리 - 0 (내리기)
+
+                    operand1TextView = dividend_one;
+                    operand2TextView = null;
+                    operand3TextView = null;
+                    operand4TextView = null;
+
+                    input1TextView = null;
+                    input2TextView = first_subtract_one;
+
+                    ans = dividendOne;
+                }
 
                 break;
 
             case 5:
-                operand1TextView = divisor_one;
 
-                if (Integer.parseInt(first_subtract_ten.getText().toString()) == 0) {
-                    operand2TextView = null;
-                } else {
-                    operand2TextView = first_subtract_ten;
-                }
-                operand3TextView = first_subtract_one;
-                operand4TextView = null;
+                if (divisor > dividendTen && dividendOne <
+                        Integer.parseInt(first_multiply_one.getText().toString())) {
+                    //몫이 한 자리인 나눗셈이며
+                    //나누는 수 일의 자리가 첫번째 곱셈 일의 자리보다 작아 받아내림
+                    //받아내린 값 - 첫번째 곱셈 일의 자리
+                    operand1TextView = carrying_dividend_one_10;
+                    operand2TextView = carrying_dividend_one_1;
+                    operand3TextView = first_multiply_one;
+                    operand4TextView = null;
 
-                ans = quotientOne;
+                    ans = Integer.parseInt(carrying_dividend_one_10.getText().toString()) * 10 +
+                            Integer.parseInt(carrying_dividend_one_1.getText().toString()) -
+                            Integer.parseInt(first_multiply_one.getText().toString());
 
-                input1TextView = null;
-                input2TextView = quotient_one;
+                    ans_first_line.setVisibility(View.VISIBLE);
 
-                if (divisor >
-                        Integer.parseInt(first_subtract_ten.getText().toString()) * 10 +
-                        Integer.parseInt(first_subtract_one.getText().toString())) {
-                    //첫번째 뺄셈 결과가 나누는 수 보다 작으면 연산 종료
+                    input1TextView = null;
+                    input2TextView = first_subtract_one;
+
                     isFinal = true;
-                }
+                } else {
+                    //몫이 두 자리수인 나눗셈 : 몫 일의 자리 구하는 과정
+                    operand1TextView = divisor_one;
 
+                    if (Integer.parseInt(first_subtract_ten.getText().toString()) == 0) {
+                        //첫번째 뺄셈 결과 일의 자리만 남아 있을 수 있음
+                        operand2TextView = null;
+                    } else {
+                        operand2TextView = first_subtract_ten;
+                    }
+                    operand3TextView = first_subtract_one;
+                    operand4TextView = null;
+
+                    ans = quotientOne;
+
+                    input1TextView = null;
+                    input2TextView = quotient_one;
+
+                    if (divisor >
+                            Integer.parseInt(first_subtract_ten.getText().toString()) * 10 +
+                                    Integer.parseInt(first_subtract_one.getText().toString())) {
+                        //첫번째 뺄셈 결과가 나누는 수 보다 작으면 연산 종료
+                        isFinal = true;
+                    }
+                }
                 break;
 
             case 6:
+                //몫이 두자리인 나눗셈 : 나누는 수 * 몫 십의 자리
                 operand1TextView = divisor_one;
                 operand2TextView = quotient_one;
                 operand3TextView = null;
@@ -340,6 +401,7 @@ public class Divide21Fragment extends ProblemFragment implements NumberpadClickL
                 ans = divisorOne * quotientOne;
 
                 if (ans < 10) {
+                    //나누는 수 * 몫 십의 자리가 한 자리 수인 경우
                     input1TextView = null;
                 } else {
                     input1TextView = second_multiply_ten;
@@ -349,7 +411,9 @@ public class Divide21Fragment extends ProblemFragment implements NumberpadClickL
                 break;
 
             case 7:
+                //몫이 두 자리인 나눗셈 : 첫번째 뺄셈 - 두번째 곱셈
                 if (Integer.parseInt(first_subtract_ten.getText().toString()) == 0) {
+                    //첫번째 뺄셈이 일의 자리이면 십의 자리 0은 삭제
                     operand1TextView = null;
                 } else {
                     operand1TextView = first_subtract_ten;
@@ -357,6 +421,7 @@ public class Divide21Fragment extends ProblemFragment implements NumberpadClickL
                 operand2TextView = first_subtract_one;
 
                 if (Integer.parseInt(second_multiply_ten.getText().toString()) == 0) {
+                    //두번째 곱셈이 일의 자리이면 십의 자리 0은 삭제
                     operand3TextView = null;
                 } else {
                     operand3TextView = second_multiply_ten;
@@ -620,60 +685,60 @@ public class Divide21Fragment extends ProblemFragment implements NumberpadClickL
 //        remainder_one.setText(String.valueOf("0"));
 //        remainder_one.setTextColor(Color.WHITE);
 //    }
-
-    @Override
-    public void onNumberClicked(int number) {
-        if (!multiInput) {
-            if (input2TextView != null) {
-                input2TextView.setText(String.valueOf(number));
-            }
-        } else {
-            //사용자 입력 처리 : 첫번째 입력인 경우 input1TextView에 값을 입력함
-            if (carrying) {
-                if (input1TextView != null) {
-                    input1TextView.setText(String.valueOf(number));
-                }
-                carrying = false;
-            } else {
-                //두번째 입력인 경우 input2TextView에 값을 입력함
-                if (input2TextView != null) {
-                    input2TextView.setText(String.valueOf(number));
-                }
-                carrying = true;
-            }
-        }
-    }
-
-    public void onClearClicked() {
-
-        //사용자가 입력할 텍스트 뷰를 다시 'A'와 'B'로 되돌림
-        if (input1TextView != null) {
-            input1TextView.setText("?");
-            input1TextView.setTextColor(Color.BLUE);
-        }
-        if (input2TextView != null) {
-            input2TextView.setText("?");
-            input2TextView.setTextColor(Color.BLUE);
-        }
-        carrying = true;
-    }
-
-    public void onOKClicked() {
-        if (input1TextView == null) {
-            if (input2TextView.getText().toString().matches("[0-9]")) {
-                if (result()) {
-                    nextStage();
-                }            }
-        } else {
-            if (input1TextView.getText().toString().matches("[0-9]") && input2TextView.getText().toString().matches("[0-9]"))
-                if (result()) {
-                    nextStage();
-                }        }
-
 //
-//        if (result()) {
-//            nextStage();
+//    @Override
+//    public void onNumberClicked(int number) {
+//        if (!multiInput) {
+//            if (input2TextView != null) {
+//                input2TextView.setText(String.valueOf(number));
+//            }
+//        } else {
+//            //사용자 입력 처리 : 첫번째 입력인 경우 input1TextView에 값을 입력함
+//            if (carrying) {
+//                if (input1TextView != null) {
+//                    input1TextView.setText(String.valueOf(number));
+//                }
+//                carrying = false;
+//            } else {
+//                //두번째 입력인 경우 input2TextView에 값을 입력함
+//                if (input2TextView != null) {
+//                    input2TextView.setText(String.valueOf(number));
+//                }
+//                carrying = true;
+//            }
 //        }
-    }
+//    }
+//
+//    public void onClearClicked() {
+//
+//        //사용자가 입력할 텍스트 뷰를 다시 'A'와 'B'로 되돌림
+//        if (input1TextView != null) {
+//            input1TextView.setText("?");
+//            input1TextView.setTextColor(Color.BLUE);
+//        }
+//        if (input2TextView != null) {
+//            input2TextView.setText("?");
+//            input2TextView.setTextColor(Color.BLUE);
+//        }
+//        carrying = true;
+//    }
+//
+//    public void onOKClicked() {
+//        if (input1TextView == null) {
+//            if (input2TextView.getText().toString().matches("[0-9]")) {
+//                if (result()) {
+//                    nextStage();
+//                }            }
+//        } else {
+//            if (input1TextView.getText().toString().matches("[0-9]") && input2TextView.getText().toString().matches("[0-9]"))
+//                if (result()) {
+//                    nextStage();
+//                }        }
+//
+////
+////        if (result()) {
+////            nextStage();
+////        }
+//    }
 
 }
