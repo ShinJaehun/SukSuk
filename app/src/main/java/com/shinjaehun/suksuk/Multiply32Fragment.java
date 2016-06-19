@@ -336,9 +336,8 @@ public class Multiply32Fragment extends ProblemFragment {
 
             case 11:
                 operand1TextView = null;
-                //두번째 곱셈 결과 천의 자리가 0이고 만 자리의 받아올림 수가 0이면 두번째 곱셈 결과 천의 자리 '0'을 붉게 표시하지 않는다.
-                if ((Integer.parseInt(ans_down_thousand.getText().toString()) == 0)
-                        && (Integer.parseInt(ans_carrying_tenthousand.getText().toString()) == 0)) {
+                //두번째 곱셈 결과 천의 자리가 0이면 두번째 곱셈 결과 천의 자리 '0'을 붉게 표시하지 않는다.
+                if (Integer.parseInt(ans_down_thousand.getText().toString()) == 0) {
                     operand2TextView = null;
                 } else {
                     operand2TextView = ans_down_thousand;

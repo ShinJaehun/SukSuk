@@ -253,6 +253,23 @@
                         android:orientation="vertical"
                         android:gravity="center">
 
+                        <LinearLayout
+                            android:id="@+id/carrying_l2_dividend_hundred"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorBackground"
+                                android:textSize="10sp"/>
+
+                        </LinearLayout>
 
                         <FrameLayout
                             android:layout_width="wrap_content"
@@ -311,6 +328,34 @@
                         android:layout_marginRight="6dp"
                         android:gravity="center"
                         android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/carrying_l2_dividend_ten"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:id="@+id/carrying_l2_dividend_ten_10"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textAlignment="center"
+                                android:textSize="10sp"
+                                android:textColor="@color/colorBackground"/>
+
+                            <TextView
+                                android:id="@+id/carrying_l2_dividend_ten_1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textAlignment="center"
+                                android:textSize="10sp"
+                                android:textColor="@color/colorBackground"/>
+
+                        </LinearLayout>
 
                         <FrameLayout
                             android:layout_width="wrap_content"
@@ -381,6 +426,30 @@
                         android:orientation="vertical"
                         android:gravity="center">
 
+                        <LinearLayout
+                            android:id="@+id/carrying_l2_dividend_one"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorBackground"
+                                android:textSize="10sp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorBackground"
+                                android:textSize="10sp"/>
+                        </LinearLayout>
 
                         <FrameLayout
                             android:layout_width="wrap_content"

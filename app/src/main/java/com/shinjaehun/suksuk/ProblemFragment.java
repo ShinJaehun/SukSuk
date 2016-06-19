@@ -21,7 +21,6 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 
     private static final String LOG_TAG = ProblemFragment.class.getSimpleName();
 
-
 //    private SoundPool soundPool;
 //    private int soundBeep;
 
@@ -144,8 +143,9 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 
         temp = temp1 * 10 + temp2;
 
-        //정답처리
         if (ans == temp) {
+           //정답처리
+
             flashText(true);
 
             //연산했던 자리수를 다시 회색으로 되돌리기
@@ -186,8 +186,9 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 
             return true;
 
-        //오답처리
         } else {
+           //오답처리
+
             //진동 발사
             Vibrator vibrator = (Vibrator)getActivity().getSystemService(Context.VIBRATOR_SERVICE);
             vibrator.vibrate(300);
@@ -307,10 +308,10 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
     }
 
     public void nextStage(){
-
     }
 
     public void onClearClicked() {
+        //다시할래 버튼 눌렀을 때 처리
 
         //사용자가 입력할 텍스트 뷰를 다시 'A'와 'B'로 되돌림
         if (input1TextView != null) {
@@ -321,17 +322,21 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
             input2TextView.setText("?");
             input2TextView.setTextColor(Color.BLUE);
         }
+        //inputTextView가 둘 일 때 다시할래 누른 다음 다시 input1TextView부터 입력을 받을 수 있도록
         carrying = true;
     }
 
     public void onOKClicked() {
+        //입력 버튼 눌렀을 때 처리
         if (input1TextView == null) {
             if (input2TextView.getText().toString().matches("[0-9]")) {
+                //'?' 기호가 그대로 입력되는 문제 방지
                 if (result()) {
                     nextStage();
                 }            }
         } else {
             if (input1TextView.getText().toString().matches("[0-9]") && input2TextView.getText().toString().matches("[0-9]"))
+                //'?' 기호가 그대로 입력되는 문제 방지
                 if (result()) {
                     nextStage();
                 }        }

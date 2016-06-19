@@ -117,8 +117,8 @@ public class Multiply22Fragment extends ProblemFragment {
         top = (int) (Math.random() * 90) + 10;
         down = (int) (Math.random() * 90) + 10;
 
-        top = 14;
-        down = 67;
+//        top = 14;
+//        down = 67;
 
         topTen = top / 10 % 10;
         topOne = top % 10;
