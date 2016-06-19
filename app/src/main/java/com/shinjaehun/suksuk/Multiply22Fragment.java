@@ -16,7 +16,7 @@ import android.widget.TextView;
 /**
  * Created by shinjaehun on 2016-04-19.
  */
-public class Multiply22Fragment extends ProblemFragment implements NumberpadClickListener {
+public class Multiply22Fragment extends ProblemFragment {
 
     private static final String LOG_TAG = Multiply22Fragment.class.getSimpleName();
 

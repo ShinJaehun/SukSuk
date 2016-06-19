@@ -16,7 +16,7 @@ import android.widget.TextView;
 /**
  * Created by shinjaehun on 2016-04-19.
  */
-public class Divide32Fragment extends ProblemFragment implements NumberpadClickListener {
+public class Divide32Fragment extends ProblemFragment {
 
     private static final String LOG_TAG = Divide32Fragment.class.getSimpleName();
 
