@@ -2,6 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+<!--
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -15,8 +21,38 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="1"/>
+-->
 
-        <Button
+        <ImageButton
+            android:id="@+id/button_1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/round_button_1"
+            android:layout_toLeftOf="@+id/button_2"
+            android:layout_marginRight="5dp"
+            android:src="@mipmap/no_1_24dp"/>
+
+
+        <ImageButton
+            android:id="@+id/button_2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/round_button_2"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:src="@mipmap/no_2_24dp"/>
+
+
+        <ImageButton
+            android:id="@+id/button_3"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/round_button_3"
+            android:layout_toRightOf="@id/button_2"
+            android:layout_marginLeft="5dp"
+            android:src="@mipmap/no_3_24dp"/>
+ <!--       <Button
             android:id="@+id/button_2"
             android:layout_width="wrap_content"
             android:layout_weight="1"
@@ -29,8 +65,124 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="3"/>
+-->
+    </RelativeLayout>
 
-    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <ImageButton
+            android:id="@+id/button_4"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/round_button_4"
+            android:layout_toLeftOf="@+id/button_5"
+            android:layout_marginRight="5dp"
+            android:src="@mipmap/no_4_24dp"/>
+
+
+        <ImageButton
+            android:id="@+id/button_5"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/round_button_5"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:src="@mipmap/no_5_24dp"/>
+
+
+        <ImageButton
+            android:id="@+id/button_6"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/round_button_6"
+            android:layout_toRightOf="@id/button_5"
+            android:layout_marginLeft="5dp"
+            android:src="@mipmap/no_6_24dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <ImageButton
+            android:id="@+id/button_7"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/round_button_7"
+            android:layout_toLeftOf="@+id/button_8"
+            android:layout_marginRight="5dp"
+            android:src="@mipmap/no_7_24dp"/>
+
+
+        <ImageButton
+            android:id="@+id/button_8"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/round_button_8"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:src="@mipmap/no_8_24dp"/>
+
+
+        <ImageButton
+            android:id="@+id/button_9"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/round_button_9"
+            android:layout_toRightOf="@id/button_8"
+            android:layout_marginLeft="5dp"
+            android:src="@mipmap/no_9_24dp"/>
+
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <ImageButton
+            android:id="@+id/button_clear"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/round_button_clear"
+            android:layout_toLeftOf="@+id/button_0"
+            android:layout_marginRight="5dp"
+            android:src="@mipmap/clear_24dp"/>
+
+
+        <ImageButton
+            android:id="@+id/button_0"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/round_button_0"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:src="@mipmap/no_0_24dp"/>
+
+
+        <ImageButton
+            android:id="@+id/button_enter"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/round_button_enter"
+            android:layout_toRightOf="@id/button_0"
+            android:layout_marginLeft="5dp"
+            android:src="@mipmap/enter_24dp"/>
+
+    </RelativeLayout>
+
+<!--
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -118,5 +270,6 @@
             android:text="입력" />
 
     </LinearLayout>
+-->
 
 </LinearLayout>

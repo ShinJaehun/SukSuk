@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 /**
  * Created by shinjaehun on 2016-04-18.
@@ -16,7 +17,8 @@ import android.widget.Button;
 public class NumberpadFragment extends Fragment{
     private NumberpadClickListener listener;
 
-    Button button0, button1, button2, button3, button4, button5, button6, button7, button8, button9, buttonClear, buttonOK;
+    ImageButton button1, button2, button3;
+    ImageButton button0, button4, button5, button6, button7, button8, button9, buttonClear, buttonOK;
     int num;
 
 
@@ -25,7 +27,7 @@ public class NumberpadFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_numberpad, container);
 
-        button0 = (Button)v.findViewById(R.id.button_0);
+        button0 = (ImageButton)v.findViewById(R.id.button_0);
         button0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -33,7 +35,7 @@ public class NumberpadFragment extends Fragment{
             }
         });
 
-        button1 = (Button)v.findViewById(R.id.button_1);
+        button1 = (ImageButton)v.findViewById(R.id.button_1);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,7 +43,7 @@ public class NumberpadFragment extends Fragment{
             }
         });
 
-        button2 = (Button)v.findViewById(R.id.button_2);
+        button2 = (ImageButton)v.findViewById(R.id.button_2);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,7 +51,7 @@ public class NumberpadFragment extends Fragment{
             }
         });
 
-        button3 = (Button)v.findViewById(R.id.button_3);
+        button3 = (ImageButton)v.findViewById(R.id.button_3);
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,7 +59,7 @@ public class NumberpadFragment extends Fragment{
             }
         });
 
-        button4 = (Button)v.findViewById(R.id.button_4);
+        button4 = (ImageButton)v.findViewById(R.id.button_4);
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,7 +67,7 @@ public class NumberpadFragment extends Fragment{
             }
         });
 
-        button5 = (Button)v.findViewById(R.id.button_5);
+        button5 = (ImageButton)v.findViewById(R.id.button_5);
         button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,7 +75,7 @@ public class NumberpadFragment extends Fragment{
             }
         });
 
-        button6 = (Button)v.findViewById(R.id.button_6);
+        button6 = (ImageButton)v.findViewById(R.id.button_6);
         button6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,7 +83,7 @@ public class NumberpadFragment extends Fragment{
             }
         });
 
-        button7 = (Button)v.findViewById(R.id.button_7);
+        button7 = (ImageButton)v.findViewById(R.id.button_7);
         button7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,7 +91,7 @@ public class NumberpadFragment extends Fragment{
             }
         });
 
-        button8 = (Button)v.findViewById(R.id.button_8);
+        button8 = (ImageButton)v.findViewById(R.id.button_8);
         button8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,7 +99,7 @@ public class NumberpadFragment extends Fragment{
             }
         });
 
-        button9 = (Button)v.findViewById(R.id.button_9);
+        button9 = (ImageButton)v.findViewById(R.id.button_9);
         button9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,7 +107,7 @@ public class NumberpadFragment extends Fragment{
             }
         });
 
-        buttonClear = (Button)v.findViewById(R.id.button_clear);
+        buttonClear = (ImageButton)v.findViewById(R.id.button_clear);
         buttonClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,7 +115,7 @@ public class NumberpadFragment extends Fragment{
             }
         });
 
-        buttonOK = (Button)v.findViewById(R.id.button_enter);
+        buttonOK = (ImageButton)v.findViewById(R.id.button_enter);
         buttonOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

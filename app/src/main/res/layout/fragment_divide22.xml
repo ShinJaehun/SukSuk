@@ -253,8 +253,8 @@
                                     android:id="@+id/dividend_ten_cover"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:src="@drawable/slash_gray"
+                                    android:layout_gravity="center"
+                                    android:src="@mipmap/slash_gray"
                                     android:visibility="invisible"/>
 
                                 <TextView
@@ -313,8 +313,8 @@
                                     android:id="@+id/dividend_one_cover"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:src="@drawable/slash_gray"
+                                    android:layout_gravity="center"
+                                    android:src="@mipmap/slash_gray"
                                     android:visibility="invisible"/>
 
 

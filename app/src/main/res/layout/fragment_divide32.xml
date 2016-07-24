@@ -280,7 +280,7 @@
                                 android:layout_width="15dp"
                                 android:layout_height="15dp"
                                 android:layout_gravity="center"
-                                android:src="@drawable/slash_gray"
+                                android:src="@mipmap/slash_gray"
                                 android:visibility="invisible"/>
 
                             <TextView
@@ -290,8 +290,8 @@
                                 android:text="0"
                                 android:textAlignment="center"
                                 android:textSize="10sp"
-                                android:layout_marginLeft="4dp"
-                                android:textColor="@color/colorBackground"/>
+                                android:textColor="@color/colorBackground"
+                                android:layout_gravity="center" />
 
                         </FrameLayout>
 
@@ -304,8 +304,8 @@
                                 android:id="@+id/dividend_hundred_cover"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:src="@drawable/slash_gray"
+                                android:layout_gravity="center"
+                                android:src="@mipmap/slash_gray"
                                 android:visibility="invisible"/>
 
                             <TextView
@@ -366,7 +366,7 @@
                                 android:layout_width="15dp"
                                 android:layout_height="15dp"
                                 android:layout_gravity="center"
-                                android:src="@drawable/slash_gray"
+                                android:src="@mipmap/slash_gray"
                                 android:visibility="invisible"/>
 
                             <LinearLayout
@@ -404,8 +404,8 @@
                                 android:id="@+id/dividend_ten_cover"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:src="@drawable/slash_gray"
+                                android:layout_gravity="center"
+                                android:src="@mipmap/slash_gray"
                                 android:visibility="invisible"/>
 
                             <TextView
@@ -459,7 +459,7 @@
                                 android:layout_width="15dp"
                                 android:layout_height="15dp"
                                 android:layout_gravity="center"
-                                android:src="@drawable/slash_gray"
+                                android:src="@mipmap/slash_gray"
                                 android:visibility="invisible"/>
 
                             <LinearLayout
@@ -500,7 +500,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:src="@drawable/slash_gray"
+                                android:src="@mipmap/slash_gray"
                                 android:visibility="invisible"/>
 
                             <TextView
@@ -696,7 +696,7 @@
                             android:layout_width="15dp"
                             android:layout_height="15dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/slash_gray"
+                            android:src="@mipmap/slash_gray"
                             android:visibility="invisible"/>
 
                         <TextView
@@ -720,7 +720,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@drawable/slash_gray"
+                            android:src="@mipmap/slash_gray"
                             android:visibility="invisible"/>
 
                         <TextView
@@ -782,7 +782,7 @@
                             android:layout_width="15dp"
                             android:layout_height="15dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/slash_gray"
+                            android:src="@mipmap/slash_gray"
                             android:visibility="invisible"/>
 
                         <LinearLayout
@@ -823,7 +823,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@drawable/slash_gray"
+                            android:src="@mipmap/slash_gray"
                             android:visibility="invisible"/>
 
                         <TextView
@@ -880,7 +880,7 @@
                             android:layout_width="15dp"
                             android:layout_height="15dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/slash_gray"
+                            android:src="@mipmap/slash_gray"
                             android:visibility="invisible"/>
 
                         <LinearLayout
@@ -919,7 +919,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@drawable/slash_gray"
+                            android:src="@mipmap/slash_gray"
                             android:visibility="invisible"/>
 
                         <TextView

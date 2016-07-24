@@ -213,14 +213,14 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
     public void markSlashOn() {
         //나눗셈 받아내림 표시하기
         currentMark.setVisibility(View.VISIBLE);
-        currentMark.setImageResource(R.drawable.slash_red);
+        currentMark.setImageResource(R.mipmap.slash_red);
     }
 
     public void markSlashOff() {
         //나눗셈 받아내림 표시 해제하기
         //완전히 삭제해버릴 필요는 없겠지?
         //iv.setVisibility(View.INVISIBLE);
-        currentMark.setImageResource(R.drawable.slash_gray);
+        currentMark.setImageResource(R.mipmap.slash_gray);
         currentMark = null;
     }
 
