@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.SystemClock;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
@@ -11,8 +12,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.sql.Time;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by shinjaehun on 2016-06-06.
@@ -49,6 +52,11 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
     //곱셈 또는 나눗셈 결과
     public int ans = 0;
 
+    //활동 결과를 표시해줄 dialog
+    private DialogResult dialogResult;
+
+    public long startTime, endTime, elapsedTime;
+
     public final static Map<String, Integer> myRecords = new HashMap<String, Integer>() {
         //테스트중
         //결국 이 Map 값도 Object로 외부로 넘겨야 하지 않을까 싶다...
@@ -63,7 +71,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
         }
     };
 
-    public int score = 0;
+//    public int score = 0;
     //테스트중
     //score 값은 activity가 재실행되면서 다시 0으로 리셋된다.
     //이걸 이용하면 '한번도 틀리지 않고 문제 해결하기' 기록을 구현할 수 있겠다.
@@ -261,6 +269,10 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 //        toastR.setGravity(Gravity.CENTER, 0, 0);
 //        toastR.show();
 
+        endTime = System.nanoTime();
+        elapsedTime = endTime - startTime;
+        //현재 startTime이 Divide21Fragment에만 설정되어 있으니... 다른 Fragment에서 시도하면 오류 없이 잘못된 값만 나온다.
+
         //타~다~
         Effects.getInstance().playTada(Effects.SOUND_2);
 
@@ -271,17 +283,78 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
         //참잘했어요 이미지 나온 이후에 버튼 입력 해제
         ((ProblemActivity)getActivity()).unSetListener();
 
-        //이미지 클릭하면 액티비티 재시작!
         verygood.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = getActivity().getIntent();
-                getActivity().finish();
-                startActivity(intent);
+                //이미지 클릭하면 액티비티 재시작!
+//                Intent intent = getActivity().getIntent();
+//                getActivity().finish();
+//                startActivity(intent);
+                dialogResult = new DialogResult(getActivity(),
+                        "결과",
+                         getElapsedTime(elapsedTime) + "가 걸렸습니다!",
+                        clickListener);
+                //clickListener는 dialogResult의 clickListener, 아래 구현되어 있다.
+                elapsedTime = 0;
+                dialogResult.show();
             }
         });
 
     }
+
+    private static String getElapsedTime(long elapsedTime) {
+        //계산하는데 걸린 시간 측정을 위한 함수
+        if (elapsedTime < 0) {
+            throw new IllegalArgumentException("elapsedTime must be greater than 0!");
+        }
+
+//        long days = TimeUnit.NANOSECONDS.toDays(elapsedTime);
+//        elapsedTime -= TimeUnit.DAYS.toMillis(days);
+
+        //TimeUnit.MILLISECONDS로 썼다가 계속 문제가 발생했었음 NanoTime()으로 계산했으니 NANOSECONDS로 변환해야 함.
+        long hours = TimeUnit.NANOSECONDS.toHours(elapsedTime);
+        Log.v(LOG_TAG, "hours : " + Long.valueOf(hours));
+        elapsedTime -= TimeUnit.HOURS.toMillis(hours);
+        long minutes = TimeUnit.NANOSECONDS.toMinutes(elapsedTime);
+        Log.v(LOG_TAG, "minutes : " + Long.valueOf(minutes));
+
+        elapsedTime -= TimeUnit.MINUTES.toMillis(minutes);
+        long seconds = TimeUnit.NANOSECONDS.toSeconds(elapsedTime);
+        Log.v(LOG_TAG, "seconds : " + Long.valueOf(seconds));
+
+        //이쪽 로직이 간단해보이는데 이해하기 어렵다.
+//        long minutes = TimeUnit.NANOSECONDS.toHours(elapsedTime);
+//        long seconds = TimeUnit.NANOSECONDS.toSeconds(elapsedTime) -
+//                TimeUnit.MINUTES.toSeconds(TimeUnit.NANOSECONDS.toMinutes(elapsedTime));
+
+        StringBuilder sb = new StringBuilder(64);
+        if (hours > 1) {
+            sb.append(hours);
+            sb.append("시간 ");
+        }
+        if (minutes > 1) {
+            sb.append(minutes);
+            sb.append("분 ");
+        }
+        sb.append(seconds);
+        sb.append("초");
+
+        return(sb.toString());
+
+    }
+
+    private View.OnClickListener clickListener = new View.OnClickListener() {
+        //dialog의 clickListener를 여기서 처리한다.
+        @Override
+        public void onClick(View v) {
+            //dialog 확인 버튼을 클릭하면 액티비티 재시작!
+            Intent intent = getActivity().getIntent();
+            dialogResult.dismiss();
+            //dialog를 dismiss()하지 않으면 android view windowleaked 오류가 발생한다.
+            getActivity().finish();
+            startActivity(intent);
+        }
+    };
 
 
     @Override
@@ -333,15 +406,17 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
                 //'?' 기호가 그대로 입력되는 문제 방지
                 if (result()) {
                     nextStage();
-                }            }
+                }
+            }
         } else {
             if (input1TextView.getText().toString().matches("[0-9]") && input2TextView.getText().toString().matches("[0-9]"))
                 //'?' 기호가 그대로 입력되는 문제 방지
                 if (result()) {
                     nextStage();
-                }        }
+                }
+        }
 
-//
+//      nextStage()를 바로 실행해버리면 '?' 기호가 그대로 입력되는 문제가 발생한다.
 //        if (result()) {
 //            nextStage();
 //        }

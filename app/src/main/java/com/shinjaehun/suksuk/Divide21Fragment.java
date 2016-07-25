@@ -69,6 +69,8 @@ public class Divide21Fragment extends ProblemFragment {
     public void startPractice() {
         initOperands();
         nextStage();
+
+        startTime = System.nanoTime();
     }
 
 //    @Override
