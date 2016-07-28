@@ -1,29 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="80dp"
+            android:src="@drawable/div_sign"/>
+
+    </RelativeLayout>
+    
 
     <LinearLayout
-        android:layout_width="0sp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
         android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/quotient"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="104dp"
-            android:layout_marginRight="48dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
+
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
                 android:text="0"
                 android:textAlignment="center"
@@ -52,18 +64,6 @@
                 android:textSize="30sp" />
 
         </LinearLayout>
-
-        <View
-            android:layout_width="110dp"
-            android:layout_height="3dp"
-            android:layout_marginLeft="116dp"
-            android:background="@android:color/darker_gray" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:orientation="vertical">
 
             <!--
                             <LinearLayout
@@ -100,14 +100,16 @@
                 android:id="@+id/first_line"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="28dp"
-                android:orientation="horizontal">
+                android:layout_marginRight="40dp">
 
                 <LinearLayout
                     android:id="@+id/divisor"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -187,11 +189,6 @@
                 </LinearLayout>
 
 
-                <View
-                    android:layout_width="3dp"
-                    android:layout_height="55dp"
-                    android:layout_marginLeft="12dp"
-                    android:background="@android:color/darker_gray" />
                 <!--
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -240,11 +237,10 @@
 
                 <LinearLayout
                     android:id="@+id/dividend"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="18dp"
-                    android:layout_marginRight="48dp"
-                    android:layout_gravity="center_horizontal">
+                    android:layout_marginLeft="27dp"
+                    android:layout_gravity="bottom">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -521,18 +517,15 @@
 
             <LinearLayout
                 android:id="@+id/first_multiply"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="97dp"
-                android:layout_marginRight="48dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/first_multiply_hundred"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
                     android:layout_marginRight="6dp"
                     android:text="0"
                     android:textAlignment="center"
@@ -566,9 +559,9 @@
                 android:id="@+id/ans_first_line"
                 android:layout_width="102dp"
                 android:layout_height="3dp"
-                android:layout_marginLeft="115dp"
                 android:background="@color/defaultColor"
-                android:visibility="invisible"/>
+                android:visibility="invisible"
+                android:layout_gravity="center_horizontal" />
             <!--
                         <LinearLayout
                             android:id="@+id/ans_carrying"
@@ -655,20 +648,18 @@
 
             <LinearLayout
                 android:id="@+id/first_subtract"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="97dp"
-                android:layout_marginRight="48dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="6dp"
                     android:gravity="center"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="6dp">
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:id="@+id/carrying_l2_first_subtract_hundred"
@@ -938,11 +929,9 @@
 
             <LinearLayout
                 android:id="@+id/second_multiply"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="97dp"
-                android:layout_marginRight="48dp"
                 android:orientation="horizontal"
                 android:textColor="@color/colorBackground">
 
@@ -950,7 +939,6 @@
                     android:id="@+id/second_multiply_hundred"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
                     android:layout_marginRight="6dp"
                     android:text="0"
                     android:textAlignment="center"
@@ -984,23 +972,21 @@
                 android:id="@+id/ans_second_line"
                 android:layout_width="102dp"
                 android:layout_height="3dp"
-                android:layout_marginLeft="115dp"
                 android:background="@color/defaultColor"
-                android:visibility="invisible"/>
+                android:visibility="invisible"
+                android:layout_gravity="center_horizontal" />
 
             <LinearLayout
                 android:id="@+id/remainder"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="97dp"
-                android:layout_marginRight="48dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
                     android:layout_marginRight="6dp"
                     android:text="0"
                     android:textAlignment="center"
@@ -1033,8 +1019,7 @@
 
         </LinearLayout>
 
-    </LinearLayout>
-
+<!--
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -1048,4 +1033,6 @@
             android:text="선생님,\n 도와주세요!" />
 
     </LinearLayout>
-</LinearLayout>
+-->
+
+</FrameLayout>

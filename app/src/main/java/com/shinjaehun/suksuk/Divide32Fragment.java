@@ -162,16 +162,16 @@ public class Divide32Fragment extends ProblemFragment {
         remainder_ten = (TextView)v.findViewById(R.id.remainder_ten);
         remainder_one = (TextView)v.findViewById(R.id.remainder_one);
 
-        help = (Button)v.findViewById(R.id.help);
-        help.setOnClickListener(new Button.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
-                intent.putExtra("help", "divide32");
-                startActivity(intent);
-            }
-        });
+//        help = (Button)v.findViewById(R.id.help);
+//        help.setOnClickListener(new Button.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
+//                intent.putExtra("help", "divide32");
+//                startActivity(intent);
+//            }
+//        });
 
         return v;
 

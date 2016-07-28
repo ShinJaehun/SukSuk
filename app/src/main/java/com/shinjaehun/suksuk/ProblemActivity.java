@@ -1,16 +1,22 @@
 package com.shinjaehun.suksuk;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 /**
  * Created by shinjaehun on 2016-04-16.
  */
-public class ProblemActivity extends AppCompatActivity {
+public class ProblemActivity extends Activity {
 
     private static final String LOG_TAG = ProblemActivity.class.getSimpleName();
     private NumberpadFragment numberpadFragment;
@@ -31,6 +37,8 @@ public class ProblemActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         setContentView(R.layout.activity_problems);
         Intent intent = getIntent();
         operation = intent.getStringExtra("operation");
