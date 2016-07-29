@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,7 +51,7 @@ public class Divide21Fragment extends ProblemFragment {
 //    private TextView operand1TextView, operand2TextView, operand3TextView, operand4TextView;
 //    private TextView input1TextView, input2TextView;
 //
-//    private Button help;
+    private ImageButton help;
 
 //    private boolean isFullDivide = true;
 
@@ -114,16 +115,16 @@ public class Divide21Fragment extends ProblemFragment {
 
         remainder_one = (TextView)v.findViewById(R.id.remainder_one);
 
-//        help = (Button)v.findViewById(R.id.help);
-//        help.setOnClickListener(new Button.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
-//                intent.putExtra("help", "divide21");
-//                startActivity(intent);
-//            }
-//        });
+        help = (ImageButton)v.findViewById(R.id.help);
+        help.setOnClickListener(new Button.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
+                intent.putExtra("help", "divide21");
+                startActivity(intent);
+            }
+        });
 
         return v;
 

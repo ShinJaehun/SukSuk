@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -1036,5 +1035,14 @@
     </LinearLayout>
 -->
 
+    <ImageButton
+        android:id="@+id/help"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/round_button_help"
+        android:src="@mipmap/question"
+        android:layout_gravity="right"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp" />
 
 </FrameLayout>

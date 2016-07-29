@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -62,7 +63,7 @@ public class Divide32Fragment extends ProblemFragment {
 //    private TextView operand1TextView, operand2TextView, operand3TextView, operand4TextView, operand5TextView, operand6TextView;
 //    private TextView input1TextView, input2TextView, input3TextView;
 //
-//    private Button help;
+    private ImageButton help;
 
     //몫이 두 자리 수인 경우 체크하는 스위치
     private boolean isFullDivide = true;
@@ -167,16 +168,16 @@ public class Divide32Fragment extends ProblemFragment {
 
         div_sign = (ImageView)v.findViewById(R.id.div_sign);
 
-//        help = (Button)v.findViewById(R.id.help);
-//        help.setOnClickListener(new Button.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
-//                intent.putExtra("help", "divide32");
-//                startActivity(intent);
-//            }
-//        });
+        help = (ImageButton)v.findViewById(R.id.help);
+        help.setOnClickListener(new Button.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
+                intent.putExtra("help", "divide32");
+                startActivity(intent);
+            }
+        });
 
         return v;
 

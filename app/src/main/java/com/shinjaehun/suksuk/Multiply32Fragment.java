@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 /**
@@ -37,7 +38,7 @@ public class Multiply32Fragment extends ProblemFragment {
 
 //    private TextView operand1TextView, operand2TextView, input1TextView, input2TextView;
 //
-//    private Button help;
+    private ImageButton help;
 
 //    //곱셈 결과를 입력할 순서 저장
 //    private boolean carrying = true;
@@ -97,16 +98,16 @@ public class Multiply32Fragment extends ProblemFragment {
         ans_thousand = (TextView)v.findViewById(R.id.ans_thousand);
         ans_tenthousand = (TextView)v.findViewById(R.id.ans_tenthousand);
 
-//        help = (Button)v.findViewById(R.id.help);
-//        help.setOnClickListener(new Button.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
-//                intent.putExtra("help", "multiply32");
-//                startActivity(intent);
-//            }
-//        });
+        help = (ImageButton)v.findViewById(R.id.help);
+        help.setOnClickListener(new Button.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
+                intent.putExtra("help", "multiply32");
+                startActivity(intent);
+            }
+        });
 
         return v;
 
