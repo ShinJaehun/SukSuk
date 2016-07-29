@@ -16,7 +16,7 @@ import android.view.WindowManager;
 /**
  * Created by shinjaehun on 2016-04-16.
  */
-public class ProblemActivity extends Activity {
+public class ProblemActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = ProblemActivity.class.getSimpleName();
     private NumberpadFragment numberpadFragment;
@@ -37,7 +37,7 @@ public class ProblemActivity extends Activity {
     @Override
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.activity_problems);
         Intent intent = getIntent();

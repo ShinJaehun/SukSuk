@@ -6,13 +6,14 @@
         android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="10dp">
+        android:paddingBottom="10dp"
+        android:background="#ffffff">
 
         <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"/>
+            android:layout_alignParentTop="true" />
 
         <fragment
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -35,7 +36,8 @@
         android:id="@+id/answer_right"
         android:visibility="gone"
         android:textColor="@color/colorRight"
-        android:text="정답!" />
+        android:text="정답!"
+        android:layout_marginTop="40dp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,7 +46,8 @@
         android:id="@+id/answer_wrong"
         android:textColor="@color/colorWrong"
         android:visibility="gone"
-        android:text="메롱메롱~" />
+        android:text="메롱메롱~"
+        android:layout_marginTop="40dp" />
 
     <ImageView
         android:id="@+id/verygood"

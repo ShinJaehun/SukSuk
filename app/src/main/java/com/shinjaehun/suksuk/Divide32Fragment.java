@@ -3,6 +3,7 @@ package com.shinjaehun.suksuk;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,6 +36,8 @@ public class Divide32Fragment extends ProblemFragment {
     private TextView carrying_dividend_hundred, carrying_dividend_ten_10, carrying_dividend_ten_1;
     private TextView carrying_dividend_one_10, carrying_dividend_one_1;
     private ImageView carrying_dividend_ten_cover;
+
+    private ImageView div_sign;
 
 //    private ImageView currentMark;
 
@@ -162,6 +165,8 @@ public class Divide32Fragment extends ProblemFragment {
         remainder_ten = (TextView)v.findViewById(R.id.remainder_ten);
         remainder_one = (TextView)v.findViewById(R.id.remainder_one);
 
+        div_sign = (ImageView)v.findViewById(R.id.div_sign);
+
 //        help = (Button)v.findViewById(R.id.help);
 //        help.setOnClickListener(new Button.OnClickListener() {
 //
@@ -202,6 +207,9 @@ public class Divide32Fragment extends ProblemFragment {
 
 //        dividend = 801;
 //        divisor = 49;
+
+        dividend = 105;
+        divisor = 66;
 
         quotient = dividend / divisor;
 
@@ -897,11 +905,16 @@ public class Divide32Fragment extends ProblemFragment {
                     operand4TextView = null;
                     operand5TextView = null;
 
-                    input1TextView = first_multiply_hundred;
                     input2TextView = first_multiply_ten;
 
                     ans = divisorTen * quotientOne +
                             Integer.parseInt(carrying_divisor_ten.getText().toString());
+
+                    if (ans < 10) {
+                        input1TextView = null;
+                    } else {
+                        input1TextView = first_multiply_hundred;
+                    }
 
                     break;
 
@@ -1059,6 +1072,8 @@ public class Divide32Fragment extends ProblemFragment {
                         carrying_l2_dividend_hundred.setVisibility(View.VISIBLE);
                         carrying_l2_dividend_ten.setVisibility(View.VISIBLE);
                         carrying_l2_dividend_one.setVisibility(View.VISIBLE);
+
+                        div_sign.setImageResource(R.drawable.div_sign_long_2);
 
 
                         operand1TextView = carrying_dividend_ten_10;

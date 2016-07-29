@@ -9,6 +9,9 @@
 
     </style>
 
-
+    <style name="Theme.AppCompat.NoActionBar" parent="Theme.AppCompat.Light">
+        <item name="windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
 
 </resources>
