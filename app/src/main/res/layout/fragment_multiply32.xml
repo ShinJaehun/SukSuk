@@ -2,28 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:paddingTop="20dp">
 
-    <LinearLayout
-        android:layout_width="0sp"
-        android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="38dp"
-            android:layout_marginTop="4dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginLeft="15dp">
 
             <TextView
                 android:id="@+id/carrying_hundred"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="118dp"
                 android:layout_marginRight="6dp"
                 android:text="0"
                 android:textAlignment="center"
@@ -35,7 +29,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:layout_marginRight="6dp"
                 android:text="0"
                 android:textAlignment="center"
                 android:textColor="@color/colorBackground"
@@ -45,17 +38,14 @@
 
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="20dp"
-            android:orientation="horizontal"
-            android:layout_marginRight="38dp">
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="55dp"
                 android:layout_marginRight="6dp"
                 android:text="0"
                 android:textAlignment="center"
@@ -104,21 +94,27 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="38dp"
             android:orientation="horizontal">
 
-            <TextView
+            <!--<TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="55dp"
                 android:layout_marginRight="6dp"
                 android:text="X"
                 android:textAlignment="center"
-                android:textSize="32sp" />
+                android:textSize="32sp" />-->
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/mul_sign"
+                android:layout_gravity="center"/>
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -164,23 +160,19 @@
         <View
             android:layout_width="180dp"
             android:layout_height="3dp"
-            android:layout_marginLeft="50dp"
-            android:background="@android:color/darker_gray"
-            android:layout_marginTop="4dp" />
+            android:background="@android:color/darker_gray" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="38dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginRight="15dp">
 
             <TextView
                 android:id="@+id/ans_carrying_tenthousand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="58dp"
                 android:layout_marginRight="6dp"
                 android:text="0"
                 android:textAlignment="center"
@@ -191,7 +183,7 @@
                 android:id="@+id/ans_carrying_thousand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="14dp"
                 android:layout_marginRight="6dp"
                 android:text="0"
                 android:textAlignment="center"
@@ -202,7 +194,7 @@
                 android:id="@+id/ans_carrying_hundred"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="14dp"
                 android:layout_marginRight="6dp"
                 android:text="0"
                 android:textAlignment="center"
@@ -212,8 +204,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="6dp"
+                android:layout_marginLeft="14dp"
                 android:text="0"
                 android:textAlignment="center"
                 android:textColor="@color/colorBackground"
@@ -222,17 +213,14 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="38dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="55dp"
                 android:layout_marginRight="6dp"
                 android:text="0"
                 android:textAlignment="center"
@@ -286,11 +274,9 @@
 
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="38dp"
             android:orientation="horizontal"
             android:textColor="@color/colorBackground">
 
@@ -299,7 +285,6 @@
                 android:id="@+id/ans_down_thousand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="55dp"
                 android:layout_marginRight="6dp"
                 android:text="0"
                 android:textAlignment="center"
@@ -354,15 +339,13 @@
             android:id="@+id/ans_line"
             android:layout_width="180dp"
             android:layout_height="3dp"
-            android:layout_marginLeft="40dp"
-            android:background="@color/colorBackground" />
+            android:background="@color/colorBackground"
+            android:layout_gravity="center" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="38dp"
             android:orientation="horizontal"
             android:textColor="@color/colorBackground">
 
@@ -370,7 +353,6 @@
                 android:id="@+id/ans_tenthousand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="55dp"
                 android:layout_marginRight="6dp"
                 android:text="0"
                 android:textAlignment="center"
@@ -421,9 +403,8 @@
                 android:textSize="32sp" />
 
         </LinearLayout>
-    </LinearLayout>
 
-    <LinearLayout
+ <!--   <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -436,5 +417,5 @@
             android:text="선생님,\n도와주세요!" />
 
     </LinearLayout>
-
+-->
 </LinearLayout>

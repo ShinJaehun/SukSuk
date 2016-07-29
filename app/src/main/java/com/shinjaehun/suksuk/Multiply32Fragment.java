@@ -97,16 +97,16 @@ public class Multiply32Fragment extends ProblemFragment {
         ans_thousand = (TextView)v.findViewById(R.id.ans_thousand);
         ans_tenthousand = (TextView)v.findViewById(R.id.ans_tenthousand);
 
-        help = (Button)v.findViewById(R.id.help);
-        help.setOnClickListener(new Button.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
-                intent.putExtra("help", "multiply32");
-                startActivity(intent);
-            }
-        });
+//        help = (Button)v.findViewById(R.id.help);
+//        help.setOnClickListener(new Button.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
+//                intent.putExtra("help", "multiply32");
+//                startActivity(intent);
+//            }
+//        });
 
         return v;
 

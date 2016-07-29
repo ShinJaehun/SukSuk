@@ -114,16 +114,16 @@ public class Divide21Fragment extends ProblemFragment {
 
         remainder_one = (TextView)v.findViewById(R.id.remainder_one);
 
-        help = (Button)v.findViewById(R.id.help);
-        help.setOnClickListener(new Button.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
-                intent.putExtra("help", "divide21");
-                startActivity(intent);
-            }
-        });
+//        help = (Button)v.findViewById(R.id.help);
+//        help.setOnClickListener(new Button.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
+//                intent.putExtra("help", "divide21");
+//                startActivity(intent);
+//            }
+//        });
 
         return v;
 

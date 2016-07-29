@@ -217,7 +217,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_gravity="center"
                     android:layout_marginRight="6dp"
                     android:gravity="center_horizontal">
 
@@ -266,7 +265,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="6dp"
-                    android:layout_gravity="center"
                     android:orientation="vertical"
                     android:gravity="center_horizontal">
 

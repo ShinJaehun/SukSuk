@@ -91,16 +91,16 @@ public class Multiply22Fragment extends ProblemFragment {
         ans_hundred = (TextView)v.findViewById(R.id.ans_hundred);
         ans_thousand = (TextView)v.findViewById(R.id.ans_thousand);
 
-        help = (Button)v.findViewById(R.id.help);
-        help.setOnClickListener(new Button.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
-                intent.putExtra("help", "multiply22");
-                startActivity(intent);
-            }
-        });
+//        help = (Button)v.findViewById(R.id.help);
+//        help.setOnClickListener(new Button.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
+//                intent.putExtra("help", "multiply22");
+//                startActivity(intent);
+//            }
+//        });
 
         return v;
     }

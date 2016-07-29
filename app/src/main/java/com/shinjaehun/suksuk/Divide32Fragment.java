@@ -208,8 +208,8 @@ public class Divide32Fragment extends ProblemFragment {
 //        dividend = 801;
 //        divisor = 49;
 
-        dividend = 105;
-        divisor = 66;
+//        dividend = 105;
+//        divisor = 66;
 
         quotient = dividend / divisor;
 
