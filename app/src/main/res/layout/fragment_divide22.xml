@@ -449,7 +449,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/round_button_help"
-        android:src="@mipmap/question"
+        android:src="@drawable/help"
         android:layout_gravity="right"
         android:layout_marginRight="20dp"
         android:layout_marginTop="30dp" />

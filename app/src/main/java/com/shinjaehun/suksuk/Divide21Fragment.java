@@ -51,7 +51,7 @@ public class Divide21Fragment extends ProblemFragment {
 //    private TextView operand1TextView, operand2TextView, operand3TextView, operand4TextView;
 //    private TextView input1TextView, input2TextView;
 //
-    private ImageButton help;
+//    private ImageButton help;
 
 //    private boolean isFullDivide = true;
 

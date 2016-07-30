@@ -4,16 +4,20 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.os.SystemClock;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -21,6 +25,8 @@ import java.util.concurrent.TimeUnit;
  * Created by shinjaehun on 2016-06-06.
  */
 public class ProblemFragment extends Fragment implements NumberpadClickListener {
+
+    private static final String DESCRIBABLE_KEY = "describable_key";
 
     private static final String LOG_TAG = ProblemFragment.class.getSimpleName();
 
@@ -34,7 +40,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
     public ImageView currentMark;
 
     //선생님 도와주세요 버튼
-    public Button help;
+    public ImageButton help;
 
     //두 자리 수를 입력할 때 inputTextView를 전환하는 스위치
     public boolean carrying = true;
@@ -55,21 +61,90 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
     //활동 결과를 표시해줄 dialog
     private DialogResult dialogResult;
 
-    public long startTime, endTime, elapsedTime;
+    //ProblemActivity에서 받아온 DAO를 여기에 저장한다.
+    public static AchievementDAO aDAO;
 
-    public final static Map<String, Integer> myRecords = new HashMap<String, Integer>() {
-        //테스트중
-        //결국 이 Map 값도 Object로 외부로 넘겨야 하지 않을까 싶다...
-        {
-//            put("triple", 0);
-//            put("fifth", 0);
-            put("nomiss", 0);
-            put("mul22first", 0);
-            put("mul22expert", 0); //five times
-            put("mul22master", 0); //ten times
-            put("mul22fastest", 0);
+    public static final ProblemFragment newInstance(String operation, AchievementDAO achievementDAO) {
+
+        //이건 effective java에 나오는 기술인데
+        //생성자 대신 static factory 메소드 사용하기
+        //'자신의 클래스 인스턴스만 반환하는 생성자와 달리 static factory 메소드는 자신이 반환하는 타입의
+        // 어떤 서브 타입 객체도 반환할 수 있다.'
+
+        ProblemFragment problemFragment = null;
+        switch (operation) {
+            case "multiply32":
+//                    multiply32Fragment = new Multiply32Fragment();
+//                    ft.add(R.id.fragment_container, multiply32Fragment).commit();
+//                    break;
+                problemFragment = new Multiply32Fragment();
+                break;
+            case "multiply22":
+                problemFragment = new Multiply22Fragment();
+                break;
+            case "divide21":
+                problemFragment = new Divide21Fragment();
+                break;
+            case "divide22":
+                problemFragment = new Divide22Fragment();
+                break;
+            case "divide32":
+                problemFragment = new Divide32Fragment();
+                break;
         }
-    };
+        Bundle args = new Bundle();
+        args.putSerializable(DESCRIBABLE_KEY, achievementDAO);
+        aDAO = achievementDAO;
+        //이렇게 하여 PlaceActivity에서 생성한 DAO instance를 Fragment로 넘길 수 있다.
+        return problemFragment;
+    }
+
+//    public class Records {
+//        private int number;
+//        private String value;
+//
+//        public Records(int number, String value) {
+//            this.number = number;
+//            this.value = value;
+//        }
+//
+//        public int getNumber() {
+//            return number;
+//        }
+//
+//        public void setNumber(int number) {
+//            this.number = number;
+//        }
+//
+//        public String getValue() {
+//            return value;
+//        }
+//
+//        public void setValue(String value) {
+//            this.value = value;
+//        }
+//    }
+//
+//    public final Map<String, Records> Archivements = new HashMap<String, Records>() {
+//        //테스트중
+//        //결국 이 Map 값도 Object로 외부로 넘겨야 하지 않을까 싶다...
+//        {
+////            put("triple", 0);
+////            put("fifth", 0);
+//            put("noerrors", new Records(0, null));
+//            put("mul22first", new Records(0, "true"));
+//            put("mul22expert", new Records(0, null)); //five times
+//            put("mul22master", new Records(0, null)); //ten times
+//            put("mul22fastest", new Records(0, null));
+//        }
+//    };
+
+    public long startTime;
+    private long endTime, elapsedTime;
+    //걸린 시간 처리를 위한 변수들
+//    private boolean isFirstMul22 = Boolean.valueOf(Archivements.get("mul22first").getValue());
+    private boolean isError = false;
+    //오류가 없는지 확인하기 위한 스위치
 
 //    public int score = 0;
     //테스트중
@@ -196,6 +271,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 
         } else {
            //오답처리
+            isError = true;
 
             //진동 발사
             Vibrator vibrator = (Vibrator)getActivity().getSystemService(Context.VIBRATOR_SERVICE);
@@ -271,7 +347,24 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 
         endTime = System.nanoTime();
         elapsedTime = endTime - startTime;
-        //현재 startTime이 Divide21Fragment에만 설정되어 있으니... 다른 Fragment에서 시도하면 오류 없이 잘못된 값만 나온다.
+        //걸린 시간 측정
+
+        List<Achievement> aLists = aDAO.getAllAchievements();
+       for (Achievement a : aLists) {
+            Log.v(LOG_TAG, "Achievement : " + a.getName());
+        }
+        //테스트...
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(getElapsedTime(elapsedTime) + "가 걸렸습니다!\n");
+        //계산하는데 걸린 시간
+
+
+//        if (isFirstMul22 == true) {
+//            sb.append("두자리 수 곱하기 두자리 수 처음 해보기\n");
+//        }
+
+        final String resultMessage = sb.toString();
 
         //타~다~
         Effects.getInstance().playTada(Effects.SOUND_2);
@@ -291,9 +384,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 //                getActivity().finish();
 //                startActivity(intent);
                 dialogResult = new DialogResult(getActivity(),
-                        "결과",
-                         getElapsedTime(elapsedTime) + "가 걸렸습니다!",
-                        clickListener);
+                        "결과", resultMessage, clickListener);
                 //clickListener는 dialogResult의 clickListener, 아래 구현되어 있다.
                 elapsedTime = 0;
                 dialogResult.show();

@@ -38,7 +38,7 @@ public class Multiply22Fragment extends ProblemFragment {
 
 //    private TextView operand1TextView, operand2TextView, input1TextView, input2TextView;
 //
-    private ImageButton help;
+//    private ImageButton help;
 
     //곱셈 결과를 입력할 순서 저장
 //    private boolean carrying = true;
@@ -59,6 +59,9 @@ public class Multiply22Fragment extends ProblemFragment {
     public void startPractice() {
         initOperands();
         nextStage();
+
+        startTime = System.nanoTime();
+
     }
 
     @Nullable

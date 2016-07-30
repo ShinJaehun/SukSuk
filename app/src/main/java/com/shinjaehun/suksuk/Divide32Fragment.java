@@ -63,7 +63,7 @@ public class Divide32Fragment extends ProblemFragment {
 //    private TextView operand1TextView, operand2TextView, operand3TextView, operand4TextView, operand5TextView, operand6TextView;
 //    private TextView input1TextView, input2TextView, input3TextView;
 //
-    private ImageButton help;
+//    private ImageButton help;
 
     //몫이 두 자리 수인 경우 체크하는 스위치
     private boolean isFullDivide = true;
@@ -90,6 +90,9 @@ public class Divide32Fragment extends ProblemFragment {
     public void startPractice() {
         initOperands();
         nextStage();
+
+        startTime = System.nanoTime();
+
     }
 
     @Nullable

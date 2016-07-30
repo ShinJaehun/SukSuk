@@ -45,7 +45,7 @@ public class Divide22Fragment extends ProblemFragment {
 //    private TextView operand1TextView, operand2TextView, operand3TextView, operand4TextView;
 //    private TextView input1TextView, input2TextView;
 //
-    private ImageButton help;
+//    private ImageButton help;
 
 //    private ImageView currentMark;
 
@@ -66,6 +66,9 @@ public class Divide22Fragment extends ProblemFragment {
     public void startPractice() {
         initOperands();
         nextStage();
+
+        startTime = System.nanoTime();
+
     }
 
 //    @Override

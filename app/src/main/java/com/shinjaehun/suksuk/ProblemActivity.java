@@ -34,6 +34,8 @@ public class ProblemActivity extends AppCompatActivity {
 
     String operation;
 
+    private AchievementDAO achievementDAO;
+
     @Override
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
@@ -44,6 +46,10 @@ public class ProblemActivity extends AppCompatActivity {
         operation = intent.getStringExtra("operation");
 
 //        initSound();
+
+        achievementDAO = new AchievementDAO(this);
+        //DAO 생성하면서 다시 DBHelper의 instance를 받아오고 (getInstance()),
+        //DB도 받아온다. (getDB())
 
         Effects.getInstance().init(this);
         numberpadFragment = (NumberpadFragment) getFragmentManager().findFragmentById(R.id.numberPadFragment);
@@ -81,26 +87,30 @@ public class ProblemActivity extends AppCompatActivity {
 //        }
 
         if (intent != null) {
-            switch (operation) {
-                case "multiply32":
-//                    multiply32Fragment = new Multiply32Fragment();
-//                    ft.add(R.id.fragment_container, multiply32Fragment).commit();
+            problemFragment = ProblemFragment.newInstance(operation, achievementDAO);
+            //ProblemFragment를 불러오는 과정에서 DAO를 넘기기 위해 newInstance()를 사용했다.
+            //아래 코드는 ProblemFragment의 newInstance에서 처리할 것이다.
+
+//            switch (operation) {
+//                case "multiply32":
+////                    multiply32Fragment = new Multiply32Fragment();
+////                    ft.add(R.id.fragment_container, multiply32Fragment).commit();
+////                    break;
+//                    problemFragment = new Multiply32Fragment();
 //                    break;
-                    problemFragment = new Multiply32Fragment();
-                    break;
-                case "multiply22":
-                    problemFragment = new Multiply22Fragment();
-                    break;
-                case "divide21":
-                    problemFragment = new Divide21Fragment();
-                    break;
-                case "divide22":
-                    problemFragment = new Divide22Fragment();
-                    break;
-                case "divide32":
-                    problemFragment = new Divide32Fragment();
-                    break;
-            }
+//                case "multiply22":
+//                    problemFragment = new Multiply22Fragment();
+//                    break;
+//                case "divide21":
+//                    problemFragment = new Divide21Fragment();
+//                    break;
+//                case "divide22":
+//                    problemFragment = new Divide22Fragment();
+//                    break;
+//                case "divide32":
+//                    problemFragment = new Divide32Fragment();
+//                    break;
+//            }
         }
         ft.add(R.id.fragment_container, problemFragment).commit();
 
