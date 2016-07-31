@@ -64,6 +64,8 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
     //ProblemActivity에서 받아온 DAO를 여기에 저장한다.
     public static AchievementDAO aDAO;
 
+    private static String op;
+
     public static final ProblemFragment newInstance(String operation, AchievementDAO achievementDAO) {
 
         //이건 effective java에 나오는 기술인데
@@ -71,6 +73,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
         //'자신의 클래스 인스턴스만 반환하는 생성자와 달리 static factory 메소드는 자신이 반환하는 타입의
         // 어떤 서브 타입 객체도 반환할 수 있다.'
 
+        op = operation;
         ProblemFragment problemFragment = null;
         switch (operation) {
             case "multiply32":
@@ -90,6 +93,9 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
                 break;
             case "divide32":
                 problemFragment = new Divide32Fragment();
+                break;
+            default:
+                //이건 실행되면 안돼
                 break;
         }
         Bundle args = new Bundle();
@@ -125,19 +131,19 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 //        }
 //    }
 //
-//    public final Map<String, Records> Archivements = new HashMap<String, Records>() {
-//        //테스트중
-//        //결국 이 Map 값도 Object로 외부로 넘겨야 하지 않을까 싶다...
-//        {
-////            put("triple", 0);
-////            put("fifth", 0);
-//            put("noerrors", new Records(0, null));
-//            put("mul22first", new Records(0, "true"));
-//            put("mul22expert", new Records(0, null)); //five times
-//            put("mul22master", new Records(0, null)); //ten times
-//            put("mul22fastest", new Records(0, null));
-//        }
-//    };
+    public final Map<String, Integer> achievementsMap= new HashMap<String, Integer>() {
+        //테스트중
+        //결국 이 Map 값도 Object로 외부로 넘겨야 하지 않을까 싶다...
+        {
+//            put("triple", 0);
+//            put("fifth", 0);
+            put("noerrors", 0);
+            put("mul22first", 0);
+            put("mul22expert", 0); //five times
+            put("mul22master", 0); //ten times
+            put("mul22fastest", 0);
+        }
+    };
 
     public long startTime;
     private long endTime, elapsedTime;
@@ -145,6 +151,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 //    private boolean isFirstMul22 = Boolean.valueOf(Archivements.get("mul22first").getValue());
     private boolean isError = false;
     //오류가 없는지 확인하기 위한 스위치
+
 
 //    public int score = 0;
     //테스트중
@@ -267,6 +274,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
                 return false;
             }
 
+            Log.v(LOG_TAG, "Is Error(No!) : " + String.valueOf(isError));
             return true;
 
         } else {
@@ -290,6 +298,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
                 input2TextView.setTextColor(Color.BLUE);
             }
 
+            Log.v(LOG_TAG, "Is Error(Yes!) : " + String.valueOf(isError));
             return false;
         }
     }
@@ -349,15 +358,47 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
         elapsedTime = endTime - startTime;
         //걸린 시간 측정
 
-        List<Achievement> aLists = aDAO.getAllAchievements();
-       for (Achievement a : aLists) {
-            Log.v(LOG_TAG, "Achievement : " + a.getName());
+        List<Achievement> aLists = new ArrayList<Achievement>();
+
+        switch (op) {
+            case "multiply32":
+                break;
+            case "multiply22":
+                aLists = aDAO.getAchivementsByType("mul22");
+                break;
+            case "divide21":
+                break;
+            case "divide22":
+                break;
+            case "divide32":
+                break;
+            default:
+                break;
         }
         //테스트...
 
         StringBuilder sb = new StringBuilder();
         sb.append(getElapsedTime(elapsedTime) + "가 걸렸습니다!\n");
         //계산하는데 걸린 시간
+        for (Achievement a : aLists) {
+            Log.v(LOG_TAG, a.getName());
+        }
+
+        for (Achievement a : aLists) {
+            if (a.getIsUnlock() == 0 && a.getAka().equals("mul22first")) {
+                Log.v(LOG_TAG, a.getName());
+                sb.append(a.getName() + "\n" + a.getDescription() + "\n\n");
+                aDAO.updateAchievement(a.getId(), 1, a.getNumber(), a.getValue());
+            }
+            if (isError == false && a.getAka().equals("noerrors")) {
+                Log.v(LOG_TAG, a.getName() + " " + a.getNumber());
+                sb.append(a.getName() + " " + a.getNumber() + 1 + "회 성공!\n" + a.getDescription() + "\n\n");
+                aDAO.updateAchievement(a.getId(), 1, a.getNumber() + 1, a.getValue());
+            }
+//            if (elapsedTime < Long.parseLong(a.getValue())) {
+//
+//            }
+        }
 
 
 //        if (isFirstMul22 == true) {
@@ -365,6 +406,11 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 //        }
 
         final String resultMessage = sb.toString();
+
+        isError = false;
+            //다시 원래대로?
+
+
 
         //타~다~
         Effects.getInstance().playTada(Effects.SOUND_2);

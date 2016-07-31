@@ -6,11 +6,20 @@ package com.shinjaehun.suksuk;
 public class Achievement {
     private long id; //id
     private String name; //도전과제 이름
+    private String type; //유형 mul22, common
     private int isUnlock; //활성화되었는지 여부 확인
     private String aka; //별칭(이미지 불러올 때 사용)
     private String description; //해당 과제에 대한 설명
     private int number; //횟수
     private String value; //값(시간 기록 등을 넣을 때 사용)
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public long getId() {
         return id;
