@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
@@ -14,11 +13,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -58,12 +54,34 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
     //곱셈 또는 나눗셈 결과
     public int ans = 0;
 
+//    public final Map<String, Integer> achievementsMap= new HashMap<String, Integer>() {
+//        //테스트중
+//        //결국 이 Map 값도 Object로 외부로 넘겨야 하지 않을까 싶다...
+//        {
+////            put("triple", 0);
+////            put("fifth", 0);
+//            put("noerrors", 0);
+//            put("mul22first", 0);
+//            put("mul22expert", 0); //five times
+//            put("mul22master", 0); //ten times
+//            put("mul22fastest", 0);
+//        }
+//    };
+
+    //걸린 시간 처리를 위한 변수들
+    public long startTime; //각 Fragment의 startPractice()에 정의되어 있다.
+    private long endTime, elapsedTime; //여기서 사용할거라서 private으로 정의함.
+
+    //실수가 없는지 확인하기 위한 스위치
+    private boolean isMistake = false;
+
     //활동 결과를 표시해줄 dialog
     private DialogResult dialogResult;
 
     //ProblemActivity에서 받아온 DAO를 여기에 저장한다.
     public static AchievementDAO aDAO;
 
+    //newInstance()를 통해 받아올 operation 값
     private static String op;
 
     public static final ProblemFragment newInstance(String operation, AchievementDAO achievementDAO) {
@@ -104,60 +122,6 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
         //이렇게 하여 PlaceActivity에서 생성한 DAO instance를 Fragment로 넘길 수 있다.
         return problemFragment;
     }
-
-//    public class Records {
-//        private int number;
-//        private String value;
-//
-//        public Records(int number, String value) {
-//            this.number = number;
-//            this.value = value;
-//        }
-//
-//        public int getNumber() {
-//            return number;
-//        }
-//
-//        public void setNumber(int number) {
-//            this.number = number;
-//        }
-//
-//        public String getValue() {
-//            return value;
-//        }
-//
-//        public void setValue(String value) {
-//            this.value = value;
-//        }
-//    }
-//
-    public final Map<String, Integer> achievementsMap= new HashMap<String, Integer>() {
-        //테스트중
-        //결국 이 Map 값도 Object로 외부로 넘겨야 하지 않을까 싶다...
-        {
-//            put("triple", 0);
-//            put("fifth", 0);
-            put("noerrors", 0);
-            put("mul22first", 0);
-            put("mul22expert", 0); //five times
-            put("mul22master", 0); //ten times
-            put("mul22fastest", 0);
-        }
-    };
-
-    public long startTime;
-    private long endTime, elapsedTime;
-    //걸린 시간 처리를 위한 변수들
-//    private boolean isFirstMul22 = Boolean.valueOf(Archivements.get("mul22first").getValue());
-    private boolean isError = false;
-    //오류가 없는지 확인하기 위한 스위치
-
-
-//    public int score = 0;
-    //테스트중
-    //score 값은 activity가 재실행되면서 다시 0으로 리셋된다.
-    //이걸 이용하면 '한번도 틀리지 않고 문제 해결하기' 기록을 구현할 수 있겠다.
-    //현재 Multiply22Fragment에서 테스트중;;;;;
 
     public void startPractice() {
     }
@@ -274,12 +238,12 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
                 return false;
             }
 
-            Log.v(LOG_TAG, "Is Error(No!) : " + String.valueOf(isError));
+            Log.v(LOG_TAG, "Is a Mistake(No!) : " + String.valueOf(isMistake));
             return true;
 
         } else {
            //오답처리
-            isError = true;
+            isMistake = true;
 
             //진동 발사
             Vibrator vibrator = (Vibrator)getActivity().getSystemService(Context.VIBRATOR_SERVICE);
@@ -298,7 +262,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
                 input2TextView.setTextColor(Color.BLUE);
             }
 
-            Log.v(LOG_TAG, "Is Error(Yes!) : " + String.valueOf(isError));
+            Log.v(LOG_TAG, "Is a Mistake(Yes!) : " + String.valueOf(isMistake));
             return false;
         }
     }
@@ -341,7 +305,9 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
         }
 
         textView.setVisibility(View.VISIBLE);
+        //투명한 효과
         textView.setAlpha(1.0f);
+        //바로 사라지기
         textView.animate().alpha(0.0f).setDuration(1000).start();
     }
 
@@ -358,59 +324,61 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
         elapsedTime = endTime - startTime;
         //걸린 시간 측정
 
-        List<Achievement> aLists = new ArrayList<Achievement>();
-
-        switch (op) {
-            case "multiply32":
-                break;
-            case "multiply22":
-                aLists = aDAO.getAchivementsByType("mul22");
-                break;
-            case "divide21":
-                break;
-            case "divide22":
-                break;
-            case "divide32":
-                break;
-            default:
-                break;
-        }
         //테스트...
 
+        List<Achievement> achievementsLists = new ArrayList<Achievement>();
+        achievementsLists = aDAO.getAchivementsByType(op);
+
+//        switch (op) {
+//            case "multiply32":
+//                break;
+//            case "multiply22":
+//                aLists = aDAO.getAchivementsByType("mul22");
+//                break;
+//            case "divide21":
+//                break;
+//            case "divide22":
+//                break;
+//            case "divide32":
+//                break;
+//            default:
+//                break;
+//        }
+//        aLists = aDAO.getAchivementsByType("common");
+//        bLists = aDAO.getAchivementsByType(op);
+//        achievementsLists.addAll(aLists);
+//        achievementsLists.addAll(bLists);
+
         StringBuilder sb = new StringBuilder();
+        //계산하는데 걸린 시간 -> 최종적으로는 빼기
         sb.append(getElapsedTime(elapsedTime) + "가 걸렸습니다!\n");
-        //계산하는데 걸린 시간
-        for (Achievement a : aLists) {
-            Log.v(LOG_TAG, a.getName());
+
+        for (Achievement achievement : achievementsLists) {
+            Log.v(LOG_TAG, achievement.getName());
         }
 
-        for (Achievement a : aLists) {
-            if (a.getIsUnlock() == 0 && a.getAka().equals("mul22first")) {
-                Log.v(LOG_TAG, a.getName());
-                sb.append(a.getName() + "\n" + a.getDescription() + "\n\n");
-                aDAO.updateAchievement(a.getId(), 1, a.getNumber(), a.getValue());
+        for (Achievement achievement : achievementsLists) {
+            if ((achievement.getIsUnlock() == 0) && (achievement.getType().equals(op) && achievement.getAka().equals("first"))) {
+                Log.v(LOG_TAG, achievement.getName());
+                sb.append(achievement.getName() + "\n" + achievement.getDescription() + "\n\n");
+                aDAO.updateAchievement(achievement.getId(), 1, achievement.getNumber(), achievement.getValue());
             }
-            if (isError == false && a.getAka().equals("noerrors")) {
-                Log.v(LOG_TAG, a.getName() + " " + a.getNumber());
-                sb.append(a.getName() + " " + a.getNumber() + 1 + "회 성공!\n" + a.getDescription() + "\n\n");
-                aDAO.updateAchievement(a.getId(), 1, a.getNumber() + 1, a.getValue());
+            if (isMistake == false && achievement.getAka().equals("noerrors")) {
+                Log.v(LOG_TAG, achievement.getName() + " " + achievement.getNumber());
+                int ag = achievement.getNumber();
+                int number = ag + 1;
+                sb.append(achievement.getName() + " " + number + "회 성공!\n" + achievement.getDescription() + "\n\n");
+                aDAO.updateAchievement(achievement.getId(), 1, number, achievement.getValue());
             }
 //            if (elapsedTime < Long.parseLong(a.getValue())) {
 //
 //            }
         }
 
-
-//        if (isFirstMul22 == true) {
-//            sb.append("두자리 수 곱하기 두자리 수 처음 해보기\n");
-//        }
-
         final String resultMessage = sb.toString();
 
-        isError = false;
-            //다시 원래대로?
-
-
+        isMistake = false;
+        //다시 원래대로?
 
         //타~다~
         Effects.getInstance().playTada(Effects.SOUND_2);

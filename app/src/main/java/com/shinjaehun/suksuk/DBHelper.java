@@ -90,8 +90,8 @@ public class DBHelper extends SQLiteOpenHelper {
         //테이블 생성
 
         db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('1', '완벽주의자', 'common', 0, 'noerrors', '한 번도 실수하지 않았습니다!', 0, null);");
-        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('2', '두 자리 수 곱하기 두 자리 수 첫 도전', 'mul22', 0, 'mul22first', '처음으로 두 자리 수 곱하기 두 자리수 문제를 풀었습니다.', 0, null);");
-        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('3', '가장 빠른 두 자리 수 곱하기 두 자리 수', 'mul22', 0, 'mul22fastest', '가장 빠른 두 자리 수 곱하기 두 자리 수 계산 기록을 경신했습니다!', 0, null);");
+        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('2', '두 자리 수 곱하기 두 자리 수 첫 도전', 'multiply22', 0, 'first', '처음으로 두 자리 수 곱하기 두 자리수 문제를 풀었습니다.', 0, null);");
+        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('3', '가장 빠른 두 자리 수 곱하기 두 자리 수', 'multiply22', 0, 'fastest', '가장 빠른 두 자리 수 곱하기 두 자리 수 계산 기록을 경신했습니다!', 0, null);");
         //raw 값 insert
     }
 

@@ -67,6 +67,7 @@ public class AchievementDAO implements Serializable {
             while (!cursor.isAfterLast()) {
                 Achievement achievement = cursorToAchievement(cursor);
                 if (achievement.getType().equals(type) || achievement.getType().equals("common")) {
+                    //type이 common 항목도 함께 저장한다.
                     listAchievements.add(achievement);
                 }
                 cursor.moveToNext();

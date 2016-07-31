@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="D:\project\android\SukSuk\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\jars\libs\internal_impl-23.1.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="8716243bf04bae8d6c9ca94d27b9a9be7236f0a3">
+        <dex dex="D:\project\android\SukSuk\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.1.0_142a04bc68d7ead34d63badeba23d20c41c0a6cf\classes.dex" />
+    </item>
+    <item
+        jar="D:\project\android\SukSuk\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="ddde541c289c8b816a8f8fd6c325d80788c522a6">
+        <dex dex="D:\project\android\SukSuk\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.1.0_fbda492009842fd5980fc99e72e5ca1a3268ee3c\classes.dex" />
+    </item>
+    <item
+        jar="D:\project\android\SukSuk\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="0a6e4c63133d185404f64a5fb1f13d1cee587c29">
+        <dex dex="D:\project\android\SukSuk\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_d2b591a610c2580f42f7dfa30584adb3112fec2a\classes.dex" />
+    </item>
+    <item
+        jar="D:\project\android\SukSuk\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="6b5b4b0b422bcb680119abc039f1eeb785f3368e">
+        <dex dex="D:\project\android\SukSuk\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_f96cfd92a7fd62293d0360946e7259c86530b319\classes.dex" />
+    </item>
+    <item
+        jar="D:\project\android\SukSuk\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="57ae0d750ff83f0c738d21720224ac7ea866a094">
+        <dex dex="D:\project\android\SukSuk\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.1.0_d5c56c9eae0d9bcc710b2525250e61b1504d098d\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\shinjaehun\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.1.0\support-annotations-23.1.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="92e3fc113ec3ee36b64603a38857b95700025633">
+        <dex dex="D:\project\android\SukSuk\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.1.0_72d6aaafadcef3252aee776aaf02fd523fb726ff\classes.dex" />
+    </item>
+
+</items>
