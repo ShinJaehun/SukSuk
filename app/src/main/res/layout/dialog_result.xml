@@ -26,6 +26,13 @@
             android:textColor="@android:color/black"
             android:textSize="10sp" />
 
+        <!--
+        <ListView
+            android:id="@+id/list_achievements"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            />
+-->
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

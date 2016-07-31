@@ -11,11 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by shinjaehun on 2016-06-06.
@@ -78,20 +75,27 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
     //활동 결과를 표시해줄 dialog
     private DialogResult dialogResult;
 
+    //아직 아니
+//    ListView listViewAchievements;
+//    ListAchievementAdapter adapter;
+
     //ProblemActivity에서 받아온 DAO를 여기에 저장한다.
-    public static AchievementDAO aDAO;
+    public static AchievementDAO achievementDAO;
 
     //newInstance()를 통해 받아올 operation 값
-    private static String op;
+    private static String operation;
 
-    public static final ProblemFragment newInstance(String operation, AchievementDAO achievementDAO) {
+    //AchievementMessageTask를 통해 받아올 결과 메시지를 저장할 String
+    String resultMessage;
+
+    public static final ProblemFragment newInstance(String op, AchievementDAO aDAO) {
 
         //이건 effective java에 나오는 기술인데
         //생성자 대신 static factory 메소드 사용하기
         //'자신의 클래스 인스턴스만 반환하는 생성자와 달리 static factory 메소드는 자신이 반환하는 타입의
         // 어떤 서브 타입 객체도 반환할 수 있다.'
 
-        op = operation;
+        operation = op;
         ProblemFragment problemFragment = null;
         switch (operation) {
             case "multiply32":
@@ -117,8 +121,8 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
                 break;
         }
         Bundle args = new Bundle();
-        args.putSerializable(DESCRIBABLE_KEY, achievementDAO);
-        aDAO = achievementDAO;
+        args.putSerializable(DESCRIBABLE_KEY, aDAO);
+        achievementDAO = aDAO;
         //이렇게 하여 PlaceActivity에서 생성한 DAO instance를 Fragment로 넘길 수 있다.
         return problemFragment;
     }
@@ -324,16 +328,27 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
         elapsedTime = endTime - startTime;
         //걸린 시간 측정
 
+
+        //TaskCompleted interface는 onTaskCompleted()를 가지고 있으며 여기에 선언되어 있다.
+        //AsyncTask 결과를 저장하기 위해 필요하다.
+        AchievementMessageTask achievementMessageTask = new AchievementMessageTask(getActivity(), operation, achievementDAO, elapsedTime, isMistake, resultMessage, new TaskCompleted() {
+            @Override
+            public void onTaskCompleted(String result) {
+                resultMessage = result;
+
+            }
+        });
+        achievementMessageTask.execute();
         //테스트...
+//
+//        List<Achievement> achievementsLists = new ArrayList<Achievement>();
+//        achievementsLists = achievementDAO.getAchivementsByType(operation);
 
-        List<Achievement> achievementsLists = new ArrayList<Achievement>();
-        achievementsLists = aDAO.getAchivementsByType(op);
-
-//        switch (op) {
+//        switch (operation) {
 //            case "multiply32":
 //                break;
 //            case "multiply22":
-//                aLists = aDAO.getAchivementsByType("mul22");
+//                aLists = achievementDAO.getAchivementsByType("mul22");
 //                break;
 //            case "divide21":
 //                break;
@@ -344,38 +359,38 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 //            default:
 //                break;
 //        }
-//        aLists = aDAO.getAchivementsByType("common");
-//        bLists = aDAO.getAchivementsByType(op);
+//        aLists = achievementDAO.getAchivementsByType("common");
+//        bLists = achievementDAO.getAchivementsByType(operation);
 //        achievementsLists.addAll(aLists);
 //        achievementsLists.addAll(bLists);
 
-        StringBuilder sb = new StringBuilder();
-        //계산하는데 걸린 시간 -> 최종적으로는 빼기
-        sb.append(getElapsedTime(elapsedTime) + "가 걸렸습니다!\n");
-
-        for (Achievement achievement : achievementsLists) {
-            Log.v(LOG_TAG, achievement.getName());
-        }
-
-        for (Achievement achievement : achievementsLists) {
-            if ((achievement.getIsUnlock() == 0) && (achievement.getType().equals(op) && achievement.getAka().equals("first"))) {
-                Log.v(LOG_TAG, achievement.getName());
-                sb.append(achievement.getName() + "\n" + achievement.getDescription() + "\n\n");
-                aDAO.updateAchievement(achievement.getId(), 1, achievement.getNumber(), achievement.getValue());
-            }
-            if (isMistake == false && achievement.getAka().equals("noerrors")) {
-                Log.v(LOG_TAG, achievement.getName() + " " + achievement.getNumber());
-                int ag = achievement.getNumber();
-                int number = ag + 1;
-                sb.append(achievement.getName() + " " + number + "회 성공!\n" + achievement.getDescription() + "\n\n");
-                aDAO.updateAchievement(achievement.getId(), 1, number, achievement.getValue());
-            }
-//            if (elapsedTime < Long.parseLong(a.getValue())) {
+//        StringBuilder sb = new StringBuilder();
+//        //계산하는데 걸린 시간 -> 최종적으로는 빼기
+//        sb.append(getElapsedTime(elapsedTime) + "가 걸렸습니다!\n");
 //
+//        for (Achievement achievement : achievementsLists) {
+//            Log.v(LOG_TAG, achievement.getName());
+//        }
+//
+//        for (Achievement achievement : achievementsLists) {
+//            if ((achievement.getIsUnlock() == 0) && (achievement.getType().equals(operation) && achievement.getAka().equals("first"))) {
+//                Log.v(LOG_TAG, achievement.getName());
+//                sb.append(achievement.getName() + "\n" + achievement.getDescription() + "\n\n");
+//                achievementDAO.updateAchievement(achievement.getId(), 1, achievement.getNumber(), achievement.getValue());
 //            }
-        }
-
-        final String resultMessage = sb.toString();
+//            if (isMistake == false && achievement.getAka().equals("noerrors")) {
+//                Log.v(LOG_TAG, achievement.getName() + " " + achievement.getNumber());
+//                int ag = achievement.getNumber();
+//                int number = ag + 1;
+//                sb.append(achievement.getName() + " " + number + "회 성공!\n" + achievement.getDescription() + "\n\n");
+//                achievementDAO.updateAchievement(achievement.getId(), 1, number, achievement.getValue());
+//            }
+////            if (elapsedTime < Long.parseLong(a.getValue())) {
+////
+////            }
+//        }
+//
+//        final String resultMessage = sb.toString();
 
         isMistake = false;
         //다시 원래대로?
@@ -406,47 +421,47 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
         });
 
     }
-
-    private static String getElapsedTime(long elapsedTime) {
-        //계산하는데 걸린 시간 측정을 위한 함수
-        if (elapsedTime < 0) {
-            throw new IllegalArgumentException("elapsedTime must be greater than 0!");
-        }
-
-//        long days = TimeUnit.NANOSECONDS.toDays(elapsedTime);
-//        elapsedTime -= TimeUnit.DAYS.toMillis(days);
-
-        //TimeUnit.MILLISECONDS로 썼다가 계속 문제가 발생했었음 NanoTime()으로 계산했으니 NANOSECONDS로 변환해야 함.
-        long hours = TimeUnit.NANOSECONDS.toHours(elapsedTime);
-        Log.v(LOG_TAG, "hours : " + Long.valueOf(hours));
-        elapsedTime -= TimeUnit.HOURS.toMillis(hours);
-        long minutes = TimeUnit.NANOSECONDS.toMinutes(elapsedTime);
-        Log.v(LOG_TAG, "minutes : " + Long.valueOf(minutes));
-
-        elapsedTime -= TimeUnit.MINUTES.toMillis(minutes);
-        long seconds = TimeUnit.NANOSECONDS.toSeconds(elapsedTime);
-        Log.v(LOG_TAG, "seconds : " + Long.valueOf(seconds));
-
-        //이쪽 로직이 간단해보이는데 이해하기 어렵다.
-//        long minutes = TimeUnit.NANOSECONDS.toHours(elapsedTime);
-//        long seconds = TimeUnit.NANOSECONDS.toSeconds(elapsedTime) -
-//                TimeUnit.MINUTES.toSeconds(TimeUnit.NANOSECONDS.toMinutes(elapsedTime));
-
-        StringBuilder sb = new StringBuilder(64);
-        if (hours > 1) {
-            sb.append(hours);
-            sb.append("시간 ");
-        }
-        if (minutes > 1) {
-            sb.append(minutes);
-            sb.append("분 ");
-        }
-        sb.append(seconds);
-        sb.append("초");
-
-        return(sb.toString());
-
-    }
+//
+//    private static String getElapsedTime(long elapsedTime) {
+//        //계산하는데 걸린 시간 측정을 위한 함수
+//        if (elapsedTime < 0) {
+//            throw new IllegalArgumentException("elapsedTime must be greater than 0!");
+//        }
+//
+////        long days = TimeUnit.NANOSECONDS.toDays(elapsedTime);
+////        elapsedTime -= TimeUnit.DAYS.toMillis(days);
+//
+//        //TimeUnit.MILLISECONDS로 썼다가 계속 문제가 발생했었음 NanoTime()으로 계산했으니 NANOSECONDS로 변환해야 함.
+//        long hours = TimeUnit.NANOSECONDS.toHours(elapsedTime);
+//        Log.v(LOG_TAG, "hours : " + Long.valueOf(hours));
+//        elapsedTime -= TimeUnit.HOURS.toMillis(hours);
+//        long minutes = TimeUnit.NANOSECONDS.toMinutes(elapsedTime);
+//        Log.v(LOG_TAG, "minutes : " + Long.valueOf(minutes));
+//
+//        elapsedTime -= TimeUnit.MINUTES.toMillis(minutes);
+//        long seconds = TimeUnit.NANOSECONDS.toSeconds(elapsedTime);
+//        Log.v(LOG_TAG, "seconds : " + Long.valueOf(seconds));
+//
+//        //이쪽 로직이 간단해보이는데 이해하기 어렵다.
+////        long minutes = TimeUnit.NANOSECONDS.toHours(elapsedTime);
+////        long seconds = TimeUnit.NANOSECONDS.toSeconds(elapsedTime) -
+////                TimeUnit.MINUTES.toSeconds(TimeUnit.NANOSECONDS.toMinutes(elapsedTime));
+//
+//        StringBuilder sb = new StringBuilder(64);
+//        if (hours > 1) {
+//            sb.append(hours);
+//            sb.append("시간 ");
+//        }
+//        if (minutes > 1) {
+//            sb.append(minutes);
+//            sb.append("분 ");
+//        }
+//        sb.append(seconds);
+//        sb.append("초");
+//
+//        return(sb.toString());
+//
+//    }
 
     private View.OnClickListener clickListener = new View.OnClickListener() {
         //dialog의 clickListener를 여기서 처리한다.
@@ -526,6 +541,11 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 //            nextStage();
 //        }
     }
-
-
+//
+//
+//    @Override
+//    public void onTaskCompleted(String result) {
+//        resultMessage = result;
+//
+//    }
 }
