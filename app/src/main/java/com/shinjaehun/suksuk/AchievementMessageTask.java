@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by shinjaehun on 2016-08-01.
  */
-public class AchievementMessageTask extends AsyncTask<Void, Void, String> {
+public class AchievementMessageTask extends AsyncTask<Void, Void, List<Achievement>> {
 
 
     private static final String LOG_TAG = AchievementMessageTask.class.getSimpleName();
@@ -22,22 +22,23 @@ public class AchievementMessageTask extends AsyncTask<Void, Void, String> {
 
     Long elapsedTime;
     boolean isMistake;
-    String resultMessage;
+//    String resultMessage;
 
-//    ListAchievementAdapter mListAchievementAdapter;
+    ListAchievementAdapter mListAchievementAdapter;
     ProgressDialog asyncDialog;
     private TaskCompleted mTaskCompleted = null;
 
-    public AchievementMessageTask(Context context, String op, AchievementDAO aDAO, Long eTime, boolean miss, String message, TaskCompleted taskCompleted) {
+//    public AchievementMessageTask(Context context, String op, AchievementDAO aDAO, Long eTime, boolean miss, String message, TaskCompleted taskCompleted) {
+    public AchievementMessageTask(Context context, String op, AchievementDAO aDAO, Long eTime, boolean miss, ListAchievementAdapter laa) {
         mContext = context;
         mAchievementDAO = aDAO;
         operation = op;
         elapsedTime = eTime;
         isMistake = miss;
-        resultMessage = message;
+//        resultMessage = message;
         asyncDialog = new ProgressDialog(mContext);
-        mTaskCompleted = taskCompleted;
-//        mListAchievementAdapter = laa;
+//        mTaskCompleted = taskCompleted;
+        mListAchievementAdapter = laa;
     }
 
     @Override
@@ -50,16 +51,16 @@ public class AchievementMessageTask extends AsyncTask<Void, Void, String> {
     }
 
     @Override
-    protected String doInBackground(Void... params) {
+    protected List<Achievement> doInBackground(Void... params) {
 
         List<Achievement> achievementsLists = new ArrayList<Achievement>();
         achievementsLists = mAchievementDAO.getAchivementsByType(operation);
 
-//        List<Achievement> userAchievements = new ArrayList<Achievement>();
+        List<Achievement> userAchievements = new ArrayList<Achievement>();
 
-        StringBuilder sb = new StringBuilder();
+//        StringBuilder sb = new StringBuilder();
 //        계산하는데 걸린 시간 -> 최종적으로는 빼기
-        sb.append(getElapsedTime(elapsedTime) + "가 걸렸습니다!\n");
+//        sb.append(getElapsedTime(elapsedTime) + "가 걸렸습니다!\n");
 
         for (Achievement achievement : achievementsLists) {
             Log.v(LOG_TAG, achievement.getName());
@@ -68,16 +69,16 @@ public class AchievementMessageTask extends AsyncTask<Void, Void, String> {
         for (Achievement achievement : achievementsLists) {
             if ((achievement.getIsUnlock() == 0) && (achievement.getType().equals(operation) && achievement.getAka().equals("first"))) {
                 Log.v(LOG_TAG, achievement.getName());
-                sb.append(achievement.getName() + "\n" + achievement.getDescription() + "\n\n");
-//                userAchievements.add(achievement);
+//                sb.append(achievement.getName() + "\n" + achievement.getDescription() + "\n\n");
+                userAchievements.add(achievement);
                 mAchievementDAO.updateAchievement(achievement.getId(), 1, achievement.getNumber(), achievement.getValue());
             }
             if (isMistake == false && achievement.getAka().equals("noerrors")) {
                 Log.v(LOG_TAG, achievement.getName() + " " + achievement.getNumber());
                 int ag = achievement.getNumber();
                 int number = ag + 1;
-                sb.append(achievement.getName() + " " + number + "회 성공!\n" + achievement.getDescription() + "\n\n");
-//                userAchievements.add(achievement);
+//                sb.append(achievement.getName() + " " + number + "회 성공!\n" + achievement.getDescription() + "\n\n");
+                userAchievements.add(achievement);
                 mAchievementDAO.updateAchievement(achievement.getId(), 1, number, achievement.getValue());
             }
 //            if (elapsedTime < Long.parseLong(a.getValue())) {
@@ -85,9 +86,9 @@ public class AchievementMessageTask extends AsyncTask<Void, Void, String> {
 //            }
         }
 
-        resultMessage = sb.toString();
+//        resultMessage = sb.toString();
 
-        return resultMessage;
+        return userAchievements;
 
 
 
@@ -95,17 +96,21 @@ public class AchievementMessageTask extends AsyncTask<Void, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String message) {
+    protected void onPostExecute(List<Achievement> userAchievements) {
         asyncDialog.dismiss();
         Log.v("AsyncTask", "onPostExecute");
 
-//        for (Achievement a : achievements) {
-//            mListAchievementAdapter.add(a);
-//        }
+        for (Achievement a : userAchievements) {
+            Log.v(LOG_TAG, "UserAchievement : " + a.getName());
+        }
 
-        Log.v(LOG_TAG, message);
+        for (Achievement a : userAchievements) {
+            mListAchievementAdapter.add(a);
+        }
 
-        mTaskCompleted.onTaskCompleted(message);
+//        Log.v(LOG_TAG, message);
+
+//        mTaskCompleted.onTaskCompleted(message);
         mAchievementDAO.close();
     }
 

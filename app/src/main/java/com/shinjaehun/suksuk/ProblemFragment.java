@@ -14,6 +14,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by shinjaehun on 2016-06-06.
  */
@@ -331,13 +334,17 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 
         //TaskCompleted interface는 onTaskCompleted()를 가지고 있으며 여기에 선언되어 있다.
         //AsyncTask 결과를 저장하기 위해 필요하다.
-        AchievementMessageTask achievementMessageTask = new AchievementMessageTask(getActivity(), operation, achievementDAO, elapsedTime, isMistake, resultMessage, new TaskCompleted() {
-            @Override
-            public void onTaskCompleted(String result) {
-                resultMessage = result;
+//        AchievementMessageTask achievementMessageTask = new AchievementMessageTask(getActivity(), operation, achievementDAO, elapsedTime, isMistake, resultMessage, new TaskCompleted() {
+//            @Override
+//            public void onTaskCompleted(String result) {
+//                resultMessage = result;
+//
+//            }
+//        });
 
-            }
-        });
+        final ListAchievementAdapter adapter = new ListAchievementAdapter(getActivity(), new ArrayList<Achievement>());
+
+        AchievementMessageTask achievementMessageTask = new AchievementMessageTask(getActivity(), operation, achievementDAO, elapsedTime, isMistake, adapter);
         achievementMessageTask.execute();
         //테스트...
 //
@@ -412,8 +419,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 //                Intent intent = getActivity().getIntent();
 //                getActivity().finish();
 //                startActivity(intent);
-                dialogResult = new DialogResult(getActivity(),
-                        "결과", resultMessage, clickListener);
+                dialogResult = new DialogResult(getActivity(), "결과", adapter, clickListener);
                 //clickListener는 dialogResult의 clickListener, 아래 구현되어 있다.
                 elapsedTime = 0;
                 dialogResult.show();

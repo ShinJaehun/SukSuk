@@ -20,6 +20,7 @@
         android:textStyle="bold"
         android:layout_marginTop="6dp"
         android:layout_marginLeft="10dp"
+        android:textColor="@android:color/black"
         android:layout_gravity="center_vertical" />
 
     <TextView
@@ -29,6 +30,8 @@
         android:text="설명"
         android:layout_marginBottom="6dp"
         android:layout_marginLeft="10dp"
+        android:textColor="@android:color/black"
+
         android:layout_gravity="center_vertical"/>
     </LinearLayout>
 
@@ -43,6 +46,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="횟수"
+            android:textColor="@android:color/black"
+
             android:layout_marginBottom="6dp"
             android:layout_marginLeft="10dp"
             android:layout_gravity="center" />

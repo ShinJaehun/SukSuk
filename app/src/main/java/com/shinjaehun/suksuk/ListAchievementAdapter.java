@@ -74,7 +74,7 @@ public class ListAchievementAdapter extends BaseAdapter {
         if (currentItem != null) {
             holder.nameTV.setText(currentItem.getName());
             holder.descriptionTV.setText(currentItem.getDescription());
-            holder.numberTV.setText(currentItem.getNumber());
+            holder.numberTV.setText(String.valueOf(currentItem.getNumber()));
         }
 
         return v;
