@@ -61,6 +61,7 @@ public class Multiply22Fragment extends ProblemFragment {
         nextStage();
 
         startTime = System.nanoTime();
+        //계산 시간 측정을 위한 변수, ProblemFragment에 구현되어 있음
 
     }
 

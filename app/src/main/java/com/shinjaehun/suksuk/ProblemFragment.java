@@ -88,8 +88,8 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
     //newInstance()를 통해 받아올 operation 값
     private static String operation;
 
-    //AchievementMessageTask를 통해 받아올 결과 메시지를 저장할 String
-    String resultMessage;
+    //AchievementMessageTask를 통해 받아올 결과 메시지를 저장할 String -> 이젠 필요가 없어졌다.
+//    String resultMessage;
 
     public static final ProblemFragment newInstance(String op, AchievementDAO aDAO) {
 
@@ -343,6 +343,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 //        });
 
         final ListAchievementAdapter adapter = new ListAchievementAdapter(getActivity(), new ArrayList<Achievement>());
+        //아직 빈 상태인 adapter
 
         AchievementMessageTask achievementMessageTask = new AchievementMessageTask(getActivity(), operation, achievementDAO, elapsedTime, isMistake, adapter);
         achievementMessageTask.execute();
@@ -552,6 +553,8 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 //    @Override
 //    public void onTaskCompleted(String result) {
 //        resultMessage = result;
-//
+//  도전과제를 ListAdapter와 ListView로 표현하지 않고 AchievementTask 결과 생성한 String으로 표현하려고 한 적이 있다.
+//  그때 해결 방법이 ProblemFragment에 TaskCompleted 인터페이스의 onTaskCompleted()를 구현해서 결과를 받아오는 방법이었다.
+//    이제는 이럴 필요가 없어져서 TaskCompleted 인터페이스도 의미가 없다.
 //    }
 }

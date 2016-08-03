@@ -15,7 +15,8 @@ import java.util.List;
  */
 public class ListAchievementAdapter extends BaseAdapter {
 
-    //아직 사용중 아님
+    //FieldTrip에서 사용하던 BaseAdapter와 거의 동일하게 구현했다.
+    //물론 최적화된 건지는 의문
 
     private static final String LOG_TAG = ListAchievementAdapter.class.getSimpleName();
 
@@ -83,6 +84,7 @@ public class ListAchievementAdapter extends BaseAdapter {
     public void setItems(List<Achievement> achievements) {
         this.achievements = achievements;
     }
+    //지금은 DB의 raw data만 이용하지만, 언젠가는 쓸모 있을지도 모르는 법!
 
     class ViewHolder {
         TextView nameTV;

@@ -43,7 +43,8 @@ public class AchievementDAO implements Serializable {
     }
 
     public List<Achievement> getAllAchievements() {
-        //Achievement 레코드 모두 받아오기
+        //Achievement 레코드 모두 받아오기 : 나중에 도전 과제 화면 하나를 Activity로 줘서 어떤 도전 과제가 있는지
+        //확인 가능하도록 하는 용도
         List<Achievement> listAchievements = new ArrayList<Achievement>();
         Cursor cursor = database.query(DBHelper.TABLE_ACHIEVEMENTS, allColumns, null, null, null, null, null);
         if (cursor != null) {

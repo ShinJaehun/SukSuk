@@ -26,12 +26,18 @@ public class AchievementMessageTask extends AsyncTask<Void, Void, List<Achieveme
 
     ListAchievementAdapter mListAchievementAdapter;
     ProgressDialog asyncDialog;
-    private TaskCompleted mTaskCompleted = null;
 
+//    private TaskCompleted mTaskCompleted = null;
 //    public AchievementMessageTask(Context context, String op, AchievementDAO aDAO, Long eTime, boolean miss, String message, TaskCompleted taskCompleted) {
+//  도전과제를 ListAdapter와 ListView로 표현하지 않고 AchievementTask 결과 생성한 String으로 표현하려고 한 적이 있다.
+//  그때 해결 방법이 ProblemFragment에 TaskCompleted 인터페이스의 onTaskCompleted()를 구현해서 결과를 받아오는 방법이었다.
+//    이제는 이럴 필요가 없어져서 TaskCompleted 인터페이스도 의미가 없다.
+
     public AchievementMessageTask(Context context, String op, AchievementDAO aDAO, Long eTime, boolean miss, ListAchievementAdapter laa) {
         mContext = context;
         mAchievementDAO = aDAO;
+        //DAO는 사실 ProblemActivity의 onCreate() 생성되고 ProblemActivity를 생성할 때 인자로 넘어간다.
+        //그리고나서 AchievementTask 오브젝트를 생성하는 과정에서 다시 인자로 넘어오게 된다.
         operation = op;
         elapsedTime = eTime;
         isMistake = miss;
@@ -68,12 +74,17 @@ public class AchievementMessageTask extends AsyncTask<Void, Void, List<Achieveme
 
         for (Achievement achievement : achievementsLists) {
             if ((achievement.getIsUnlock() == 0) && (achievement.getType().equals(operation) && achievement.getAka().equals("first"))) {
+                //잠깐... 근데 DAO에 getAchievementByAKA를 구현해 놨는데... 이걸 이용하는 편이 낫지 않을까?
+
+                //처음으로 하는 계산 unlock하기
                 Log.v(LOG_TAG, achievement.getName());
 //                sb.append(achievement.getName() + "\n" + achievement.getDescription() + "\n\n");
                 userAchievements.add(achievement);
                 mAchievementDAO.updateAchievement(achievement.getId(), 1, achievement.getNumber(), achievement.getValue());
+                //끝나고 나서 DB 업데이트
             }
             if (isMistake == false && achievement.getAka().equals("noerrors")) {
+                //완벽주의자 구현
                 Log.v(LOG_TAG, achievement.getName() + " " + achievement.getNumber());
                 int ag = achievement.getNumber();
                 int number = ag + 1;
@@ -90,15 +101,13 @@ public class AchievementMessageTask extends AsyncTask<Void, Void, List<Achieveme
 
         return userAchievements;
 
-
-
 //        return userAchievements;
     }
 
     @Override
     protected void onPostExecute(List<Achievement> userAchievements) {
         asyncDialog.dismiss();
-        Log.v("AsyncTask", "onPostExecute");
+        Log.v(LOG_TAG, "onPostExecute");
 
         for (Achievement a : userAchievements) {
             Log.v(LOG_TAG, "UserAchievement : " + a.getName());
@@ -107,6 +116,8 @@ public class AchievementMessageTask extends AsyncTask<Void, Void, List<Achieveme
         for (Achievement a : userAchievements) {
             mListAchievementAdapter.add(a);
         }
+        //FieldTrip 때 AsyncTask에서 onPostExecute() 구현한 것과 동일하다.
+        //비동기 작업이 끝난 후 가져온 List<Achievement>를 adapter에 추가
 
 //        Log.v(LOG_TAG, message);
 
@@ -115,6 +126,9 @@ public class AchievementMessageTask extends AsyncTask<Void, Void, List<Achieveme
     }
 
     private static String getElapsedTime(long elapsedTime) {
+        //측정을 하다보니 오류가 있었는데 아직 뭐가 문제인지 정확히 해결하지는 못했다.
+        //초가 60초를 넘어가는 문제...
+
         //계산하는데 걸린 시간 측정을 위한 함수
         if (elapsedTime < 0) {
             throw new IllegalArgumentException("elapsedTime must be greater than 0!");
