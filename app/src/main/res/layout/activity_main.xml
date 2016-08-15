@@ -38,11 +38,11 @@
         android:text="세자리수 나누기 두자리수"/>
 -->
 
-    <ImageButton
+    <ImageView
         android:id="@+id/main_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/mainbutton"
+        android:src="@drawable/button_click"
         android:layout_centerInParent="true"/>
 
 
