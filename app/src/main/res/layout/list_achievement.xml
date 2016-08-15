@@ -1,56 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <!-- 아직 사용하지 않음 -->
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal">
+
+    <LinearLayout
         android:layout_width="0dp"
-        android:layout_weight="7"
-        android:layout_height="64dp"
-        android:orientation="vertical">
-    <TextView
-        android:id="@+id/text_item_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="장소"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginTop="6dp"
-        android:layout_marginLeft="10dp"
-        android:textColor="@android:color/black"
-        android:layout_gravity="center_vertical" />
+        android:layout_weight="1"
+        android:layout_height="48dp"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="6"
+        android:layout_height="48dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+        <TextView
+            android:id="@+id/text_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="도전과제"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:layout_gravity="center_vertical" />
+<!--
 
-    <TextView
-        android:id="@+id/text_item_desc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="설명"
-        android:layout_marginBottom="6dp"
-        android:layout_marginLeft="10dp"
-        android:textColor="@android:color/black"
+        <TextView
+            android:id="@+id/text_item_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="도전과제 설명"
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+            android:layout_gravity="center_vertical"/>
+-->
 
-        android:layout_gravity="center_vertical"/>
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_weight="3"
-        android:layout_height="64dp">
-
+        android:layout_height="48dp">
 
         <TextView
             android:id="@+id/text_item_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="횟수"
+            android:text="#"
+            android:textStyle="bold"
+            android:textSize="16sp"
             android:textColor="@android:color/black"
+            android:paddingRight="2dp"
+            android:layout_gravity="center"
+            android:paddingLeft="10dp" />
 
-            android:layout_marginBottom="6dp"
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="center" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="회"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:paddingRight="8dp"
+            android:layout_gravity="center"
+ />
+
     </LinearLayout>
 
+    </LinearLayout>
 </LinearLayout>
