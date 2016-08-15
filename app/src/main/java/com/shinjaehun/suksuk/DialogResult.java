@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -22,7 +23,6 @@ public class DialogResult extends Dialog implements AdapterView.OnItemClickListe
 
     private TextView titleTV;
     private Button confirmBTN;
-    private String title;
     private ListView achievementsLV;
 
     private View.OnClickListener clickListener;
@@ -46,7 +46,7 @@ public class DialogResult extends Dialog implements AdapterView.OnItemClickListe
 
         setContentView(R.layout.dialog_result);
 
-        titleTV = (TextView)findViewById(R.id.text_title);
+//        titleTV = (TextView)findViewById(R.id.text_title);
 //        contentTV = (TextView)findViewById(R.id.text_content);
         achievementsLV = (ListView)findViewById(R.id.list_achievements);
 
@@ -60,7 +60,6 @@ public class DialogResult extends Dialog implements AdapterView.OnItemClickListe
 
         confirmBTN = (Button)findViewById(R.id.button_confirm);
 
-        titleTV.setText(title);
 //        contentTV.setText(content);
 
 //        confirmBTN.setOnClickListener(new Button.OnClickListener() {
@@ -75,9 +74,11 @@ public class DialogResult extends Dialog implements AdapterView.OnItemClickListe
         confirmBTN.setOnClickListener(clickListener);
     }
 
-    public DialogResult(Context context, String title, ListAchievementAdapter laa, View.OnClickListener clickListener) {
-        super(context, android.R.style.Theme_Translucent_NoTitleBar);
-        this.title = title;
+    public DialogResult(Context context, ListAchievementAdapter laa, View.OnClickListener clickListener) {
+        super(context);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //Dialog 창에서 제목 없애기
+
 //        this.operation = op;
 //        this.achievementDAO = aDAO;
 //        this.elapseTime = eTime;

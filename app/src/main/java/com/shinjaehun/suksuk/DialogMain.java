@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.Layout;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -104,10 +105,13 @@ public class DialogMain extends Dialog {
 
     private void destroyDialog() {
         dismiss();
+        //dialog를 dismiss()하지 않으면 android view windowleaked 오류가 발생한다.
     }
 
     public DialogMain(Context context) {
         super(context);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //Dialog 창에서 제목 없애기
         mContext = context;
 //        mClickListener = clickListener;
     }

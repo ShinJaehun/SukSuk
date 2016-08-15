@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         ImageView mainBT = (ImageView)findViewById(R.id.main_button);
         mainBT.setOnClickListener(new ImageButton.OnClickListener() {
 

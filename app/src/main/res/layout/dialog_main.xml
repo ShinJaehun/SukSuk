@@ -1,206 +1,405 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="fill_parent"
     android:gravity="center"
-    android:layout_height="match_parent">
+    android:background="#90A4AE"
 
-    <LinearLayout
-        android:layout_width="300dip"
-        android:layout_height="200dip"
-        android:background="@android:color/darker_gray"
-        android:orientation="vertical" >
+    android:layout_height="fill_parent">
 
-        <!--
 
-                <TextView
-                    android:id="@+id/text_content"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textColor="@android:color/black"
-                    android:textSize="10sp" />
-        -->
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
+
+
+            <!--
+
+                    <TextView
+                        android:id="@+id/text_content"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp" />
+            -->
 
             <LinearLayout
-                android:id="@+id/multiply22"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_width="250dp"
+                android:layout_height="160dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                >
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"/>
+                <LinearLayout
+                    android:id="@+id/multiply22"
+                    android:layout_width="100dp"
+                    android:layout_height="140dp"
+                    android:orientation="vertical"
+                    android:layout_marginRight="10dp"
+                    android:clickable="true">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="두 자리 수"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="곱하기"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="두 자리 수"/>
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/multiply22"
+                        android:scaleType="centerCrop"/>
+
+                    <LinearLayout
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:background="#455A64"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10sp"
+                            android:padding="5dp"
+                            android:textColor="#ffffff"
+                            android:text="두 자리 X 두 자리" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/multiply32"
+                    android:layout_width="100dp"
+                    android:layout_height="140dp"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="10dp"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/multiply32"
+                        android:scaleType="centerCrop"/>
+
+                    <LinearLayout
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:background="#455A64"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10sp"
+                            android:padding="5dp"
+                            android:textColor="#ffffff"
+                            android:text="세 자리 X 두 자리"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/multiply32"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_width="250dp"
+                android:layout_height="160dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                >
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"/>
+                <LinearLayout
+                    android:id="@+id/divide21"
+                    android:layout_width="100dp"
+                    android:layout_height="140dp"
+                    android:orientation="vertical"
+                    android:layout_marginRight="10dp"
+                    android:clickable="true">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="세 자리 수"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="곱하기"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="두 자리 수"/>
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/divide21"
+                        android:scaleType="centerCrop"/>
+
+                    <LinearLayout
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:background="#455A64"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10sp"
+                            android:padding="5dp"
+                            android:textColor="#ffffff"
+                            android:text="두 자리 ÷ 한 자리" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/divide22"
+                    android:layout_width="100dp"
+                    android:layout_height="140dp"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="10dp"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/divide22"
+                        android:scaleType="centerCrop"/>
+
+                    <LinearLayout
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:background="#455A64"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10sp"
+                            android:padding="5dp"
+                            android:textColor="#ffffff"
+                            android:text="두 자리 ÷ 두 자리"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/divide21"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_width="250dp"
+                android:layout_height="160dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                >
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"/>
+                <LinearLayout
+                    android:id="@+id/divide32"
+                    android:layout_width="100dp"
+                    android:layout_height="140dp"
+                    android:orientation="vertical"
+                    android:layout_marginRight="10dp"
+                    android:clickable="true">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="두 자리 수"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="나누기"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="한 자리 수"/>
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/divide32"
+                        android:scaleType="centerCrop"/>
+
+                    <LinearLayout
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:background="#455A64"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10sp"
+                            android:padding="5dp"
+                            android:textColor="#ffffff"
+                            android:text="세 자리 ÷ 두 자리" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/achievements"
+                    android:layout_width="100dp"
+                    android:layout_height="140dp"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="10dp"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/divide22"
+                        android:scaleType="centerCrop"/>
+
+                    <LinearLayout
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:background="#455A64"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10sp"
+                            android:padding="5dp"
+                            android:textColor="#ffffff"
+                            android:text="도전과제확인"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
             </LinearLayout>
 
         </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+    </ScrollView>
 
-            <LinearLayout
-                android:id="@+id/divide22"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+    <!--
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                    <LinearLayout
+                    android:id="@+id/multiply32"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"/>
+                    android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="세 자리 수"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="곱하기"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="두 자리 수"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/divide21"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="두 자리 수"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="나누기"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="두 자리 수"/>
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="두 자리 수"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="나누기"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="한 자리 수"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/divide32"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="세 자리 수"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="나누기"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="두 자리 수"/>
-
-            </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/achievement"
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/divide22"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"/>
+                    android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="두 자리 수"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="나누기"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="두 자리 수"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/divide32"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="도전과제"/>
-                <TextView
-                    android:layout_width="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="세 자리 수"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="나누기"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="두 자리 수"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/achievement"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="확인"/>
-            </LinearLayout>
+                    android:orientation="vertical">
 
-        </LinearLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"/>
 
-        <Button
-            android:id="@+id/button_confirm"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="확인" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="도전과제"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="확인"/>
+                </LinearLayout>
 
-    </LinearLayout>
+            </LinearLayout>-->
 
-
+    <Button
+        android:id="@+id/button_confirm"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="확인" />
 
 </LinearLayout>
+

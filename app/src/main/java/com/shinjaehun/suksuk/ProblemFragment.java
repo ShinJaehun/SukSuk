@@ -420,7 +420,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 //                Intent intent = getActivity().getIntent();
 //                getActivity().finish();
 //                startActivity(intent);
-                dialogResult = new DialogResult(getActivity(), "결과", adapter, clickListener);
+                dialogResult = new DialogResult(getActivity(), adapter, clickListener);
                 //clickListener는 dialogResult의 clickListener, 아래 구현되어 있다.
                 elapsedTime = 0;
                 dialogResult.show();
