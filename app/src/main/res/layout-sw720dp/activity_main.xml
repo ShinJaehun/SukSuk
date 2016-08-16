@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".MainActivity">
+<!--
+
+    <Button
+        android:id="@+id/multiply22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="두자리수 곱하기 두자리수"/>
+
+    <Button
+        android:id="@+id/multiply32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="세자리수 곱하기 두자리수"/>
+
+    <Button
+        android:id="@+id/divide21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="두자리수 나누기 한자리수"/>
+
+    <Button
+        android:id="@+id/divide22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="두자리수 나누기 두자리수"/>
+
+    <Button
+        android:id="@+id/divide32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="세자리수 나누기 두자리수"/>
+-->
+
+    <ImageView
+        android:id="@+id/main_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/button_click"
+        android:layout_centerInParent="true"/>
+
+
+</RelativeLayout>

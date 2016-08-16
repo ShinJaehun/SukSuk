@@ -7,13 +7,13 @@
         android:layout_width="0dp"
         android:layout_weight="2"
         android:orientation="horizontal"
-        android:layout_height="210dp"
+        android:layout_height="400dp"
         android:gravity="center">
 
         <ImageButton
             android:id="@+id/button_clear"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:background="@drawable/round_button_clear"
             android:src="@drawable/clear"/>
 
@@ -21,14 +21,14 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="180dp"
+        android:layout_width="400dp"
         android:orientation="vertical"
-        android:layout_height="210dp">
+        android:layout_height="400dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="20dp">
 <!--
     <LinearLayout
         android:layout_width="fill_parent"
@@ -47,32 +47,32 @@
 
         <ImageButton
             android:id="@+id/button_1"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:background="@drawable/round_button_1"
             android:layout_toLeftOf="@+id/button_2"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="20dp"
             android:src="@drawable/no_1"/>
 
 
         <ImageButton
             android:id="@+id/button_2"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:background="@drawable/round_button_2"
             android:layout_centerInParent="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:src="@drawable/no_2"/>
 
 
         <ImageButton
             android:id="@+id/button_3"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:background="@drawable/round_button_3"
             android:layout_toRightOf="@id/button_2"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:src="@drawable/no_3"/>
  <!--       <Button
             android:id="@+id/button_2"
@@ -94,36 +94,36 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="20dp">
 
         <ImageButton
             android:id="@+id/button_4"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:background="@drawable/round_button_4"
             android:layout_toLeftOf="@+id/button_5"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="20dp"
             android:src="@drawable/no_4"/>
 
 
         <ImageButton
             android:id="@+id/button_5"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:background="@drawable/round_button_5"
             android:layout_centerInParent="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:src="@drawable/no_5"/>
 
 
         <ImageButton
             android:id="@+id/button_6"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:background="@drawable/round_button_6"
             android:layout_toRightOf="@id/button_5"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:src="@drawable/no_6"/>
 
     </RelativeLayout>
@@ -131,36 +131,36 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="20dp">
 
         <ImageButton
             android:id="@+id/button_7"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:background="@drawable/round_button_7"
             android:layout_toLeftOf="@+id/button_8"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="20dp"
             android:src="@drawable/no_7"/>
 
 
         <ImageButton
             android:id="@+id/button_8"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:background="@drawable/round_button_8"
             android:layout_centerInParent="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:src="@drawable/no_8"/>
 
 
         <ImageButton
             android:id="@+id/button_9"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:background="@drawable/round_button_9"
             android:layout_toRightOf="@id/button_8"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:src="@drawable/no_9"/>
 
     </RelativeLayout>
@@ -170,17 +170,17 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="20dp">
 
 
         <ImageButton
             android:id="@+id/button_0"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:background="@drawable/round_button_0"
             android:layout_centerInParent="true"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:src="@drawable/no_0"/>
 
     </RelativeLayout>
@@ -191,15 +191,14 @@
         android:layout_width="0dp"
         android:layout_weight="2"
         android:orientation="horizontal"
-        android:layout_height="210dp"
+        android:layout_height="400dp"
         android:gravity="center">
-
 
 
         <ImageButton
             android:id="@+id/button_enter"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:background="@drawable/round_button_enter"
             android:src="@drawable/enter"/>
 

@@ -247,7 +247,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@mipmap/slash_gray"
+                            android:src="@drawable/slash_gray"
                             android:visibility="invisible"/>
 
                         <TextView
@@ -307,7 +307,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@mipmap/slash_gray"
+                            android:src="@drawable/slash_gray"
                             android:visibility="invisible"/>
 
 
