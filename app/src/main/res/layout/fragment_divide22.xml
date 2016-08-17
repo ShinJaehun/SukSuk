@@ -96,8 +96,7 @@
             <LinearLayout
                 android:id="@+id/divisor"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom" >
+                android:layout_height="wrap_content">
                 <!--
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="5dp"
@@ -210,7 +209,6 @@
                 android:id="@+id/dividend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
                 android:orientation="horizontal"
                 android:layout_marginLeft="27dp">
 
