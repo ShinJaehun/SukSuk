@@ -1,9 +1,12 @@
 package com.shinjaehun.suksuk;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +22,8 @@ public class AchievementMessageTask extends AsyncTask<Void, Void, List<Achieveme
     private final Context mContext;
     private final AchievementDAO mAchievementDAO;
     private final String operation;
+
+    DialogResult dialogResult;
 
     Long elapsedTime;
     boolean isMistake;
@@ -77,20 +82,23 @@ public class AchievementMessageTask extends AsyncTask<Void, Void, List<Achieveme
                 //잠깐... 근데 DAO에 getAchievementByAKA를 구현해 놨는데... 이걸 이용하는 편이 낫지 않을까?
 
                 //처음으로 하는 계산 unlock하기
-                Log.v(LOG_TAG, achievement.getName());
+//                Log.v(LOG_TAG, achievement.getName());
 //                sb.append(achievement.getName() + "\n" + achievement.getDescription() + "\n\n");
+                achievement.setNumber(achievement.getNumber() + 1);
+                Log.v(LOG_TAG, achievement.getName() + " " + achievement.getNumber());
+
                 userAchievements.add(achievement);
                 mAchievementDAO.updateAchievement(achievement.getId(), 1, achievement.getNumber(), achievement.getValue());
                 //끝나고 나서 DB 업데이트
             }
             if (isMistake == false && achievement.getAka().equals("noerrors")) {
                 //완벽주의자 구현
+                achievement.setNumber(achievement.getNumber() + 1);
                 Log.v(LOG_TAG, achievement.getName() + " " + achievement.getNumber());
-                int ag = achievement.getNumber();
-                int number = ag + 1;
+
 //                sb.append(achievement.getName() + " " + number + "회 성공!\n" + achievement.getDescription() + "\n\n");
                 userAchievements.add(achievement);
-                mAchievementDAO.updateAchievement(achievement.getId(), 1, number, achievement.getValue());
+                mAchievementDAO.updateAchievement(achievement.getId(), 1, achievement.getNumber(), achievement.getValue());
             }
 //            if (elapsedTime < Long.parseLong(a.getValue())) {
 //
@@ -98,6 +106,10 @@ public class AchievementMessageTask extends AsyncTask<Void, Void, List<Achieveme
         }
 
 //        resultMessage = sb.toString();
+
+        for (Achievement a : userAchievements) {
+            Log.v(LOG_TAG, "UserAchievement in Progress : " + a.getName() + " " + a.getNumber());
+        }
 
         return userAchievements;
 
@@ -110,7 +122,7 @@ public class AchievementMessageTask extends AsyncTask<Void, Void, List<Achieveme
         Log.v(LOG_TAG, "onPostExecute");
 
         for (Achievement a : userAchievements) {
-            Log.v(LOG_TAG, "UserAchievement : " + a.getName());
+            Log.v(LOG_TAG, "UserAchievement in Post : " + a.getName() + " " + a.getNumber());
         }
 
         for (Achievement a : userAchievements) {
@@ -119,11 +131,46 @@ public class AchievementMessageTask extends AsyncTask<Void, Void, List<Achieveme
         //FieldTrip 때 AsyncTask에서 onPostExecute() 구현한 것과 동일하다.
         //비동기 작업이 끝난 후 가져온 List<Achievement>를 adapter에 추가
 
+        for (Achievement a : mListAchievementAdapter.getItems()) {
+            Log.v(LOG_TAG, "UserAchievement in Post in Adapter: " + a.getName() + " " + a.getNumber());
+        }
+
 //        Log.v(LOG_TAG, message);
 
 //        mTaskCompleted.onTaskCompleted(message);
         mAchievementDAO.close();
+
+        dialogResult = new DialogResult(mContext, mListAchievementAdapter, clickListener);
+        dialogResult.show();
     }
+
+    private View.OnClickListener clickListener = new View.OnClickListener() {
+        //dialog의 clickListener를 여기서 처리한다.
+        @Override
+        public void onClick(View v) {
+            //dialog 확인 버튼을 클릭하면 액티비티 재시작!
+            Intent intent = ((Activity)mContext).getIntent();
+            dialogResult.dismiss();
+            //dialog를 dismiss()하지 않으면 android view windowleaked 오류가 발생한다.
+            ((Activity)mContext).finish();
+            mContext.startActivity(intent);
+        }
+    };
+
+    //ProblemFragment에서 실행되던 때의 원래 코드
+    //    private View.OnClickListener clickListener = new View.OnClickListener() {
+//        //dialog의 clickListener를 여기서 처리한다.
+//        @Override
+//        public void onClick(View v) {
+//            //dialog 확인 버튼을 클릭하면 액티비티 재시작!
+//            Intent intent = getActivity().getIntent();
+//            dialogResult.dismiss();
+//            //dialog를 dismiss()하지 않으면 android view windowleaked 오류가 발생한다.
+//            getActivity().finish();
+//            startActivity(intent);
+//        }
+//    };
+
 
     private static String getElapsedTime(long elapsedTime) {
         //측정을 하다보니 오류가 있었는데 아직 뭐가 문제인지 정확히 해결하지는 못했다.

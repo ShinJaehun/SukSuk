@@ -83,7 +83,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 //    ListAchievementAdapter adapter;
 
     //ProblemActivity에서 받아온 DAO를 여기에 저장한다.
-    public static AchievementDAO achievementDAO;
+    private static AchievementDAO achievementDAO;
 
     //newInstance()를 통해 받아올 operation 값
     private static String operation;
@@ -332,6 +332,40 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
         //걸린 시간 측정
 
 
+        //타~다~
+        Effects.getInstance().playTada(Effects.SOUND_2);
+
+        //참잘했어요 이미지 표시하기
+        ImageView verygood = (ImageView)getActivity().findViewById(R.id.verygood);
+        verygood.setVisibility(View.VISIBLE);
+
+        //참잘했어요 이미지 나온 이후에 버튼 입력 해제
+        ((ProblemActivity)getActivity()).unSetListener();
+
+        verygood.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //이미지 클릭하면 액티비티 재시작!
+//                Intent intent = getActivity().getIntent();
+//                getActivity().finish();
+//                startActivity(intent);
+                getAchievements();
+
+//                dialogResult = new DialogResult(getActivity(), adapter, clickListener);
+                //clickListener는 dialogResult의 clickListener, 아래 구현되어 있다.
+
+                elapsedTime = 0;
+                isMistake = false;
+                //다시 원래대로?
+
+//                dialogResult.show();
+            }
+        });
+
+    }
+
+    private void getAchievements() {
+
         //TaskCompleted interface는 onTaskCompleted()를 가지고 있으며 여기에 선언되어 있다.
         //AsyncTask 결과를 저장하기 위해 필요하다.
 //        AchievementMessageTask achievementMessageTask = new AchievementMessageTask(getActivity(), operation, achievementDAO, elapsedTime, isMistake, resultMessage, new TaskCompleted() {
@@ -342,11 +376,24 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 //            }
 //        });
 
-        final ListAchievementAdapter adapter = new ListAchievementAdapter(getActivity(), new ArrayList<Achievement>());
+        ListAchievementAdapter adapter = new ListAchievementAdapter(getActivity(), new ArrayList<Achievement>());
         //아직 빈 상태인 adapter
 
         AchievementMessageTask achievementMessageTask = new AchievementMessageTask(getActivity(), operation, achievementDAO, elapsedTime, isMistake, adapter);
         achievementMessageTask.execute();
+
+        //이거 땜에 고생을 좀 했는데 결국 이 뒤에 오는 코드는 의미가 없는 거여....
+        //asynctask의 onPostExecute()에서 마무리되어야 함.
+
+//        for (Achievement a : adapter.getItems()) {
+//            Log.v(LOG_TAG, "UserAchievement in ProblemFragment in Adapter : " + a.getName() + " " + a.getNumber());
+//        }
+//
+//        dialogResult = new DialogResult(getActivity(), adapter, clickListener);
+//        dialogResult.show();
+
+
+//        return adapter;
         //테스트...
 //
 //        List<Achievement> achievementsLists = new ArrayList<Achievement>();
@@ -400,34 +447,10 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 //
 //        final String resultMessage = sb.toString();
 
-        isMistake = false;
-        //다시 원래대로?
-
-        //타~다~
-        Effects.getInstance().playTada(Effects.SOUND_2);
-
-        //참잘했어요 이미지 표시하기
-        ImageView verygood = (ImageView)getActivity().findViewById(R.id.verygood);
-        verygood.setVisibility(View.VISIBLE);
-
-        //참잘했어요 이미지 나온 이후에 버튼 입력 해제
-        ((ProblemActivity)getActivity()).unSetListener();
-
-        verygood.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //이미지 클릭하면 액티비티 재시작!
-//                Intent intent = getActivity().getIntent();
-//                getActivity().finish();
-//                startActivity(intent);
-                dialogResult = new DialogResult(getActivity(), adapter, clickListener);
-                //clickListener는 dialogResult의 clickListener, 아래 구현되어 있다.
-                elapsedTime = 0;
-                dialogResult.show();
-            }
-        });
 
     }
+
+
 //
 //    private static String getElapsedTime(long elapsedTime) {
 //        //계산하는데 걸린 시간 측정을 위한 함수
@@ -470,18 +493,18 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 //
 //    }
 
-    private View.OnClickListener clickListener = new View.OnClickListener() {
-        //dialog의 clickListener를 여기서 처리한다.
-        @Override
-        public void onClick(View v) {
-            //dialog 확인 버튼을 클릭하면 액티비티 재시작!
-            Intent intent = getActivity().getIntent();
-            dialogResult.dismiss();
-            //dialog를 dismiss()하지 않으면 android view windowleaked 오류가 발생한다.
-            getActivity().finish();
-            startActivity(intent);
-        }
-    };
+//    private View.OnClickListener clickListener = new View.OnClickListener() {
+//        //dialog의 clickListener를 여기서 처리한다.
+//        @Override
+//        public void onClick(View v) {
+//            //dialog 확인 버튼을 클릭하면 액티비티 재시작!
+//            Intent intent = getActivity().getIntent();
+//            dialogResult.dismiss();
+//            //dialog를 dismiss()하지 않으면 android view windowleaked 오류가 발생한다.
+//            getActivity().finish();
+//            startActivity(intent);
+//        }
+//    };
 
 
     @Override
