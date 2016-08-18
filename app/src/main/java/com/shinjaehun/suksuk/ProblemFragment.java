@@ -301,7 +301,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
         String[] correctMsg = {"정답!", "제법인데~", "훌륭해!", "꽤 하는걸?", "맞았어!",
                 "잘했어!", "끝내준다!", "바로 그거야", "축하축하", "짝짝짝"};
         String[] wrongMsg = {"아니거든!", "땡~", "메롱메롱~", "제대로 해봐!", "다시 해보셈",
-                "ㅋㅋㅋ", "약오르지~", "틀리셨습니다", "아니라고!", "실수했구나"};
+                "ㅋㅋㅋ", "약오르지~", "틀리셨습니다", "아니라고!", "모를줄 알어?"};
 
         if (result) {
             textView = (TextView)getActivity().findViewById(R.id.answer_right);
