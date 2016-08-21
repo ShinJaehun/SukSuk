@@ -157,8 +157,8 @@ public class Divide21Fragment extends ProblemFragment {
         divisor = (int) (Math.random() * 9) + 1;
         dividend = (int) (Math.random() * 90) + 10;
 
-        divisor = 8;
-        dividend = 94;
+//        divisor = 8;
+//        dividend = 94;
 
         Log.v(LOG_TAG, String.valueOf("divisor : " + divisor));
         Log.v(LOG_TAG, String.valueOf("dividend : " + dividend));

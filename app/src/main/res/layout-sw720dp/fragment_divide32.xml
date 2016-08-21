@@ -863,7 +863,7 @@
                             android:text="0"
                             android:textAlignment="center"
                             android:textColor="@color/colorBackground"
-                            android:textSize="10sp"/>
+                            android:textSize="20sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -871,7 +871,7 @@
                             android:text="0"
                             android:textAlignment="center"
                             android:textColor="@color/colorBackground"
-                            android:textSize="10sp"/>
+                            android:textSize="20sp"/>
                     </LinearLayout>
 
 
