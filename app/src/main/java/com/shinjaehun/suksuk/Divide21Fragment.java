@@ -38,8 +38,10 @@ public class Divide21Fragment extends ProblemFragment {
     private TextView quotient_ten, quotient_one;
 
     private TextView carrying_dividend_ten, carrying_dividend_one_10, carrying_dividend_one_1;
+    private TextView carrying_first_subtract_ten, carrying_first_subtract_one_10, carrying_first_subtract_one_1;
 
     private ImageView dividend_ten_cover, dividend_one_cover;
+    private ImageView first_subtract_ten_cover, first_subtract_one_cover;
 
     private TextView divisor_one;
     private TextView dividend_ten, dividend_one;
@@ -94,8 +96,15 @@ public class Divide21Fragment extends ProblemFragment {
         carrying_dividend_one_10 = (TextView)v.findViewById(R.id.carrying_dividend_one_10);
         carrying_dividend_one_1 = (TextView)v.findViewById(R.id.carrying_dividend_one_1);
 
+        carrying_first_subtract_ten = (TextView)v.findViewById(R.id.carrying_first_subtract_ten);
+        carrying_first_subtract_one_10 = (TextView)v.findViewById(R.id.carrying_first_subtract_one_10);
+        carrying_first_subtract_one_1 = (TextView)v.findViewById(R.id.carrying_first_subtract_one_1);
+
         dividend_ten_cover = (ImageView)v.findViewById(R.id.dividend_ten_cover);
         dividend_one_cover = (ImageView)v.findViewById(R.id.dividend_one_cover);
+
+        first_subtract_ten_cover = (ImageView)v.findViewById(R.id.first_subtract_ten_cover);
+        first_subtract_one_cover = (ImageView)v.findViewById(R.id.first_subtract_one_cover);
 
         dividend_ten = (TextView)v.findViewById(R.id.dividend_ten);
         dividend_one = (TextView)v.findViewById(R.id.dividend_one);
@@ -149,7 +158,7 @@ public class Divide21Fragment extends ProblemFragment {
         dividend = (int) (Math.random() * 90) + 10;
 
         divisor = 8;
-        dividend = 23;
+        dividend = 94;
 
         Log.v(LOG_TAG, String.valueOf("divisor : " + divisor));
         Log.v(LOG_TAG, String.valueOf("dividend : " + dividend));
@@ -234,7 +243,7 @@ public class Divide21Fragment extends ProblemFragment {
 //                    input1TextView = first_multiply_ten;
                     input2TextView = first_multiply_one;
 
-                }  else {
+                } else {
                     //몫이 두 자리인 나눗셈 : 나누는 수 * 몫 십의 자리
                     operand1TextView = divisor_one;
                     operand2TextView = quotient_ten;
@@ -251,7 +260,7 @@ public class Divide21Fragment extends ProblemFragment {
             case 3:
                 if (divisor > dividendTen) {
                     //몫이 한 자리인 나눗셈
-                    if(dividendOne >=
+                    if (dividendOne >=
                             Integer.parseInt(first_multiply_one.getText().toString())) {
                         //받아내림 없이 바로 뺄셈하고 연산 종료
                         operand1TextView = dividend_ten;
@@ -265,6 +274,7 @@ public class Divide21Fragment extends ProblemFragment {
                         input2TextView = first_subtract_one;
 
                         ans_first_line.setVisibility(View.VISIBLE);
+
 
                         isFinal = true;
                     } else {
@@ -312,7 +322,7 @@ public class Divide21Fragment extends ProblemFragment {
                 }
 
                 if (divisor > dividendTen && dividendOne <
-                    Integer.parseInt(first_multiply_one.getText().toString())) {
+                        Integer.parseInt(first_multiply_one.getText().toString())) {
                     //몫이 한 자리인 나눗셈이며
                     //나누는 수 일의 자리가 첫번째 곱셈 일의 자리보다 작아 받아내림
                     //십의 자리에서 내린 값 10 더하기
@@ -414,22 +424,76 @@ public class Divide21Fragment extends ProblemFragment {
                 break;
 
             case 7:
-                //몫이 두 자리인 나눗셈 : 첫번째 뺄셈 - 두번째 곱셈
-                if (Integer.parseInt(first_subtract_ten.getText().toString()) == 0) {
-                    //첫번째 뺄셈이 일의 자리이면 십의 자리 0은 삭제
-                    operand1TextView = null;
-                } else {
-                    operand1TextView = first_subtract_ten;
-                }
-                operand2TextView = first_subtract_one;
+                if (Integer.parseInt(first_subtract_one.getText().toString()) >=
+                        Integer.parseInt(second_multiply_one.getText().toString())) {
+                    //몫이 두 자리인 나눗셈 : 첫번째 뺄셈 - 두번째 곱셈, 받아내림이 없는 경우
+                    if (Integer.parseInt(first_subtract_ten.getText().toString()) == 0) {
+                        //첫번째 뺄셈이 일의 자리이면 십의 자리 0은 삭제
+                        operand1TextView = null;
+                    } else {
+                        operand1TextView = first_subtract_ten;
+                    }
+                    operand2TextView = first_subtract_one;
 
-                if (Integer.parseInt(second_multiply_ten.getText().toString()) == 0) {
-                    //두번째 곱셈이 일의 자리이면 십의 자리 0은 삭제
-                    operand3TextView = null;
+                    if (Integer.parseInt(second_multiply_ten.getText().toString()) == 0) {
+                        //두번째 곱셈이 일의 자리이면 십의 자리 0은 삭제
+                        operand3TextView = null;
+                    } else {
+                        operand3TextView = second_multiply_ten;
+                    }
+                    operand4TextView = second_multiply_one;
+
+                    ans = dividend % divisor;
+
+                    ans_second_line.setVisibility(View.VISIBLE);
+
+                    input1TextView = null;
+                    input2TextView = remainder_one;
+
+                    isFinal = true;
+
                 } else {
-                    operand3TextView = second_multiply_ten;
+                    //몫이 한 자리인 나눗셈 : 첫번째 뺄셈 십의 자리에서 받아내림 시작
+                    operand1TextView = first_subtract_ten;
+                    operand2TextView = null;
+                    operand3TextView = null;
+                    operand4TextView = null;
+
+                    currentMark = first_subtract_ten_cover;
+                    markSlashOn();
+
+                    ans = Integer.parseInt(first_subtract_ten.getText().toString()) -1;
+
+                    input1TextView = null;
+                    input2TextView = carrying_first_subtract_ten;
+
                 }
-                operand4TextView = second_multiply_one;
+
+                break;
+
+            case 8:
+                //몫이 한 자리인 나눗셈 : 받아내림 계속
+                operand1TextView = first_subtract_one;
+                operand2TextView = null;
+                operand3TextView = null;
+                operand4TextView = null;
+
+                currentMark = first_subtract_one_cover;
+                markSlashOn();
+
+                ans = Integer.parseInt(first_subtract_one.getText().toString()) + 10;
+
+                input1TextView = carrying_first_subtract_one_10;
+                input2TextView = carrying_first_subtract_one_1;
+
+                break;
+
+            case 9:
+                //몫이 한 자리인 나눗셈 : 마무리
+                operand1TextView = carrying_first_subtract_one_10;
+                operand2TextView = carrying_first_subtract_one_1;
+                operand3TextView = second_multiply_one;
+                operand4TextView = null;
 
                 ans = dividend % divisor;
 
@@ -441,6 +505,7 @@ public class Divide21Fragment extends ProblemFragment {
                 isFinal = true;
 
                 break;
+
 
             default:
                 break;
