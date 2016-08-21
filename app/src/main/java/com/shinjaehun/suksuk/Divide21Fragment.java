@@ -148,8 +148,8 @@ public class Divide21Fragment extends ProblemFragment {
         divisor = (int) (Math.random() * 9) + 1;
         dividend = (int) (Math.random() * 90) + 10;
 
-//        divisor = 5;
-//        dividend = 49;
+        divisor = 8;
+        dividend = 23;
 
         Log.v(LOG_TAG, String.valueOf("divisor : " + divisor));
         Log.v(LOG_TAG, String.valueOf("dividend : " + dividend));
@@ -225,13 +225,13 @@ public class Divide21Fragment extends ProblemFragment {
                     operand2TextView = quotient_one;
 
                     ans = divisorOne * quotientOne;
-                    //몫이 한 자리이면... 나누는 수 * 몫을 했을 때 분명 두 자리 수겠지?
-//                    if (ans < 10) {
-//                        input1TextView = null;
-//                    } else {
-//                        input1TextView = first_multiply_ten;
-//                    }
-                    input1TextView = first_multiply_ten;
+                    //나누는 수 * 몫을 했을 때 결과가 두 자리인지, 한 자리 인지 확인
+                    if (ans < 10) {
+                        input1TextView = null;
+                    } else {
+                        input1TextView = first_multiply_ten;
+                    }
+//                    input1TextView = first_multiply_ten;
                     input2TextView = first_multiply_one;
 
                 }  else {
