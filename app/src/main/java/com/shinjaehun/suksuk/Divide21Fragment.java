@@ -154,7 +154,10 @@ public class Divide21Fragment extends ProblemFragment {
 //        dividend = 868;
 //        divisor = 56;
 
-        divisor = (int) (Math.random() * 9) + 1;
+//        divisor = (int) (Math.random() * 9) + 1;
+        //두 자리 나누기 한 자리할 때는 1을 곱하는 문제는 빼자
+        //(int)(Math.random() * (max - min + 1) + min)
+        divisor = (int) (Math.random() * 8) + 2;
         dividend = (int) (Math.random() * 90) + 10;
 
 //        divisor = 8;
