@@ -209,8 +209,8 @@ public class Divide32Fragment extends ProblemFragment {
 //            divisor = a;
 //        }
 
-        dividend = 801;
-        divisor = 49;
+//        dividend = 801;
+//        divisor = 49;
 
 //        dividend = 105;
 //        divisor = 96;
