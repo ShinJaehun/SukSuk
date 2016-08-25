@@ -29,6 +29,8 @@ public class AchievementMessageTask extends AsyncTask<Void, Void, List<Achieveme
     boolean isMistake;
 //    String resultMessage;
 
+    boolean isChallenge;
+
     ListAchievementAdapter mListAchievementAdapter;
     ProgressDialog asyncDialog;
 
@@ -38,7 +40,7 @@ public class AchievementMessageTask extends AsyncTask<Void, Void, List<Achieveme
 //  그때 해결 방법이 ProblemFragment에 TaskCompleted 인터페이스의 onTaskCompleted()를 구현해서 결과를 받아오는 방법이었다.
 //    이제는 이럴 필요가 없어져서 TaskCompleted 인터페이스도 의미가 없다.
 
-    public AchievementMessageTask(Context context, String op, AchievementDAO aDAO, Long eTime, boolean miss, ListAchievementAdapter laa) {
+    public AchievementMessageTask(Context context, String op, AchievementDAO aDAO, Long eTime, boolean miss, boolean challenge, ListAchievementAdapter laa) {
         mContext = context;
         mAchievementDAO = aDAO;
         //DAO는 사실 ProblemActivity의 onCreate() 생성되고 ProblemActivity를 생성할 때 인자로 넘어간다.
@@ -47,6 +49,7 @@ public class AchievementMessageTask extends AsyncTask<Void, Void, List<Achieveme
         elapsedTime = eTime;
         isMistake = miss;
 //        resultMessage = message;
+        isChallenge = challenge;
         asyncDialog = new ProgressDialog(mContext);
 //        mTaskCompleted = taskCompleted;
         mListAchievementAdapter = laa;
@@ -148,6 +151,8 @@ public class AchievementMessageTask extends AsyncTask<Void, Void, List<Achieveme
         //dialog의 clickListener를 여기서 처리한다.
         @Override
         public void onClick(View v) {
+            Log.v(LOG_TAG, "is Challenge in AsyncTask : " + isChallenge);
+
             //dialog 확인 버튼을 클릭하면 액티비티 재시작!
             Intent intent = ((Activity)mContext).getIntent();
             dialogResult.dismiss();

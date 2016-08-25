@@ -171,17 +171,28 @@ public class Divide32Fragment extends ProblemFragment {
 
         div_sign = (ImageView)v.findViewById(R.id.div_sign);
 
-        help = (ImageButton)v.findViewById(R.id.help);
-        help.setOnClickListener(new Button.OnClickListener() {
+        help = (ImageButton) v.findViewById(R.id.help);
+        challengeCounter = (TextView)v.findViewById(R.id.challengeCounter);
 
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
-                intent.putExtra("help", "divide32");
-                startActivity(intent);
-            }
-        });
+        if (isChallenge == false) {
+            challengeCounter.setVisibility(View.GONE);
 
+            help.setOnClickListener(new Button.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
+                    intent.putExtra("help", "divide32");
+                    startActivity(intent);
+                }
+            });
+        } else {
+            Log.v(LOG_TAG, "challengeNumber : " + challengeNumber);
+
+            challengeCounter.setVisibility(View.VISIBLE);
+            challengeCounter.setText(String.valueOf(challengeNumber));
+
+        }
         return v;
 
     }

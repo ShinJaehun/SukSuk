@@ -92,6 +92,18 @@ public class DialogMain extends Dialog {
             }
         });
 
+        LinearLayout challenge = (LinearLayout)findViewById(R.id.challenge);
+        challenge.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, ProblemActivity.class);
+                intent.putExtra("operation", "challenge");
+                mContext.startActivity(intent);
+                destroyDialog();
+            }
+        });
+
         Button confirmBT = (Button)findViewById(R.id.button_confirm);
         confirmBT.setOnClickListener(new View.OnClickListener() {
 
@@ -102,6 +114,7 @@ public class DialogMain extends Dialog {
         });
 
     }
+
 
     private void destroyDialog() {
         dismiss();

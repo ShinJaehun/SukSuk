@@ -215,7 +215,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/achievements"
+                    android:id="@+id/challenge"
                     android:layout_width="100dp"
                     android:layout_height="140dp"
                     android:orientation="vertical"
@@ -225,7 +225,7 @@
                     <ImageView
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:src="@drawable/divide22"
+                        android:src="@drawable/challenge"
                         android:scaleType="centerCrop"/>
 
                     <LinearLayout
@@ -240,7 +240,7 @@
                             android:textSize="10sp"
                             android:padding="5dp"
                             android:textColor="#ffffff"
-                            android:text="도전과제확인"/>
+                            android:text="스킬 챌린지"/>
 
                     </LinearLayout>
 

@@ -11,11 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Random;
 
 /**
  * Created by shinjaehun on 2016-06-06.
@@ -37,6 +36,8 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 
     //선생님 도와주세요 버튼
     public ImageButton help;
+
+    public TextView challengeCounter;
 
     //두 자리 수를 입력할 때 inputTextView를 전환하는 스위치
     public boolean carrying = true;
@@ -75,8 +76,9 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
     //실수가 없는지 확인하기 위한 스위치
     private boolean isMistake = false;
 
+
     //활동 결과를 표시해줄 dialog
-    private DialogResult dialogResult;
+//    private DialogResult dialogResult;
 
     //아직 아니
 //    ListView listViewAchievements;
@@ -88,6 +90,12 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
     //newInstance()를 통해 받아올 operation 값
     private static String operation;
 
+    public static boolean isChallenge;
+    //스킬 챌린지 해결할 문제 수
+    private static final int totalChallengeNumber = 3;
+    public static int challengeNumber = totalChallengeNumber;
+
+
     //AchievementMessageTask를 통해 받아올 결과 메시지를 저장할 String -> 이젠 필요가 없어졌다.
 //    String resultMessage;
 
@@ -98,7 +106,25 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
         //'자신의 클래스 인스턴스만 반환하는 생성자와 달리 static factory 메소드는 자신이 반환하는 타입의
         // 어떤 서브 타입 객체도 반환할 수 있다.'
 
-        operation = op;
+//        operation = op;
+
+        if (op.equals("challenge")) {
+            String operationArray[] = {"multiply32", "multiply22", "divide21", "divide22", "divide32"};
+            Random rnd = new Random();
+            operation = operationArray[rnd.nextInt(operationArray.length)];
+            // 다섯 연산 중 하나 랜덤 선택
+            isChallenge = true;
+            Log.v(LOG_TAG, "is Challenge : " + isChallenge);
+            Log.v(LOG_TAG, "challengeNumber : " + challengeNumber);
+
+
+        } else {
+            operation = op;
+            isChallenge = false;
+            Log.v(LOG_TAG, "is Challenge : " + isChallenge);
+
+        }
+
         ProblemFragment problemFragment = null;
         switch (operation) {
             case "multiply32":
@@ -331,16 +357,44 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
         elapsedTime = endTime - startTime;
         //걸린 시간 측정
 
+        if (isChallenge == false) {
+            //스킬챌린지가 아니라면 정상 종료후 DialogResult 보내기
+            finish();
+
+        } else {
+            challengeNumber--;
+            if (challengeNumber == 0) {
+                //스킬 챌린지인데 정해진 문제를 모두 푼 경우 종료 후 DialogResult 내보내기
+                challengeNumber = totalChallengeNumber;
+                finish();
+            } else {
+                //스킬 챌린지인데 아직 정해진 문제를 모두 해결하지 않은 경우 challengeNumber만 하나 줄이고 Activity 재시작
+                //랜덤하게 다른 문제가 화면에 표시될 것이다.
+                Intent intent = getActivity().getIntent();
+                getActivity().finish();
+                startActivity(intent);
+            }
+        }
+
+
+    }
+
+    private void finish() {
+
+//        isChallenge = false;
 
         //타~다~
         Effects.getInstance().playTada(Effects.SOUND_2);
 
         //참잘했어요 이미지 표시하기
-        ImageView verygood = (ImageView)getActivity().findViewById(R.id.verygood);
+        ImageView verygood = (ImageView) getActivity().findViewById(R.id.verygood);
         verygood.setVisibility(View.VISIBLE);
 
         //참잘했어요 이미지 나온 이후에 버튼 입력 해제
-        ((ProblemActivity)getActivity()).unSetListener();
+        ((ProblemActivity) getActivity()).unSetListener();
+
+        //선생님 도와주세요 버튼 입력 해제
+        help.setClickable(false);
 
         verygood.setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -361,7 +415,6 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 //                dialogResult.show();
             }
         });
-
     }
 
     private void getAchievements() {
@@ -379,7 +432,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
         ListAchievementAdapter adapter = new ListAchievementAdapter(getActivity(), new ArrayList<Achievement>());
         //아직 빈 상태인 adapter
 
-        AchievementMessageTask achievementMessageTask = new AchievementMessageTask(getActivity(), operation, achievementDAO, elapsedTime, isMistake, adapter);
+        AchievementMessageTask achievementMessageTask = new AchievementMessageTask(getActivity(), operation, achievementDAO, elapsedTime, isMistake, isChallenge, adapter);
         achievementMessageTask.execute();
 
         //이거 땜에 고생을 좀 했는데 결국 이 뒤에 오는 코드는 의미가 없는 거여....
