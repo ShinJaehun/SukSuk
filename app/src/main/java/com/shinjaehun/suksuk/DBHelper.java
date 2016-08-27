@@ -88,9 +88,11 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_TABLE_ACHIEVEMENTS);
         //테이블 생성
 
-        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('1', '완벽주의자', 'common', 0, 'noerrors', '한 번도 실수하지 않았습니다!', 0, null);");
-        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('2', '곱하기 도전', 'multiply22', 0, 'first', '처음으로 두 자리 수 곱하기 두 자리수 문제를 풀었습니다.', 0, null);");
-        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('3', '스피드레이서', 'multiply22', 0, 'fastest', '가장 빠른 두 자리 수 곱하기 두 자리 수 계산 기록을 경신했습니다!', 0, null);");
+        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('1', '완벽주의자', 'common', 0, 'noerrors', '한 번도 실수하지 않았습니다.', 0, null);");
+        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('2', '처음 하는 문제풀기', 'challenge', 0, 'first', '처음으로 문제풀기에 도전했습니다.', 0, null);");
+        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('3', '뭐든지 다 풀어요', 'challenge', 0, 'master', '도전! 문제풀기에 성공했습니다.', 0, null);");
+        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('4', '처음 하는 곱하기', 'multiply22', 0, 'first', '처음으로 두 자리 수 곱하기 두 자리수 문제를 풀었습니다.', 0, null);");
+        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('5', '스피드레이서', 'multiply22', 0, 'fastest', '가장 빠른 두 자리 수 곱하기 두 자리 수 계산 기록을 경신했습니다!', 0, null);");
         //raw 값 insert
     }
 

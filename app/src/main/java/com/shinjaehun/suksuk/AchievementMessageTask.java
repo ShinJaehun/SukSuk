@@ -66,46 +66,69 @@ public class AchievementMessageTask extends AsyncTask<Void, Void, List<Achieveme
 
     @Override
     protected List<Achievement> doInBackground(Void... params) {
-
-        List<Achievement> achievementsLists = new ArrayList<Achievement>();
-        achievementsLists = mAchievementDAO.getAchivementsByType(operation);
-
         List<Achievement> userAchievements = new ArrayList<Achievement>();
+
+        if (isChallenge == false) {
+
+            List<Achievement> achievementsLists = mAchievementDAO.getAchivementsByType(operation);
 
 //        StringBuilder sb = new StringBuilder();
 //        계산하는데 걸린 시간 -> 최종적으로는 빼기
 //        sb.append(getElapsedTime(elapsedTime) + "가 걸렸습니다!\n");
 
-        for (Achievement achievement : achievementsLists) {
-            Log.v(LOG_TAG, achievement.getName());
-        }
+            for (Achievement achievement : achievementsLists) {
+                Log.v(LOG_TAG, achievement.getName());
+            }
 
-        for (Achievement achievement : achievementsLists) {
-            if ((achievement.getIsUnlock() == 0) && (achievement.getType().equals(operation) && achievement.getAka().equals("first"))) {
-                //잠깐... 근데 DAO에 getAchievementByAKA를 구현해 놨는데... 이걸 이용하는 편이 낫지 않을까?
+            for (Achievement achievement : achievementsLists) {
+                if ((achievement.getIsUnlock() == 0) && (achievement.getType().equals(operation) && achievement.getAka().equals("first"))) {
+                    //잠깐... 근데 DAO에 getAchievementByAKA를 구현해 놨는데... 이걸 이용하는 편이 낫지 않을까?
 
-                //처음으로 하는 계산 unlock하기
+                    //처음으로 하는 계산 unlock하기
 //                Log.v(LOG_TAG, achievement.getName());
 //                sb.append(achievement.getName() + "\n" + achievement.getDescription() + "\n\n");
-                achievement.setNumber(achievement.getNumber() + 1);
-                Log.v(LOG_TAG, achievement.getName() + " " + achievement.getNumber());
+                    achievement.setNumber(achievement.getNumber() + 1);
+                    Log.v(LOG_TAG, achievement.getName() + " " + achievement.getNumber());
 
-                userAchievements.add(achievement);
-                mAchievementDAO.updateAchievement(achievement.getId(), 1, achievement.getNumber(), achievement.getValue());
-                //끝나고 나서 DB 업데이트
-            }
-            if (isMistake == false && achievement.getAka().equals("noerrors")) {
-                //완벽주의자 구현
-                achievement.setNumber(achievement.getNumber() + 1);
-                Log.v(LOG_TAG, achievement.getName() + " " + achievement.getNumber());
+                    userAchievements.add(achievement);
+                    mAchievementDAO.updateAchievement(achievement.getId(), 1, achievement.getNumber(), achievement.getValue());
+                    //끝나고 나서 DB 업데이트
+                }
+                if (isMistake == false && achievement.getAka().equals("noerrors")) {
+                    //완벽주의자 구현
+                    achievement.setNumber(achievement.getNumber() + 1);
+                    Log.v(LOG_TAG, achievement.getName() + " " + achievement.getNumber());
 
 //                sb.append(achievement.getName() + " " + number + "회 성공!\n" + achievement.getDescription() + "\n\n");
-                userAchievements.add(achievement);
-                mAchievementDAO.updateAchievement(achievement.getId(), 1, achievement.getNumber(), achievement.getValue());
-            }
+                    userAchievements.add(achievement);
+                    mAchievementDAO.updateAchievement(achievement.getId(), 1, achievement.getNumber(), achievement.getValue());
+                }
 //            if (elapsedTime < Long.parseLong(a.getValue())) {
 //
 //            }
+            }
+        } else {
+            List<Achievement> achievementsLists = mAchievementDAO.getAchivementsByType("challenge");
+            for (Achievement achievement : achievementsLists) {
+                Log.v(LOG_TAG, achievement.getName());
+            }
+
+            for (Achievement achievement : achievementsLists) {
+                if ((achievement.getIsUnlock() == 0) && (achievement.getAka().equals("first"))) {
+                    achievement.setNumber(achievement.getNumber() + 1);
+                    Log.v(LOG_TAG, achievement.getName() + " " + achievement.getNumber());
+
+                    userAchievements.add(achievement);
+                    mAchievementDAO.updateAchievement(achievement.getId(), 1, achievement.getNumber(), achievement.getValue());
+                }
+                if (achievement.getAka().equals("master")) {
+                    achievement.setNumber(achievement.getNumber() + 1);
+                    Log.v(LOG_TAG, achievement.getName() + " " + achievement.getNumber());
+
+                    userAchievements.add(achievement);
+                    mAchievementDAO.updateAchievement(achievement.getId(), 1, achievement.getNumber(), achievement.getValue());
+                }
+            }
         }
 
 //        resultMessage = sb.toString();

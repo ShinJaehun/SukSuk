@@ -37,6 +37,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
     //선생님 도와주세요 버튼
     public ImageButton help;
 
+    //스킬챌린지에서 남은 문제 수를 보여줄 텍스트뷰
     public TextView challengeCounter;
 
     //두 자리 수를 입력할 때 inputTextView를 전환하는 스위치
@@ -90,7 +91,9 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
     //newInstance()를 통해 받아올 operation 값
     private static String operation;
 
+    //스킬챌린지인지 확인하는 스위치
     public static boolean isChallenge;
+
     //스킬 챌린지 해결할 문제 수
     private static final int totalChallengeNumber = 3;
     public static int challengeNumber = totalChallengeNumber;
@@ -109,16 +112,17 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 //        operation = op;
 
         if (op.equals("challenge")) {
+            //스킬챌린지라면 다섯 유형 중 하나를 랜덤해서 선택하고 스위치를 활성화시킨다
             String operationArray[] = {"multiply32", "multiply22", "divide21", "divide22", "divide32"};
             Random rnd = new Random();
             operation = operationArray[rnd.nextInt(operationArray.length)];
-            // 다섯 연산 중 하나 랜덤 선택
             isChallenge = true;
+
             Log.v(LOG_TAG, "is Challenge : " + isChallenge);
             Log.v(LOG_TAG, "challengeNumber : " + challengeNumber);
 
-
         } else {
+            //스킬챌린지가 아니면 해당 연산을 수행하고 스위치를 해제한다.
             operation = op;
             isChallenge = false;
             Log.v(LOG_TAG, "is Challenge : " + isChallenge);
@@ -149,14 +153,21 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
                 //이건 실행되면 안돼
                 break;
         }
+
+        //ProogramActivity에서 ProblemFragment를 생성할 때 넘긴 achievementDAO를 받아온다.
+        //이렇게 Bundle을 이용하여 Activity에서 생성한 DAO의 instance를 Fragment로 넘길 수 있다.
         Bundle args = new Bundle();
         args.putSerializable(DESCRIBABLE_KEY, aDAO);
         achievementDAO = aDAO;
-        //이렇게 하여 PlaceActivity에서 생성한 DAO instance를 Fragment로 넘길 수 있다.
+
         return problemFragment;
     }
 
+    //하위 클래스에서 오버라이딩할 메소드
     public void startPractice() {
+    }
+
+    public void nextStage(){
     }
 
 //    private void initSound() {
@@ -358,13 +369,13 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
         //걸린 시간 측정
 
         if (isChallenge == false) {
-            //스킬챌린지가 아니라면 정상 종료후 DialogResult 보내기
+            //스킬챌린지가 아니라면 타다 + 참잘했어요 -> AchievementMessageTask를 실행시켜 DialogResult에 결과 보여주기
             finish();
 
         } else {
             challengeNumber--;
             if (challengeNumber == 0) {
-                //스킬 챌린지인데 정해진 문제를 모두 푼 경우 종료 후 DialogResult 내보내기
+                //스킬 챌린지인데 정해진 문제를 모두 풀었으면 타다 + 참잘했어요 -> AchievementMessageTask를 실행시켜 DialogResult에 결과 보여주기
                 challengeNumber = totalChallengeNumber;
                 finish();
             } else {
@@ -581,9 +592,6 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
                 carrying = true;
             }
         }
-    }
-
-    public void nextStage(){
     }
 
     public void onClearClicked() {

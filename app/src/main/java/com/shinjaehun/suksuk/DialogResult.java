@@ -21,7 +21,7 @@ import java.util.ArrayList;
  */
 public class DialogResult extends Dialog implements AdapterView.OnItemClickListener {
 
-    private TextView titleTV;
+//    private TextView titleTV;
     private Button confirmBTN;
     private ListView achievementsLV;
 

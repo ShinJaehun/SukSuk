@@ -240,7 +240,7 @@
                             android:textSize="20sp"
                             android:padding="10dp"
                             android:textColor="#ffffff"
-                            android:text="스킬 챌린지"/>
+                            android:text="도전! 문제풀기"/>
 
                     </LinearLayout>
 
