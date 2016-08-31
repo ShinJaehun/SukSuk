@@ -14,7 +14,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by shinjaehun on 2016-07-25.
@@ -89,6 +93,10 @@ public class DialogResult extends Dialog implements AdapterView.OnItemClickListe
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(getContext(), ((Achievement)parent.getAdapter().getItem(position)).getDescription(), Toast.LENGTH_SHORT).show();
+        long today = ((Achievement)parent.getAdapter().getItem(position)).getTimestamp();
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MMM-dd");
+        DateFormat sdf = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.KOREAN);
+        Date resultDate = new Date(today);
+        Toast.makeText(getContext(), sdf.format(resultDate), Toast.LENGTH_SHORT).show();
     }
 }

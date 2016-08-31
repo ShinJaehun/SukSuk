@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="fill_parent"
     android:gravity="center"
-    android:background="#90A4AE"
+    android:background="#455A64"
 
     android:layout_height="fill_parent">
 
@@ -15,7 +15,9 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:paddingBottom="5dp">
 
 
             <!--
@@ -31,7 +33,7 @@
 
             <LinearLayout
                 android:layout_width="250dp"
-                android:layout_height="160dp"
+                android:layout_height="145dp"
                 android:orientation="horizontal"
                 android:gravity="center"
                 >
@@ -41,8 +43,9 @@
                     android:layout_width="100dp"
                     android:layout_height="140dp"
                     android:orientation="vertical"
-                    android:layout_marginRight="10dp"
-                    android:clickable="true">
+                    android:layout_marginRight="7dp"
+                    android:clickable="true"
+                    android:gravity="center">
 
                     <ImageView
                         android:layout_width="100dp"
@@ -52,8 +55,8 @@
 
                     <LinearLayout
                         android:layout_width="100dp"
-                        android:layout_height="40dp"
-                        android:background="#455A64"
+                        android:layout_height="30dp"
+                        android:background="#607D8B"
                         android:gravity="center">
 
                         <TextView
@@ -73,8 +76,9 @@
                     android:layout_width="100dp"
                     android:layout_height="140dp"
                     android:orientation="vertical"
-                    android:layout_marginLeft="10dp"
-                    android:clickable="true">
+                    android:layout_marginLeft="7dp"
+                    android:clickable="true"
+                    android:gravity="center">
 
                     <ImageView
                         android:layout_width="100dp"
@@ -84,8 +88,8 @@
 
                     <LinearLayout
                         android:layout_width="100dp"
-                        android:layout_height="40dp"
-                        android:background="#455A64"
+                        android:layout_height="30dp"
+                        android:background="#607D8B"
                         android:gravity="center">
 
                         <TextView
@@ -104,7 +108,7 @@
 
             <LinearLayout
                 android:layout_width="250dp"
-                android:layout_height="160dp"
+                android:layout_height="145dp"
                 android:orientation="horizontal"
                 android:gravity="center"
                 >
@@ -114,8 +118,9 @@
                     android:layout_width="100dp"
                     android:layout_height="140dp"
                     android:orientation="vertical"
-                    android:layout_marginRight="10dp"
-                    android:clickable="true">
+                    android:layout_marginRight="7dp"
+                    android:clickable="true"
+                    android:gravity="center">
 
                     <ImageView
                         android:layout_width="100dp"
@@ -125,8 +130,8 @@
 
                     <LinearLayout
                         android:layout_width="100dp"
-                        android:layout_height="40dp"
-                        android:background="#455A64"
+                        android:layout_height="30dp"
+                        android:background="#607D8B"
                         android:gravity="center">
 
                         <TextView
@@ -146,8 +151,9 @@
                     android:layout_width="100dp"
                     android:layout_height="140dp"
                     android:orientation="vertical"
-                    android:layout_marginLeft="10dp"
-                    android:clickable="true">
+                    android:layout_marginLeft="7dp"
+                    android:clickable="true"
+                    android:gravity="center">
 
                     <ImageView
                         android:layout_width="100dp"
@@ -157,8 +163,8 @@
 
                     <LinearLayout
                         android:layout_width="100dp"
-                        android:layout_height="40dp"
-                        android:background="#455A64"
+                        android:layout_height="30dp"
+                        android:background="#607D8B"
                         android:gravity="center">
 
                         <TextView
@@ -177,7 +183,7 @@
 
             <LinearLayout
                 android:layout_width="250dp"
-                android:layout_height="160dp"
+                android:layout_height="145dp"
                 android:orientation="horizontal"
                 android:gravity="center"
                 >
@@ -187,8 +193,9 @@
                     android:layout_width="100dp"
                     android:layout_height="140dp"
                     android:orientation="vertical"
-                    android:layout_marginRight="10dp"
-                    android:clickable="true">
+                    android:layout_marginRight="7dp"
+                    android:clickable="true"
+                    android:gravity="center">
 
                     <ImageView
                         android:layout_width="100dp"
@@ -198,8 +205,8 @@
 
                     <LinearLayout
                         android:layout_width="100dp"
-                        android:layout_height="40dp"
-                        android:background="#455A64"
+                        android:layout_height="30dp"
+                        android:background="#607D8B"
                         android:gravity="center">
 
                         <TextView
@@ -219,8 +226,9 @@
                     android:layout_width="100dp"
                     android:layout_height="140dp"
                     android:orientation="vertical"
-                    android:layout_marginLeft="10dp"
-                    android:clickable="true">
+                    android:layout_marginLeft="7dp"
+                    android:clickable="true"
+                    android:gravity="center">
 
                     <ImageView
                         android:layout_width="100dp"
@@ -230,8 +238,8 @@
 
                     <LinearLayout
                         android:layout_width="100dp"
-                        android:layout_height="40dp"
-                        android:background="#455A64"
+                        android:layout_height="30dp"
+                        android:background="#607D8B"
                         android:gravity="center">
 
                         <TextView

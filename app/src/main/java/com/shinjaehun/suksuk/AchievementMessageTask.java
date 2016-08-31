@@ -17,7 +17,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class AchievementMessageTask extends AsyncTask<Void, Void, List<Achievement>> {
 
-
     private static final String LOG_TAG = AchievementMessageTask.class.getSimpleName();
     private final Context mContext;
     private final AchievementDAO mAchievementDAO;
@@ -69,6 +68,7 @@ public class AchievementMessageTask extends AsyncTask<Void, Void, List<Achieveme
         List<Achievement> userAchievements = new ArrayList<Achievement>();
 
         if (isChallenge == false) {
+            //스킬챌린지가 아닌 경우
 
             List<Achievement> achievementsLists = mAchievementDAO.getAchivementsByType(operation);
 
@@ -81,7 +81,7 @@ public class AchievementMessageTask extends AsyncTask<Void, Void, List<Achieveme
             }
 
             for (Achievement achievement : achievementsLists) {
-                if ((achievement.getIsUnlock() == 0) && (achievement.getType().equals(operation) && achievement.getAka().equals("first"))) {
+                if ((achievement.getIsunlock() == 0) && (achievement.getType().equals(operation) && achievement.getAka().equals("first"))) {
                     //잠깐... 근데 DAO에 getAchievementByAKA를 구현해 놨는데... 이걸 이용하는 편이 낫지 않을까?
 
                     //처음으로 하는 계산 unlock하기
@@ -91,7 +91,7 @@ public class AchievementMessageTask extends AsyncTask<Void, Void, List<Achieveme
                     Log.v(LOG_TAG, achievement.getName() + " " + achievement.getNumber());
 
                     userAchievements.add(achievement);
-                    mAchievementDAO.updateAchievement(achievement.getId(), 1, achievement.getNumber(), achievement.getValue());
+                    mAchievementDAO.updateAchievement(achievement.getId(), 1, achievement.getNumber(), System.currentTimeMillis());
                     //끝나고 나서 DB 업데이트
                 }
                 if (isMistake == false && achievement.getAka().equals("noerrors")) {
@@ -101,32 +101,35 @@ public class AchievementMessageTask extends AsyncTask<Void, Void, List<Achieveme
 
 //                sb.append(achievement.getName() + " " + number + "회 성공!\n" + achievement.getDescription() + "\n\n");
                     userAchievements.add(achievement);
-                    mAchievementDAO.updateAchievement(achievement.getId(), 1, achievement.getNumber(), achievement.getValue());
+                    mAchievementDAO.updateAchievement(achievement.getId(), 1, achievement.getNumber(), System.currentTimeMillis());
                 }
 //            if (elapsedTime < Long.parseLong(a.getValue())) {
 //
 //            }
             }
         } else {
+            //스킬챌린지라면...
             List<Achievement> achievementsLists = mAchievementDAO.getAchivementsByType("challenge");
             for (Achievement achievement : achievementsLists) {
                 Log.v(LOG_TAG, achievement.getName());
             }
 
             for (Achievement achievement : achievementsLists) {
-                if ((achievement.getIsUnlock() == 0) && (achievement.getAka().equals("first"))) {
+                if ((achievement.getIsunlock() == 0) && (achievement.getAka().equals("first"))) {
+                    //도전과제 '문제풀기 시작'처리
                     achievement.setNumber(achievement.getNumber() + 1);
                     Log.v(LOG_TAG, achievement.getName() + " " + achievement.getNumber());
 
                     userAchievements.add(achievement);
-                    mAchievementDAO.updateAchievement(achievement.getId(), 1, achievement.getNumber(), achievement.getValue());
+                    mAchievementDAO.updateAchievement(achievement.getId(), 1, achievement.getNumber(), System.currentTimeMillis());
                 }
                 if (achievement.getAka().equals("master")) {
+                    //도전과제 '문제풀기 도사' 처리
                     achievement.setNumber(achievement.getNumber() + 1);
                     Log.v(LOG_TAG, achievement.getName() + " " + achievement.getNumber());
 
                     userAchievements.add(achievement);
-                    mAchievementDAO.updateAchievement(achievement.getId(), 1, achievement.getNumber(), achievement.getValue());
+                    mAchievementDAO.updateAchievement(achievement.getId(), 1, achievement.getNumber(), System.currentTimeMillis());
                 }
             }
         }

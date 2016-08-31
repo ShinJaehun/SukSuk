@@ -20,7 +20,7 @@ public class AchievementDAO implements Serializable {
     private DBHelper dbHelper;
     private String[] allColumns= { DBHelper.COLUMN_ACHIEVEMENT_ID, DBHelper.COLUMN_ACHIEVEMENT_NAME, DBHelper.COLUMN_ACHIEVEMENT_TYPE,
             DBHelper.COLUMN_ACHIEVEMENT_IS_UNLOCK, DBHelper.COLUMN_ACHIEVEMENT_AKA, DBHelper.COLUMN_ACHIEVEMENT_DESCRIPTION,
-            DBHelper.COLUMN_ACHIEVEMENT_NUMBER, DBHelper.COLUMN_ACHIEVEMENT_VALUE  };
+            DBHelper.COLUMN_ACHIEVEMENT_NUMBER, DBHelper.COLUMN_ACHIEVEMENT_TIMESTAMP  };
 
     public AchievementDAO(Context context) {
         dbHelper = DBHelper.getInstance(context);
@@ -32,12 +32,12 @@ public class AchievementDAO implements Serializable {
         dbHelper.close();
     }
 
-    public void updateAchievement(long id, int isUnlock, int number, String value) {
+    public void updateAchievement(long id, int isUnlock, int number, long timestamp) {
         //Achievement 값 수정하기
         ContentValues newValues = new ContentValues();
         newValues.put(DBHelper.COLUMN_ACHIEVEMENT_IS_UNLOCK, isUnlock);
         newValues.put(DBHelper.COLUMN_ACHIEVEMENT_NUMBER, number);
-        newValues.put(DBHelper.COLUMN_ACHIEVEMENT_VALUE, value);
+        newValues.put(DBHelper.COLUMN_ACHIEVEMENT_TIMESTAMP, timestamp);
 
         database.update(DBHelper.TABLE_ACHIEVEMENTS, newValues, DBHelper.COLUMN_ACHIEVEMENT_ID + " = " + id, null);
     }
@@ -114,11 +114,11 @@ public class AchievementDAO implements Serializable {
         achievement.setId(cursor.getLong(0));
         achievement.setName(cursor.getString(1));
         achievement.setType(cursor.getString(2));
-        achievement.setIsUnlock(cursor.getInt(3));
+        achievement.setIsunlock(cursor.getInt(3));
         achievement.setAka(cursor.getString(4));
         achievement.setDescription(cursor.getString(5));
         achievement.setNumber(cursor.getInt(6));
-        achievement.setValue(cursor.getString(7));
+        achievement.setTimestamp(cursor.getLong(7));
         return achievement;
     }
 

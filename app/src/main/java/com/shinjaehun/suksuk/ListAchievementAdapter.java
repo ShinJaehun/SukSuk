@@ -62,7 +62,7 @@ public class ListAchievementAdapter extends BaseAdapter {
             v = inflater.inflate(R.layout.list_achievement, parent, false);
             holder = new ViewHolder();
             holder.nameTV = (TextView)v.findViewById(R.id.text_item_name);
-//            holder.descriptionTV = (TextView)v.findViewById(R.id.text_item_desc);
+            holder.descriptionTV = (TextView)v.findViewById(R.id.text_item_desc);
             holder.numberTV = (TextView)v.findViewById(R.id.text_item_number);
             v.setTag(holder);
 
@@ -74,7 +74,7 @@ public class ListAchievementAdapter extends BaseAdapter {
 
         if (currentItem != null) {
             holder.nameTV.setText(currentItem.getName());
-//            holder.descriptionTV.setText(currentItem.getDescription());
+            holder.descriptionTV.setText(currentItem.getDescription());
             holder.numberTV.setText(String.valueOf(currentItem.getNumber()));
         }
 
@@ -88,7 +88,7 @@ public class ListAchievementAdapter extends BaseAdapter {
 
     class ViewHolder {
         TextView nameTV;
-//        TextView descriptionTV;
+        TextView descriptionTV;
         TextView numberTV;
     }
 }

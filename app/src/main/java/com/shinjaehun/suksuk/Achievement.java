@@ -1,5 +1,7 @@
 package com.shinjaehun.suksuk;
 
+import java.util.Date;
+
 /**
  * Created by shinjaehun on 2016-07-30.
  */
@@ -7,11 +9,11 @@ public class Achievement {
     private long id; //id
     private String name; //도전과제 이름
     private String type; //유형 mul22, common
-    private int isUnlock; //활성화되었는지 여부 확인
+    private int isunlock; //활성화되었는지 여부 확인
     private String aka; //별칭(이미지 불러올 때 사용)
     private String description; //해당 과제에 대한 설명
     private int number; //횟수
-    private String value; //값(시간 기록 등을 넣을 때 사용)
+    private long timestamp; //타임스탬프
 
     public String getType() {
         return type;
@@ -29,12 +31,12 @@ public class Achievement {
         this.id = id;
     }
 
-    public int getIsUnlock() {
-        return isUnlock;
+    public int getIsunlock() {
+        return isunlock;
     }
 
-    public void setIsUnlock(int isUnlock) {
-        this.isUnlock = isUnlock;
+    public void setIsunlock(int isUnlock) {
+        this.isunlock = isUnlock;
     }
 
     public String getName() {
@@ -69,11 +71,11 @@ public class Achievement {
         this.number = number;
     }
 
-    public String getValue() {
-        return value;
+    public long getTimestamp() {
+        return timestamp;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 }

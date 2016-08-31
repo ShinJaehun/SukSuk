@@ -16,21 +16,23 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:layout_height="48dp"
+        android:layout_height="88dp"
         android:gravity="center">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/ic_launcher" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_weight="6"
-        android:layout_height="48dp"
+        android:layout_weight="7"
+        android:layout_height="88dp"
         android:orientation="vertical"
         android:gravity="center"
         android:paddingLeft="16dp"
         android:paddingRight="16dp">
+
         <TextView
             android:id="@+id/text_item_name"
             android:layout_width="wrap_content"
@@ -38,27 +40,39 @@
             android:text="도전과제"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:layout_gravity="center_vertical" />
-<!--
 
         <TextView
             android:id="@+id/text_item_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="도전과제 설명"
-            android:textSize="14sp"
-            android:textColor="@android:color/black"
-            android:layout_gravity="center_vertical"/>
--->
+            android:text="도전과제내용"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center_vertical" />
+
+
+        <!--
+
+                <TextView
+                    android:id="@+id/text_item_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="도전과제 설명"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/black"
+                    android:layout_gravity="center_vertical"/>
+        -->
 
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_weight="3"
-        android:layout_height="48dp">
+        android:layout_weight="2"
+        android:layout_height="88dp">
 
         <TextView
             android:id="@+id/text_item_number"
@@ -67,10 +81,9 @@
             android:text="#"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:textColor="@android:color/black"
-            android:paddingRight="2dp"
+            android:textColor="@android:color/white"
             android:layout_gravity="center"
-            android:paddingLeft="10dp" />
+/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -78,8 +91,7 @@
             android:text="회"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:textColor="@android:color/black"
-            android:paddingRight="8dp"
+            android:textColor="@android:color/white"
             android:layout_gravity="center"
  />
 
