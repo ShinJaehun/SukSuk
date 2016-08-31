@@ -4,20 +4,21 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by shinjaehun on 2016-08-14.
  */
 public class DialogMain extends Dialog {
 
-    private Context mContext;
+    private Context context;
 //    private View.OnClickListener mClickListener;
 
     @Override
@@ -37,9 +38,9 @@ public class DialogMain extends Dialog {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, ProblemActivity.class);
+                Intent intent = new Intent(context, ProblemActivity.class);
                 intent.putExtra("operation", "multiply22");
-                mContext.startActivity(intent);
+                context.startActivity(intent);
                 destroyDialog();
             }
         });
@@ -49,9 +50,9 @@ public class DialogMain extends Dialog {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, ProblemActivity.class);
+                Intent intent = new Intent(context, ProblemActivity.class);
                 intent.putExtra("operation", "multiply32");
-                mContext.startActivity(intent);
+                context.startActivity(intent);
                 destroyDialog();
             }
         });
@@ -61,9 +62,9 @@ public class DialogMain extends Dialog {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, ProblemActivity.class);
+                Intent intent = new Intent(context, ProblemActivity.class);
                 intent.putExtra("operation", "divide21");
-                mContext.startActivity(intent);
+                context.startActivity(intent);
                 destroyDialog();
             }
         });
@@ -73,9 +74,9 @@ public class DialogMain extends Dialog {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, ProblemActivity.class);
+                Intent intent = new Intent(context, ProblemActivity.class);
                 intent.putExtra("operation", "divide22");
-                mContext.startActivity(intent);
+                context.startActivity(intent);
                 destroyDialog();
             }
         });
@@ -85,9 +86,9 @@ public class DialogMain extends Dialog {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, ProblemActivity.class);
+                Intent intent = new Intent(context, ProblemActivity.class);
                 intent.putExtra("operation", "divide32");
-                mContext.startActivity(intent);
+                context.startActivity(intent);
                 destroyDialog();
             }
         });
@@ -97,9 +98,9 @@ public class DialogMain extends Dialog {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, ProblemActivity.class);
+                Intent intent = new Intent(context, ProblemActivity.class);
                 intent.putExtra("operation", "challenge");
-                mContext.startActivity(intent);
+                context.startActivity(intent);
                 destroyDialog();
             }
         });
@@ -125,7 +126,7 @@ public class DialogMain extends Dialog {
         super(context);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         //Dialog 창에서 제목 없애기
-        mContext = context;
+        this.context = context;
 //        mClickListener = clickListener;
     }
 

@@ -170,6 +170,8 @@ public class AchievementMessageTask extends AsyncTask<Void, Void, List<Achieveme
         mAchievementDAO.close();
 
         dialogResult = new DialogResult(mContext, mListAchievementAdapter, clickListener);
+        dialogResult.setCanceledOnTouchOutside(false);
+        //Dialog 외부를 터치하게 되면 발생할 수 있는 오류를 미연에 방지한다.
         dialogResult.show();
     }
 

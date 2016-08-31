@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -75,7 +76,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
     private long endTime, elapsedTime; //여기서 사용할거라서 private으로 정의함.
 
     //실수가 없는지 확인하기 위한 스위치
-    private boolean isMistake = false;
+    private boolean hasMistake = false;
 
 
     //활동 결과를 표시해줄 dialog
@@ -91,6 +92,8 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
     //newInstance()를 통해 받아올 operation 값
     private static String operation;
 
+    private static String currentOperation;
+
     //스킬챌린지인지 확인하는 스위치
     public static boolean isChallenge;
 
@@ -98,24 +101,29 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
     private static final int totalChallengeNumber = 3;
     public static int challengeNumber = totalChallengeNumber;
 
+    private static List<Record> records;
+
+//    private static List<Record> records = new ArrayList<Record>();
 
     //AchievementMessageTask를 통해 받아올 결과 메시지를 저장할 String -> 이젠 필요가 없어졌다.
 //    String resultMessage;
 
-    public static final ProblemFragment newInstance(String op, AchievementDAO aDAO) {
+    public static final ProblemFragment newInstance(String op, AchievementDAO aDAO, List<Record> r) {
 
         //이건 effective java에 나오는 기술인데
         //생성자 대신 static factory 메소드 사용하기
         //'자신의 클래스 인스턴스만 반환하는 생성자와 달리 static factory 메소드는 자신이 반환하는 타입의
         // 어떤 서브 타입 객체도 반환할 수 있다.'
 
-//        operation = op;
+        records = r;
+
+        operation = op;
 
         if (op.equals("challenge")) {
             //스킬챌린지라면 다섯 유형 중 하나를 랜덤해서 선택하고 스위치를 활성화시킨다
             String operationArray[] = {"multiply32", "multiply22", "divide21", "divide22", "divide32"};
             Random rnd = new Random();
-            operation = operationArray[rnd.nextInt(operationArray.length)];
+            currentOperation = operationArray[rnd.nextInt(operationArray.length)];
             isChallenge = true;
 
             Log.v(LOG_TAG, "is Challenge : " + isChallenge);
@@ -123,14 +131,15 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 
         } else {
             //스킬챌린지가 아니면 해당 연산을 수행하고 스위치를 해제한다.
-            operation = op;
+            currentOperation = operation;
+
             isChallenge = false;
             Log.v(LOG_TAG, "is Challenge : " + isChallenge);
 
         }
 
         ProblemFragment problemFragment = null;
-        switch (operation) {
+        switch (currentOperation) {
             case "multiply32":
 //                    multiply32Fragment = new Multiply32Fragment();
 //                    ft.add(R.id.fragment_container, multiply32Fragment).commit();
@@ -282,12 +291,12 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
                 return false;
             }
 
-            Log.v(LOG_TAG, "Is a Mistake(No!) : " + String.valueOf(isMistake));
+            Log.v(LOG_TAG, "Is a Mistake(No!) : " + String.valueOf(hasMistake));
             return true;
 
         } else {
            //오답처리
-            isMistake = true;
+            hasMistake = true;
 
             //진동 발사
             Vibrator vibrator = (Vibrator)getActivity().getSystemService(Context.VIBRATOR_SERVICE);
@@ -306,7 +315,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
                 input2TextView.setTextColor(Color.BLUE);
             }
 
-            Log.v(LOG_TAG, "Is a Mistake(Yes!) : " + String.valueOf(isMistake));
+            Log.v(LOG_TAG, "Is a Mistake(Yes!) : " + String.valueOf(hasMistake));
             return false;
         }
     }
@@ -368,14 +377,31 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
         elapsedTime = endTime - startTime;
         //걸린 시간 측정
 
+        Record record = new Record(System.currentTimeMillis());
+        //아예 record의 timeStamp를 저장하지 말고 날짜 정보를 기록해두는게 낫지 않을까?
+        record.setOperation(operation);
+        record.setElapsedTime(elapsedTime);
+
+        if (hasMistake == true) {
+            record.setMistake(true);
+        } else {
+            record.setMistake(false);
+        }
+
+        records.add(record);
+
         if (isChallenge == false) {
-            //스킬챌린지가 아니라면 타다 + 참잘했어요 -> AchievementMessageTask를 실행시켜 DialogResult에 결과 보여주기
+            //스킬챌린지가 아니라면
+            // 타다 + 참잘했어요 -> AchievementMessageTask를 실행시켜 DialogResult에 결과 보여주기
             finish();
 
         } else {
             challengeNumber--;
+
             if (challengeNumber == 0) {
-                //스킬 챌린지인데 정해진 문제를 모두 풀었으면 타다 + 참잘했어요 -> AchievementMessageTask를 실행시켜 DialogResult에 결과 보여주기
+                //스킬 챌린지인데
+
+                // 정해진 문제를 모두 풀었으면 타다 + 참잘했어요 -> AchievementMessageTask를 실행시켜 DialogResult에 결과 보여주기
                 challengeNumber = totalChallengeNumber;
                 finish();
             } else {
@@ -414,13 +440,18 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 //                Intent intent = getActivity().getIntent();
 //                getActivity().finish();
 //                startActivity(intent);
+
+                for (Record r : records) {
+                    Log.v(LOG_TAG, r.getOperation() + " " + r.getTimeStamp() + " " + r.getElapsedTime() + " " + r.isMistake());
+                }
+
                 getAchievements();
 
 //                dialogResult = new DialogResult(getActivity(), adapter, clickListener);
                 //clickListener는 dialogResult의 clickListener, 아래 구현되어 있다.
 
                 elapsedTime = 0;
-                isMistake = false;
+                hasMistake = false;
                 //다시 원래대로?
 
 //                dialogResult.show();
@@ -432,7 +463,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 
         //TaskCompleted interface는 onTaskCompleted()를 가지고 있으며 여기에 선언되어 있다.
         //AsyncTask 결과를 저장하기 위해 필요하다.
-//        AchievementMessageTask achievementMessageTask = new AchievementMessageTask(getActivity(), operation, achievementDAO, elapsedTime, isMistake, resultMessage, new TaskCompleted() {
+//        AchievementMessageTask achievementMessageTask = new AchievementMessageTask(getActivity(), operation, achievementDAO, elapsedTime, hasMistake, resultMessage, new TaskCompleted() {
 //            @Override
 //            public void onTaskCompleted(String result) {
 //                resultMessage = result;
@@ -443,7 +474,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
         ListAchievementAdapter adapter = new ListAchievementAdapter(getActivity(), new ArrayList<Achievement>());
         //아직 빈 상태인 adapter
 
-        AchievementMessageTask achievementMessageTask = new AchievementMessageTask(getActivity(), operation, achievementDAO, elapsedTime, isMistake, isChallenge, adapter);
+        AchievementMessageTask achievementMessageTask = new AchievementMessageTask(getActivity(), operation, achievementDAO, elapsedTime, hasMistake, isChallenge, adapter);
         achievementMessageTask.execute();
 
         //이거 땜에 고생을 좀 했는데 결국 이 뒤에 오는 코드는 의미가 없는 거여....
@@ -497,7 +528,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 //                sb.append(achievement.getName() + "\n" + achievement.getDescription() + "\n\n");
 //                achievementDAO.updateAchievement(achievement.getId(), 1, achievement.getNumber(), achievement.getValue());
 //            }
-//            if (isMistake == false && achievement.getAka().equals("noerrors")) {
+//            if (hasMistake == false && achievement.getAka().equals("noerrors")) {
 //                Log.v(LOG_TAG, achievement.getName() + " " + achievement.getNumber());
 //                int ag = achievement.getNumber();
 //                int number = ag + 1;
@@ -632,7 +663,14 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 //            nextStage();
 //        }
     }
-//
+
+//    @Override
+//    public void onDestroy() {
+//        super.onDestroy();
+////        records = new ArrayList<Record>();
+//    }
+
+    //
 //
 //    @Override
 //    public void onTaskCompleted(String result) {

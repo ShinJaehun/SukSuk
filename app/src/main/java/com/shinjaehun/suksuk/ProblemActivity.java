@@ -9,9 +9,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by shinjaehun on 2016-04-16.
@@ -21,7 +25,6 @@ public class ProblemActivity extends AppCompatActivity {
     private static final String LOG_TAG = ProblemActivity.class.getSimpleName();
     private NumberpadFragment numberpadFragment;
     private ProblemFragment problemFragment;
-
 
 //    private SoundPool soundPool;
 //    private int soundBeep;
@@ -34,6 +37,8 @@ public class ProblemActivity extends AppCompatActivity {
 
     String operation;
 
+    private static List<Record> records = new ArrayList<Record>();
+
     private AchievementDAO achievementDAO;
 
     @Override
@@ -44,8 +49,9 @@ public class ProblemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_problems);
         Intent intent = getIntent();
         operation = intent.getStringExtra("operation");
-
 //        initSound();
+
+
 
         achievementDAO = new AchievementDAO(this);
         //DAO 생성하면서 다시 DBHelper의 instance를 받아오고 (getInstance()),
@@ -87,7 +93,7 @@ public class ProblemActivity extends AppCompatActivity {
 //        }
 
         if (intent != null) {
-            problemFragment = ProblemFragment.newInstance(operation, achievementDAO);
+            problemFragment = ProblemFragment.newInstance(operation, achievementDAO, records);
             //ProblemFragment를 불러오는 과정에서 DAO를 넘기기 위해 newInstance()를 사용했다.
             //아래 코드는 ProblemFragment의 newInstance에서 처리할 것이다.
 
@@ -150,6 +156,16 @@ public class ProblemActivity extends AppCompatActivity {
 //        }
 //
 //    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        records = new ArrayList<Record>();
+        Log.v(LOG_TAG, "Records are initialized in ProblemActivity!!!!");
+        //다행히 액티비티 종료시, 프로그램 종료시 records가 초기화되는데
+        //문제는 이 내용이 꼭 두번 반복된다는 점이다... 이유는 아직 모르겠다.
+    }
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
