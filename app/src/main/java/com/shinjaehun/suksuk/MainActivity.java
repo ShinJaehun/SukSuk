@@ -23,13 +23,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 //        final Record record = new Record(System.currentTimeMillis());
+        final TodayRecords todayRecords = TodayRecords.getInstance();
 
         ImageView mainBT = (ImageView)findViewById(R.id.main_button);
         mainBT.setOnClickListener(new ImageButton.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                dialogMain = new DialogMain(MainActivity.this);
+                dialogMain = new DialogMain(MainActivity.this, todayRecords);
                 dialogMain.show();
             }
         });

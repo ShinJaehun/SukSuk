@@ -5,16 +5,23 @@ import java.io.Serializable;
 /**
  * Created by shinjaehun on 2016-08-31.
  */
-public class Record implements Serializable {
+public class Record {
     private String operation;
-    private long timeStamp;
+//    private long timeStamp;
 //    private long total;
+    private String today;
     private long elapsedTime;
     private boolean mistake;
 
-    public Record(long timeStamp) {
-        this.timeStamp = timeStamp;
+//    private static final Record record = new Record();
+//    public static Record getInstance() {
+//        return record;
+//    }
+    public Record(String today) {
+         this.today = today;
     }
+
+    public String getToday() { return today; }
 
     public String getOperation() {
         return operation;
@@ -22,10 +29,6 @@ public class Record implements Serializable {
 
     public void setOperation(String operation) {
         this.operation = operation;
-    }
-
-    public long getTimeStamp() {
-        return timeStamp;
     }
 
     public long getElapsedTime() {

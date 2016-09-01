@@ -13,8 +13,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 /**
@@ -101,21 +104,22 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
     private static final int totalChallengeNumber = 3;
     public static int challengeNumber = totalChallengeNumber;
 
-    private static List<Record> records;
-
-//    private static List<Record> records = new ArrayList<Record>();
+//    private static List<Record> records;
+    private static TodayRecords todayRecords;
+//    private static List<Record> records;
 
     //AchievementMessageTask를 통해 받아올 결과 메시지를 저장할 String -> 이젠 필요가 없어졌다.
 //    String resultMessage;
 
-    public static final ProblemFragment newInstance(String op, AchievementDAO aDAO, List<Record> r) {
+    public static final ProblemFragment newInstance(String op, AchievementDAO aDAO, TodayRecords tr) {
 
         //이건 effective java에 나오는 기술인데
         //생성자 대신 static factory 메소드 사용하기
         //'자신의 클래스 인스턴스만 반환하는 생성자와 달리 static factory 메소드는 자신이 반환하는 타입의
         // 어떤 서브 타입 객체도 반환할 수 있다.'
 
-        records = r;
+//        records = lr;
+        todayRecords = tr;
 
         operation = op;
 
@@ -377,7 +381,10 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
         elapsedTime = endTime - startTime;
         //걸린 시간 측정
 
-        Record record = new Record(System.currentTimeMillis());
+//        DateFormat sdf = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.KOREAN);
+//        Date resultDate = new Date(System.currentTimeMillis());
+//        String today = sdf.format(resultDate);
+        Record record = new Record(todayRecords.getToday());
         //아예 record의 timeStamp를 저장하지 말고 날짜 정보를 기록해두는게 낫지 않을까?
         record.setOperation(operation);
         record.setElapsedTime(elapsedTime);
@@ -388,7 +395,8 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
             record.setMistake(false);
         }
 
-        records.add(record);
+        todayRecords.addRecords(record);
+//        records.add(record);
 
         if (isChallenge == false) {
             //스킬챌린지가 아니라면
@@ -441,8 +449,10 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 //                getActivity().finish();
 //                startActivity(intent);
 
-                for (Record r : records) {
-                    Log.v(LOG_TAG, r.getOperation() + " " + r.getTimeStamp() + " " + r.getElapsedTime() + " " + r.isMistake());
+                Log.v(LOG_TAG, "Today is : " + todayRecords.getToday());
+
+                for (Record r : todayRecords.getRecords()) {
+                    Log.v(LOG_TAG, "todayRecords : " + r.getOperation() + " " + r.getToday() + " " + r.getElapsedTime() + " " + r.isMistake());
                 }
 
                 getAchievements();
