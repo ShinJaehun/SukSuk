@@ -13,7 +13,7 @@ public class Achievement {
     private String aka; //별칭(이미지 불러올 때 사용)
     private String description; //해당 과제에 대한 설명
     private int number; //횟수
-    private long timestamp; //타임스탬프
+    private String day; //타임스탬프
 
     public String getType() {
         return type;
@@ -71,11 +71,11 @@ public class Achievement {
         this.number = number;
     }
 
-    public long getTimestamp() {
-        return timestamp;
+    public String getDay() {
+        return day;
     }
 
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
+    public void setDay(String day) {
+        this.day = day;
     }
 }

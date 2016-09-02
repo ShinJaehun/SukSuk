@@ -37,7 +37,8 @@ public class ProblemActivity extends AppCompatActivity {
 
     String operation;
 
-    private AchievementDAO achievementDAO;
+//    private AchievementDAO achievementDAO;
+    private RecordDAO recordDAO;
     private TodayRecords todayRecords;
 
     @Override
@@ -55,8 +56,9 @@ public class ProblemActivity extends AppCompatActivity {
 //        List<Record> records = new ArrayList<Record>();
 //        List<Record> records = TodayRecords.getInstance().getRecords();
 
-        achievementDAO = new AchievementDAO(this);
+//        achievementDAO = new AchievementDAO(this);
         //DAO 생성하면서 다시 DBHelper의 instance를 받아오고 (getInstance()),
+        recordDAO = new RecordDAO(this);
         //DB도 받아온다. (getDB())
 
         Effects.getInstance().init(this);
@@ -95,7 +97,9 @@ public class ProblemActivity extends AppCompatActivity {
 //        }
 
         if (intent != null) {
-            problemFragment = ProblemFragment.newInstance(operation, achievementDAO, todayRecords);
+            problemFragment = ProblemFragment.newInstance(operation, recordDAO, todayRecords);
+//            problemFragment = ProblemFragment.newInstance(operation, achievementDAO, todayRecords);
+
             //ProblemFragment를 불러오는 과정에서 DAO를 넘기기 위해 newInstance()를 사용했다.
             //아래 코드는 ProblemFragment의 newInstance에서 처리할 것이다.
 

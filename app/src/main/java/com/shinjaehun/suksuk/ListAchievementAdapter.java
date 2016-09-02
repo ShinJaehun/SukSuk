@@ -13,6 +13,8 @@ import java.util.List;
 /**
  * Created by shinjaehun on 2016-08-01.
  */
+
+/*
 public class ListAchievementAdapter extends BaseAdapter {
 
     //FieldTrip에서 사용하던 BaseAdapter와 거의 동일하게 구현했다.
@@ -92,3 +94,5 @@ public class ListAchievementAdapter extends BaseAdapter {
         TextView numberTV;
     }
 }
+
+*/

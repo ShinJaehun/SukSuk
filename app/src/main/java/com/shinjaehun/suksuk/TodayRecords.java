@@ -16,10 +16,15 @@ public class TodayRecords implements Serializable {
 
     private static final TodayRecords todayRecords = new TodayRecords();
     public static TodayRecords getInstance() {
+        //TodayRecords.getInstance()를 실행하면서 timestamp를 찍고
+        //String 형태로 변환해서 today로 저장한다
         DateFormat sdf = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.KOREAN);
         Date resultDate = new Date(System.currentTimeMillis());
         today = sdf.format(resultDate);
+
+        //records 초기화
         records = new ArrayList<>();
+
         return todayRecords;
     }
 
@@ -27,11 +32,11 @@ public class TodayRecords implements Serializable {
         return today;
     }
 
-    public List<Record> getRecords() {
+    public List<Record> getTodayRecords() {
         return records;
     }
 
-    public void addRecords(Record record) {
+    public void addTodayRecords(Record record) {
         records.add(record);
     }
 }

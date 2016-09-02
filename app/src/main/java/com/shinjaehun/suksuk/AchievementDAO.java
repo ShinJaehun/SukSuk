@@ -13,6 +13,9 @@ import java.util.List;
 /**
  * Created by shinjaehun on 2016-07-30.
  */
+
+/*
+
 public class AchievementDAO implements Serializable {
     private static final String LOG_TAG = AchievementDAO.class.getSimpleName();
 
@@ -20,7 +23,7 @@ public class AchievementDAO implements Serializable {
     private DBHelper dbHelper;
     private String[] allColumns= { DBHelper.COLUMN_ACHIEVEMENT_ID, DBHelper.COLUMN_ACHIEVEMENT_NAME, DBHelper.COLUMN_ACHIEVEMENT_TYPE,
             DBHelper.COLUMN_ACHIEVEMENT_IS_UNLOCK, DBHelper.COLUMN_ACHIEVEMENT_AKA, DBHelper.COLUMN_ACHIEVEMENT_DESCRIPTION,
-            DBHelper.COLUMN_ACHIEVEMENT_NUMBER, DBHelper.COLUMN_ACHIEVEMENT_TIMESTAMP  };
+            DBHelper.COLUMN_ACHIEVEMENT_NUMBER, DBHelper.COLUMN_ACHIEVEMENT_DAY  };
 
     public AchievementDAO(Context context) {
         dbHelper = DBHelper.getInstance(context);
@@ -32,12 +35,12 @@ public class AchievementDAO implements Serializable {
         dbHelper.close();
     }
 
-    public void updateAchievement(long id, int isUnlock, int number, long timestamp) {
+    public void updateAchievement(long id, int isUnlock, int number, String day) {
         //Achievement 값 수정하기
         ContentValues newValues = new ContentValues();
         newValues.put(DBHelper.COLUMN_ACHIEVEMENT_IS_UNLOCK, isUnlock);
         newValues.put(DBHelper.COLUMN_ACHIEVEMENT_NUMBER, number);
-        newValues.put(DBHelper.COLUMN_ACHIEVEMENT_TIMESTAMP, timestamp);
+        newValues.put(DBHelper.COLUMN_ACHIEVEMENT_DAY, day);
 
         database.update(DBHelper.TABLE_ACHIEVEMENTS, newValues, DBHelper.COLUMN_ACHIEVEMENT_ID + " = " + id, null);
     }
@@ -60,7 +63,7 @@ public class AchievementDAO implements Serializable {
         return listAchievements;
     }
 
-    public List<Achievement> getAchivementsByType(String type) {
+    public List<Achievement> getAchievementsByType(String type) {
         List<Achievement> listAchievements = new ArrayList<Achievement>();
         Cursor cursor = database.query(DBHelper.TABLE_ACHIEVEMENTS, allColumns, null, null, null, null, null);
         if (cursor != null) {
@@ -118,8 +121,9 @@ public class AchievementDAO implements Serializable {
         achievement.setAka(cursor.getString(4));
         achievement.setDescription(cursor.getString(5));
         achievement.setNumber(cursor.getInt(6));
-        achievement.setTimestamp(cursor.getLong(7));
+        achievement.setDay(cursor.getString(7));
         return achievement;
     }
-
 }
+
+*/

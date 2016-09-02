@@ -55,7 +55,7 @@ public class DialogResult extends Dialog {
 //    AchievementDAO achievementDAO;
 //    Long elapseTime;
 //    Boolean isMistake;
-    ListAchievementAdapter adapter;
+//    ListAchievementAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,26 +77,53 @@ public class DialogResult extends Dialog {
         timeMinuteTV = (TextView)findViewById(R.id.text_time_minute);
         timeSecondTV = (TextView)findViewById(R.id.text_time_second);
 
-        for (Record r : todayRecords.getRecords()) {
-            Log.v(LOG_TAG, "todayRecords in DialogResult : " + r.getOperation() + " " + r.getToday() + " " + r.getElapsedTime() + " " + r.isMistake());
+        for (Record r : todayRecords.getTodayRecords()) {
+            Log.v(LOG_TAG, "todayRecords in DialogResult : " + r.getOperation() + " " + r.getDay() + " " + r.getElapsedTime() + " " + r.hasMistake());
         }
 
-        List<Record> records = todayRecords.getRecords();
+        //todayRecords에서 가장 마지막 record를 가져옴
+        List<Record> records = todayRecords.getTodayRecords();
         Record currentRecord = records.get(records.size() - 1);
 
-        operationTV.setText(currentRecord.getOperation());
+        //operation에 따라 문제 유형 표시
+        switch (currentRecord.getOperation()) {
+            case "multiply32":
+                operationTV.setText("세 자리 수 곱하기 두 자리 수");
+                break;
+            case "multiply22":
+                operationTV.setText("두 자리 수 곱하기 두 자리 수");
+                break;
+            case "divide21":
+                operationTV.setText("두 자리 수 나누기 한 자리 수");
+                break;
+            case "divide22":
+                operationTV.setText("두 자리 수 나누기 두 자리 수");
+                break;
+            case "divide32":
+                operationTV.setText("세 자리 수 나누기 두 자리 수");
+                break;
+            case "challenge":
+                operationTV.setText("도전! 문제풀기");
+                break;
+            default:
+                //이건 실행되면 안돼
+                break;
+        }
 
+        //해당 유형별 해결한 문제 수 표시
         int currentOperationNumber = 0;
         for (Record r : records) {
             if (r.getOperation().equals(currentRecord.getOperation())) {
                 currentOperationNumber++;
             }
         }
-
         operationNumberTV.setText(String.valueOf(currentOperationNumber));
+
+        //오늘 해결한 문제 수 표시
         totalNumberTV.setText(String.valueOf(records.size()));
 
-        if (!currentRecord.isMistake()) {
+        //실수가 없었다면! '한번도 실수하지 않았습니다' 레이아웃 표시
+        if (currentRecord.hasMistake() == 0) {
             hasMistakeL.setVisibility(View.VISIBLE);
         }
 

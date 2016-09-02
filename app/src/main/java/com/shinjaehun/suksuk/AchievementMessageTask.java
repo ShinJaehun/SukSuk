@@ -15,6 +15,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by shinjaehun on 2016-08-01.
  */
+
+/*
 public class AchievementMessageTask extends AsyncTask<Void, Void, List<Achievement>> {
 
     private static final String LOG_TAG = AchievementMessageTask.class.getSimpleName();
@@ -249,3 +251,5 @@ public class AchievementMessageTask extends AsyncTask<Void, Void, List<Achieveme
 
     }
 }
+
+*/

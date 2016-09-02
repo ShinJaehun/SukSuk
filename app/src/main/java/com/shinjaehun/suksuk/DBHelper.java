@@ -11,6 +11,7 @@ import android.util.Log;
  */
 public class DBHelper extends SQLiteOpenHelper {
     private static final String TAG = DBHelper.class.getSimpleName();
+/*
 
     public static final String TABLE_ACHIEVEMENTS = "achievements";
     public static final String COLUMN_ACHIEVEMENT_ID = "_id";
@@ -20,7 +21,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ACHIEVEMENT_AKA = "aka";
     public static final String COLUMN_ACHIEVEMENT_DESCRIPTION = "description";
     public static final String COLUMN_ACHIEVEMENT_NUMBER = "number";
-    public static final String COLUMN_ACHIEVEMENT_TIMESTAMP= "timestamp";
+    public static final String COLUMN_ACHIEVEMENT_DAY= "day";
 
     private static final String DATABASE_NAME = "achievements.db";
     private static final int DATABASE_VERSION = 1;
@@ -33,11 +34,31 @@ public class DBHelper extends SQLiteOpenHelper {
             COLUMN_ACHIEVEMENT_AKA + " TEXT NOT NULL, " +
             COLUMN_ACHIEVEMENT_DESCRIPTION + " TEXT NOT NULL, " +
             COLUMN_ACHIEVEMENT_NUMBER + " INTEGER DEFAULT 0, " +
-            COLUMN_ACHIEVEMENT_TIMESTAMP + " INTEGER DEFAULT 0 " +
+            COLUMN_ACHIEVEMENT_DAY + " TEXT " +
             ");";
     //빌어먹을 테이블 생성할 때 나중에 갱신할 String 값을 TEXT NOT NULL로 해 놓고
     //raw 값을 insert하면 오류 로그도 없이 테이블 생성이 안된다.
     //알아내는데 졸라 빡셌어
+*/
+
+    public static final String TABLE_RECORDS = "records";
+    public static final String COLUMN_RECORD_ID = "_id";
+    public static final String COLUMN_RECORD_OPERATION = "operation";
+    public static final String COLUMN_RECORD_DAY = "day";
+    public static final String COLUMN_RECORD_ELAPSED_TIME = "elapsed_time";
+    public static final String COLUMN_RECORD_MISTAKE = "mistake";
+
+    private static final String DATABASE_NAME = "records.db";
+    private static final int DATABASE_VERSION = 1;
+
+    private static final String SQL_CREATE_TABLE_RECORDS = "CREATE TABLE " + TABLE_RECORDS + "(" +
+            COLUMN_RECORD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            COLUMN_RECORD_OPERATION + " TEXT NOT NULL, " +
+            COLUMN_RECORD_DAY + " TEXT NOT NULL, " +
+            COLUMN_RECORD_ELAPSED_TIME + " INTEGER DEFAULT 0, " +
+            COLUMN_RECORD_MISTAKE + " INTEGER DEFAULT 0 " +
+            ");";
+
 
     private static DBHelper instance;
     private static SQLiteDatabase db;
@@ -85,20 +106,23 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL(SQL_CREATE_TABLE_RECORDS);
+        /*
         db.execSQL(SQL_CREATE_TABLE_ACHIEVEMENTS);
         //테이블 생성
 
-        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('1', '완벽주의자', 'common', 0, 'noerrors', '한 번도 실수하지 않았습니다.', 0, 0);");
-        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('2', '문제풀기 시작', 'challenge', 0, 'first', '처음으로 문제풀기에 도전했습니다.', 0, 0);");
-        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('3', '문제풀기 도사', 'challenge', 0, 'master', '도전! 문제풀기에 성공했습니다.', 0, 0);");
-        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('4', '곱하기 걸음마', 'multiply22', 0, 'first', '처음으로 두 자리 수 곱하기 두 자리수 문제를 풀었습니다.', 0, 0);");
-        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('5', '스피드레이서', 'multiply22', 0, 'fastest', '두 자리 수 곱하기 두 자리 수 계산 기록을 경신했습니다!', 0, 0);");
+        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('1', '완벽주의자', 'common', 0, 'noerrors', '한 번도 실수하지 않았습니다.', 0, null);");
+        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('2', '문제풀기 시작', 'challenge', 0, 'first', '처음으로 문제풀기에 도전했습니다.', 0, null);");
+        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('3', '문제풀기 도사', 'challenge', 0, 'master', '도전! 문제풀기에 성공했습니다.', 0, null);");
+        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('4', '곱하기 걸음마', 'multiply22', 0, 'first', '처음으로 두 자리 수 곱하기 두 자리수 문제를 풀었습니다.', 0, null);");
+        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('5', '스피드레이서', 'multiply22', 0, 'fastest', '두 자리 수 곱하기 두 자리 수 계산 기록을 경신했습니다!', 0, null);");
         //raw 값 insert
+        */
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACHIEVEMENTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RECORDS);
         onCreate(db);
     }
 }

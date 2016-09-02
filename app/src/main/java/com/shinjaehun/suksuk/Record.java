@@ -6,22 +6,31 @@ import java.io.Serializable;
  * Created by shinjaehun on 2016-08-31.
  */
 public class Record {
+    private long id;
     private String operation;
 //    private long timeStamp;
 //    private long total;
-    private String today;
+    private String day;
     private long elapsedTime;
-    private boolean mistake;
+    private int mistake;
 
 //    private static final Record record = new Record();
 //    public static Record getInstance() {
 //        return record;
 //    }
-    public Record(String today) {
-         this.today = today;
+
+
+    public Record(String day) {
+         this.day = day;
     }
 
-    public String getToday() { return today; }
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) { this.id = id; }
+
+    public String getDay() { return day; }
 
     public String getOperation() {
         return operation;
@@ -39,11 +48,11 @@ public class Record {
         this.elapsedTime = elapsedTime;
     }
 
-    public boolean isMistake() {
+    public int hasMistake() {
         return mistake;
     }
 
-    public void setMistake(boolean mistake) {
+    public void setMistake(int mistake) {
         this.mistake = mistake;
     }
 //

@@ -82,19 +82,18 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
     //실수가 없는지 확인하기 위한 스위치
     private boolean hasMistake = false;
 
-    //활동 결과를 표시해줄 dialog
-//    private DialogResult dialogResult;
-
     //아직 아니
 //    ListView listViewAchievements;
 //    ListAchievementAdapter adapter;
 
     //ProblemActivity에서 받아온 DAO를 여기에 저장한다.
-    private static AchievementDAO achievementDAO;
+//    private static AchievementDAO achievementDAO;
+    private static RecordDAO recordDAO;
 
     //newInstance()를 통해 받아올 operation 값
     private static String operation;
 
+    //ProblemFragment.newInstance에서 operation을 결정하기 위한 임시 값
     private static String currentOperation;
 
     //스킬챌린지인지 확인하는 스위치
@@ -104,19 +103,20 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
     private static final int totalChallengeNumber = 3; //나중에 옵션으로 설정할 수 있게 만들 예정
     public static int challengeNumber = totalChallengeNumber;
 
+    //Challenge에서 실수가 없는지 확인하기 위한 스위치
     private static boolean hasChallengeMistake;
 
-//    private static List<Record> records;
+    //프로그램이 실행되는 동안 records를 저장함,
     private static TodayRecords todayRecords;
-//    private static List<Record> records;
-    private Record record;
 
-    DialogResult dialogResult;
+    //GetRecordsTask에서 결과를 표시할 Dialog를 호출함
+//    DialogResult dialogResult;
 
     //AchievementMessageTask를 통해 받아올 결과 메시지를 저장할 String -> 이젠 필요가 없어졌다.
 //    String resultMessage;
 
-    public static final ProblemFragment newInstance(String op, AchievementDAO aDAO, TodayRecords tr) {
+    public static final ProblemFragment newInstance(String op, RecordDAO rDAO, TodayRecords tr) {
+//        public static final ProblemFragment newInstance(String op, AchievementDAO aDAO, TodayRecords tr) {
 
         //이건 effective java에 나오는 기술인데
         //생성자 대신 static factory 메소드 사용하기
@@ -147,6 +147,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 
         }
 
+        //operation에 따라 알맞은 ProblemFragment가 생성됨
         ProblemFragment problemFragment = null;
         switch (currentOperation) {
             case "multiply32":
@@ -172,11 +173,11 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
                 break;
         }
 
-        //ProogramActivity에서 ProblemFragment를 생성할 때 넘긴 achievementDAO를 받아온다.
+        //ProogramActivity에서 ProblemFragment를 생성할 때 넘긴 DAO를 받아온다.
         //이렇게 Bundle을 이용하여 Activity에서 생성한 DAO의 instance를 Fragment로 넘길 수 있다.
         Bundle args = new Bundle();
-        args.putSerializable(DESCRIBABLE_KEY, aDAO);
-        achievementDAO = aDAO;
+        args.putSerializable(DESCRIBABLE_KEY, rDAO);
+        recordDAO = rDAO;
 
         return problemFragment;
     }
@@ -388,21 +389,23 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
         if (isChallenge == false) {
             //스킬챌린지가 아니라면
 
+//        아예 record의 timeStamp를 저장하지 말고 날짜 정보를 기록해두는게 낫지 않을까?
 //        DateFormat sdf = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.KOREAN);
 //        Date resultDate = new Date(System.currentTimeMillis());
 //        String today = sdf.format(resultDate);
-            //아예 record의 timeStamp를 저장하지 말고 날짜 정보를 기록해두는게 낫지 않을까?
-            record = new Record(todayRecords.getToday());
+
+            //결과 record를 todayRecords에 저장!
+            Record record = new Record(todayRecords.getToday());
             record.setOperation(operation);
             record.setElapsedTime(elapsedTime);
 
             if (hasMistake == true) {
-                record.setMistake(true);
+                record.setMistake(1);
             } else {
-                record.setMistake(false);
+                record.setMistake(0);
             }
 
-            todayRecords.addRecords(record);
+            todayRecords.addTodayRecords(record);
 //        records.add(record);
 
             // 타다 + 참잘했어요 -> AchievementMessageTask를 실행시켜 DialogResult에 결과 보여주기
@@ -412,6 +415,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
             //스킬 챌린지인데
             challengeNumber--;
 
+            //한번이라도 실수가 있으면 스킬챌린지에 실수가 표시된다.
             if (hasMistake == false && hasChallengeMistake == false) {
                 hasChallengeMistake = false;
             } else {
@@ -424,17 +428,19 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
             if (challengeNumber == 0) {
                 // 정해진 문제를 모두 풀었으면 타다 + 참잘했어요 -> AchievementMessageTask를 실행시켜 DialogResult에 결과 보여주기
 
-                record = new Record(todayRecords.getToday());
+                //결과 record를 todayRecords에 저장!
+                Record record = new Record(todayRecords.getToday());
                 record.setOperation(operation);
+                //Record에 challenge가 저장됨
                 record.setElapsedTime(elapsedTime);
 
                 if (hasChallengeMistake == true) {
-                    record.setMistake(true);
+                    record.setMistake(1);
                 } else {
-                    record.setMistake(false);
+                    record.setMistake(0);
                 }
 
-                todayRecords.addRecords(record);
+                todayRecords.addTodayRecords(record);
 
                 //스위치 원래대로 되돌려 놓기!
                 challengeNumber = totalChallengeNumber;
@@ -449,8 +455,6 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
                 startActivity(intent);
             }
         }
-
-
     }
 
     private void finish() {
@@ -480,42 +484,46 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 
                 Log.v(LOG_TAG, "Today is : " + todayRecords.getToday());
 
-                for (Record r : todayRecords.getRecords()) {
-                    Log.v(LOG_TAG, "todayRecords : " + r.getOperation() + " " + r.getToday() + " " + r.getElapsedTime() + " " + r.isMistake());
+                for (Record r : todayRecords.getTodayRecords()) {
+                    Log.v(LOG_TAG, "todayRecords : " + r.getOperation() + " " + r.getDay() + " " + r.getElapsedTime() + " " + r.hasMistake());
                 }
 
-//                getAchievements();
-                dialogResult = new DialogResult(getActivity(), clickListener, todayRecords);
-                dialogResult.setCanceledOnTouchOutside(false);
-                //Dialog 외부를 터치하게 되면 발생할 수 있는 오류를 미연에 방지한다.
-                dialogResult.show();
+                getAchievements();
+
+//    GetRecordsTask에서 Dialog를 호출하기로 함
+//                dialogResult = new DialogResult(getActivity(), clickListener, todayRecords);
+//                dialogResult.setCanceledOnTouchOutside(false);
+//                //Dialog 외부를 터치하게 되면 발생할 수 있는 오류를 미연에 방지한다.
+//                dialogResult.show();
 
 //                dialogResult = new DialogResult(getActivity(), adapter, clickListener);
                 //clickListener는 dialogResult의 clickListener, 아래 구현되어 있다.
 
-                elapsedTime = 0;
+//                elapsedTime = 0;
 //                hasMistake = false;
-
 //                hasChallengeMistake = false;
-                //다시 원래대로?
+                //다시 원래대로? -> 필요가 없지!
+                // elapsedTime과 hasMistake는 자동적으로 초기화되고
+                // hasChallengeMistake는 finalStage()에서 스킬 챌린지가 끝난 후 값을 수정하게 된다.
 
 //                dialogResult.show();
             }
         });
     }
 
-    private View.OnClickListener clickListener = new View.OnClickListener() {
-        //dialog의 clickListener를 여기서 처리한다.
-        @Override
-        public void onClick(View v) {
-            //dialog 확인 버튼을 클릭하면 액티비티 재시작!
-            Intent intent = getActivity().getIntent();
-            dialogResult.dismiss();
-            //dialog를 dismiss()하지 않으면 android view windowleaked 오류가 발생한다.
-            getActivity().finish();
-            startActivity(intent);
-        }
-    };
+//    GetRecordsTask에서 Dialog를 호출하기로 함
+//    private View.OnClickListener clickListener = new View.OnClickListener() {
+//        //dialog의 clickListener를 여기서 처리한다.
+//        @Override
+//        public void onClick(View v) {
+//            //dialog 확인 버튼을 클릭하면 액티비티 재시작!
+//            Intent intent = getActivity().getIntent();
+//            dialogResult.dismiss();
+//            //dialog를 dismiss()하지 않으면 android view windowleaked 오류가 발생한다.
+//            getActivity().finish();
+//            startActivity(intent);
+//        }
+//    };
 
 
     private void getAchievements() {
@@ -530,11 +538,12 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 //            }
 //        });
 
-        ListAchievementAdapter adapter = new ListAchievementAdapter(getActivity(), new ArrayList<Achievement>());
+//        ListAchievementAdapter adapter = new ListAchievementAdapter(getActivity(), new ArrayList<Achievement>());
         //아직 빈 상태인 adapter
 
-        AchievementMessageTask achievementMessageTask = new AchievementMessageTask(getActivity(), operation, achievementDAO, elapsedTime, hasMistake, isChallenge, adapter);
-        achievementMessageTask.execute();
+//        AchievementMessageTask achievementMessageTask = new AchievementMessageTask(getActivity(), recordDAO, todayRecords);
+        GetRecordsTask getRecordsTask = new GetRecordsTask(getActivity(), recordDAO, todayRecords);
+        getRecordsTask.execute();
 
         //이거 땜에 고생을 좀 했는데 결국 이 뒤에 오는 코드는 의미가 없는 거여....
         //asynctask의 onPostExecute()에서 마무리되어야 함.
