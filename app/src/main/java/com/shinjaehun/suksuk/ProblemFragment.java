@@ -1,5 +1,6 @@
 package com.shinjaehun.suksuk;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -81,7 +82,6 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
     //실수가 없는지 확인하기 위한 스위치
     private boolean hasMistake = false;
 
-
     //활동 결과를 표시해줄 dialog
 //    private DialogResult dialogResult;
 
@@ -101,12 +101,17 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
     public static boolean isChallenge;
 
     //스킬 챌린지 해결할 문제 수
-    private static final int totalChallengeNumber = 3;
+    private static final int totalChallengeNumber = 3; //나중에 옵션으로 설정할 수 있게 만들 예정
     public static int challengeNumber = totalChallengeNumber;
+
+    private static boolean hasChallengeMistake;
 
 //    private static List<Record> records;
     private static TodayRecords todayRecords;
 //    private static List<Record> records;
+    private Record record;
+
+    DialogResult dialogResult;
 
     //AchievementMessageTask를 통해 받아올 결과 메시지를 저장할 String -> 이젠 필요가 없어졌다.
 //    String resultMessage;
@@ -295,7 +300,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
                 return false;
             }
 
-            Log.v(LOG_TAG, "Is a Mistake(No!) : " + String.valueOf(hasMistake));
+//            Log.v(LOG_TAG, "Is a Mistake(No!) : " + String.valueOf(hasMistake));
             return true;
 
         } else {
@@ -319,7 +324,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
                 input2TextView.setTextColor(Color.BLUE);
             }
 
-            Log.v(LOG_TAG, "Is a Mistake(Yes!) : " + String.valueOf(hasMistake));
+//            Log.v(LOG_TAG, "Is a Mistake(Yes!) : " + String.valueOf(hasMistake));
             return false;
         }
     }
@@ -344,7 +349,6 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 
 //        initSound();
 //        soundPool.play(soundBeep, 1f, 1f, 0, 0, 1f);
-
 
         Effects.getInstance().playBeep(Effects.SOUND_1);
 
@@ -381,36 +385,61 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
         elapsedTime = endTime - startTime;
         //걸린 시간 측정
 
+        if (isChallenge == false) {
+            //스킬챌린지가 아니라면
+
 //        DateFormat sdf = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.KOREAN);
 //        Date resultDate = new Date(System.currentTimeMillis());
 //        String today = sdf.format(resultDate);
-        Record record = new Record(todayRecords.getToday());
-        //아예 record의 timeStamp를 저장하지 말고 날짜 정보를 기록해두는게 낫지 않을까?
-        record.setOperation(operation);
-        record.setElapsedTime(elapsedTime);
+            //아예 record의 timeStamp를 저장하지 말고 날짜 정보를 기록해두는게 낫지 않을까?
+            record = new Record(todayRecords.getToday());
+            record.setOperation(operation);
+            record.setElapsedTime(elapsedTime);
 
-        if (hasMistake == true) {
-            record.setMistake(true);
-        } else {
-            record.setMistake(false);
-        }
+            if (hasMistake == true) {
+                record.setMistake(true);
+            } else {
+                record.setMistake(false);
+            }
 
-        todayRecords.addRecords(record);
+            todayRecords.addRecords(record);
 //        records.add(record);
 
-        if (isChallenge == false) {
-            //스킬챌린지가 아니라면
             // 타다 + 참잘했어요 -> AchievementMessageTask를 실행시켜 DialogResult에 결과 보여주기
             finish();
 
         } else {
+            //스킬 챌린지인데
             challengeNumber--;
 
-            if (challengeNumber == 0) {
-                //스킬 챌린지인데
+            if (hasMistake == false && hasChallengeMistake == false) {
+                hasChallengeMistake = false;
+            } else {
+                hasChallengeMistake = true;
+            }
 
+            Log.v(LOG_TAG, "hasMistake? : " + String.valueOf(hasMistake));
+            Log.v(LOG_TAG, "hasChallengeMistake? : " + String.valueOf(hasChallengeMistake));
+
+            if (challengeNumber == 0) {
                 // 정해진 문제를 모두 풀었으면 타다 + 참잘했어요 -> AchievementMessageTask를 실행시켜 DialogResult에 결과 보여주기
+
+                record = new Record(todayRecords.getToday());
+                record.setOperation(operation);
+                record.setElapsedTime(elapsedTime);
+
+                if (hasChallengeMistake == true) {
+                    record.setMistake(true);
+                } else {
+                    record.setMistake(false);
+                }
+
+                todayRecords.addRecords(record);
+
+                //스위치 원래대로 되돌려 놓기!
                 challengeNumber = totalChallengeNumber;
+                hasChallengeMistake = false;
+
                 finish();
             } else {
                 //스킬 챌린지인데 아직 정해진 문제를 모두 해결하지 않은 경우 challengeNumber만 하나 줄이고 Activity 재시작
@@ -432,11 +461,11 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
         Effects.getInstance().playTada(Effects.SOUND_2);
 
         //참잘했어요 이미지 표시하기
-        ImageView verygood = (ImageView) getActivity().findViewById(R.id.verygood);
+        ImageView verygood = (ImageView)getActivity().findViewById(R.id.verygood);
         verygood.setVisibility(View.VISIBLE);
 
         //참잘했어요 이미지 나온 이후에 버튼 입력 해제
-        ((ProblemActivity) getActivity()).unSetListener();
+        ((ProblemActivity)getActivity()).unSetListener();
 
         //선생님 도와주세요 버튼 입력 해제
         help.setClickable(false);
@@ -455,19 +484,39 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
                     Log.v(LOG_TAG, "todayRecords : " + r.getOperation() + " " + r.getToday() + " " + r.getElapsedTime() + " " + r.isMistake());
                 }
 
-                getAchievements();
+//                getAchievements();
+                dialogResult = new DialogResult(getActivity(), clickListener, todayRecords);
+                dialogResult.setCanceledOnTouchOutside(false);
+                //Dialog 외부를 터치하게 되면 발생할 수 있는 오류를 미연에 방지한다.
+                dialogResult.show();
 
 //                dialogResult = new DialogResult(getActivity(), adapter, clickListener);
                 //clickListener는 dialogResult의 clickListener, 아래 구현되어 있다.
 
                 elapsedTime = 0;
-                hasMistake = false;
+//                hasMistake = false;
+
+//                hasChallengeMistake = false;
                 //다시 원래대로?
 
 //                dialogResult.show();
             }
         });
     }
+
+    private View.OnClickListener clickListener = new View.OnClickListener() {
+        //dialog의 clickListener를 여기서 처리한다.
+        @Override
+        public void onClick(View v) {
+            //dialog 확인 버튼을 클릭하면 액티비티 재시작!
+            Intent intent = getActivity().getIntent();
+            dialogResult.dismiss();
+            //dialog를 dismiss()하지 않으면 android view windowleaked 오류가 발생한다.
+            getActivity().finish();
+            startActivity(intent);
+        }
+    };
+
 
     private void getAchievements() {
 
