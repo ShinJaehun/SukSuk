@@ -1,6 +1,5 @@
 package com.shinjaehun.suksuk;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -14,11 +13,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 import java.util.Random;
 
 /**
@@ -107,7 +101,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
     private static boolean hasChallengeMistake;
 
     //프로그램이 실행되는 동안 records를 저장함,
-    private static TodayRecords todayRecords;
+    private static CurrentRecords currentRecords;
 
     //GetRecordsTask에서 결과를 표시할 Dialog를 호출함
 //    DialogResult dialogResult;
@@ -115,8 +109,8 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
     //AchievementMessageTask를 통해 받아올 결과 메시지를 저장할 String -> 이젠 필요가 없어졌다.
 //    String resultMessage;
 
-    public static final ProblemFragment newInstance(String op, RecordDAO rDAO, TodayRecords tr) {
-//        public static final ProblemFragment newInstance(String op, AchievementDAO aDAO, TodayRecords tr) {
+    public static final ProblemFragment newInstance(String op, RecordDAO rDAO, CurrentRecords tr) {
+//        public static final ProblemFragment newInstance(String op, AchievementDAO aDAO, CurrentRecords tr) {
 
         //이건 effective java에 나오는 기술인데
         //생성자 대신 static factory 메소드 사용하기
@@ -124,7 +118,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
         // 어떤 서브 타입 객체도 반환할 수 있다.'
 
 //        records = lr;
-        todayRecords = tr;
+        currentRecords = tr;
 
         operation = op;
 
@@ -395,7 +389,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 //        String today = sdf.format(resultDate);
 
             //결과 record를 todayRecords에 저장!
-            Record record = new Record(todayRecords.getToday());
+            Record record = new Record(currentRecords.getToday());
             record.setOperation(operation);
             record.setElapsedTime(elapsedTime);
 
@@ -405,7 +399,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
                 record.setMistake(0);
             }
 
-            todayRecords.addTodayRecords(record);
+            currentRecords.addTodayRecords(record);
 //        records.add(record);
 
             // 타다 + 참잘했어요 -> AchievementMessageTask를 실행시켜 DialogResult에 결과 보여주기
@@ -429,7 +423,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
                 // 정해진 문제를 모두 풀었으면 타다 + 참잘했어요 -> AchievementMessageTask를 실행시켜 DialogResult에 결과 보여주기
 
                 //결과 record를 todayRecords에 저장!
-                Record record = new Record(todayRecords.getToday());
+                Record record = new Record(currentRecords.getToday());
                 record.setOperation(operation);
                 //Record에 challenge가 저장됨
                 record.setElapsedTime(elapsedTime);
@@ -440,7 +434,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
                     record.setMistake(0);
                 }
 
-                todayRecords.addTodayRecords(record);
+                currentRecords.addTodayRecords(record);
 
                 //스위치 원래대로 되돌려 놓기!
                 challengeNumber = totalChallengeNumber;
@@ -482,16 +476,16 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 //                getActivity().finish();
 //                startActivity(intent);
 
-                Log.v(LOG_TAG, "Today is : " + todayRecords.getToday());
+                Log.v(LOG_TAG, "Today is : " + currentRecords.getToday());
 
-                for (Record r : todayRecords.getTodayRecords()) {
-                    Log.v(LOG_TAG, "todayRecords : " + r.getOperation() + " " + r.getDay() + " " + r.getElapsedTime() + " " + r.hasMistake());
+                for (Record r : currentRecords.getTodayRecords()) {
+                    Log.v(LOG_TAG, "currentRecords : " + r.getOperation() + " " + r.getDay() + " " + r.getElapsedTime() + " " + r.hasMistake());
                 }
 
                 getAchievements();
 
 //    GetRecordsTask에서 Dialog를 호출하기로 함
-//                dialogResult = new DialogResult(getActivity(), clickListener, todayRecords);
+//                dialogResult = new DialogResult(getActivity(), clickListener, currentRecords);
 //                dialogResult.setCanceledOnTouchOutside(false);
 //                //Dialog 외부를 터치하게 되면 발생할 수 있는 오류를 미연에 방지한다.
 //                dialogResult.show();
@@ -541,8 +535,8 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 //        ListAchievementAdapter adapter = new ListAchievementAdapter(getActivity(), new ArrayList<Achievement>());
         //아직 빈 상태인 adapter
 
-//        AchievementMessageTask achievementMessageTask = new AchievementMessageTask(getActivity(), recordDAO, todayRecords);
-        GetRecordsTask getRecordsTask = new GetRecordsTask(getActivity(), recordDAO, todayRecords);
+//        AchievementMessageTask achievementMessageTask = new AchievementMessageTask(getActivity(), recordDAO, currentRecords);
+        GetRecordsTask getRecordsTask = new GetRecordsTask(getActivity(), recordDAO, currentRecords);
         getRecordsTask.execute();
 
         //이거 땜에 고생을 좀 했는데 결국 이 뒤에 오는 코드는 의미가 없는 거여....

@@ -1,30 +1,17 @@
 package com.shinjaehun.suksuk;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by shinjaehun on 2016-07-25.
@@ -46,7 +33,7 @@ public class DialogResult extends Dialog {
     private TextView timeMinuteTV;
     private TextView timeSecondTV;
 
-    private static TodayRecords todayRecords;
+    private static CurrentRecords currentRecords;
 
     private View.OnClickListener clickListener;
     //이렇게 clickListener를 dialog 내에서 처리하기보다 Activity쪽으로 넘겨 주는 편이 훨씬 낫다!
@@ -77,12 +64,12 @@ public class DialogResult extends Dialog {
         timeMinuteTV = (TextView)findViewById(R.id.text_time_minute);
         timeSecondTV = (TextView)findViewById(R.id.text_time_second);
 
-        for (Record r : todayRecords.getTodayRecords()) {
-            Log.v(LOG_TAG, "todayRecords in DialogResult : " + r.getOperation() + " " + r.getDay() + " " + r.getElapsedTime() + " " + r.hasMistake());
+        for (Record r : currentRecords.getTodayRecords()) {
+            Log.v(LOG_TAG, "currentRecords in DialogResult : " + r.getOperation() + " " + r.getDay() + " " + r.getElapsedTime() + " " + r.hasMistake());
         }
 
         //todayRecords에서 가장 마지막 record를 가져옴
-        List<Record> records = todayRecords.getTodayRecords();
+        List<Record> records = currentRecords.getTodayRecords();
         Record currentRecord = records.get(records.size() - 1);
 
         //operation에 따라 문제 유형 표시
@@ -155,7 +142,7 @@ public class DialogResult extends Dialog {
         confirmBTN.setOnClickListener(clickListener);
     }
 
-    public DialogResult(Context context, View.OnClickListener clickListener, TodayRecords todayRecords) {
+    public DialogResult(Context context, View.OnClickListener clickListener, CurrentRecords currentRecords) {
 //        public DialogResult(Context context, ListAchievementAdapter laa, View.OnClickListener clickListener) {
 
         super(context);
@@ -167,7 +154,7 @@ public class DialogResult extends Dialog {
 //        this.elapseTime = eTime;
 //        this.isMistake = miss;
 //        this.adapter = laa;
-        this.todayRecords = todayRecords;
+        this.currentRecords = currentRecords;
         this.clickListener = clickListener;
     }
 

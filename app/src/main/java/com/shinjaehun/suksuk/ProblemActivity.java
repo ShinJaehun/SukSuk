@@ -1,21 +1,11 @@
 package com.shinjaehun.suksuk;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by shinjaehun on 2016-04-16.
@@ -39,7 +29,7 @@ public class ProblemActivity extends AppCompatActivity {
 
 //    private AchievementDAO achievementDAO;
     private RecordDAO recordDAO;
-    private TodayRecords todayRecords;
+    private CurrentRecords currentRecords;
 
     @Override
     protected void onCreate(Bundle saveInstanceState) {
@@ -49,12 +39,12 @@ public class ProblemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_problems);
         Intent intent = getIntent();
         operation = intent.getStringExtra("operation");
-        todayRecords = (TodayRecords)intent.getSerializableExtra("today");
+        currentRecords = (CurrentRecords)intent.getSerializableExtra("today");
 //        initSound();
 
 
 //        List<Record> records = new ArrayList<Record>();
-//        List<Record> records = TodayRecords.getInstance().getRecords();
+//        List<Record> records = CurrentRecords.getInstance().getRecords();
 
 //        achievementDAO = new AchievementDAO(this);
         //DAO 생성하면서 다시 DBHelper의 instance를 받아오고 (getInstance()),
@@ -97,8 +87,8 @@ public class ProblemActivity extends AppCompatActivity {
 //        }
 
         if (intent != null) {
-            problemFragment = ProblemFragment.newInstance(operation, recordDAO, todayRecords);
-//            problemFragment = ProblemFragment.newInstance(operation, achievementDAO, todayRecords);
+            problemFragment = ProblemFragment.newInstance(operation, recordDAO, currentRecords);
+//            problemFragment = ProblemFragment.newInstance(operation, achievementDAO, currentRecords);
 
             //ProblemFragment를 불러오는 과정에서 DAO를 넘기기 위해 newInstance()를 사용했다.
             //아래 코드는 ProblemFragment의 newInstance에서 처리할 것이다.

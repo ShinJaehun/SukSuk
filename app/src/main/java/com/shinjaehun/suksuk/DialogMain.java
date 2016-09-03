@@ -10,9 +10,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by shinjaehun on 2016-08-14.
  */
@@ -20,7 +17,7 @@ public class DialogMain extends Dialog {
 
     private Context context;
 //    private View.OnClickListener mClickListener;
-    private TodayRecords todayRecords;
+    private CurrentRecords currentRecords;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +38,7 @@ public class DialogMain extends Dialog {
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProblemActivity.class);
                 intent.putExtra("operation", "multiply22");
-                intent.putExtra("today", todayRecords);
+                intent.putExtra("today", currentRecords);
                 context.startActivity(intent);
                 destroyDialog();
             }
@@ -54,7 +51,7 @@ public class DialogMain extends Dialog {
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProblemActivity.class);
                 intent.putExtra("operation", "multiply32");
-                intent.putExtra("today", todayRecords);
+                intent.putExtra("today", currentRecords);
 
                 context.startActivity(intent);
                 destroyDialog();
@@ -68,7 +65,7 @@ public class DialogMain extends Dialog {
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProblemActivity.class);
                 intent.putExtra("operation", "divide21");
-                intent.putExtra("today", todayRecords);
+                intent.putExtra("today", currentRecords);
 
                 context.startActivity(intent);
                 destroyDialog();
@@ -82,7 +79,7 @@ public class DialogMain extends Dialog {
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProblemActivity.class);
                 intent.putExtra("operation", "divide22");
-                intent.putExtra("today", todayRecords);
+                intent.putExtra("today", currentRecords);
 
                 context.startActivity(intent);
                 destroyDialog();
@@ -96,7 +93,7 @@ public class DialogMain extends Dialog {
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProblemActivity.class);
                 intent.putExtra("operation", "divide32");
-                intent.putExtra("today", todayRecords);
+                intent.putExtra("today", currentRecords);
 
                 context.startActivity(intent);
                 destroyDialog();
@@ -110,7 +107,7 @@ public class DialogMain extends Dialog {
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProblemActivity.class);
                 intent.putExtra("operation", "challenge");
-                intent.putExtra("today", todayRecords);
+                intent.putExtra("today", currentRecords);
 
                 context.startActivity(intent);
                 destroyDialog();
@@ -134,12 +131,12 @@ public class DialogMain extends Dialog {
         //dialog를 dismiss()하지 않으면 android view windowleaked 오류가 발생한다.
     }
 
-    public DialogMain(Context context, TodayRecords todayRecords) {
+    public DialogMain(Context context, CurrentRecords currentRecords) {
         super(context);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         //Dialog 창에서 제목 없애기
         this.context = context;
-        this.todayRecords = todayRecords;
+        this.currentRecords = currentRecords;
 //        mClickListener = clickListener;
     }
 

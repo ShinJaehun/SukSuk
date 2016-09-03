@@ -10,13 +10,13 @@ import java.util.Locale;
 /**
  * Created by shinjaehun on 2016-09-01.
  */
-public class TodayRecords implements Serializable {
+public class CurrentRecords implements Serializable {
     private static String today;
     private static List<Record> records;
 
-    private static final TodayRecords todayRecords = new TodayRecords();
-    public static TodayRecords getInstance() {
-        //TodayRecords.getInstance()를 실행하면서 timestamp를 찍고
+    private static final CurrentRecords currentRecords = new CurrentRecords();
+    public static CurrentRecords getInstance() {
+        //CurrentRecords.getInstance()를 실행하면서 timestamp를 찍고
         //String 형태로 변환해서 today로 저장한다
         DateFormat sdf = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.KOREAN);
         Date resultDate = new Date(System.currentTimeMillis());
@@ -25,7 +25,7 @@ public class TodayRecords implements Serializable {
         //records 초기화
         records = new ArrayList<>();
 
-        return todayRecords;
+        return currentRecords;
     }
 
     public String getToday() {

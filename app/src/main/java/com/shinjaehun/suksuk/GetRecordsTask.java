@@ -19,19 +19,19 @@ public class GetRecordsTask extends AsyncTask<Void, Void, Void> {
     private static final String LOG_TAG = GetRecordsTask.class.getSimpleName();
     private final Context context;
     private final RecordDAO recordDAO;
-    private static TodayRecords todayRecords;
+    private static CurrentRecords currentRecords;
 
     DialogResult dialogResult;
 
     ProgressDialog asyncDialog;
 
-    public GetRecordsTask(Context context, RecordDAO recordDAO, TodayRecords todayRecords) {
+    public GetRecordsTask(Context context, RecordDAO recordDAO, CurrentRecords currentRecords) {
         this.context = context;
         this.recordDAO = recordDAO;
         //DAO는 사실 ProblemActivity의 onCreate() 생성되고 ProblemActivity를 생성할 때 인자로 넘어간다.
         //그리고나서 AchievementTask 오브젝트를 생성하는 과정에서 다시 인자로 넘어오게 된다.
 
-        this.todayRecords = todayRecords;
+        this.currentRecords = currentRecords;
         asyncDialog = new ProgressDialog(this.context);
     }
 
@@ -55,9 +55,8 @@ public class GetRecordsTask extends AsyncTask<Void, Void, Void> {
         }
 
         //todayRecords에서 가장 마지막 record를 DB에 저장한다.
-        Record currentRecord = todayRecords.getTodayRecords().get(todayRecords.getTodayRecords().size() - 1);
+        Record currentRecord = currentRecords.getTodayRecords().get(currentRecords.getTodayRecords().size() - 1);
         recordDAO.insertRecord(currentRecord.getOperation(), currentRecord.getDay(), currentRecord.getElapsedTime(), currentRecord.hasMistake());
-
 
         return null;
     }
@@ -67,7 +66,7 @@ public class GetRecordsTask extends AsyncTask<Void, Void, Void> {
 //        super.onPostExecute(aVoid);
         asyncDialog.dismiss();
 
-        dialogResult = new DialogResult(context, clickListener, todayRecords);
+        dialogResult = new DialogResult(context, clickListener, currentRecords);
         dialogResult.setCanceledOnTouchOutside(false);
         dialogResult.show();
 

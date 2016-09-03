@@ -5,12 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,14 +19,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 //        final Record record = new Record(System.currentTimeMillis());
-        final TodayRecords todayRecords = TodayRecords.getInstance();
+        final CurrentRecords currentRecords = CurrentRecords.getInstance();
 
         ImageView mainBT = (ImageView)findViewById(R.id.main_button);
         mainBT.setOnClickListener(new ImageButton.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                dialogMain = new DialogMain(MainActivity.this, todayRecords);
+                dialogMain = new DialogMain(MainActivity.this, currentRecords);
                 dialogMain.show();
             }
         });
