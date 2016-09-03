@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,18 +17,19 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by shinjaehun on 2016-08-01.
  */
-public class GetRecordsTask extends AsyncTask<Void, Void, Void> {
+public class ResultTask extends AsyncTask<Void, Void, Void> {
 
-    private static final String LOG_TAG = GetRecordsTask.class.getSimpleName();
+    private static final String LOG_TAG = ResultTask.class.getSimpleName();
     private final Context context;
     private final RecordDAO recordDAO;
     private static CurrentRecords currentRecords;
 
-    DialogResult dialogResult;
+    private DialogResult dialogResult;
 
-    ProgressDialog asyncDialog;
+    private ProgressDialog asyncDialog;
 
-    public GetRecordsTask(Context context, RecordDAO recordDAO, CurrentRecords currentRecords) {
+
+    public ResultTask(Context context, RecordDAO recordDAO, CurrentRecords currentRecords) {
         this.context = context;
         this.recordDAO = recordDAO;
         //DAO는 사실 ProblemActivity의 onCreate() 생성되고 ProblemActivity를 생성할 때 인자로 넘어간다.
@@ -48,13 +50,14 @@ public class GetRecordsTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... params) {
-        Log.v(LOG_TAG, "In GetRecordsTask");
+        Log.v(LOG_TAG, "In ResultTask");
+        AchievementDAO achievementDAO = new AchievementDAO(context);
 
         //currentRecords에서 가장 마지막 record를 DB에 저장한다.
         Record currentRecord = currentRecords.getCurrentRecords().get(currentRecords.getCurrentRecords().size() - 1);
         recordDAO.insertRecord(currentRecord.getOperation(), currentRecord.getDay(), currentRecord.getElapsedTime(), currentRecord.hasMistake());
 
-        Log.v(LOG_TAG, "today of currentRecords in GetRecordsTask : " + currentRecords.getToday());
+        Log.v(LOG_TAG, "today of currentRecords in ResultTask : " + currentRecords.getToday());
 
 
 //        List<Record> allRecords = recordDAO.getAllRecords();
@@ -82,6 +85,27 @@ public class GetRecordsTask extends AsyncTask<Void, Void, Void> {
 
         for (String operation : recordsMap.keySet()) {
             Log.v(LOG_TAG, "recordsMap " + operation + " : " + recordsMap.get(operation));
+        }
+
+        List<Achievement> userAchievements = new ArrayList<>();
+        for (String operation : recordsMap.keySet()) {
+            List<Achievement> achievements = achievementDAO.getAchievementsByType(operation);
+            for (Achievement achievement : achievements) {
+                if (achievement.getType().equals(currentRecord.getOperation()) && achievement.getAka().equals("first") && achievement.getLock() == 0) {
+//                    achievement.setNumber(achievement.getNumber() + 1);
+                    userAchievements.add(achievement);
+                    achievementDAO.updateAchievement(achievement.getId(), 1, achievement.getNumber(), currentRecords.getToday());
+                    Log.v(LOG_TAG, "DB에 기록 성공! " + operation + " 처음으로 했어요!");
+                }
+                if (achievement.getType().equals(operation) && achievement.getAka().equals("master") && recordsMap.get(operation) > achievement.getNumber()) {
+                    achievement.setNumber(recordsMap.get(operation));
+                    userAchievements.add(achievement);
+                    achievementDAO.updateAchievement(achievement.getId(), 1, achievement.getNumber(), currentRecords.getToday());
+                    Log.v(LOG_TAG, "DB에 기록 성공! " + operation + " 이전 기록을 " + achievement.getNumber() + " 문제로 경신하다!!");
+                }
+
+            }
+
         }
 
         return null;

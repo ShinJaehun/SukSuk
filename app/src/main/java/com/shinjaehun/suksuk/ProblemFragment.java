@@ -536,8 +536,8 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
         //아직 빈 상태인 adapter
 
 //        AchievementMessageTask achievementMessageTask = new AchievementMessageTask(getActivity(), recordDAO, currentRecords);
-        GetRecordsTask getRecordsTask = new GetRecordsTask(getActivity(), recordDAO, currentRecords);
-        getRecordsTask.execute();
+        ResultTask resultTask = new ResultTask(getActivity(), recordDAO, currentRecords);
+        resultTask.execute();
 
         //이거 땜에 고생을 좀 했는데 결국 이 뒤에 오는 코드는 의미가 없는 거여....
         //asynctask의 onPostExecute()에서 마무리되어야 함.

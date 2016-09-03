@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        final Record record = new Record(System.currentTimeMillis());
         final CurrentRecords currentRecords = CurrentRecords.getInstance();
+        //records에 기록을 남기는 날짜를 저장하기 위해 MainActivity가 실행될 때 CurrentRecords를 생성한다.
         Log.v(LOG_TAG, "today of currentRecords in MainActivity : " + currentRecords.getToday());
 
         ImageView mainBT = (ImageView)findViewById(R.id.main_button);

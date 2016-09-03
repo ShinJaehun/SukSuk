@@ -1,7 +1,5 @@
 package com.shinjaehun.suksuk;
 
-import java.util.Date;
-
 /**
  * Created by shinjaehun on 2016-07-30.
  */
@@ -9,7 +7,7 @@ public class Achievement {
     private long id; //id
     private String name; //도전과제 이름
     private String type; //유형 mul22, common
-    private int isunlock; //활성화되었는지 여부 확인
+    private int lock; //활성화되었는지 여부 확인
     private String aka; //별칭(이미지 불러올 때 사용)
     private String description; //해당 과제에 대한 설명
     private int number; //횟수
@@ -31,12 +29,12 @@ public class Achievement {
         this.id = id;
     }
 
-    public int getIsunlock() {
-        return isunlock;
+    public int getLock() {
+        return lock;
     }
 
-    public void setIsunlock(int isUnlock) {
-        this.isunlock = isUnlock;
+    public void setLock(int isUnlock) {
+        this.lock = isUnlock;
     }
 
     public String getName() {

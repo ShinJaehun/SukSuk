@@ -14,15 +14,13 @@ import java.util.List;
  * Created by shinjaehun on 2016-07-30.
  */
 
-/*
-
 public class AchievementDAO implements Serializable {
     private static final String LOG_TAG = AchievementDAO.class.getSimpleName();
 
     private SQLiteDatabase database;
     private DBHelper dbHelper;
     private String[] allColumns= { DBHelper.COLUMN_ACHIEVEMENT_ID, DBHelper.COLUMN_ACHIEVEMENT_NAME, DBHelper.COLUMN_ACHIEVEMENT_TYPE,
-            DBHelper.COLUMN_ACHIEVEMENT_IS_UNLOCK, DBHelper.COLUMN_ACHIEVEMENT_AKA, DBHelper.COLUMN_ACHIEVEMENT_DESCRIPTION,
+            DBHelper.COLUMN_ACHIEVEMENT_LOCK, DBHelper.COLUMN_ACHIEVEMENT_AKA, DBHelper.COLUMN_ACHIEVEMENT_DESCRIPTION,
             DBHelper.COLUMN_ACHIEVEMENT_NUMBER, DBHelper.COLUMN_ACHIEVEMENT_DAY  };
 
     public AchievementDAO(Context context) {
@@ -35,10 +33,10 @@ public class AchievementDAO implements Serializable {
         dbHelper.close();
     }
 
-    public void updateAchievement(long id, int isUnlock, int number, String day) {
+    public void updateAchievement(long id, int lock, int number, String day) {
         //Achievement 값 수정하기
         ContentValues newValues = new ContentValues();
-        newValues.put(DBHelper.COLUMN_ACHIEVEMENT_IS_UNLOCK, isUnlock);
+        newValues.put(DBHelper.COLUMN_ACHIEVEMENT_LOCK, lock);
         newValues.put(DBHelper.COLUMN_ACHIEVEMENT_NUMBER, number);
         newValues.put(DBHelper.COLUMN_ACHIEVEMENT_DAY, day);
 
@@ -117,7 +115,7 @@ public class AchievementDAO implements Serializable {
         achievement.setId(cursor.getLong(0));
         achievement.setName(cursor.getString(1));
         achievement.setType(cursor.getString(2));
-        achievement.setIsunlock(cursor.getInt(3));
+        achievement.setLock(cursor.getInt(3));
         achievement.setAka(cursor.getString(4));
         achievement.setDescription(cursor.getString(5));
         achievement.setNumber(cursor.getInt(6));
@@ -126,4 +124,3 @@ public class AchievementDAO implements Serializable {
     }
 }
 
-*/

@@ -83,7 +83,7 @@ public class AchievementMessageTask extends AsyncTask<Void, Void, List<Achieveme
             }
 
             for (Achievement achievement : achievementsLists) {
-                if ((achievement.getIsunlock() == 0) && (achievement.getType().equals(operation) && achievement.getAka().equals("first"))) {
+                if ((achievement.getLock() == 0) && (achievement.getType().equals(operation) && achievement.getAka().equals("first"))) {
                     //잠깐... 근데 DAO에 getAchievementByAKA를 구현해 놨는데... 이걸 이용하는 편이 낫지 않을까?
 
                     //처음으로 하는 계산 unlock하기
@@ -117,7 +117,7 @@ public class AchievementMessageTask extends AsyncTask<Void, Void, List<Achieveme
             }
 
             for (Achievement achievement : achievementsLists) {
-                if ((achievement.getIsunlock() == 0) && (achievement.getAka().equals("first"))) {
+                if ((achievement.getLock() == 0) && (achievement.getAka().equals("first"))) {
                     //도전과제 '문제풀기 시작'처리
                     achievement.setNumber(achievement.getNumber() + 1);
                     Log.v(LOG_TAG, achievement.getName() + " " + achievement.getNumber());
