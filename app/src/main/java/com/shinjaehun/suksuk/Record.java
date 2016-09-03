@@ -96,7 +96,7 @@ public class Record {
 //        this.total = total;
 //    }
 //
-////    public Map<String, Integer> getTodayRecords() {
+////    public Map<String, Integer> getCurrentRecords() {
 ////        return todayRecords;
 ////    }
 ////

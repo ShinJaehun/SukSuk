@@ -64,12 +64,12 @@ public class DialogResult extends Dialog {
         timeMinuteTV = (TextView)findViewById(R.id.text_time_minute);
         timeSecondTV = (TextView)findViewById(R.id.text_time_second);
 
-        for (Record r : currentRecords.getTodayRecords()) {
+        for (Record r : currentRecords.getCurrentRecords()) {
             Log.v(LOG_TAG, "currentRecords in DialogResult : " + r.getOperation() + " " + r.getDay() + " " + r.getElapsedTime() + " " + r.hasMistake());
         }
 
         //todayRecords에서 가장 마지막 record를 가져옴
-        List<Record> records = currentRecords.getTodayRecords();
+        List<Record> records = currentRecords.getCurrentRecords();
         Record currentRecord = records.get(records.size() - 1);
 
         //operation에 따라 문제 유형 표시

@@ -478,7 +478,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 
                 Log.v(LOG_TAG, "Today is : " + currentRecords.getToday());
 
-                for (Record r : currentRecords.getTodayRecords()) {
+                for (Record r : currentRecords.getCurrentRecords()) {
                     Log.v(LOG_TAG, "currentRecords : " + r.getOperation() + " " + r.getDay() + " " + r.getElapsedTime() + " " + r.hasMistake());
                 }
 

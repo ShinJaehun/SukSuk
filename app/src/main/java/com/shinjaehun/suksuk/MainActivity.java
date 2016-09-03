@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        final Record record = new Record(System.currentTimeMillis());
         final CurrentRecords currentRecords = CurrentRecords.getInstance();
+        Log.v(LOG_TAG, "today of currentRecords in MainActivity : " + currentRecords.getToday());
 
         ImageView mainBT = (ImageView)findViewById(R.id.main_button);
         mainBT.setOnClickListener(new ImageButton.OnClickListener() {

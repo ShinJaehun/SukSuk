@@ -8,7 +8,9 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -46,17 +48,41 @@ public class GetRecordsTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... params) {
-        List<Record> records = recordDAO.getAllRecords();
+        Log.v(LOG_TAG, "In GetRecordsTask");
 
-        Log.v(LOG_TAG, "In AchievementMessageTask");
+        //currentRecords에서 가장 마지막 record를 DB에 저장한다.
+        Record currentRecord = currentRecords.getCurrentRecords().get(currentRecords.getCurrentRecords().size() - 1);
+        recordDAO.insertRecord(currentRecord.getOperation(), currentRecord.getDay(), currentRecord.getElapsedTime(), currentRecord.hasMistake());
 
-        for (Record r : records) {
-            Log.v(LOG_TAG, "RecordsInDB : " + r.getOperation() + " " + r.getDay() + " " + r.getElapsedTime() + " " + r.hasMistake());
+        Log.v(LOG_TAG, "today of currentRecords in GetRecordsTask : " + currentRecords.getToday());
+
+
+//        List<Record> allRecords = recordDAO.getAllRecords();
+        List<Record> todayRecords = recordDAO.getRecordsByDay(currentRecords.getToday());
+
+        for (Record r : todayRecords) {
+            Log.v(LOG_TAG, "Today's Records in DB : " + r.getOperation() + " " + r.getDay() + " " + r.getElapsedTime() + " " + r.hasMistake());
         }
 
-        //todayRecords에서 가장 마지막 record를 DB에 저장한다.
-        Record currentRecord = currentRecords.getTodayRecords().get(currentRecords.getTodayRecords().size() - 1);
-        recordDAO.insertRecord(currentRecord.getOperation(), currentRecord.getDay(), currentRecord.getElapsedTime(), currentRecord.hasMistake());
+        final Map<String, Integer> recordsMap = new HashMap<String, Integer>() {
+            {
+                put("multiply32", 0);
+                put("multiply22", 0);
+                put("divide21", 0);
+                put("divide22", 0);
+                put("divide32", 0);
+                put("challenge", 0);
+            }
+        };
+
+        for (Record r : todayRecords) {
+            //아~ 진짜 아름다운 코드! 코드 오브 더 데이!! : todayRecords의 결과를 recordsMap으로 매칭시키는 코드임다ㅠㅠ
+            recordsMap.put(r.getOperation(), recordsMap.get(r.getOperation()) + 1);
+        }
+
+        for (String operation : recordsMap.keySet()) {
+            Log.v(LOG_TAG, "recordsMap " + operation + " : " + recordsMap.get(operation));
+        }
 
         return null;
     }

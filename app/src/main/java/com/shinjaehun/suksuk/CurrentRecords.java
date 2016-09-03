@@ -32,7 +32,7 @@ public class CurrentRecords implements Serializable {
         return today;
     }
 
-    public List<Record> getTodayRecords() {
+    public List<Record> getCurrentRecords() {
         return records;
     }
 
