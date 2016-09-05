@@ -9,9 +9,7 @@ import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -25,7 +23,7 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
     private final RecordDAO recordDAO;
     private static CurrentRecords currentRecords;
     private Record currentRecord;
-    private RecordMapOfTheDay recordMapOfToday;
+    private RecordMap recordMapOfToday;
 
     private DialogResult dialogResult;
 
@@ -34,9 +32,9 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
 //    private List<Achievement> userAchievements;
     private static List<String> resultMessages;
 
-    //연속풀기 카운터와 스위치
-    private static int continueCount = 1;
-    private static boolean continueCountSaved = false;
+//    //연속풀기 카운터와 스위치
+//    private static int continueCount = 1;
+//    private static boolean continueCountSaved = false;
 
     public ResultTask(Context context, RecordDAO recordDAO, CurrentRecords currentRecords) {
         this.context = context;
@@ -70,16 +68,16 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
         List<Record> records = recordDAO.getAllRecords();
 //        List<Record> recordsOfTheDay = new ArrayList<>();
 
-        for (Record r : records) {
-            Log.v(LOG_TAG, "All Records in DB : " + r.getOperation() + " " + r.getDay() + " " + r.getElapsedTime() + " " + r.hasMistake());
-        }
+//        for (Record r : records) {
+//            Log.v(LOG_TAG, "All Records in DB : " + r.getOperation() + " " + r.getDay() + " " + r.getElapsedTime() + " " + r.hasMistake());
+//        }
 
-        //RecordMapOfTheDay : 날짜에 따라 각 유형의 문제를 얼마나 풀었는지 저장하는 자료구조
-        //listRecordMapOfTheDay : records에 저장된 모든 자료를 RecordMapOfTheDay 형태로 저장함
-        List<RecordMapOfTheDay> listRecordMapOfTheDay = new ArrayList<>();
+        //RecordMap : 날짜에 따라 각 유형의 문제를 얼마나 풀었는지 저장하는 자료구조
+        //listRecordMap : records에 저장된 모든 자료를 RecordMap 형태로 저장함
+        List<RecordMap> listRecordMap = new ArrayList<>();
 
         if (records != null) {
-            //날짜별로 RecordMapOfTheDay 자료를 저장하기 위해 먼저 기존에 저장되어 있는 records에서 중복되지 않게 날짜만 ArrayList로 가져온다.
+            //날짜별로 RecordMap 자료를 저장하기 위해 먼저 기존에 저장되어 있는 records에서 중복되지 않게 날짜만 ArrayList로 가져온다.
             List<String> days = new ArrayList<>();
             for (Record r : records) {
                 if (days != null) {
@@ -97,21 +95,21 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
 
             //records에서 날짜에 따라 유형별로 푼 문제 수를 저장해서
             for (String day : days) {
-                RecordMapOfTheDay recordMapOfTheDay = new RecordMapOfTheDay();
-                recordMapOfTheDay.setDay(day);
+                RecordMap recordMap = new RecordMap();
+                recordMap.setDay(day);
 
                 for (Record r : records) {
                     if (r.getDay().equals(day)) {
-                        recordMapOfTheDay.setRecordsMap(r);
+                        recordMap.setRecordsMap(r);
                     }
                 }
 
                 //ArrayList로 저장한다.
-                listRecordMapOfTheDay.add(recordMapOfTheDay);
+                listRecordMap.add(recordMap);
 
             }
 
-            for (RecordMapOfTheDay rmot : listRecordMapOfTheDay) {
+            for (RecordMap rmot : listRecordMap) {
                 Log.v(LOG_TAG, "Day " + rmot.getDay());
                 for (String operation : rmot.getRecordsMap().keySet()) {
                     Log.v(LOG_TAG, "recordsMap " + operation + " : " + rmot.getRecordsMap().get(operation));
@@ -119,10 +117,10 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
             }
 
         } else {
-            //문제가 있지... currentRecord를 DB에 저장했으니 records에는 최소한 currentRecord가 들어 있어야 한다.
+            //여길 실행해버리면 문제가 있지... currentRecord를 DB에 저장했으니 records에는 최소한 currentRecord가 들어 있어야 한다.
         }
 
-//        for (RecordMapOfTheDay r : recordMapOfTheDays) {
+//        for (RecordMap r : recordMapOfTheDays) {
 //            Log.v(LOG_TAG, "The day : " + r.getDay());
 //            for (String operation : r.getRecordsMap().keySet()) {
 //                Log.v(LOG_TAG, "recordMap " + operation + " : " + r.getRecordsMap().get(operation));
@@ -150,7 +148,8 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
             Log.v(LOG_TAG, "Today's Records in DB : " + r.getOperation() + " " + r.getDay() + " " + r.getElapsedTime() + " " + r.hasMistake());
         }
 
-        recordMapOfToday = new RecordMapOfTheDay();
+        //오늘 날짜에 해당하는 record를 RecordMap
+        recordMapOfToday = new RecordMap();
         recordMapOfToday.setDay(currentRecord.getDay());
         for (Record r : todayRecords) {
             recordMapOfToday.setRecordsMap(r);
@@ -171,7 +170,7 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
 //            int div32 = 0;
 //            int challenge = 0;
 
-        for (RecordMapOfTheDay rmot : listRecordMapOfTheDay) {
+        for (RecordMap rmot : listRecordMap) {
             Log.v(LOG_TAG, rmot.getDay() + " : " + rmot.getTotal() + " 문제");
             if (!rmot.getDay().equals(recordMapOfToday.getDay())) {
                 if (rmot.getTotal() > total) {
@@ -192,7 +191,7 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
             resultMessages.add(sb.toString());
         }
 
-        String message = compareAllRecord(currentRecord.getOperation(), recordMapOfToday, listRecordMapOfTheDay);
+        String message = compareAllRecord(currentRecord.getOperation(), recordMapOfToday, listRecordMap);
         if (message != null) {
             resultMessages.add(message);
         }
@@ -209,7 +208,7 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
 //        Log.v(LOG_TAG, "오늘 " + todayTotal + " 문제 풀었어요.");
 
 //        int totalOfTheDay = 0;
-//        for (RecordMapOfTheDay rmot : listRecordMapOfTheDay) {
+//        for (RecordMap rmot : listRecordMap) {
 //            Log.v(LOG_TAG, rmot.getDay() + " : " + rmot.getTotal() + " 문제");
 //           if (rmot.getTotal() > totalOfTheDay && !rmot.getDay().equals(currentRecord.getDay())) {
 //               totalOfTheDay = rmot.getTotal();
@@ -329,12 +328,12 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
         return null;
     }
 
-    private String compareAllRecord(String operation, RecordMapOfTheDay recordMapOfToday, List<RecordMapOfTheDay> listRecordMapOfTheDay) {
+    private String compareAllRecord(String operation, RecordMap recordMapOfToday, List<RecordMap> listRecordMap) {
 
         int todayNum = recordMapOfToday.getRecordsMap().get(operation);
         int total = 0;
 
-        for (RecordMapOfTheDay rmot : listRecordMapOfTheDay) {
+        for (RecordMap rmot : listRecordMap) {
             if (!rmot.getDay().equals(recordMapOfToday.getDay())) {
                 if (rmot.getRecordsMap().get(operation) > total) {
                     total = rmot.getRecordsMap().get(operation);
@@ -387,11 +386,8 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
         dialogResult = new DialogResult(context, clickListener, currentRecord, recordMapOfToday);
         dialogResult.setCanceledOnTouchOutside(false);
         dialogResult.show();
-
 //        achievementDAO.close();
         recordDAO.close();
-
-
     }
 
     private View.OnClickListener clickListener = new View.OnClickListener() {

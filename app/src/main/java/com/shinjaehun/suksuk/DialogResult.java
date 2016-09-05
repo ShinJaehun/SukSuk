@@ -3,15 +3,12 @@ package com.shinjaehun.suksuk;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import java.util.List;
 
 /**
  * Created by shinjaehun on 2016-07-25.
@@ -36,7 +33,7 @@ public class DialogResult extends Dialog {
 //    private static CurrentRecords currentRecords;
 //    private List<Achievement> userAchievements;
     private Record currentRecord;
-    private RecordMapOfTheDay recordMapOfToday;
+    private RecordMap recordMapOfToday;
 
 
     private View.OnClickListener clickListener;
@@ -151,7 +148,7 @@ public class DialogResult extends Dialog {
         confirmBTN.setOnClickListener(clickListener);
     }
 
-    public DialogResult(Context context, View.OnClickListener clickListener, Record currentRecord, RecordMapOfTheDay recordMapOfToday) {
+    public DialogResult(Context context, View.OnClickListener clickListener, Record currentRecord, RecordMap recordMapOfToday) {
 //        public DialogResult(Context context, ListAchievementAdapter laa, View.OnClickListener clickListener) {
 
         super(context);

@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * Created by shinjaehun on 2016-09-01.
  */
-public class RecordMapOfTheDay {
+public class RecordMap {
     private String day;
     private int total;
     final Map<String, Integer> recordsMap = new HashMap<String, Integer>() {
