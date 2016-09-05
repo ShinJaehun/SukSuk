@@ -79,6 +79,7 @@ public class RecordDAO implements Serializable {
         return records;
     }
 
+
     private Record cursorToRecord(Cursor cursor) {
         Record record = new Record(cursor.getString(2));
         record.setId(cursor.getLong(0));

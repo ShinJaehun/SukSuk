@@ -34,6 +34,8 @@ public class DialogResult extends Dialog {
     private TextView timeSecondTV;
 
     private static CurrentRecords currentRecords;
+    private List<Achievement> userAchievements;
+
 
     private View.OnClickListener clickListener;
     //이렇게 clickListener를 dialog 내에서 처리하기보다 Activity쪽으로 넘겨 주는 편이 훨씬 낫다!
@@ -139,10 +141,14 @@ public class DialogResult extends Dialog {
 //            }
 //        });
 
+        for (Achievement a : userAchievements) {
+            Log.v(LOG_TAG, "Today Achievement : " + a.getName() + " " + a.getType() + " " + a.getAka() + " " + a.getNumber() + " " + a.getDay());
+        }
+
         confirmBTN.setOnClickListener(clickListener);
     }
 
-    public DialogResult(Context context, View.OnClickListener clickListener, CurrentRecords currentRecords) {
+    public DialogResult(Context context, View.OnClickListener clickListener, CurrentRecords currentRecords, List<Achievement> userAchievements) {
 //        public DialogResult(Context context, ListAchievementAdapter laa, View.OnClickListener clickListener) {
 
         super(context);
@@ -156,6 +162,7 @@ public class DialogResult extends Dialog {
 //        this.adapter = laa;
         this.currentRecords = currentRecords;
         this.clickListener = clickListener;
+        this.userAchievements = userAchievements;
     }
 
 /*    @Override

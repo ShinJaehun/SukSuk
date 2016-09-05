@@ -21,6 +21,7 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
 
     private static final String LOG_TAG = ResultTask.class.getSimpleName();
     private final Context context;
+    private AchievementDAO achievementDAO;
     private final RecordDAO recordDAO;
     private static CurrentRecords currentRecords;
 
@@ -28,6 +29,11 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
 
     private ProgressDialog asyncDialog;
 
+    private List<Achievement> userAchievements;
+
+    //연속풀기 카운터와 스위치
+    private static int continueCount = 1;
+    private static boolean continueCountSaved = false;
 
     public ResultTask(Context context, RecordDAO recordDAO, CurrentRecords currentRecords) {
         this.context = context;
@@ -51,7 +57,7 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
         Log.v(LOG_TAG, "In ResultTask");
-        AchievementDAO achievementDAO = new AchievementDAO(context);
+        achievementDAO = new AchievementDAO(context);
 
         //currentRecords에서 가장 마지막 record를 DB에 저장한다.
         Record currentRecord = currentRecords.getCurrentRecords().get(currentRecords.getCurrentRecords().size() - 1);
@@ -59,13 +65,36 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
 
         Log.v(LOG_TAG, "today of currentRecords in ResultTask : " + currentRecords.getToday());
 
-
 //        List<Record> allRecords = recordDAO.getAllRecords();
+        //todayRecords에 DB에 들어있는 것까지 모두 포함하여 오늘 기록을 모두 저장한다.
         List<Record> todayRecords = recordDAO.getRecordsByDay(currentRecords.getToday());
+        int todayTotal = todayRecords.size();
+        Log.v(LOG_TAG, "오늘 " + todayTotal + " 문제 풀었어요.");
 
-        for (Record r : todayRecords) {
-            Log.v(LOG_TAG, "Today's Records in DB : " + r.getOperation() + " " + r.getDay() + " " + r.getElapsedTime() + " " + r.hasMistake());
+        //연속풀기 카운터를 DB에 저장했다면 다시 원래대로
+        if (continueCountSaved == true) {
+            continueCount = 1;
+            continueCountSaved = false;
+        } else if ((currentRecords.getCurrentRecords().size() - 2) != -1) {
+            //DB에 저장한 기록이 없고 currentRecord 바로 전 기록이 null이 아니라면
+            if (currentRecord.getOperation().equals(currentRecords.getCurrentRecords().get(currentRecords.getCurrentRecords().size() - 2).getOperation())) {
+                //currentRecord와 바로 전 기록을 비교하여 같은 문제라면 연속풀기 카운터를 증가시킨
+                continueCount++;
+            }
         }
+        Log.v(LOG_TAG, currentRecord.getOperation() + " 문제 " + continueCount + " 회 연속 풀기.");
+
+        int todayNoerrors = 0;
+        for (Record r : todayRecords) {
+            if (r.hasMistake() == 0) {
+                todayNoerrors++;
+            }
+        }
+        Log.v(LOG_TAG, "오늘 한번도 틀리지 않은 문제 수는 " + todayNoerrors);
+
+//        for (Record r : todayRecords) {
+//            Log.v(LOG_TAG, "Today's Records in DB : " + r.getOperation() + " " + r.getDay() + " " + r.getElapsedTime() + " " + r.hasMistake());
+//        }
 
         final Map<String, Integer> recordsMap = new HashMap<String, Integer>() {
             {
@@ -83,29 +112,55 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
             recordsMap.put(r.getOperation(), recordsMap.get(r.getOperation()) + 1);
         }
 
-        for (String operation : recordsMap.keySet()) {
-            Log.v(LOG_TAG, "recordsMap " + operation + " : " + recordsMap.get(operation));
-        }
+//        for (String operation : recordsMap.keySet()) {
+//            Log.v(LOG_TAG, "recordsMap " + operation + " : " + recordsMap.get(operation));
+//        }
 
-        List<Achievement> userAchievements = new ArrayList<>();
+
+        userAchievements = new ArrayList<>();
         for (String operation : recordsMap.keySet()) {
-            List<Achievement> achievements = achievementDAO.getAchievementsByType(operation);
-            for (Achievement achievement : achievements) {
+            List<Achievement> achievementsByOperation = achievementDAO.getAchievementsByType(operation);
+
+            for (Achievement achievement : achievementsByOperation) {
+
                 if (achievement.getType().equals(currentRecord.getOperation()) && achievement.getAka().equals("first") && achievement.getLock() == 0) {
 //                    achievement.setNumber(achievement.getNumber() + 1);
                     userAchievements.add(achievement);
                     achievementDAO.updateAchievement(achievement.getId(), 1, achievement.getNumber(), currentRecords.getToday());
-                    Log.v(LOG_TAG, "DB에 기록 성공! " + operation + " 처음으로 했어요!");
+                    Log.v(LOG_TAG, "DB에 기록 성공! " + operation + " 오늘 처음으로 했어요!");
                 }
-                if (achievement.getType().equals(operation) && achievement.getAka().equals("master") && recordsMap.get(operation) > achievement.getNumber()) {
+
+                if (achievement.getType().equals(currentRecord.getOperation()) && achievement.getAka().equals("master") && recordsMap.get(operation) > achievement.getNumber()) {
                     achievement.setNumber(recordsMap.get(operation));
                     userAchievements.add(achievement);
                     achievementDAO.updateAchievement(achievement.getId(), 1, achievement.getNumber(), currentRecords.getToday());
-                    Log.v(LOG_TAG, "DB에 기록 성공! " + operation + " 이전 기록을 " + achievement.getNumber() + " 문제로 경신하다!!");
+                    Log.v(LOG_TAG, "DB에 기록 성공! " + operation + " : " + achievement.getNumber() + "문제로 기록을 경신하다!!");
                 }
 
+                if (achievement.getType().equals(currentRecord.getOperation()) && achievement.getAka().equals("expert") && continueCount == 3) {
+                    achievement.setNumber(achievement.getNumber() + 1);
+                    userAchievements.add(achievement);
+                    achievementDAO.updateAchievement(achievement.getId(), 1, achievement.getNumber(), currentRecords.getToday());
+                    Log.v(LOG_TAG, "DB에 기록 성공! " + operation + " 3회 연속 풀기 " + achievement.getNumber() + "회!");
+                    continueCountSaved = true;
+                }
             }
+        }
 
+        Achievement achievementOfNoErrors = achievementDAO.getAchievementByAKA("noerrors");
+        if (todayNoerrors > achievementOfNoErrors.getNumber()) {
+            achievementOfNoErrors.setNumber(todayNoerrors);
+            userAchievements.add(achievementOfNoErrors);
+            achievementDAO.updateAchievement(achievementOfNoErrors.getId(), 1, achievementOfNoErrors.getNumber(), currentRecords.getToday());
+            Log.v(LOG_TAG, "DB에 기록 성공! " + " 완벽주의자 " + todayNoerrors + "회!");
+        }
+
+        Achievement achievementOfTotal = achievementDAO.getAchievementByAKA("master");
+        if (todayTotal > achievementOfTotal.getNumber()) {
+            achievementOfTotal.setNumber(todayTotal);
+            userAchievements.add(achievementOfTotal);
+            achievementDAO.updateAchievement(achievementOfTotal.getId(), 1, achievementOfTotal.getNumber(), currentRecords.getToday());
+            Log.v(LOG_TAG, "DB에 기록 성공! " + " 수학도사 : " + todayTotal + "문제로 기록을 경신하다!");
         }
 
         return null;
@@ -116,11 +171,13 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
 //        super.onPostExecute(aVoid);
         asyncDialog.dismiss();
 
-        dialogResult = new DialogResult(context, clickListener, currentRecords);
+        dialogResult = new DialogResult(context, clickListener, currentRecords, userAchievements);
         dialogResult.setCanceledOnTouchOutside(false);
         dialogResult.show();
 
+        achievementDAO.close();
         recordDAO.close();
+
 
     }
 

@@ -108,11 +108,17 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_TABLE_ACHIEVEMENTS);
         //테이블 생성
 
-        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('1', '완벽주의자', 'common', 0, 'noerrors', '한 번도 실수하지 않았습니다.', 0, null);");
-        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('2', '문제풀기 시작', 'challenge', 0, 'first', '처음으로 문제풀기에 도전했습니다.', 0, null);");
-        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('3', '문제풀기 도사', 'challenge', 0, 'master', '도전! 문제풀기 계산 기록을 깼습니다.', 0, null);");
-        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('4', '곱하기 걸음마', 'multiply22', 0, 'first', '처음으로 두 자리 수 곱하기 두 자리수 문제를 풀었습니다.', 0, null);");
-        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('5', '곱하기 도사', 'multiply22', 0, 'master', '두 자리 수 곱하기 두 자리 수 계산 기록을 깼습니다!', 0, null);");
+        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('1', '완벽주의자', 'common', 0, 'noerrors', '한 번도 실수하지 않았습니다', 0, null);");
+        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('2', '수학도사 ', 'common', 0, 'master', '지금까지 가장 많은 문제를 풀었습니다', 0, null);");
+        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('3', '수학해결사 ', 'common', 0, 'allround', '모든 유형의 문제를 풀었습니다', 0, null);");
+        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('4', '문제풀기 도전자', 'challenge', 0, 'first', '처음으로 문제풀기에 도전했습니다', 0, null);");
+        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('5', '문제풀기 고수', 'challenge', 0, 'master', '도전! 문제풀기 기록을 깼습니다', 0, null);");
+        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('6', '곱하기 도전자', 'multiply22', 0, 'first', '처음으로 두 자리 수 곱하기 두 자리수에 도전했습니다', 0, null);");
+        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('7', '곱하기 숙련자', 'multiply22', 0, 'expert', '두 자리 수 곱하기 두 자리수 문제 연속 풀기', 0, null);");
+        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('8', '곱하기 고수', 'multiply22', 0, 'master', '두 자리 수 곱하기 두 자리 수 기록을 깼습니다', 0, null);");
+        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('9', '나누기 도전자', 'divide22', 0, 'first', '처음으로 두 자리 수 나누기 두 자리수에 도전했습니다', 0, null);");
+        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('10', '나누기 숙련자', 'divide22', 0, 'expert', '두 자리 수 나누기 두 자리수 문제 연속 풀기', 0, null);");
+        db.execSQL("INSERT INTO " + TABLE_ACHIEVEMENTS + " VALUES ('11', '나누기 고수', 'divide22', 0, 'master', '두 자리 수 나누기 두 자리 수 기록을 깼습니다', 0, null);");
         //raw 값 insert
     }
 
