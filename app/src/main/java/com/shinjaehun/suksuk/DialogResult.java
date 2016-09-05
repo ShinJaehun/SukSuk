@@ -33,8 +33,10 @@ public class DialogResult extends Dialog {
     private TextView timeMinuteTV;
     private TextView timeSecondTV;
 
-    private static CurrentRecords currentRecords;
-    private List<Achievement> userAchievements;
+//    private static CurrentRecords currentRecords;
+//    private List<Achievement> userAchievements;
+    private Record currentRecord;
+    private RecordMapOfTheDay recordMapOfToday;
 
 
     private View.OnClickListener clickListener;
@@ -66,13 +68,13 @@ public class DialogResult extends Dialog {
         timeMinuteTV = (TextView)findViewById(R.id.text_time_minute);
         timeSecondTV = (TextView)findViewById(R.id.text_time_second);
 
-        for (Record r : currentRecords.getCurrentRecords()) {
-            Log.v(LOG_TAG, "currentRecords in DialogResult : " + r.getOperation() + " " + r.getDay() + " " + r.getElapsedTime() + " " + r.hasMistake());
-        }
+//        for (Record r : currentRecords.getCurrentRecords()) {
+//            Log.v(LOG_TAG, "currentRecords in DialogResult : " + r.getOperation() + " " + r.getDay() + " " + r.getElapsedTime() + " " + r.hasMistake());
+//        }
 
         //todayRecords에서 가장 마지막 record를 가져옴
-        List<Record> records = currentRecords.getCurrentRecords();
-        Record currentRecord = records.get(records.size() - 1);
+//        List<Record> records = currentRecords.getCurrentRecords();
+//        Record currentRecord = records.get(records.size() - 1);
 
         //operation에 따라 문제 유형 표시
         switch (currentRecord.getOperation()) {
@@ -100,16 +102,17 @@ public class DialogResult extends Dialog {
         }
 
         //해당 유형별 해결한 문제 수 표시
-        int currentOperationNumber = 0;
-        for (Record r : records) {
-            if (r.getOperation().equals(currentRecord.getOperation())) {
-                currentOperationNumber++;
-            }
-        }
-        operationNumberTV.setText(String.valueOf(currentOperationNumber));
+//        int currentOperationNumber = 0;
+//        for (Record r : records) {
+//            if (r.getOperation().equals(currentRecord.getOperation())) {
+//                currentOperationNumber++;
+//            }
+//        }
+
+        operationNumberTV.setText(String.valueOf(recordMapOfToday.getRecordsMap().get(currentRecord.getOperation())));
 
         //오늘 해결한 문제 수 표시
-        totalNumberTV.setText(String.valueOf(records.size()));
+        totalNumberTV.setText(String.valueOf(recordMapOfToday.getTotal()));
 
         //실수가 없었다면! '한번도 실수하지 않았습니다' 레이아웃 표시
         if (currentRecord.hasMistake() == 0) {
@@ -141,14 +144,14 @@ public class DialogResult extends Dialog {
 //            }
 //        });
 
-        for (Achievement a : userAchievements) {
-            Log.v(LOG_TAG, "Today Achievement : " + a.getName() + " " + a.getType() + " " + a.getAka() + " " + a.getNumber() + " " + a.getDay());
-        }
+//        for (Achievement a : userAchievements) {
+//            Log.v(LOG_TAG, "Today Achievement : " + a.getName() + " " + a.getType() + " " + a.getAka() + " " + a.getNumber() + " " + a.getDay());
+//        }
 
         confirmBTN.setOnClickListener(clickListener);
     }
 
-    public DialogResult(Context context, View.OnClickListener clickListener, CurrentRecords currentRecords, List<Achievement> userAchievements) {
+    public DialogResult(Context context, View.OnClickListener clickListener, Record currentRecord, RecordMapOfTheDay recordMapOfToday) {
 //        public DialogResult(Context context, ListAchievementAdapter laa, View.OnClickListener clickListener) {
 
         super(context);
@@ -160,9 +163,9 @@ public class DialogResult extends Dialog {
 //        this.elapseTime = eTime;
 //        this.isMistake = miss;
 //        this.adapter = laa;
-        this.currentRecords = currentRecords;
+        this.currentRecord = currentRecord;
         this.clickListener = clickListener;
-        this.userAchievements = userAchievements;
+        this.recordMapOfToday = recordMapOfToday;
     }
 
 /*    @Override

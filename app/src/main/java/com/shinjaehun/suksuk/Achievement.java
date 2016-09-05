@@ -3,6 +3,9 @@ package com.shinjaehun.suksuk;
 /**
  * Created by shinjaehun on 2016-07-30.
  */
+
+/*
+
 public class Achievement {
     private long id; //id
     private String name; //도전과제 이름
@@ -10,6 +13,7 @@ public class Achievement {
     private int lock; //활성화되었는지 여부 확인
     private String aka; //별칭(이미지 불러올 때 사용)
     private String description; //해당 과제에 대한 설명
+
     private int number; //횟수
     private String day; //타임스탬프
 
@@ -77,3 +81,4 @@ public class Achievement {
         this.day = day;
     }
 }
+*/

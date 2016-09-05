@@ -60,24 +60,24 @@ public class RecordDAO implements Serializable {
         return records;
     }
 
-    public List<Record> getRecordsByDay(String day) {
-        //day에 해당하는 record 받아오기
-        List<Record> records = new ArrayList<>();
-        Cursor cursor = database.query(DBHelper.TABLE_RECORDS, allColumns, null, null, null, null, null);
-        if (cursor != null) {
-            cursor.moveToFirst();
-            while(!cursor.isAfterLast()) {
-                Record r = cursorToRecord(cursor);
-                if (r.getDay().equals(day)) {
-                    records.add(r);
-                }
-                cursor.moveToNext(); //이게 if 절 안에 들어가 있으면 안돼! 걍 다 넘어가불어;;;
-            }
-            cursor.close();
-            Log.v(LOG_TAG, "DB and DBHelper has been closed successfully.");
-        }
-        return records;
-    }
+//    public List<Record> getRecordsByDay(String day) {
+//        //day에 해당하는 record 받아오기
+//        List<Record> records = new ArrayList<>();
+//        Cursor cursor = database.query(DBHelper.TABLE_RECORDS, allColumns, null, null, null, null, null);
+//        if (cursor != null) {
+//            cursor.moveToFirst();
+//            while(!cursor.isAfterLast()) {
+//                Record r = cursorToRecord(cursor);
+//                if (r.getDay().equals(day)) {
+//                    records.add(r);
+//                }
+//                cursor.moveToNext(); //이게 if 절 안에 들어가 있으면 안돼! 걍 다 넘어가불어;;;
+//            }
+//            cursor.close();
+//            Log.v(LOG_TAG, "DB and DBHelper has been closed successfully.");
+//        }
+//        return records;
+//    }
 
 
     private Record cursorToRecord(Cursor cursor) {

@@ -14,6 +14,8 @@ import java.util.List;
  * Created by shinjaehun on 2016-07-30.
  */
 
+/*
+
 public class AchievementDAO implements Serializable {
     private static final String LOG_TAG = AchievementDAO.class.getSimpleName();
 
@@ -124,3 +126,4 @@ public class AchievementDAO implements Serializable {
     }
 }
 
+*/
