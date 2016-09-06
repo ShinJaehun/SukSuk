@@ -10,7 +10,6 @@ import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by shinjaehun on 2016-08-01.
@@ -32,8 +31,8 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
 //    private List<Achievement> userAchievements;
     private static List<String> resultMessages;
 
-//    //연속풀기 카운터와 스위치
-//    private static int continueCount = 1;
+    //연속풀기 카운터와 스위치
+    private static int continueCount = 1;
 //    private static boolean continueCountSaved = false;
 
     public ResultTask(Context context, RecordDAO recordDAO, CurrentRecords currentRecords) {
@@ -155,8 +154,14 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
 //            Log.v(LOG_TAG, "Today's recordsMap " + operation + " : " + recordMapOfToday.getRecordsMap().get(operation));
 //        }
 
-        compareTotal(recordMapOfToday, recordMapList, resultMessages);
-        compareAllRecord(currentRecord.getOperation(), recordMapOfToday, recordMapList, resultMessages);
+        checkFirst(currentRecord.getOperation());
+        checkAllRound();
+        checkTotal(recordMapList);
+        checkAllRecord(currentRecord.getOperation(), recordMapList);
+        //스킬 챌린지를 제외하고 연속 문제 풀기 체크
+        if (!currentRecord.getOperation().equals("challenge")) {
+            checkContinue(currentRecord.getOperation());
+        }
 
         if (resultMessages.size() != 0) {
             for (String m : resultMessages) {
@@ -164,23 +169,6 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
             }
         }
 
-//        List<Record> todayRecords = recordDAO.getRecordsByDay(currentRecords.getToday());
-//        int todayTotal = todayRecords.size();
-
-//        Log.v(LOG_TAG, "오늘 " + todayTotal + " 문제 풀었어요.");
-
-//        int totalOfTheDay = 0;
-//        for (RecordMap rmot : recordMapList) {
-//            Log.v(LOG_TAG, rmot.getDay() + " : " + rmot.getTotal() + " 문제");
-//           if (rmot.getTotal() > totalOfTheDay && !rmot.getDay().equals(currentRecord.getDay())) {
-//               totalOfTheDay = rmot.getTotal();
-//           }
-//        }
-//
-//        if (todayTotal > totalOfTheDay) {
-//            Log.v(LOG_TAG, "지금까지 최고기록 " + totalOfTheDay + " 문제를 " + todayTotal + " 문제로 경신하다!");
-//            resultMessages.add("하루에 가장 많은 문제 풀기");
-//        }
 
 
 
@@ -290,13 +278,42 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
         return null;
     }
 
-    private void compareTotal(RecordMap recordMapOfToday, List<RecordMap> recordMapList, List<String> resultMessages) {
+    private void checkFirst(String operation) {
+        if (recordMapOfToday.getTotal() == 1) {
+                resultMessages.add("오늘 첫 문제 풀기");
+        }
+
+        if (recordMapOfToday.getRecordsMap().get(operation) == 1) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("오늘 첫 ");
+            sb.append(operationToString(operation));
+            sb.append(" 풀기");
+
+            if (sb.toString() != null) {
+                resultMessages.add(sb.toString());
+            }
+        }
+    }
+
+    private void checkAllRound() {
+        boolean isAll = true;
+        for (String operation : recordMapOfToday.getRecordsMap().keySet()) {
+            if (recordMapOfToday.getRecordsMap().get(operation) < 1) {
+                isAll = false;
+            }
+        }
+        if (isAll == true) {
+            resultMessages.add("하루에 모든 유형의 문제 풀기");
+        }
+    }
+
+    private void checkTotal(List<RecordMap> recordMapList) {
         //recordMapOfToday : 오늘 날짜에 해당하는 record들의 RecordMap
         //recordMapList : records에 저장된 모든 자료를 RecordMap 형태로 저장한 ArrayList
 
         //오늘 푼 문제 수
         int todayTotal = recordMapOfToday.getTotal();
-        Log.v(LOG_TAG, "오늘 " + todayTotal + " 문제 풀었어요.");
+//        Log.v(LOG_TAG, "오늘 " + todayTotal + " 문제 풀었어요.");
 
         //recordMapList에서 가장 큰 total 값을 임시로 저장
         int total = 0;
@@ -329,7 +346,7 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
         }
     }
 
-    private void compareAllRecord(String operation, RecordMap recordMapOfToday, List<RecordMap> recordMapList, List<String> resultMessages) {
+    private void checkAllRecord(String operation, List<RecordMap> recordMapList) {
         //recordMapOfToday : 오늘 날짜에 해당하는 record들의 RecordMap
         //recordMapList : records에 저장된 모든 자료를 RecordMap 형태로 저장한 ArrayList
 
@@ -352,28 +369,8 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
         if (todayNum > total) {
 
             StringBuilder sb = new StringBuilder();
-            switch (operation) {
-                case "multiply32":
-                    sb.append("세 자리 수 곱하기 두 자리수 문제 풀기 기록 경신 : ");
-                    break;
-                case "multiply22":
-                    sb.append("두 자리 수 곱하기 세 자리수 문제 풀기 기록 경신 : ");
-                    break;
-                case "divide21":
-                    sb.append("두 자리 수 나누기 한 자리수 문제 풀기 기록 경신 : ");
-                    break;
-                case "divide22":
-                    sb.append("두 자리 수 나누기 두 자리수 문제 풀기 기록 경신 : ");
-                    break;
-                case "divide32":
-                    sb.append("세 자리 수 나누기 두 자리수 문제 풀기 기록 경신 : ");
-                    break;
-                case "challenge":
-                    sb.append("도전! 문제풀기 기록 경신 : ");
-                    break;
-                default:
-                    break;
-            }
+            sb.append(operationToString(operation));
+            sb.append(" 풀기 기록 경신 : ");
             sb.append(todayNum);
             sb.append("회");
 
@@ -384,6 +381,48 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
             }
 
 //            Log.v(LOG_TAG, "지금까지 최고기록 " + total + " 문제를 " + todayNum + " 문제로 경신하다!");
+        }
+    }
+
+    private String operationToString(String operation) {
+        switch (operation) {
+            case "multiply32":
+                return "세 자리 수 곱하기 두 자리수 문제";
+            case "multiply22":
+                return "두 자리 수 곱하기 세 자리수 문제";
+            case "divide21":
+                return "두 자리 수 나누기 한 자리수 문제";
+            case "divide22":
+                return "두 자리 수 나누기 두 자리수 문제";
+            case "divide32":
+                return "세 자리 수 나누기 두 자리수 문제";
+            case "challenge":
+                return "도전! 문제";
+            default:
+                break;
+        }
+        return null;
+    }
+
+    private void checkContinue(String operation) {
+        if (continueCount == 3) {
+            continueCount = 1;
+        } else if ((currentRecords.getCurrentRecords().size() - 2) != -1) {
+            //currentRecord 바로 전 기록이 null이 아니라면
+            if (currentRecord.getOperation().equals(currentRecords.getCurrentRecords().get(currentRecords.getCurrentRecords().size() - 2).getOperation())) {
+                //currentRecord와 바로 전 기록을 비교하여 같은 문제라면 연속풀기 카운터를 증가시킨
+                continueCount++;
+                if (continueCount == 3) {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(operationToString(operation));
+                    sb.append(" 연속 3회 풀기!");
+
+                    if (sb.toString() != null) {
+                        resultMessages.add(sb.toString());
+                    }
+                }
+            }
+//            Log.v(LOG_TAG, currentRecord.getOperation() + " 문제 " + continueCount + " 회 연속 풀기.");
         }
     }
 
