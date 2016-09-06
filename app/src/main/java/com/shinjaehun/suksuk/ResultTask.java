@@ -61,20 +61,19 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
 //        achievementDAO = new AchievementDAO(context);
         resultMessages = new ArrayList<>();
 
-        //currentRecords에서 가장 마지막 record를 DB에 저장한다.
+        //currentRecords에서 가장 마지막 record를 currentRecord로 저장하고 DB에 insert.
         currentRecord = currentRecords.getCurrentRecords().get(currentRecords.getCurrentRecords().size() - 1);
         recordDAO.insertRecord(currentRecord.getOperation(), currentRecord.getDay(), currentRecord.getElapsedTime(), currentRecord.hasMistake());
-
-        List<Record> records = recordDAO.getAllRecords();
-//        List<Record> recordsOfTheDay = new ArrayList<>();
 
 //        for (Record r : records) {
 //            Log.v(LOG_TAG, "All Records in DB : " + r.getOperation() + " " + r.getDay() + " " + r.getElapsedTime() + " " + r.hasMistake());
 //        }
 
+        List<Record> records = recordDAO.getAllRecords();
+
         //RecordMap : 날짜에 따라 각 유형의 문제를 얼마나 풀었는지 저장하는 자료구조
-        //listRecordMap : records에 저장된 모든 자료를 RecordMap 형태로 저장함
-        List<RecordMap> listRecordMap = new ArrayList<>();
+        //recordMapList : records에 저장된 모든 자료를 RecordMap 형태로 저장한 ArrayList
+        List<RecordMap> recordMapList = new ArrayList<>();
 
         if (records != null) {
             //날짜별로 RecordMap 자료를 저장하기 위해 먼저 기존에 저장되어 있는 records에서 중복되지 않게 날짜만 ArrayList로 가져온다.
@@ -93,7 +92,7 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
 //                Log.v(LOG_TAG, "Day : " + d);
 //            }
 
-            //records에서 날짜에 따라 유형별로 푼 문제 수를 저장해서
+            //records에서 날짜에 따라 유형별로 푼 문제 수를 RecordMap 형태로 저장해서
             for (String day : days) {
                 RecordMap recordMap = new RecordMap();
                 recordMap.setDay(day);
@@ -104,12 +103,12 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
                     }
                 }
 
-                //ArrayList로 저장한다.
-                listRecordMap.add(recordMap);
+                //listRecordMap에 추가
+                recordMapList.add(recordMap);
 
             }
 
-            for (RecordMap rmot : listRecordMap) {
+            for (RecordMap rmot : recordMapList) {
                 Log.v(LOG_TAG, "Day " + rmot.getDay());
                 for (String operation : rmot.getRecordsMap().keySet()) {
                     Log.v(LOG_TAG, "recordsMap " + operation + " : " + rmot.getRecordsMap().get(operation));
@@ -131,10 +130,7 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
 //            Log.v(LOG_TAG, "recordsMap " + operation + " : " + recordsMap.get(operation));
 //        }
 
-//        List<Record> allRecords = recordDAO.getAllRecords();
-        //todayRecords에 DB에 들어있는 것까지 모두 포함하여 오늘 기록을 모두 저장한다.
-
-        //오늘 날짜에 해당하는 record만 가져온다.
+        //todayRecords : records에서 오늘 날짜에 해당하는 Record만 가져와서 저장
         List<Record> todayRecords = new ArrayList<>();
         if (records != null) {
             for (Record r : records) {
@@ -144,61 +140,27 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
             }
         }
 
-        for (Record r : todayRecords) {
-            Log.v(LOG_TAG, "Today's Records in DB : " + r.getOperation() + " " + r.getDay() + " " + r.getElapsedTime() + " " + r.hasMistake());
-        }
+//        for (Record r : todayRecords) {
+//            Log.v(LOG_TAG, "Today's Records in DB : " + r.getOperation() + " " + r.getDay() + " " + r.getElapsedTime() + " " + r.hasMistake());
+//        }
 
-        //오늘 날짜에 해당하는 record를 RecordMap
+        //recordMapOfToday : 오늘 날짜에 해당하는 record들(todayRecords)의 RecordMap
         recordMapOfToday = new RecordMap();
         recordMapOfToday.setDay(currentRecord.getDay());
         for (Record r : todayRecords) {
             recordMapOfToday.setRecordsMap(r);
         }
 
-        for (String operation : recordMapOfToday.getRecordsMap().keySet()) {
-            Log.v(LOG_TAG, "Today's recordsMap " + operation + " : " + recordMapOfToday.getRecordsMap().get(operation));
-        }
+//        for (String operation : recordMapOfToday.getRecordsMap().keySet()) {
+//            Log.v(LOG_TAG, "Today's recordsMap " + operation + " : " + recordMapOfToday.getRecordsMap().get(operation));
+//        }
 
-        int todayTotal = recordMapOfToday.getTotal();
-        Log.v(LOG_TAG, "오늘 " + todayTotal + " 문제 풀었어요.");
-
-        int total = 0;
-//            int mul32 = 0;
-//            int mul22 = 0;
-//            int div21 = 0;
-//            int div22 = 0;
-//            int div32 = 0;
-//            int challenge = 0;
-
-        for (RecordMap rmot : listRecordMap) {
-            Log.v(LOG_TAG, rmot.getDay() + " : " + rmot.getTotal() + " 문제");
-            if (!rmot.getDay().equals(recordMapOfToday.getDay())) {
-                if (rmot.getTotal() > total) {
-                    total = rmot.getTotal();
-                }
-            }
-        }
-
-        if (todayTotal > total) {
-//            Log.v(LOG_TAG, "하루에 가장 많은 문제 풀기");
-//            Log.v(LOG_TAG, "지금까지 최고기록 " + total + " 문제를 " + todayTotal + " 문제로 경신하다!");
-
-            StringBuilder sb = new StringBuilder();
-            sb.append("하루에 가장 많은 문제 풀기 기록 경신 : ");
-            sb.append(todayTotal);
-            sb.append("회");
-
-            resultMessages.add(sb.toString());
-        }
-
-        String message = compareAllRecord(currentRecord.getOperation(), recordMapOfToday, listRecordMap);
-        if (message != null) {
-            resultMessages.add(message);
-        }
+        compareTotal(recordMapOfToday, recordMapList, resultMessages);
+        compareAllRecord(currentRecord.getOperation(), recordMapOfToday, recordMapList, resultMessages);
 
         if (resultMessages.size() != 0) {
             for (String m : resultMessages) {
-                Log.v(LOG_TAG, m);
+                Log.v(LOG_TAG, "Message in ResultTask : " + m);
             }
         }
 
@@ -208,7 +170,7 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
 //        Log.v(LOG_TAG, "오늘 " + todayTotal + " 문제 풀었어요.");
 
 //        int totalOfTheDay = 0;
-//        for (RecordMap rmot : listRecordMap) {
+//        for (RecordMap rmot : recordMapList) {
 //            Log.v(LOG_TAG, rmot.getDay() + " : " + rmot.getTotal() + " 문제");
 //           if (rmot.getTotal() > totalOfTheDay && !rmot.getDay().equals(currentRecord.getDay())) {
 //               totalOfTheDay = rmot.getTotal();
@@ -328,12 +290,57 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
         return null;
     }
 
-    private String compareAllRecord(String operation, RecordMap recordMapOfToday, List<RecordMap> listRecordMap) {
+    private void compareTotal(RecordMap recordMapOfToday, List<RecordMap> recordMapList, List<String> resultMessages) {
+        //recordMapOfToday : 오늘 날짜에 해당하는 record들의 RecordMap
+        //recordMapList : records에 저장된 모든 자료를 RecordMap 형태로 저장한 ArrayList
 
-        int todayNum = recordMapOfToday.getRecordsMap().get(operation);
+        //오늘 푼 문제 수
+        int todayTotal = recordMapOfToday.getTotal();
+        Log.v(LOG_TAG, "오늘 " + todayTotal + " 문제 풀었어요.");
+
+        //recordMapList에서 가장 큰 total 값을 임시로 저장
         int total = 0;
 
-        for (RecordMap rmot : listRecordMap) {
+        //maximum 구하기
+        for (RecordMap rmot : recordMapList) {
+            Log.v(LOG_TAG, rmot.getDay() + " : " + rmot.getTotal() + " 문제");
+            if (!rmot.getDay().equals(recordMapOfToday.getDay())) {
+                if (rmot.getTotal() > total) {
+                    total = rmot.getTotal();
+                }
+            }
+        }
+
+        //오늘 푼 문제 수가 지금까지 total 값 보다 크다면
+        if (todayTotal > total) {
+//            Log.v(LOG_TAG, "하루에 가장 많은 문제 풀기");
+//            Log.v(LOG_TAG, "지금까지 최고기록 " + total + " 문제를 " + todayTotal + " 문제로 경신하다!");
+
+            StringBuilder sb = new StringBuilder();
+            sb.append("하루에 가장 많은 문제 풀기 기록 경신 : ");
+            sb.append(todayTotal);
+            sb.append("회");
+
+//            Log.v(LOG_TAG, "Message in method : " + sb.toString());
+
+            if (sb.toString() != null) {
+                resultMessages.add(sb.toString());
+            }
+        }
+    }
+
+    private void compareAllRecord(String operation, RecordMap recordMapOfToday, List<RecordMap> recordMapList, List<String> resultMessages) {
+        //recordMapOfToday : 오늘 날짜에 해당하는 record들의 RecordMap
+        //recordMapList : records에 저장된 모든 자료를 RecordMap 형태로 저장한 ArrayList
+
+        //오늘 해당 operation 문제를 푼 수
+        int todayNum = recordMapOfToday.getRecordsMap().get(operation);
+
+        //recordMapList에서 해당 operation의 가장 큰 값을 임시로 저장
+        int total = 0;
+
+        //maximum 구하기
+        for (RecordMap rmot : recordMapList) {
             if (!rmot.getDay().equals(recordMapOfToday.getDay())) {
                 if (rmot.getRecordsMap().get(operation) > total) {
                     total = rmot.getRecordsMap().get(operation);
@@ -341,6 +348,7 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
             }
         }
 
+        //오늘 해당 operation 문제를 푼 수가 지금까지 값 보다 크다면
         if (todayNum > total) {
 
             StringBuilder sb = new StringBuilder();
@@ -369,13 +377,14 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
             sb.append(todayNum);
             sb.append("회");
 
+//            Log.v(LOG_TAG, "Message in method : " + sb.toString());
+
+            if (sb.toString() != null) {
+                resultMessages.add(sb.toString());
+            }
+
 //            Log.v(LOG_TAG, "지금까지 최고기록 " + total + " 문제를 " + todayNum + " 문제로 경신하다!");
-            return sb.toString();
-        } else {
-            return null;
         }
-
-
     }
 
     @Override
@@ -385,6 +394,7 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
 
         dialogResult = new DialogResult(context, clickListener, currentRecord, recordMapOfToday);
         dialogResult.setCanceledOnTouchOutside(false);
+        //dialogResult 외부 화면은 터치해도 반응하지 않음
         dialogResult.show();
 //        achievementDAO.close();
         recordDAO.close();
@@ -403,6 +413,11 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
             context.startActivity(intent);
         }
     };
+
+/*
+
+    //빨리 문제를 푸는 게 대체 어떤 교육적 효과가 있을까...
+    //한 문제라도 꼼꼼히 천천히 풀더라도 기다려주는게 교사가 해야하는 일 아니냐고... 이 븅신아. 니가 그러고도 선생이냐
 
     private static String getElapsedTime(long elapsedTime) {
         //측정을 하다보니 오류가 있었는데 아직 뭐가 문제인지 정확히 해결하지는 못했다.
@@ -447,4 +462,6 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
         return(sb.toString());
 
     }
+*/
+
 }
