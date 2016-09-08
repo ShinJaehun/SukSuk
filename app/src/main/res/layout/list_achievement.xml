@@ -9,25 +9,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:orientation="horizontal">
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="88dp"
+        android:layout_weight="2"
+        android:layout_height="68dp"
         android:gravity="center">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher" />
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/medal" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_weight="7"
-        android:layout_height="88dp"
+        android:layout_weight="8"
+        android:layout_height="68dp"
         android:orientation="vertical"
         android:gravity="center"
         android:paddingLeft="16dp"
@@ -43,6 +41,7 @@
             android:textColor="@android:color/white"
             android:layout_gravity="center_vertical" />
 
+        <!--
         <TextView
             android:id="@+id/text_item_desc"
             android:layout_width="wrap_content"
@@ -53,6 +52,7 @@
             android:textColor="@android:color/white"
             android:layout_gravity="center_vertical" />
 
+-->
 
         <!--
 
@@ -66,34 +66,6 @@
                     android:layout_gravity="center_vertical"/>
         -->
 
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_weight="2"
-        android:layout_height="88dp">
-
-        <TextView
-            android:id="@+id/text_item_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="#"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:textColor="@android:color/white"
-            android:layout_gravity="center"
-/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="회"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:textColor="@android:color/white"
-            android:layout_gravity="center"
- />
 
     </LinearLayout>
 

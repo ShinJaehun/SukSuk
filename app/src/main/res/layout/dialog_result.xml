@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="300dp" android:layout_height="200dp"
+    android:layout_width="300dp" android:layout_height="wrap_content"
     android:background="#455A64"
     android:orientation="vertical"
     android:gravity="center">
@@ -60,16 +60,6 @@
                     android:textColor="@android:color/black"
                     android:textSize="10sp" />
         -->
-        <!--
-
-                <ListView
-                    android:id="@+id/list_achievements"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:divider="@android:drawable/divider_horizontal_dim_dark"
-                    android:dividerHeight="2dp"/>
-        -->
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -160,6 +150,17 @@
 
         </LinearLayout>
 
+        <ListView
+            android:id="@+id/list_achievement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@android:drawable/divider_horizontal_dim_dark"
+            android:dividerHeight="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp" />
+
+<!--
 
         <LinearLayout
             android:id="@+id/layout_has_mistake"
@@ -236,6 +237,7 @@
                 android:textSize="12sp" />
 
         </LinearLayout>
+-->
 
     </LinearLayout>
 
@@ -247,7 +249,7 @@
         android:layout_height="40dp"
         android:gravity="center"
         android:text="확인"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:textSize="15dp" />
 
 </LinearLayout>

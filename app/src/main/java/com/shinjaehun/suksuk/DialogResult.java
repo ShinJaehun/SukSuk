@@ -8,7 +8,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.List;
 
 /**
  * Created by shinjaehun on 2016-07-25.
@@ -25,16 +28,16 @@ public class DialogResult extends Dialog {
     private TextView operationTV;
     private TextView operationNumberTV;
     private TextView totalNumberTV;
-    private LinearLayout hasMistakeL;
-    private LinearLayout timeL;
-    private TextView timeMinuteTV;
-    private TextView timeSecondTV;
+//    private LinearLayout hasMistakeL;
+//    private LinearLayout timeL;
+//    private TextView timeMinuteTV;
+//    private TextView timeSecondTV;
 
 //    private static CurrentRecords currentRecords;
 //    private List<Achievement> userAchievements;
     private Record currentRecord;
     private RecordMap recordMapOfToday;
-
+    private List<String> resultMessages;
 
     private View.OnClickListener clickListener;
     //이렇게 clickListener를 dialog 내에서 처리하기보다 Activity쪽으로 넘겨 주는 편이 훨씬 낫다!
@@ -60,10 +63,11 @@ public class DialogResult extends Dialog {
         operationTV = (TextView)findViewById(R.id.text_operation);
         operationNumberTV = (TextView)findViewById(R.id.text_operation_number);
         totalNumberTV = (TextView)findViewById(R.id.text_total_number);
-        hasMistakeL = (LinearLayout)findViewById(R.id.layout_has_mistake);
-        timeL = (LinearLayout)findViewById(R.id.layout_elapsed_time);
-        timeMinuteTV = (TextView)findViewById(R.id.text_time_minute);
-        timeSecondTV = (TextView)findViewById(R.id.text_time_second);
+
+//        hasMistakeL = (LinearLayout)findViewById(R.id.layout_has_mistake);
+//        timeL = (LinearLayout)findViewById(R.id.layout_elapsed_time);
+//        timeMinuteTV = (TextView)findViewById(R.id.text_time_minute);
+//        timeSecondTV = (TextView)findViewById(R.id.text_time_second);
 
 //        for (Record r : currentRecords.getCurrentRecords()) {
 //            Log.v(LOG_TAG, "currentRecords in DialogResult : " + r.getOperation() + " " + r.getDay() + " " + r.getElapsedTime() + " " + r.hasMistake());
@@ -111,18 +115,21 @@ public class DialogResult extends Dialog {
         //오늘 해결한 문제 수 표시
         totalNumberTV.setText(String.valueOf(recordMapOfToday.getTotal()));
 
-        //실수가 없었다면! '한번도 실수하지 않았습니다' 레이아웃 표시
-        if (currentRecord.hasMistake() == 0) {
-            hasMistakeL.setVisibility(View.VISIBLE);
-        }
+//        //실수가 없었다면! '한번도 실수하지 않았습니다' 레이아웃 표시
+//        if (currentRecord.hasMistake() == 0) {
+//            hasMistakeL.setVisibility(View.VISIBLE);
+//        }
 
 //        titleTV = (TextView)findViewById(R.id.text_title);
 //        contentTV = (TextView)findViewById(R.id.text_content);
-//        resultLV = (ListView)findViewById(R.id.list_achievements);
+        ListView achievementLV = (ListView)findViewById(R.id.list_achievement);
 
 //        ListAchievementAdapter adapter = new ListAchievementAdapter(getContext(), new ArrayList<Achievement>());
 //        resultLV.setAdapter(adapter);
-
+        if (resultMessages != null) {
+            ListResultMessagesAdapter adapter = new ListResultMessagesAdapter(getContext(), resultMessages);
+            achievementLV.setAdapter(adapter);
+        }
 //        AchievementMessageTask achievementMessageTask = new AchievementMessageTask(getContext(), operation, achievementDAO, elapseTime, isMistake, adapter);
 //        achievementMessageTask.execute();
 
@@ -148,7 +155,7 @@ public class DialogResult extends Dialog {
         confirmBTN.setOnClickListener(clickListener);
     }
 
-    public DialogResult(Context context, View.OnClickListener clickListener, Record currentRecord, RecordMap recordMapOfToday) {
+    public DialogResult(Context context, View.OnClickListener clickListener, Record currentRecord, RecordMap recordMapOfToday, List<String> resultMessages) {
 //        public DialogResult(Context context, ListAchievementAdapter laa, View.OnClickListener clickListener) {
 
         super(context);
@@ -163,6 +170,7 @@ public class DialogResult extends Dialog {
         this.currentRecord = currentRecord;
         this.clickListener = clickListener;
         this.recordMapOfToday = recordMapOfToday;
+        this.resultMessages = resultMessages;
     }
 
 /*    @Override

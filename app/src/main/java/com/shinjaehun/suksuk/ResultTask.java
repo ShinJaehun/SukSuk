@@ -155,33 +155,26 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
 //        }
 
         checkFirst(currentRecord.getOperation());
-        checkAllRound();
+        checkPerfect();
+
+        checkAllRound(currentRecord.getOperation());
+
         checkTotal(recordMapList);
         checkAllRecord(currentRecord.getOperation(), recordMapList);
         //스킬 챌린지를 제외하고 연속 문제 풀기 체크
         if (!currentRecord.getOperation().equals("challenge")) {
             checkContinue(currentRecord.getOperation());
         }
+//        else {
+//            checkChallenge();
+//        }
 
-        if (resultMessages.size() != 0) {
-            for (String m : resultMessages) {
-                Log.v(LOG_TAG, "Message in ResultTask : " + m);
-            }
-        }
+//        if (resultMessages.size() != 0) {
+//            for (String m : resultMessages) {
+//                Log.v(LOG_TAG, "Message in ResultTask : " + m);
+//            }
+//        }
 
-
-
-
-
-
-
-
-//
-//
-//
-//
-//
-//
 //
 //        //연속풀기 카운터를 DB에 저장했다면 다시 원래대로
 //        if (continueCountSaved == true) {
@@ -285,7 +278,7 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
 
         if (recordMapOfToday.getRecordsMap().get(operation) == 1) {
             StringBuilder sb = new StringBuilder();
-            sb.append("오늘 첫 ");
+            sb.append("오늘 처음으로 ");
             sb.append(operationToString(operation));
             sb.append(" 풀기");
 
@@ -295,14 +288,32 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
         }
     }
 
-    private void checkAllRound() {
-        boolean isAll = true;
-        for (String operation : recordMapOfToday.getRecordsMap().keySet()) {
-            if (recordMapOfToday.getRecordsMap().get(operation) < 1) {
-                isAll = false;
+    private void checkPerfect() {
+        if (currentRecord.hasMistake() == 0) {
+            resultMessages.add("한 번도 틀리지 않기");
+        }
+    }
+
+    private void checkAllRound(String operation) {
+        boolean thisOp = false;
+        boolean otherOps = true;
+
+        //방금 푼 문제 수 첫 문제라면!
+        if (recordMapOfToday.getRecordsMap().get(operation) == 1) {
+            thisOp = true;
+        }
+
+        //방금 푼 문제를 제외하고 오늘 푼 문제들이 1보다 작을 경우, 즉 한번도 푼 적이 없다면
+        //otherOps 스위치는 false가 된다.
+        //따라서 방금 푼 문제가 첫 문제이고 다른 문제들을 한 번 이상 풀어본 경우에
+        //otherOps 스위치는 true가 된다.
+        for (String op : recordMapOfToday.getRecordsMap().keySet()) {
+            if (!op.equals(operation) &&  (recordMapOfToday.getRecordsMap().get(op) < 1)) {
+                otherOps = false;
             }
         }
-        if (isAll == true) {
+
+        if (thisOp == true && otherOps == true) {
             resultMessages.add("하루에 모든 유형의 문제 풀기");
         }
     }
@@ -384,6 +395,12 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
         }
     }
 
+//    private void checkChallenge() {
+//        if (currentRecord.getOperation().equals("challenge")) {
+//            resultMessages.add("도전! 문제 풀기");
+//        }
+//    }
+
     private String operationToString(String operation) {
         switch (operation) {
             case "multiply32":
@@ -405,9 +422,10 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
     }
 
     private void checkContinue(String operation) {
-        if (continueCount == 3) {
-            continueCount = 1;
-        } else if ((currentRecords.getCurrentRecords().size() - 2) != -1) {
+//        if (continueCount == 3) {
+//            continueCount = 1;
+//        } else
+        if ((currentRecords.getCurrentRecords().size() - 2) != -1) {
             //currentRecord 바로 전 기록이 null이 아니라면
             if (currentRecord.getOperation().equals(currentRecords.getCurrentRecords().get(currentRecords.getCurrentRecords().size() - 2).getOperation())) {
                 //currentRecord와 바로 전 기록을 비교하여 같은 문제라면 연속풀기 카운터를 증가시킨
@@ -415,11 +433,13 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
                 if (continueCount == 3) {
                     StringBuilder sb = new StringBuilder();
                     sb.append(operationToString(operation));
-                    sb.append(" 연속 3회 풀기!");
+                    sb.append(" 연속 3회 풀기");
 
                     if (sb.toString() != null) {
                         resultMessages.add(sb.toString());
                     }
+
+                    continueCount = 1;
                 }
             }
 //            Log.v(LOG_TAG, currentRecord.getOperation() + " 문제 " + continueCount + " 회 연속 풀기.");
@@ -431,7 +451,7 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
 //        super.onPostExecute(aVoid);
         asyncDialog.dismiss();
 
-        dialogResult = new DialogResult(context, clickListener, currentRecord, recordMapOfToday);
+        dialogResult = new DialogResult(context, clickListener, currentRecord, recordMapOfToday, resultMessages);
         dialogResult.setCanceledOnTouchOutside(false);
         //dialogResult 외부 화면은 터치해도 반응하지 않음
         dialogResult.show();
