@@ -156,7 +156,6 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
 
         checkFirst(currentRecord.getOperation());
         checkPerfect();
-
         checkAllRound(currentRecord.getOperation());
 
         checkTotal(recordMapList);
@@ -308,7 +307,7 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
         //따라서 방금 푼 문제가 첫 문제이고 다른 문제들을 한 번 이상 풀어본 경우에
         //otherOps 스위치는 true가 된다.
         for (String op : recordMapOfToday.getRecordsMap().keySet()) {
-            if (!op.equals(operation) &&  (recordMapOfToday.getRecordsMap().get(op) < 1)) {
+            if (!op.equals(operation) && (recordMapOfToday.getRecordsMap().get(op) < 1)) {
                 otherOps = false;
             }
         }
