@@ -45,5 +45,15 @@
         android:src="@drawable/button_click"
         android:layout_centerInParent="true"/>
 
+    <Button
+        android:id="@+id/chart_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="100dp"
+        android:textSize="50sp"
+        android:text="이거여"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"/>
+
 
 </RelativeLayout>

@@ -5,8 +5,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.github.mikephil.charting.charts.Chart;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +36,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dialogMain = new DialogMain(MainActivity.this, currentRecords);
                 dialogMain.show();
+            }
+        });
+
+        Button thisBT = (Button) findViewById(R.id.chart_button);
+        thisBT.setOnClickListener(new Button.OnClickListener() {
+
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ChartActivity.class);
+                startActivity(intent);
             }
         });
 
