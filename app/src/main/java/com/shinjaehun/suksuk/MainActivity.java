@@ -26,6 +26,10 @@ public class MainActivity extends AppCompatActivity {
 
 //        final Record record = new Record(System.currentTimeMillis());
         final CurrentRecords currentRecords = CurrentRecords.getInstance();
+        currentRecords.setContinueCounter(0);
+        //currentRecords의 continueCounter를 여기서 초기화해줘야
+        //메인화면으로 한번 나갔다오면 continueCounter가 다시 0으로 초기화된다.
+
         //records에 기록을 남기는 날짜를 저장하기 위해 MainActivity가 실행될 때 CurrentRecords를 생성한다.
         Log.v(LOG_TAG, "today of currentRecords in MainActivity : " + currentRecords.getToday());
 

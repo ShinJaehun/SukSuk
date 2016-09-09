@@ -40,6 +40,7 @@ public class ProblemActivity extends AppCompatActivity {
         Intent intent = getIntent();
         operation = intent.getStringExtra("operation");
         currentRecords = (CurrentRecords)intent.getSerializableExtra("today");
+
 //        initSound();
 
 

@@ -32,8 +32,15 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
     private static List<String> resultMessages;
 
     //연속풀기 카운터와 스위치
-    private static int continueCount = 1;
+//    private static int continueCount = 1;
 //    private static boolean continueCountSaved = false;
+
+    //continueCounter를 여기서 static으로 증가시키면
+    //연속으로 몇 문제 풀어서 continueCounter가 늘어난 상황에서
+    //메인화면으로 나갔다 오더라도, 즉, 중간에 다른 문제를 풀게되면
+    //continueCounter가 다시 0으로 초기화되지 않는다!
+    //따라서 CurrentRecords에 멤버 변수로 continueCounter를 넣어두고
+    //MainActivity에서 초기화시켜야 한다.
 
     public ResultTask(Context context, RecordDAO recordDAO, CurrentRecords currentRecords) {
         this.context = context;
@@ -421,28 +428,58 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
     }
 
     private void checkContinue(String operation) {
-//        if (continueCount == 3) {
-//            continueCount = 1;
-//        } else
-        if ((currentRecords.getCurrentRecords().size() - 2) != -1) {
-            //currentRecord 바로 전 기록이 null이 아니라면
-            if (currentRecord.getOperation().equals(currentRecords.getCurrentRecords().get(currentRecords.getCurrentRecords().size() - 2).getOperation())) {
-                //currentRecord와 바로 전 기록을 비교하여 같은 문제라면 연속풀기 카운터를 증가시킨
-                continueCount++;
-                if (continueCount == 3) {
-                    StringBuilder sb = new StringBuilder();
-                    sb.append(operationToString(operation));
-                    sb.append(" 연속 3회 풀기");
+//        Log.v(LOG_TAG, "현재 continueCount는 " + currentRecords.getContinueCounter());
 
-                    if (sb.toString() != null) {
-                        resultMessages.add(sb.toString());
-                    }
+        if (currentRecords.getContinueCounter() == 0) {
+            //continueCounter는 0이지만 실제 currentRecords에는 records가 최소 하나라도 저장되므로
+            currentRecords.setContinueCounter(1);
+//            Log.v(LOG_TAG, "바뀐 continueCount는 " + currentRecords.getContinueCounter());
 
-                    continueCount = 1;
+        } else if (currentRecord.getOperation().equals(currentRecords.getCurrentRecords().get(currentRecords.getCurrentRecords().size() - 2).getOperation())) {
+            //currentCounter가 1이상이면 현재 문제를 둘 이상 풀었다는 뜻이므로 이전에 푼 문제와 비교 가능하다
+
+            //비교 후 currentCounter 증가
+            currentRecords.setContinueCounter(currentRecords.getContinueCounter() + 1);
+
+//            Log.v(LOG_TAG, "바뀐 continueCount는 " + currentRecords.getContinueCounter());
+
+            //이렇게 currentCounter 값을 증가시키다 currentCounter가 3이되면...
+            if (currentRecords.getContinueCounter() == 3) {
+                StringBuilder sb = new StringBuilder();
+                sb.append(operationToString(operation));
+                sb.append(" 연속 3회 풀기");
+
+                if (sb.toString() != null) {
+                    resultMessages.add(sb.toString());
                 }
+
+                currentRecords.setContinueCounter(0);
+                Log.v(LOG_TAG, "바뀐 continueCount는 " + currentRecords.getContinueCounter());
+
             }
-//            Log.v(LOG_TAG, currentRecord.getOperation() + " 문제 " + continueCount + " 회 연속 풀기.");
         }
+
+//        if (currentRecords.getContinueCounter() == 3) {
+//            StringBuilder sb = new StringBuilder();
+//            sb.append(operationToString(operation));
+//            sb.append(" 연속 3회 풀기");
+//
+//            if (sb.toString() != null) {
+//                resultMessages.add(sb.toString());
+//            }
+//
+//            currentRecords.setContinueCounter(1);
+//        } else if ((currentRecords.getCurrentRecords().size() - 2) != -1) {
+//            //currentRecord 바로 전 기록이 null이 아니라면
+//            if (currentRecord.getOperation().equals(currentRecords.getCurrentRecords().get(currentRecords.getCurrentRecords().size() - 2).getOperation())) {
+//                //currentRecord와 바로 전 기록을 비교하여 같은 문제라면 연속풀기 카운터를 증가시킨
+//                currentRecords.setContinueCounter(currentRecords.getContinueCounter() + 1);
+//                Log.v(LOG_TAG, "바뀐 continueCount는 " + currentRecords.getContinueCounter());
+//
+//
+//            }
+////            Log.v(LOG_TAG, currentRecord.getOperation() + " 문제 " + continueCount + " 회 연속 풀기.");
+//        }
     }
 
     @Override

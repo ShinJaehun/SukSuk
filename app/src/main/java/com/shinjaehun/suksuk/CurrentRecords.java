@@ -14,6 +14,8 @@ public class CurrentRecords implements Serializable {
     private static String today;
     private static List<Record> records;
 
+    private int continueCounter;
+
     private static final CurrentRecords currentRecords = new CurrentRecords();
     public static CurrentRecords getInstance() {
         //CurrentRecords.getInstance()를 실행하면서 timestamp를 찍고
@@ -38,5 +40,13 @@ public class CurrentRecords implements Serializable {
 
     public void addTodayRecords(Record record) {
         records.add(record);
+    }
+
+    public int getContinueCounter() {
+        return continueCounter;
+    }
+
+    public void setContinueCounter(int continueCounter) {
+        this.continueCounter = continueCounter;
     }
 }
