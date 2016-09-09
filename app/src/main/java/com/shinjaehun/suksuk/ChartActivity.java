@@ -1,5 +1,6 @@
 package com.shinjaehun.suksuk;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,9 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.AxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -28,7 +32,8 @@ public class ChartActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart);
-        LineChart chart = (LineChart)findViewById(R.id.chart);
+
+        LineChart chart = (LineChart) findViewById(R.id.chart);
 
         RecordDAO recordDAO = new RecordDAO(this);
 
@@ -81,72 +86,144 @@ public class ChartActivity extends AppCompatActivity {
             //여길 실행해버리면 문제가 있지... currentRecord를 DB에 저장했으니 records에는 최소한 currentRecord가 들어 있어야 한다.
         }
 
-        List<Entry> entries = new ArrayList<>();
-        final ArrayList<String> labels = new ArrayList<>();
+/*        List<Entry> entries_total = new ArrayList<>();
+        final ArrayList<String> labels_total = new ArrayList<>();
 
-        for (int i = 0 ; i < recordMapList.size(); i++) {
-            Entry e = new Entry((float)i, (float)(recordMapList.get(i).getTotal()));
+        for (int i = 0; i < recordMapList.size(); i++) {
+            Entry e = new Entry((float) (recordMapList.get(i).getTotal()), i);
 
-            Log.v(LOG_TAG, "Data " + i + " " + (float)i + " " + (float)(recordMapList.get(i).getTotal()));
-            entries.add(e);
-            labels.add(recordMapList.get(i).getDay());
+            Log.v(LOG_TAG, "Data " + i + " " + (float) i + " " + (float) (recordMapList.get(i).getTotal()));
+            entries_total.add(e);
+            labels_total.add(recordMapList.get(i).getDay());
         }
 
-        LineDataSet dataset  = new LineDataSet(entries, "total");
+//        YAxis yAxis = chart.getAxisLeft();
+//        yAxis.setValueFormatter(new ValueFormatter());
 
-//        IAxisValueFormatter formatter = new IAxisValueFormatter() {
-//
-//            final String[] quarters = new String[] { "Q1", "Q2", "Q3", "Q4" };
-//
-//            @Override
-//            public String getFormattedValue(float value, AxisBase axis) {
-////                return labels.get((int)value);
-//                return quarters[(int) value];
-//
-//            }
-//
-//            @Override
-//            public int getDecimalDigits() {
-//                return 0;
-//            }
-//        };
+        LineDataSet set_total = new LineDataSet(entries_total, "total");
+        set_total.setAxisDependency(YAxis.AxisDependency.LEFT);
 
-        String[] xxvalues = labels.toArray(new String[0]);
+        ArrayList<ILineDataSet> dataSets_total = new ArrayList<>();
+
+        dataSets_total.add(set_total);
+
+        LineData data = new LineData(labels_total, dataSets_total);
+        data.setValueFormatter(new MyValueFormatter());*/
+
+        List<Entry> entries_total = new ArrayList<>();
+        final ArrayList<String> labels_total = new ArrayList<>();
+
+        for (int i = 0; i < recordMapList.size(); i++) {
+            Entry e = new Entry((float)i, (float)(recordMapList.get(i).getTotal()));
+
+            Log.v(LOG_TAG, "Data " + i + " " + (float) i + " " + (float) (recordMapList.get(i).getTotal()));
+            entries_total.add(e);
+            labels_total.add(recordMapList.get(i).getDay());
+        }
+
+//        YAxis yAxis = chart.getAxisLeft();
+//        yAxis.setValueFormatter(new ValueFormatter());
+
+        LineDataSet set_total = new LineDataSet(entries_total, "total");
+        set_total.setAxisDependency(YAxis.AxisDependency.LEFT);
+
+        ArrayList<ILineDataSet> dataSets_total = new ArrayList<>();
+        dataSets_total.add(set_total);
+
+        LineData data = new LineData(dataSets_total);
+        data.setValueFormatter(new MyValueFormatter());
+
+//        String[] xValues = labels_total.toArray(new String[0]);
+
+//        for (int i = 0; i < xValues.length; i++) {
+//            Log.v(LOG_TAG, "xValues [" + i + "] : " + xValues[i]);
+//        }
 
         XAxis xAxis = chart.getXAxis();
-        xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
-        xAxis.setValueFormatter(new MyXAxisValueFormatter(xxvalues));
 
-        LineData lineData = new LineData(dataset);
-        chart.setData(lineData);
+        xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setTextSize(10f);
+        xAxis.setTextColor(Color.RED);
+
+        xAxis.setDrawGridLines(false);
+
+        xAxis.setValueFormatter(new MyXAixsValueFormatter(labels_total));
+
+        chart.setData(data);
         chart.invalidate();
 
-//        for (RecordMap rm : recordMapList) {
-//            Log.v(LOG_TAG, "Data : " + Float.valueOf(rm.getDay()) + Float.valueOf(rm.getTotal()));
-////            entries.add(new Entry(Float.valueOf(rm.getDay()), Float.valueOf(rm.getTotal())));
-//        }
     }
-//
-    public class MyXAxisValueFormatter implements IAxisValueFormatter, AxisValueFormatter {
-    // AxisValueFormatter 때문에 피봤다...
-    // 공식 위키 문서에도 이런 내용은 나오지도 않았음!!!!
 
-        private String[] mValues;
+    public class MyXAixsValueFormatter implements AxisValueFormatter {
 
-        public MyXAxisValueFormatter(String[] values) {
-            this.mValues = values;
+//        private String[] mValues;
+
+        private ArrayList<String> labels;
+        public MyXAixsValueFormatter(ArrayList<String> labels) {
+            this.labels = labels;
         }
 
         @Override
         public String getFormattedValue(float value, AxisBase axis) {
-            // "value" represents the position of the label on the axis (x or y)
-            return mValues[(int) value];
+            Log.v(LOG_TAG, "labels value : " + value);
+
+            if (labels.size() == 1) {
+                //만일 labels에 값이 하나 뿐일 때, 즉 하루만 입력했을 때
+                //진짜 기가 막히는게 XAxis value로 -1, 0, 1이 표시된다.
+                //이게 대체 왜 -1이 나오는지 몰라서 혼자 알아내느라 뒤지는 줄 알았다.
+                //매뉴얼, 튜토리얼, 심지어 stackoverflow에도 없음.ㅠㅠ
+                if ((int)value != 0) {
+                    return "";
+                } else {
+//                    return String.valueOf(value);
+                    return labels.get((int)value);
+                }
+            }
+
+//            return String.valueOf(value);
+            return labels.get((int)value);
         }
 
-        /** this is only needed if numbers are returned, else return 0 */
         @Override
-        public int getDecimalDigits() { return 0; }
+        public int getDecimalDigits() {
+            return 0;
+        }
     }
+
+
+    public class MyValueFormatter implements ValueFormatter {
+
+        @Override
+        public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+            Log.v(LOG_TAG, "value : " + String.valueOf((int)value));
+            return String.valueOf((int)value);
+        }
+    }
+
+
+//    public class ValueFormatter implements YAxisValueFormatter {
+    //이건 Y 축에 나오는 값을 수정하는 formatter
+//
+//        @Override
+//        public String getFormattedValue(float value, YAxis yAxis) {
+//            Log.v(LOG_TAG, "value : " + String.valueOf((int)value));
+//            return String.valueOf((int)value);
+//        }
+//    }
+
+//    public class MyYAxisValueFormatter implements IValueFormatter {
+////    public class MyXAxisValueFormatter implements IAxisValueFormatter, AxisValueFormatter {
+//
+//        // AxisValueFormatter 때문에 피봤다...
+//        // 공식 위키 문서에도 이런 내용은 나오지도 않았음!!!!
+//
+//        @Override
+//        public String getFormattedValue(float value, AxisBase axis) {
+//            // "value" represents the position of the label on the axis (x or y)
+//            return String.valueOf((int)value);
+//        }
+//    }
 
 //        private [] mValues;
 //
