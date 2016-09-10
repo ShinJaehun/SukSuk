@@ -400,7 +400,7 @@
         android:id="@+id/button_confirm"
         android:layout_width="300dp"
         android:layout_height="85dp"
-        android:text="확인"
+        android:text="처음 화면으로"
         android:textSize="35sp" />
 
 </LinearLayout>
