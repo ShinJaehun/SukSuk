@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
         //records에 기록을 남기는 날짜를 저장하기 위해 MainActivity가 실행될 때 CurrentRecords를 생성한다.
         Log.v(LOG_TAG, "today of currentRecords in MainActivity : " + currentRecords.getToday());
 
-        ImageView mainBT = (ImageView)findViewById(R.id.main_button);
-        mainBT.setOnClickListener(new ImageButton.OnClickListener() {
+        FrameLayout problemBT = (FrameLayout)findViewById(R.id.main_problem);
+        problemBT.setOnClickListener(new ImageButton.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -43,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button thisBT = (Button) findViewById(R.id.chart_button);
-        thisBT.setOnClickListener(new Button.OnClickListener() {
+        FrameLayout chartBT = (FrameLayout)findViewById(R.id.main_chart);
+        chartBT.setOnClickListener(new Button.OnClickListener() {
 
 
             @Override
