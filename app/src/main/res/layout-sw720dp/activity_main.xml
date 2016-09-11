@@ -142,5 +142,14 @@
         android:layout_centerInParent="true"/>
 -->
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:text="쑥쑥수학은 신재훈이 만들었습니다."
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" />
+
 
 </RelativeLayout>
