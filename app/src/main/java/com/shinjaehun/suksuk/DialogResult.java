@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -39,7 +38,7 @@ public class DialogResult extends Dialog {
     private RecordMap recordMapOfToday;
     private List<String> resultMessages;
 
-    private View.OnClickListener clickListener;
+    private View.OnClickListener listener;
     //이렇게 clickListener를 dialog 내에서 처리하기보다 Activity쪽으로 넘겨 주는 편이 훨씬 낫다!
 
 //    String operation;
@@ -152,11 +151,11 @@ public class DialogResult extends Dialog {
 //            Log.v(LOG_TAG, "Today Achievement : " + a.getName() + " " + a.getType() + " " + a.getAka() + " " + a.getNumber() + " " + a.getDay());
 //        }
 
-        confirmBTN.setOnClickListener(clickListener);
+        confirmBTN.setOnClickListener(listener);
     }
 
-    public DialogResult(Context context, View.OnClickListener clickListener, Record currentRecord, RecordMap recordMapOfToday, List<String> resultMessages) {
-//        public DialogResult(Context context, ListAchievementAdapter laa, View.OnClickListener clickListener) {
+    public DialogResult(Context context, View.OnClickListener listener, Record currentRecord, RecordMap recordMapOfToday, List<String> resultMessages) {
+//        public DialogResult(Context context, ListAchievementAdapter laa, View.OnClickListener listener) {
 
         super(context);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -168,7 +167,7 @@ public class DialogResult extends Dialog {
 //        this.isMistake = miss;
 //        this.adapter = laa;
         this.currentRecord = currentRecord;
-        this.clickListener = clickListener;
+        this.listener = listener;
         this.recordMapOfToday = recordMapOfToday;
         this.resultMessages = resultMessages;
     }

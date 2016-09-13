@@ -14,11 +14,11 @@ import android.widget.FrameLayout;
  * Created by shinjaehun on 2016-05-06.
  */
 public class ChromeClient extends WebChromeClient {
-    private View mCustomView;
-    private Activity mActivity;
+    private View customView;
+    private Activity clientActivity;
 
     public ChromeClient(Activity activity) {
-        this.mActivity = activity;
+        this.clientActivity = activity;
     }
 
     @Override
@@ -27,44 +27,44 @@ public class ChromeClient extends WebChromeClient {
         return super.onJsAlert(view, url, message, result);
     }
 
-    private int mOriginalOrientation;
-    private FullscreenHolder mFullscreenContainer;
-    private CustomViewCallback mCustomViewCollback;
+    private int originalOrientation;
+    private FullscreenHolder fullscreenContainer;
+    private CustomViewCallback customViewCollback;
 
     @Override
     public void onShowCustomView(View view, CustomViewCallback callback) {
 
-        if (mCustomView != null) {
+        if (customView != null) {
             callback.onCustomViewHidden();
             return;
         }
 
-        mOriginalOrientation = mActivity.getRequestedOrientation();
+        originalOrientation = clientActivity.getRequestedOrientation();
 
-        FrameLayout decor = (FrameLayout) mActivity.getWindow().getDecorView();
+        FrameLayout decor = (FrameLayout) clientActivity.getWindow().getDecorView();
 
-        mFullscreenContainer = new FullscreenHolder(mActivity);
-        mFullscreenContainer.addView(view, ViewGroup.LayoutParams.MATCH_PARENT);
-        decor.addView(mFullscreenContainer, ViewGroup.LayoutParams.MATCH_PARENT);
-        mCustomView = view;
-        mCustomViewCollback = callback;
-        mActivity.setRequestedOrientation(mOriginalOrientation);
+        fullscreenContainer = new FullscreenHolder(clientActivity);
+        fullscreenContainer.addView(view, ViewGroup.LayoutParams.MATCH_PARENT);
+        decor.addView(fullscreenContainer, ViewGroup.LayoutParams.MATCH_PARENT);
+        customView = view;
+        customViewCollback = callback;
+        clientActivity.setRequestedOrientation(originalOrientation);
 
     }
 
     @Override
     public void onHideCustomView() {
-        if (mCustomView == null) {
+        if (customView == null) {
             return;
         }
 
-        FrameLayout decor = (FrameLayout) mActivity.getWindow().getDecorView();
-        decor.removeView(mFullscreenContainer);
-        mFullscreenContainer = null;
-        mCustomView = null;
-        mCustomViewCollback.onCustomViewHidden();
+        FrameLayout decor = (FrameLayout) clientActivity.getWindow().getDecorView();
+        decor.removeView(fullscreenContainer);
+        fullscreenContainer = null;
+        customView = null;
+        customViewCollback.onCustomViewHidden();
 
-        mActivity.setRequestedOrientation(mOriginalOrientation);
+        clientActivity.setRequestedOrientation(originalOrientation);
     }
 
 

@@ -27,17 +27,17 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 //    private SoundPool soundPool;
 //    private int soundBeep;
 
-    public TextView operand1TextView, operand2TextView, operand3TextView, operand4TextView, operand5TextView;
-    public TextView input1TextView, input2TextView;
+    public TextView operand1TV, operand2TV, operand3TV, operand4TV, operand5TV;
+    public TextView input1TV, input2TV;
 
     //나누기 받아내림을 표시하기 위한 ImageView
-    public ImageView currentMark;
+    public ImageView currentMarkIV;
 
     //선생님 도와주세요 버튼
-    public ImageButton help;
+    public ImageButton helpBTN;
 
     //스킬챌린지에서 남은 문제 수를 보여줄 텍스트뷰
-    public TextView challengeCounter;
+    public TextView challengeCounterTV;
 
     //두 자리 수를 입력할 때 inputTextView를 전환하는 스위치
     public boolean carrying = true;
@@ -85,7 +85,8 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
     private static RecordDAO recordDAO;
 
     //newInstance()를 통해 받아올 operation 값
-    private static String operation;
+    //각 문제별 Fragment에서 사용하기 위해 public으로 선언
+    public static String operation;
 
     //ProblemFragment.newInstance에서 operation을 결정하기 위한 임시 값
     private static String currentOperation;
@@ -129,15 +130,15 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
             currentOperation = operationArray[rnd.nextInt(operationArray.length)];
             isChallenge = true;
 
-            Log.v(LOG_TAG, "is Challenge : " + isChallenge);
-            Log.v(LOG_TAG, "challengeNumber : " + challengeNumber);
+//            Log.v(LOG_TAG, "is Challenge : " + isChallenge);
+//            Log.v(LOG_TAG, "challengeNumber : " + challengeNumber);
 
         } else {
             //스킬챌린지가 아니면 해당 연산을 수행하고 스위치를 해제한다.
             currentOperation = operation;
 
             isChallenge = false;
-            Log.v(LOG_TAG, "is Challenge : " + isChallenge);
+//            Log.v(LOG_TAG, "is Challenge : " + isChallenge);
 
         }
 
@@ -190,33 +191,33 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 
     public void markOperandAndInput() {
         //곱셈할 각 자리수를 빨간색으로 표시
-        if (operand1TextView != null) {
-            operand1TextView.setTextColor(Color.RED);
+        if (operand1TV != null) {
+            operand1TV.setTextColor(Color.RED);
         }
-        if (operand2TextView != null) {
-            operand2TextView.setTextColor(Color.RED);
+        if (operand2TV != null) {
+            operand2TV.setTextColor(Color.RED);
         }
-        if (operand3TextView != null) {
-            operand3TextView.setTextColor(Color.RED);
+        if (operand3TV != null) {
+            operand3TV.setTextColor(Color.RED);
         }
-        if (operand4TextView != null) {
-            operand4TextView.setTextColor(Color.RED);
+        if (operand4TV != null) {
+            operand4TV.setTextColor(Color.RED);
         }
-        if (operand5TextView != null) {
-            operand5TextView.setTextColor(Color.RED);
+        if (operand5TV != null) {
+            operand5TV.setTextColor(Color.RED);
         }
 
         //입력할 텍스트 뷰를 임시로 'A'와 'B'로 표시
-        if (input1TextView != null) {
-            input1TextView.setText("?");
-            input1TextView.setTextColor(Color.BLUE);
+        if (input1TV != null) {
+            input1TV.setText("?");
+            input1TV.setTextColor(Color.BLUE);
         }
-        if (input2TextView != null) {
-            input2TextView.setText("?");
-            input2TextView.setTextColor(Color.BLUE);
+        if (input2TV != null) {
+            input2TV.setText("?");
+            input2TV.setTextColor(Color.BLUE);
         }
 
-        if (input1TextView != null && input2TextView != null) {
+        if (input1TV != null && input2TV != null) {
             multiInput = true;
         } else {
             multiInput = false;
@@ -229,24 +230,24 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
         int temp = 0, temp1 = 0, temp2 = 0;
 
         //temp1에 사용자의 첫번째 입력 값 저장
-        if (input1TextView == null) {
+        if (input1TV == null) {
             temp1 = 0;
         } else {
             try {
-                temp1 = Integer.parseInt(input1TextView.getText().toString());
-                Log.v(LOG_TAG, "temp1 : " + String.valueOf(temp1));
+                temp1 = Integer.parseInt(input1TV.getText().toString());
+//                Log.v(LOG_TAG, "temp1 : " + String.valueOf(temp1));
             } catch (NumberFormatException nfe) {
                 nfe.printStackTrace();
             }
         }
 
         //temp2에 사용자의 두번째 입력 값 저장
-        if (input2TextView == null) {
+        if (input2TV == null) {
             temp2 = 0;
         } else {
             try {
-                temp2 = Integer.parseInt(input2TextView.getText().toString());
-                Log.v(LOG_TAG, "temp2 : " + String.valueOf(temp2));
+                temp2 = Integer.parseInt(input2TV.getText().toString());
+//                Log.v(LOG_TAG, "temp2 : " + String.valueOf(temp2));
             } catch (NumberFormatException nfe) {
                 nfe.printStackTrace();
             }
@@ -260,32 +261,32 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
             flashText(true);
 
             //연산했던 자리수를 다시 회색으로 되돌리기
-            if (operand1TextView != null) {
-                operand1TextView.setTextColor(Color.GRAY);
+            if (operand1TV != null) {
+                operand1TV.setTextColor(Color.GRAY);
             }
-            if (operand2TextView != null) {
-                operand2TextView.setTextColor(Color.GRAY);
+            if (operand2TV != null) {
+                operand2TV.setTextColor(Color.GRAY);
             }
-            if (operand3TextView != null) {
-                operand3TextView.setTextColor(Color.GRAY);
+            if (operand3TV != null) {
+                operand3TV.setTextColor(Color.GRAY);
             }
-            if (operand4TextView != null) {
-                operand4TextView.setTextColor(Color.GRAY);
+            if (operand4TV != null) {
+                operand4TV.setTextColor(Color.GRAY);
             }
-            if (operand5TextView != null) {
-                operand5TextView.setTextColor(Color.GRAY);
+            if (operand5TV != null) {
+                operand5TV.setTextColor(Color.GRAY);
             }
 
             //입력했던 내용 회색으로 되돌리기
-            if (input1TextView != null) {
-                input1TextView.setTextColor(Color.GRAY);
+            if (input1TV != null) {
+                input1TV.setTextColor(Color.GRAY);
             }
-            if (input2TextView != null) {
-                input2TextView.setTextColor(Color.GRAY);
+            if (input2TV != null) {
+                input2TV.setTextColor(Color.GRAY);
             }
 
             //받아내림 표시 회색으로 되돌리기
-            if (currentMark != null) {
+            if (currentMarkIV != null) {
                 markSlashOff();
             }
 
@@ -310,13 +311,13 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
             flashText(false);
 
             //사용자가 입력할 텍스트 뷰를 다시 'A'와 'B'로 되돌림
-            if (input1TextView != null) {
-                input1TextView.setText("?");
-                input1TextView.setTextColor(Color.BLUE);
+            if (input1TV != null) {
+                input1TV.setText("?");
+                input1TV.setTextColor(Color.BLUE);
             }
-            if (input2TextView != null) {
-                input2TextView.setText("?");
-                input2TextView.setTextColor(Color.BLUE);
+            if (input2TV != null) {
+                input2TV.setText("?");
+                input2TV.setTextColor(Color.BLUE);
             }
 
 //            Log.v(LOG_TAG, "Is a Mistake(Yes!) : " + String.valueOf(hasMistake));
@@ -326,16 +327,16 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 
     public void markSlashOn() {
         //나눗셈 받아내림 표시하기
-        currentMark.setVisibility(View.VISIBLE);
-        currentMark.setImageResource(R.drawable.slash_red);
+        currentMarkIV.setVisibility(View.VISIBLE);
+        currentMarkIV.setImageResource(R.drawable.slash_red);
     }
 
     public void markSlashOff() {
         //나눗셈 받아내림 표시 해제하기
         //완전히 삭제해버릴 필요는 없겠지?
         //iv.setVisibility(View.INVISIBLE);
-        currentMark.setImageResource(R.drawable.slash_gray);
-        currentMark = null;
+        currentMarkIV.setImageResource(R.drawable.slash_gray);
+        currentMarkIV = null;
     }
 
     public void flashText(boolean result) {
@@ -350,7 +351,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
         String[] correctMsg = {"정답!", "제법인데~", "훌륭해!", "꽤 하는걸?", "맞았어!",
                 "잘했어!", "끝내준다!", "바로 그거야", "축하축하", "짝짝짝"};
         String[] wrongMsg = {"아니거든!", "땡~", "메롱메롱~", "제대로 해봐!", "다시 해보셈",
-                "ㅋㅋㅋ", "약오르지~", "틀리셨습니다", "아니라고!", "모를줄 알어?"};
+                "ㅋㅋㅋ", "약오르지~", "틀리셨습니다", "아니라고!", "잘 좀 하자;;"};
 
         if (result) {
             textView = (TextView)getActivity().findViewById(R.id.answer_right);
@@ -416,8 +417,8 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
                 hasChallengeMistake = true;
             }
 
-            Log.v(LOG_TAG, "hasMistake? : " + String.valueOf(hasMistake));
-            Log.v(LOG_TAG, "hasChallengeMistake? : " + String.valueOf(hasChallengeMistake));
+//            Log.v(LOG_TAG, "hasMistake? : " + String.valueOf(hasMistake));
+//            Log.v(LOG_TAG, "hasChallengeMistake? : " + String.valueOf(hasChallengeMistake));
 
             if (challengeNumber == 0) {
                 // 정해진 문제를 모두 풀었으면 타다 + 참잘했어요 -> AchievementMessageTask를 실행시켜 DialogResult에 결과 보여주기
@@ -466,7 +467,7 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
         ((ProblemActivity)getActivity()).unSetListener();
 
         //선생님 도와주세요 버튼 입력 해제
-        help.setClickable(false);
+        helpBTN.setClickable(false);
 
         verygood.setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -476,11 +477,11 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 //                getActivity().finish();
 //                startActivity(intent);
 
-                Log.v(LOG_TAG, "Today is : " + currentRecords.getToday());
-
-                for (Record r : currentRecords.getCurrentRecords()) {
-                    Log.v(LOG_TAG, "currentRecords : " + r.getOperation() + " " + r.getDay() + " " + r.getElapsedTime() + " " + r.hasMistake());
-                }
+//                Log.v(LOG_TAG, "Today is : " + currentRecords.getToday());
+//
+//                for (Record r : currentRecords.getCurrentRecords()) {
+//                    Log.v(LOG_TAG, "currentRecords : " + r.getOperation() + " " + r.getDay() + " " + r.getElapsedTime() + " " + r.hasMistake());
+//                }
 
                 getAchievements();
 
@@ -667,20 +668,20 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
     @Override
     public void onNumberClicked(int number) {
         if (!multiInput) {
-            if (input2TextView != null) {
-                input2TextView.setText(String.valueOf(number));
+            if (input2TV != null) {
+                input2TV.setText(String.valueOf(number));
             }
         } else {
             //사용자 입력 처리 : 첫번째 입력인 경우 input1TextView에 값을 입력함
             if (carrying) {
-                if (input1TextView != null) {
-                    input1TextView.setText(String.valueOf(number));
+                if (input1TV != null) {
+                    input1TV.setText(String.valueOf(number));
                 }
                 carrying = false;
             } else {
                 //두번째 입력인 경우 input2TextView에 값을 입력함
-                if (input2TextView != null) {
-                    input2TextView.setText(String.valueOf(number));
+                if (input2TV != null) {
+                    input2TV.setText(String.valueOf(number));
                 }
                 carrying = true;
             }
@@ -691,13 +692,13 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
         //다시할래 버튼 눌렀을 때 처리
 
         //사용자가 입력할 텍스트 뷰를 다시 'A'와 'B'로 되돌림
-        if (input1TextView != null) {
-            input1TextView.setText("?");
-            input1TextView.setTextColor(Color.BLUE);
+        if (input1TV != null) {
+            input1TV.setText("?");
+            input1TV.setTextColor(Color.BLUE);
         }
-        if (input2TextView != null) {
-            input2TextView.setText("?");
-            input2TextView.setTextColor(Color.BLUE);
+        if (input2TV != null) {
+            input2TV.setText("?");
+            input2TV.setTextColor(Color.BLUE);
         }
         //inputTextView가 둘 일 때 다시할래 누른 다음 다시 input1TextView부터 입력을 받을 수 있도록
         carrying = true;
@@ -705,15 +706,15 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 
     public void onOKClicked() {
         //입력 버튼 눌렀을 때 처리
-        if (input1TextView == null) {
-            if (input2TextView.getText().toString().matches("[0-9]")) {
+        if (input1TV == null) {
+            if (input2TV.getText().toString().matches("[0-9]")) {
                 //'?' 기호가 그대로 입력되는 문제 방지
                 if (result()) {
                     nextStage();
                 }
             }
         } else {
-            if (input1TextView.getText().toString().matches("[0-9]") && input2TextView.getText().toString().matches("[0-9]"))
+            if (input1TV.getText().toString().matches("[0-9]") && input2TV.getText().toString().matches("[0-9]"))
                 //'?' 기호가 그대로 입력되는 문제 방지
                 if (result()) {
                     nextStage();

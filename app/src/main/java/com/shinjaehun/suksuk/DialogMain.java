@@ -38,7 +38,7 @@ public class DialogMain extends Dialog {
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProblemActivity.class);
                 intent.putExtra("operation", "multiply22");
-                intent.putExtra("today", currentRecords);
+                intent.putExtra("currentRecords", currentRecords);
                 context.startActivity(intent);
                 destroyDialog();
             }
@@ -51,7 +51,7 @@ public class DialogMain extends Dialog {
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProblemActivity.class);
                 intent.putExtra("operation", "multiply32");
-                intent.putExtra("today", currentRecords);
+                intent.putExtra("currentRecords", currentRecords);
 
                 context.startActivity(intent);
                 destroyDialog();
@@ -65,7 +65,7 @@ public class DialogMain extends Dialog {
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProblemActivity.class);
                 intent.putExtra("operation", "divide21");
-                intent.putExtra("today", currentRecords);
+                intent.putExtra("currentRecords", currentRecords);
 
                 context.startActivity(intent);
                 destroyDialog();
@@ -79,7 +79,7 @@ public class DialogMain extends Dialog {
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProblemActivity.class);
                 intent.putExtra("operation", "divide22");
-                intent.putExtra("today", currentRecords);
+                intent.putExtra("currentRecords", currentRecords);
 
                 context.startActivity(intent);
                 destroyDialog();
@@ -93,7 +93,7 @@ public class DialogMain extends Dialog {
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProblemActivity.class);
                 intent.putExtra("operation", "divide32");
-                intent.putExtra("today", currentRecords);
+                intent.putExtra("currentRecords", currentRecords);
 
                 context.startActivity(intent);
                 destroyDialog();
@@ -107,7 +107,7 @@ public class DialogMain extends Dialog {
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProblemActivity.class);
                 intent.putExtra("operation", "challenge");
-                intent.putExtra("today", currentRecords);
+                intent.putExtra("currentRecords", currentRecords);
 
                 context.startActivity(intent);
                 destroyDialog();

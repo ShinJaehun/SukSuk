@@ -1035,7 +1035,7 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/help"
+            android:id="@+id/helpBTN"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"

@@ -49,7 +49,7 @@ public class DrawingChartTask extends AsyncTask<Void, Void, List<ILineDataSet>> 
         asyncDialog.setMessage("차트를 준비합니다...");
         asyncDialog.show();
         super.onPreExecute();
-        Log.v("AsyncTask", "onPreExecute");
+//        Log.v("AsyncTask", "onPreExecute");
     }
 
 
@@ -94,12 +94,12 @@ public class DrawingChartTask extends AsyncTask<Void, Void, List<ILineDataSet>> 
 
             }
 
-            for (RecordMap rmot : recordMapList) {
-                Log.v(LOG_TAG, "Day " + rmot.getDay());
-                for (String operation : rmot.getRecordsMap().keySet()) {
-                    Log.v(LOG_TAG, "recordsMap " + operation + " : " + rmot.getRecordsMap().get(operation));
-                }
-            }
+//            for (RecordMap rmot : recordMapList) {
+//                Log.v(LOG_TAG, "Day " + rmot.getDay());
+//                for (String operation : rmot.getRecordsMap().keySet()) {
+//                    Log.v(LOG_TAG, "recordsMap " + operation + " : " + rmot.getRecordsMap().get(operation));
+//                }
+//            }
 
         } else {
             //여길 실행해버리면 문제가 있지... currentRecord를 DB에 저장했으니 records에는 최소한 currentRecord가 들어 있어야 한다.

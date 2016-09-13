@@ -75,13 +75,13 @@ public class DBHelper extends SQLiteOpenHelper {
             //DBHelper instance가 없을 때는 새로 DBHelper instance를 생성한다.
             instance = new DBHelper(context);
             try {
-                Log.i(TAG, "Create or Open database from initialize method : " + DATABASE_NAME);
+//                Log.i(TAG, "Create or Open database from initialize method : " + DATABASE_NAME);
                 //DBHelper로부터 쓰기 가능한 DB를 받아온다
                 db = instance.getWritableDatabase();
             } catch (SQLException se) {
                 Log.e(TAG, "Couldn't create or open the database : " + DATABASE_NAME);
             }
-            Log.i(TAG, "Instance of database " + DATABASE_NAME + " created!");
+//            Log.i(TAG, "Instance of database " + DATABASE_NAME + " created!");
         }
     }
 
@@ -96,7 +96,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void close() {
         if (instance != null) {
-            Log.i(TAG, "Closing the database " + DATABASE_NAME);
+//            Log.i(TAG, "Closing the database " + DATABASE_NAME);
             db.close();
             instance = null;
         }

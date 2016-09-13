@@ -26,28 +26,28 @@ public class Divide22Fragment extends ProblemFragment {
     private int divisorTen, divisorOne;
     private int quotientOne;
 
-    private View ans_first_line;
+    private View ansFirstLineV;
 
-    private TextView quotient_one;
+    private TextView quotientOneTV;
 
-    private TextView carrying_divisor_ten;
+    private TextView carryingDivisorTenTV;
 
-    private TextView divisor_ten, divisor_one;
+    private TextView divisorTenTV, divisorOneTV;
 
-    private TextView carrying_dividend_ten, carrying_dividend_one_10, carrying_dividend_one_1;
+    private TextView carryingDividendTenTV, carryingDividendOne10TV, carryingDividendOne1TV;
 
-    private ImageView dividend_ten_cover, dividend_one_cover;
+    private ImageView dividendTenCoverIV, dividendOneCoverIV;
 
-    private TextView dividend_ten, dividend_one;
-    private TextView first_multiply_ten, first_multiply_one;
-    private TextView remainder_ten, remainder_one;
+    private TextView dividendTenTV, dividendOneTV;
+    private TextView firstMultiplyTenTV, firstMultiplyOneTV;
+    private TextView remainderTenTV, remainderOneTV;
 
-//    private TextView operand1TextView, operand2TextView, operand3TextView, operand4TextView;
-//    private TextView input1TextView, input2TextView;
+//    private TextView operand1TV, operand2TV, operand3TV, operand4TV;
+//    private TextView input1TV, input2TV;
 //
-//    private ImageButton help;
+//    private ImageButton helpBTN;
 
-//    private ImageView currentMark;
+//    private ImageView currentMarkIV;
 
 //    //세개의 inputTextView 입력을 받기 위한 스위치
 //    private int inputEntry = 0;
@@ -82,51 +82,51 @@ public class Divide22Fragment extends ProblemFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_divide22, container, false);
 
-        quotient_one = (TextView)v.findViewById(R.id.quotient_one);
+        quotientOneTV = (TextView)v.findViewById(R.id.quotient_one);
 
-        carrying_divisor_ten = (TextView)v.findViewById(R.id.carrying_divisor_ten);
+        carryingDivisorTenTV = (TextView)v.findViewById(R.id.carrying_divisor_ten);
 
-        divisor_ten = (TextView)v.findViewById(R.id.divisor_ten);
-        divisor_one = (TextView)v.findViewById(R.id.divisor_one);
+        divisorTenTV = (TextView)v.findViewById(R.id.divisor_ten);
+        divisorOneTV = (TextView)v.findViewById(R.id.divisor_one);
 
-        carrying_dividend_ten = (TextView)v.findViewById(R.id.carrying_dividend_ten);
-        carrying_dividend_one_10 = (TextView)v.findViewById(R.id.carrying_dividend_one_10);
-        carrying_dividend_one_1 = (TextView)v.findViewById(R.id.carrying_dividend_one_1);
+        carryingDividendTenTV = (TextView)v.findViewById(R.id.carrying_dividend_ten);
+        carryingDividendOne10TV = (TextView)v.findViewById(R.id.carrying_dividend_one_10);
+        carryingDividendOne1TV = (TextView)v.findViewById(R.id.carrying_dividend_one_1);
 
-        dividend_ten_cover = (ImageView)v.findViewById(R.id.dividend_ten_cover);
-        dividend_one_cover = (ImageView)v.findViewById(R.id.dividend_one_cover);
+        dividendTenCoverIV = (ImageView)v.findViewById(R.id.dividend_ten_cover);
+        dividendOneCoverIV = (ImageView)v.findViewById(R.id.dividend_one_cover);
 
-        dividend_ten = (TextView)v.findViewById(R.id.dividend_ten);
-        dividend_one = (TextView)v.findViewById(R.id.dividend_one);
+        dividendTenTV = (TextView)v.findViewById(R.id.dividend_ten);
+        dividendOneTV = (TextView)v.findViewById(R.id.dividend_one);
 
-        first_multiply_ten = (TextView)v.findViewById(R.id.first_multiply_ten);
-        first_multiply_one = (TextView)v.findViewById(R.id.first_multiply_one);
+        firstMultiplyTenTV = (TextView)v.findViewById(R.id.first_multiply_ten);
+        firstMultiplyOneTV = (TextView)v.findViewById(R.id.first_multiply_one);
 
-        ans_first_line = (View)v.findViewById(R.id.ans_first_line);
+        ansFirstLineV = (View)v.findViewById(R.id.ans_first_line);
 
-        remainder_ten = (TextView)v.findViewById(R.id.remainder_ten);
-        remainder_one = (TextView)v.findViewById(R.id.remainder_one);
+        remainderTenTV = (TextView)v.findViewById(R.id.remainder_ten);
+        remainderOneTV = (TextView)v.findViewById(R.id.remainder_one);
 
-        help = (ImageButton) v.findViewById(R.id.help);
-        challengeCounter = (TextView)v.findViewById(R.id.challengeCounter);
+        helpBTN = (ImageButton) v.findViewById(R.id.help);
+        challengeCounterTV = (TextView)v.findViewById(R.id.challengeCounter);
 
         if(isChallenge == false) {
-            challengeCounter.setVisibility(View.GONE);
+            challengeCounterTV.setVisibility(View.GONE);
 
-            help.setOnClickListener(new Button.OnClickListener() {
+            helpBTN.setOnClickListener(new Button.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
-                    intent.putExtra("help", "divide22");
+                    intent.putExtra(operation, "divide22");
                     startActivity(intent);
                 }
             });
         } else {
-            Log.v(LOG_TAG, "challengeNumber : " + challengeNumber);
+//            Log.v(LOG_TAG, "challengeNumber : " + challengeNumber);
 
-            challengeCounter.setVisibility(View.VISIBLE);
-            challengeCounter.setText(String.valueOf(challengeNumber));
+            challengeCounterTV.setVisibility(View.VISIBLE);
+            challengeCounterTV.setText(String.valueOf(challengeNumber));
 
         }
 
@@ -175,93 +175,93 @@ public class Divide22Fragment extends ProblemFragment {
         quotientOne = quotient % 10;
 
         //피연산자 표시
-        dividend_ten.setText(String.valueOf(dividendTen));
-        dividend_one.setText(String.valueOf(dividendOne));
+        dividendTenTV.setText(String.valueOf(dividendTen));
+        dividendOneTV.setText(String.valueOf(dividendOne));
 
-        divisor_ten.setText(String.valueOf(divisorTen));
-        divisor_one.setText(String.valueOf(divisorOne));
+        divisorTenTV.setText(String.valueOf(divisorTen));
+        divisorOneTV.setText(String.valueOf(divisorOne));
 
     }
 
     public void nextStage() {
         currentStage += 1;
-        Log.v(LOG_TAG, "Current Stage : " + String.valueOf(currentStage));
+//        Log.v(LOG_TAG, "Current Stage : " + String.valueOf(currentStage));
 
         //currentStage에 따라 곱셈할 자리수, 곱셈 결과, 입력할 자리수 지정
         switch (currentStage) {
             case 1:
-                operand1TextView = divisor_ten;
-                operand2TextView = divisor_one;
-                operand3TextView = dividend_ten;
-                operand4TextView = dividend_one;
+                operand1TV = divisorTenTV;
+                operand2TV = divisorOneTV;
+                operand3TV = dividendTenTV;
+                operand4TV = dividendOneTV;
 
-                input1TextView = null;
-                input2TextView = quotient_one;
+                input1TV = null;
+                input2TV = quotientOneTV;
 
                 ans = quotientOne;
 
                 break;
 
             case 2:
-                operand1TextView = divisor_one;
-                operand2TextView = quotient_one;
-                operand3TextView = null;
-                operand4TextView = null;
+                operand1TV = divisorOneTV;
+                operand2TV = quotientOneTV;
+                operand3TV = null;
+                operand4TV = null;
 
                 ans = divisorOne * quotientOne;
 
                 if (ans < 10) {
                     //받아올림이 없으면 한 자리만 입력함
-                    input1TextView = null;
+                    input1TV = null;
                 } else {
-                    input1TextView = carrying_divisor_ten;
+                    input1TV = carryingDivisorTenTV;
                 }
-                input2TextView = first_multiply_one;
+                input2TV = firstMultiplyOneTV;
 
                 break;
 
             case 3:
-                operand1TextView = divisor_ten;
-                operand2TextView = quotient_one;
-                operand3TextView = null;
-                operand4TextView = null;
+                operand1TV = divisorTenTV;
+                operand2TV = quotientOneTV;
+                operand3TV = null;
+                operand4TV = null;
 
-//                ans_first_line.setBackgroundColor(Color.GRAY);
+//                ansFirstLineV.setBackgroundColor(Color.GRAY);
 
 //                ans = dividend - (divisor * quotientOne);
 
                 ans = divisorTen * quotientOne +
-                        Integer.parseInt(carrying_divisor_ten.getText().toString());
+                        Integer.parseInt(carryingDivisorTenTV.getText().toString());
 
-                input1TextView = null;
-                input2TextView = first_multiply_ten;
+                input1TV = null;
+                input2TV = firstMultiplyTenTV;
 
                 break;
 
             case 4:
                 //나누는 수 받아올림 삭제
-                carrying_divisor_ten.setText("0");
-                carrying_divisor_ten.setTextColor(Color.WHITE);
+                carryingDivisorTenTV.setText("0");
+                carryingDivisorTenTV.setTextColor(Color.WHITE);
 
-                if (dividendOne >= Integer.parseInt(first_multiply_one.getText().toString())) {
+                if (dividendOne >= Integer.parseInt(firstMultiplyOneTV.getText().toString())) {
                     //받아내림이 없다면
 
-                    operand1TextView = dividend_ten;
-                    operand2TextView = dividend_one;
-                    operand3TextView = first_multiply_ten;
-                    operand4TextView = first_multiply_one;
+                    operand1TV = dividendTenTV;
+                    operand2TV = dividendOneTV;
+                    operand3TV = firstMultiplyTenTV;
+                    operand4TV = firstMultiplyOneTV;
 
-                    ans_first_line.setVisibility(View.VISIBLE);
+                    ansFirstLineV.setVisibility(View.VISIBLE);
 
                     ans = dividend % divisor;
 
                     if (ans < 10) {
                         //뺄셈 결과 일의 자리라면 입력은 하나만
-                        input1TextView = null;
+                        input1TV = null;
                     } else {
-                        input1TextView = remainder_ten;
+                        input1TV = remainderTenTV;
                     }
-                    input2TextView = remainder_one;
+                    input2TV = remainderOneTV;
 
                     isFinal = true;
                     //뺄셈 후 연산 종료
@@ -269,16 +269,16 @@ public class Divide22Fragment extends ProblemFragment {
                 } else {
                     //받아내림이 있다면
 
-                    operand1TextView = dividend_ten;
-                    operand2TextView = null;
-                    operand3TextView = null;
-                    operand4TextView = null;
+                    operand1TV = dividendTenTV;
+                    operand2TV = null;
+                    operand3TV = null;
+                    operand4TV = null;
 
-                    currentMark = dividend_ten_cover;
+                    currentMarkIV = dividendTenCoverIV;
                     markSlashOn();
 
-                    input1TextView = null;
-                    input2TextView = carrying_dividend_ten;
+                    input1TV = null;
+                    input2TV = carryingDividendTenTV;
 
                     ans = dividendTen - 1;
 
@@ -287,61 +287,61 @@ public class Divide22Fragment extends ProblemFragment {
                 break;
 
             case 5:
-                operand1TextView = dividend_one;
-                operand2TextView = null;
-                operand3TextView = null;
-                operand4TextView = null;
+                operand1TV = dividendOneTV;
+                operand2TV = null;
+                operand3TV = null;
+                operand4TV = null;
 
-                currentMark = dividend_one_cover;
+                currentMarkIV = dividendOneCoverIV;
                 markSlashOn();
 
 //                if (ans < 10) {
 //                    //받아내림 결과가 10보다 작다면
-//                    input1TextView = null;
+//                    input1TV = null;
 //                } else {
-//                    input1TextView = carrying_dividend_ten;
+//                    input1TV = carryingDividendTenTV;
 //                }
 //                이게 필요 없는게 어차피 받아내림 결과가 10보다 클 거 아냐...
 
                 ans = dividendOne + 10;
 
-                input1TextView = carrying_dividend_one_10;
-                input2TextView = carrying_dividend_one_1;
+                input1TV = carryingDividendOne10TV;
+                input2TV = carryingDividendOne1TV;
 
                 break;
 
             case 6:
-                operand1TextView = carrying_dividend_one_10;
-                operand2TextView = carrying_dividend_one_1;
-                operand3TextView = first_multiply_one;
-                operand4TextView = null;
+                operand1TV = carryingDividendOne10TV;
+                operand2TV = carryingDividendOne1TV;
+                operand3TV = firstMultiplyOneTV;
+                operand4TV = null;
 
-                ans = Integer.parseInt(carrying_dividend_one_10.getText().toString()) * 10 +
-                    Integer.parseInt(carrying_dividend_one_1.getText().toString()) -
-                    Integer.parseInt(first_multiply_one.getText().toString());
+                ans = Integer.parseInt(carryingDividendOne10TV.getText().toString()) * 10 +
+                    Integer.parseInt(carryingDividendOne1TV.getText().toString()) -
+                    Integer.parseInt(firstMultiplyOneTV.getText().toString());
 
-                input1TextView = null;
-                input2TextView = remainder_one;
+                input1TV = null;
+                input2TV = remainderOneTV;
 
-                ans_first_line.setVisibility(View.VISIBLE);
+                ansFirstLineV.setVisibility(View.VISIBLE);
 
-                if (Integer.parseInt(carrying_dividend_ten.getText().toString()) -
-                        Integer.parseInt(first_multiply_ten.getText().toString()) == 0) {
+                if (Integer.parseInt(carryingDividendTenTV.getText().toString()) -
+                        Integer.parseInt(firstMultiplyTenTV.getText().toString()) == 0) {
                     //바로 앞 자리(받아내림하고 남은 십의 자리 - 두번째 곱셈 십의 자리)가 0인 경우, 연산 종료
                     isFinal = true;
                 }
                 break;
 
             case 7:
-                operand1TextView = carrying_dividend_ten;
-                operand2TextView = first_multiply_ten;
-                operand3TextView = null;
-                operand4TextView = null;
+                operand1TV = carryingDividendTenTV;
+                operand2TV = firstMultiplyTenTV;
+                operand3TV = null;
+                operand4TV = null;
 
                 ans = dividend % divisor / 10;
 
-                input1TextView = null;
-                input2TextView = remainder_ten;
+                input1TV = null;
+                input2TV = remainderTenTV;
 
                 isFinal = true;
 
@@ -353,36 +353,36 @@ public class Divide22Fragment extends ProblemFragment {
 
         markOperandAndInput();
 //        //곱셈할 각 자리수를 빨간색으로 표시
-//        if (operand1TextView != null) {
-//            operand1TextView.setTextColor(Color.RED);
+//        if (operand1TV != null) {
+//            operand1TV.setTextColor(Color.RED);
 //        }
-//        if (operand2TextView != null) {
-//            operand2TextView.setTextColor(Color.RED);
+//        if (operand2TV != null) {
+//            operand2TV.setTextColor(Color.RED);
 //        }
-//        if (operand3TextView != null) {
-//            operand3TextView.setTextColor(Color.RED);
+//        if (operand3TV != null) {
+//            operand3TV.setTextColor(Color.RED);
 //        }
-//        if (operand4TextView != null) {
-//            operand4TextView.setTextColor(Color.RED);
+//        if (operand4TV != null) {
+//            operand4TV.setTextColor(Color.RED);
 //        }
 //
 //        //입력할 텍스트 뷰를 임시로 'A'와 'B'로 표시
-//        if (input1TextView != null) {
-//            input1TextView.setText("?");
-//            input1TextView.setTextColor(Color.BLUE);
+//        if (input1TV != null) {
+//            input1TV.setText("?");
+//            input1TV.setTextColor(Color.BLUE);
 //        }
-//        if (input2TextView != null) {
-//            input2TextView.setText("?");
-//            input2TextView.setTextColor(Color.BLUE);
+//        if (input2TV != null) {
+//            input2TV.setText("?");
+//            input2TV.setTextColor(Color.BLUE);
 //        }
 //
-//        if (input1TextView != null && input2TextView != null) {
+//        if (input1TV != null && input2TV != null) {
 //            multiInput = true;
 //        } else {
 //            multiInput = false;
 //        }
 
-//        if (input1TextView != null) {
+//        if (input1TV != null) {
 //            inputEntry = 1;
 //        } else {
 //            inputEntry = 2;
@@ -393,9 +393,9 @@ public class Divide22Fragment extends ProblemFragment {
 //
 //        if (currentStage < 7) {
 //            //세 자리 수 중 하나가 0이거나 곱셈 결과가 받아올림이 없는 경우
-//            if (Integer.parseInt(operand1TextView.getText().toString()) == 0 || ans < 10) {
-//                input1TextView.setText("0");
-//                input1TextView.setTextColor(Color.WHITE);
+//            if (Integer.parseInt(operand1TV.getText().toString()) == 0 || ans < 10) {
+//                input1TV.setText("0");
+//                input1TV.setTextColor(Color.WHITE);
 //                zeroCarrying = true;
 //            } else {
 //                zeroCarrying = false;
@@ -403,9 +403,9 @@ public class Divide22Fragment extends ProblemFragment {
 //        } else {
 //            //곱셈 결과를 더하는 과정에서 받아올림이 없는 경우
 //            if (ans < 10) {
-//                if (input1TextView != null) {
-//                    input1TextView.setText("0");
-//                    input1TextView.setTextColor(Color.WHITE);
+//                if (input1TV != null) {
+//                    input1TV.setText("0");
+//                    input1TV.setTextColor(Color.WHITE);
 //                }
 //                //carrying = false;
 //                zeroCarrying = true;
@@ -416,13 +416,13 @@ public class Divide22Fragment extends ProblemFragment {
     }
 
 //    private void markSlashOn() {
-//        currentMark.setVisibility(View.VISIBLE);
-//        currentMark.setImageResource(R.drawable.slash_red);
+//        currentMarkIV.setVisibility(View.VISIBLE);
+//        currentMarkIV.setImageResource(R.drawable.slash_red);
 //    }
 //
 //    private void markSlashOff() {
-//        currentMark.setImageResource(R.drawable.slash_gray);
-//        currentMark = null;
+//        currentMarkIV.setImageResource(R.drawable.slash_gray);
+//        currentMarkIV = null;
 //    }
 //
 //    private boolean result() {
@@ -431,11 +431,11 @@ public class Divide22Fragment extends ProblemFragment {
 //        Log.v(LOG_TAG, "ans : " + ans);
 //
 //        //temp1에 사용자의 첫번째 입력 값 저장
-//        if (input1TextView == null) {
+//        if (input1TV == null) {
 //            temp1 = 0;
 //        } else {
 //            try {
-//                temp1 = Integer.parseInt(input1TextView.getText().toString());
+//                temp1 = Integer.parseInt(input1TV.getText().toString());
 //                Log.v(LOG_TAG, "temp1 : " + String.valueOf(temp1));
 //            } catch (NumberFormatException nfe) {
 //                nfe.printStackTrace();
@@ -443,11 +443,11 @@ public class Divide22Fragment extends ProblemFragment {
 //        }
 //
 //        //temp2에 사용자의 두번째 입력 값 저장
-//        if (input2TextView == null) {
+//        if (input2TV == null) {
 //            temp2 = 0;
 //        } else {
 //            try {
-//                temp2 = Integer.parseInt(input2TextView.getText().toString());
+//                temp2 = Integer.parseInt(input2TV.getText().toString());
 //                Log.v(LOG_TAG, "temp2 : " + String.valueOf(temp2));
 //            } catch (NumberFormatException nfe) {
 //                nfe.printStackTrace();
@@ -466,14 +466,14 @@ public class Divide22Fragment extends ProblemFragment {
 ////        } else {
 ////
 ////            //사용자가 입력한 값을 temp에 저장
-////            if (input2TextView == null) {
+////            if (input2TV == null) {
 ////                temp = temp1;
 //////                try {
-//////                    temp = Integer.parseInt(input1TextView.getText().toString());
+//////                    temp = Integer.parseInt(input1TV.getText().toString());
 //////                    Log.v(LOG_TAG, "ans : " + String.valueOf(ans));
 //////                    Log.v(LOG_TAG, "temp : " + String.valueOf(temp));
 //////                } catch (NumberFormatException nfe) {
-//////                    return wrongAnswer(input1TextView.getText().toString());
+//////                    return wrongAnswer(input1TV.getText().toString());
 //////                }
 ////            } else {
 ////                temp = temp1 * 10 + temp2;
@@ -489,29 +489,29 @@ public class Divide22Fragment extends ProblemFragment {
 ////            toast.show();
 //
 //            //연산했던 자리수를 다시 회색으로 되돌리기
-//            if (operand1TextView != null) {
-//                operand1TextView.setTextColor(Color.GRAY);
+//            if (operand1TV != null) {
+//                operand1TV.setTextColor(Color.GRAY);
 //            }
-//            if (operand2TextView != null) {
-//                operand2TextView.setTextColor(Color.GRAY);
+//            if (operand2TV != null) {
+//                operand2TV.setTextColor(Color.GRAY);
 //            }
-//            if (operand3TextView != null) {
-//                operand3TextView.setTextColor(Color.GRAY);
+//            if (operand3TV != null) {
+//                operand3TV.setTextColor(Color.GRAY);
 //            }
-//            if (operand4TextView != null) {
-//                operand4TextView.setTextColor(Color.GRAY);
+//            if (operand4TV != null) {
+//                operand4TV.setTextColor(Color.GRAY);
 //            }
 //
 //            //입력했던 내용 회색으로 되돌리기
-//            if (input1TextView != null) {
-//                input1TextView.setTextColor(Color.GRAY);
+//            if (input1TV != null) {
+//                input1TV.setTextColor(Color.GRAY);
 //            }
-//            if (input2TextView != null) {
-//                input2TextView.setTextColor(Color.GRAY);
+//            if (input2TV != null) {
+//                input2TV.setTextColor(Color.GRAY);
 //            }
 //
 //            //받아내림 표시 회색으로 되돌리기
-//            if (currentMark != null) {
+//            if (currentMarkIV != null) {
 //                markSlashOff();
 //            }
 //
@@ -534,13 +534,13 @@ public class Divide22Fragment extends ProblemFragment {
 //            flashText(false);
 //
 //            //inputTV 다시 원위치
-//            if (input1TextView != null) {
-//                input1TextView.setText("?");
-//                input1TextView.setTextColor(Color.BLUE);
+//            if (input1TV != null) {
+//                input1TV.setText("?");
+//                input1TV.setTextColor(Color.BLUE);
 //            }
-//            if (input2TextView != null) {
-//                input2TextView.setText("?");
-//                input2TextView.setTextColor(Color.BLUE);
+//            if (input2TV != null) {
+//                input2TV.setText("?");
+//                input2TV.setTextColor(Color.BLUE);
 //            }
 //            return false;
 //
@@ -568,37 +568,37 @@ public class Divide22Fragment extends ProblemFragment {
 //    }
 
 //    private void initNumbers() {
-////        if (operand1TextView != null) {
-////            operand1TextView.setTextColor(Color.GRAY);
+////        if (operand1TV != null) {
+////            operand1TV.setTextColor(Color.GRAY);
 ////        }
-////        if (operand2TextView != null) {
-////            operand2TextView.setTextColor(Color.GRAY);
+////        if (operand2TV != null) {
+////            operand2TV.setTextColor(Color.GRAY);
 ////        }
-////        if (operand3TextView != null) {
-////            operand3TextView.setTextColor(Color.GRAY);
+////        if (operand3TV != null) {
+////            operand3TV.setTextColor(Color.GRAY);
 ////        }
 //
 //
-//        divisor_ten.setTextColor(Color.GRAY);
-//        divisor_one.setTextColor(Color.GRAY);
+//        divisorTenTV.setTextColor(Color.GRAY);
+//        divisorOneTV.setTextColor(Color.GRAY);
 //
-//        dividend_ten.setTextColor(Color.GRAY);
-//        dividend_one.setTextColor(Color.GRAY);
+//        dividendTenTV.setTextColor(Color.GRAY);
+//        dividendOneTV.setTextColor(Color.GRAY);
 //
-//        quotient_one.setText(String.valueOf("0"));
-//        quotient_one.setTextColor(Color.WHITE);
+//        quotientOneTV.setText(String.valueOf("0"));
+//        quotientOneTV.setTextColor(Color.WHITE);
 //
-//        first_multiply_ten.setText(String.valueOf("0"));
-//        first_multiply_ten.setTextColor(Color.WHITE);
-//        first_multiply_one.setText(String.valueOf("0"));
-//        first_multiply_one.setTextColor(Color.WHITE);
+//        firstMultiplyTenTV.setText(String.valueOf("0"));
+//        firstMultiplyTenTV.setTextColor(Color.WHITE);
+//        firstMultiplyOneTV.setText(String.valueOf("0"));
+//        firstMultiplyOneTV.setTextColor(Color.WHITE);
 //
-//        ans_first_line.setBackgroundColor(Color.WHITE);
+//        ansFirstLineV.setBackgroundColor(Color.WHITE);
 //
-//        remainder_ten.setText(String.valueOf("0"));
-//        remainder_ten.setTextColor(Color.WHITE);
-//        remainder_one.setText(String.valueOf("0"));
-//        remainder_one.setTextColor(Color.WHITE);
+//        remainderTenTV.setText(String.valueOf("0"));
+//        remainderTenTV.setTextColor(Color.WHITE);
+//        remainderOneTV.setText(String.valueOf("0"));
+//        remainderOneTV.setTextColor(Color.WHITE);
 //    }
 
 //    @Override
@@ -607,13 +607,13 @@ public class Divide22Fragment extends ProblemFragment {
 ////            case 1:
 ////                switch (inputEntry) {
 ////                    case 1:
-////                        if (input1TextView != null) {
-////                            input1TextView.setText(String.valueOf(number));
+////                        if (input1TV != null) {
+////                            input1TV.setText(String.valueOf(number));
 ////                        }
 ////                        inputNext = 2;
 ////                        break;
 ////                    case 2:
-////                        input2TextView.setText(String.valueOf(number));
+////                        input2TV.setText(String.valueOf(number));
 ////                        inputNext = 1;
 ////                        break;
 ////                    default:
@@ -623,8 +623,8 @@ public class Divide22Fragment extends ProblemFragment {
 ////            case 2:
 ////                switch (inputEntry) {
 ////                    case 1:
-////                        if (input2TextView != null) {
-////                            input2TextView.setText(String.valueOf(number));
+////                        if (input2TV != null) {
+////                            input2TV.setText(String.valueOf(number));
 ////                        }
 ////                        inputNext = 1;
 ////                        break;
@@ -637,20 +637,20 @@ public class Divide22Fragment extends ProblemFragment {
 ////
 ////        }
 //        if (!multiInput) {
-//            if (input2TextView != null) {
-//                input2TextView.setText(String.valueOf(number));
+//            if (input2TV != null) {
+//                input2TV.setText(String.valueOf(number));
 //            }
 //        } else {
 //            //사용자 입력 처리 : 첫번째 입력인 경우 input1TextView에 값을 입력함
 //            if (carrying) {
-//                if (input1TextView != null) {
-//                    input1TextView.setText(String.valueOf(number));
+//                if (input1TV != null) {
+//                    input1TV.setText(String.valueOf(number));
 //                }
 //                carrying = false;
 //            } else {
 //                //두번째 입력인 경우 input2TextView에 값을 입력함
-//                if (input2TextView != null) {
-//                    input2TextView.setText(String.valueOf(number));
+//                if (input2TV != null) {
+//                    input2TV.setText(String.valueOf(number));
 //                }
 //                carrying = true;
 //            }
@@ -666,25 +666,25 @@ public class Divide22Fragment extends ProblemFragment {
 ////        inputNext = 1;
 //
 //        //사용자가 입력할 텍스트 뷰를 다시 'A'와 'B'로 되돌림
-//        if (input1TextView != null) {
-//            input1TextView.setText("?");
-//            input1TextView.setTextColor(Color.BLUE);
+//        if (input1TV != null) {
+//            input1TV.setText("?");
+//            input1TV.setTextColor(Color.BLUE);
 //        }
-//        if (input2TextView != null) {
-//            input2TextView.setText("?");
-//            input2TextView.setTextColor(Color.BLUE);
+//        if (input2TV != null) {
+//            input2TV.setText("?");
+//            input2TV.setTextColor(Color.BLUE);
 //        }
 //        carrying = true;
 //    }
 //
 //    public void onOKClicked() {
-//        if (input1TextView == null) {
-//            if (input2TextView.getText().toString().matches("[0-9]")) {
+//        if (input1TV == null) {
+//            if (input2TV.getText().toString().matches("[0-9]")) {
 //                if (result()) {
 //                    nextStage();
 //                }            }
 //        } else {
-//            if (input1TextView.getText().toString().matches("[0-9]") && input2TextView.getText().toString().matches("[0-9]"))
+//            if (input1TV.getText().toString().matches("[0-9]") && input2TV.getText().toString().matches("[0-9]"))
 //                if (result()) {
 //                    nextStage();
 //                }        }

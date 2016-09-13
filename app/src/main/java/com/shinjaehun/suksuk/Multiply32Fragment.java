@@ -1,10 +1,8 @@
 package com.shinjaehun.suksuk;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,20 +23,20 @@ public class Multiply32Fragment extends ProblemFragment {
     private int topHundred, topTen, topOne;
     private int downTen, downOne;
 
-    private View ans_line;
+    private View ansLineV;
 
-    private TextView top_hundred, top_ten, top_one;
-    private TextView down_ten, down_one;
+    private TextView topHundredTV, topTenTV, topOneTV;
+    private TextView downTenTV, downOneTV;
 
-    private TextView carrying_hundred, carrying_ten;
-    private TextView ans_carrying_tenthousand, ans_carrying_thousand, ans_carrying_hundred;
-    private TextView ans_top_one, ans_top_ten, ans_top_hundred, ans_top_thousand;
-    private TextView ans_down_one, ans_down_ten, ans_down_hundred, ans_down_thousand;
-    private TextView ans_one, ans_ten, ans_hundred, ans_thousand, ans_tenthousand;
+    private TextView carryingHundredTV, carryingTenTV;
+    private TextView ansCarryingTenThousandTV, ansCarryingThousandTV, ansCarryingHundredTV;
+    private TextView ansTopOneTV, ansTopTenTV, ansTopHundredTV, ansTopThousandTV;
+    private TextView ansDownOneTV, ansDownTenTV, ansDownHundredTV, ansDownThousandTV;
+    private TextView ansOneTV, ansTenTV, ansHundredTV, ansThousandTV, ansTenThousandTV;
 
-//    private TextView operand1TextView, operand2TextView, input1TextView, input2TextView;
+//    private TextView operand1TV, operand2TV, input1TV, input2TV;
 //
-//    private ImageButton help;
+//    private ImageButton helpBTN;
 
 //    //곱셈 결과를 입력할 순서 저장
 //    private boolean carrying = true;
@@ -69,59 +67,58 @@ public class Multiply32Fragment extends ProblemFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_multiply32, container, false);
 
-        carrying_hundred = (TextView)v.findViewById(R.id.carrying_hundred);
-        carrying_ten = (TextView)v.findViewById(R.id.carrying_ten);
+        carryingHundredTV = (TextView)v.findViewById(R.id.carrying_hundred);
+        carryingTenTV = (TextView)v.findViewById(R.id.carrying_ten);
 
-        top_hundred = (TextView)v.findViewById(R.id.top_hundred);
-        top_ten = (TextView)v.findViewById(R.id.top_ten);
-        top_one = (TextView)v.findViewById(R.id.top_one);
+        topHundredTV = (TextView)v.findViewById(R.id.top_hundred);
+        topTenTV = (TextView)v.findViewById(R.id.top_ten);
+        topOneTV = (TextView)v.findViewById(R.id.top_one);
 
-        down_ten = (TextView)v.findViewById(R.id.down_ten);
-        down_one = (TextView)v.findViewById(R.id.down_one);
+        downTenTV = (TextView)v.findViewById(R.id.down_ten);
+        downOneTV = (TextView)v.findViewById(R.id.down_one);
 
-        ans_carrying_tenthousand = (TextView)v.findViewById(R.id.ans_carrying_tenthousand);
-        ans_carrying_thousand = (TextView)v.findViewById(R.id.ans_carrying_thousand);
-        ans_carrying_hundred = (TextView)v.findViewById(R.id.ans_carrying_hundred);
+        ansCarryingTenThousandTV = (TextView)v.findViewById(R.id.ans_carrying_tenthousand);
+        ansCarryingThousandTV = (TextView)v.findViewById(R.id.ans_carrying_thousand);
+        ansCarryingHundredTV = (TextView)v.findViewById(R.id.ans_carrying_hundred);
 
-        ans_top_one = (TextView)v.findViewById(R.id.ans_top_oen);
-        ans_top_ten = (TextView)v.findViewById(R.id.ans_top_ten);
-        ans_top_hundred = (TextView)v.findViewById(R.id.ans_top_hundred);
-        ans_top_thousand = (TextView)v.findViewById(R.id.ans_top_thousand);
+        ansTopOneTV = (TextView)v.findViewById(R.id.ans_top_oen);
+        ansTopTenTV = (TextView)v.findViewById(R.id.ans_top_ten);
+        ansTopHundredTV = (TextView)v.findViewById(R.id.ans_top_hundred);
+        ansTopThousandTV = (TextView)v.findViewById(R.id.ans_top_thousand);
 
-        ans_down_one = (TextView)v.findViewById(R.id.ans_down_one);
-        ans_down_ten = (TextView)v.findViewById(R.id.ans_down_ten);
-        ans_down_hundred = (TextView)v.findViewById(R.id.ans_down_hundred);
-        ans_down_thousand = (TextView)v.findViewById(R.id.ans_down_thousand);
+        ansDownOneTV = (TextView)v.findViewById(R.id.ans_down_one);
+        ansDownTenTV = (TextView)v.findViewById(R.id.ans_down_ten);
+        ansDownHundredTV = (TextView)v.findViewById(R.id.ans_down_hundred);
+        ansDownThousandTV = (TextView)v.findViewById(R.id.ans_down_thousand);
 
-        ans_line = (View)v.findViewById(R.id.ans_line);
+        ansLineV = (View)v.findViewById(R.id.ans_line);
 
-        ans_one = (TextView)v.findViewById(R.id.ans_one);
-        ans_ten = (TextView)v.findViewById(R.id.ans_ten);
-        ans_hundred = (TextView)v.findViewById(R.id.ans_hundred);
-        ans_thousand = (TextView)v.findViewById(R.id.ans_thousand);
-        ans_tenthousand = (TextView)v.findViewById(R.id.ans_tenthousand);
+        ansOneTV = (TextView)v.findViewById(R.id.ans_one);
+        ansTenTV = (TextView)v.findViewById(R.id.ans_ten);
+        ansHundredTV = (TextView)v.findViewById(R.id.ans_hundred);
+        ansThousandTV = (TextView)v.findViewById(R.id.ans_thousand);
+        ansTenThousandTV = (TextView)v.findViewById(R.id.ans_tenthousand);
 
-        help = (ImageButton) v.findViewById(R.id.help);
-        challengeCounter = (TextView)v.findViewById(R.id.challengeCounter);
+        helpBTN = (ImageButton) v.findViewById(R.id.help);
+        challengeCounterTV = (TextView)v.findViewById(R.id.challengeCounter);
 
         if (isChallenge == false) {
-            challengeCounter.setVisibility(View.GONE);
+            challengeCounterTV.setVisibility(View.GONE);
 
-            help.setOnClickListener(new Button.OnClickListener() {
+            helpBTN.setOnClickListener(new Button.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
-                    intent.putExtra("help", "multiply32");
+                    intent.putExtra(operation, "multiply32");
                     startActivity(intent);
                 }
             });
         } else {
-            Log.v(LOG_TAG, "challengeNumber : " + challengeNumber);
+//            Log.v(LOG_TAG, "challengeNumber : " + challengeNumber);
 
-
-            challengeCounter.setVisibility(View.VISIBLE);
-            challengeCounter.setText(String.valueOf(challengeNumber));
+            challengeCounterTV.setVisibility(View.VISIBLE);
+            challengeCounterTV.setText(String.valueOf(challengeNumber));
 
         }
         return v;
@@ -150,218 +147,218 @@ public class Multiply32Fragment extends ProblemFragment {
         downOne = down % 10;
 
         //피연산자 표시
-        top_hundred.setText(String.valueOf(topHundred));
-        top_ten.setText(String.valueOf(topTen));
-        top_one.setText(String.valueOf(topOne));
+        topHundredTV.setText(String.valueOf(topHundred));
+        topTenTV.setText(String.valueOf(topTen));
+        topOneTV.setText(String.valueOf(topOne));
 
-        down_ten.setText(String.valueOf(downTen));
-        down_one.setText(String.valueOf(downOne));
+        downTenTV.setText(String.valueOf(downTen));
+        downOneTV.setText(String.valueOf(downOne));
     }
 
     public void nextStage() {
         currentStage += 1;
-        Log.v(LOG_TAG, "Current Stage : " + String.valueOf(currentStage));
+//        Log.v(LOG_TAG, "Current Stage : " + String.valueOf(currentStage));
 
         //currentStage에 따라 곱셈할 자리수, 곱셈 결과, 입력할 자리수 지정
         switch (currentStage) {
             case 1:
-                operand1TextView = top_one;
-                operand2TextView = down_one;
+                operand1TV = topOneTV;
+                operand2TV = downOneTV;
                 ans = topOne * downOne;
 
                 if (ans < 10) {
                     //받아올림이 없으면 입력은 하나만...
-                    input1TextView = null;
+                    input1TV = null;
                 } else {
-                    input1TextView = carrying_ten;
+                    input1TV = carryingTenTV;
                 }
-                input2TextView = ans_top_one;
+                input2TV = ansTopOneTV;
                 break;
 
             case 2:
-                operand1TextView = top_ten;
-                operand2TextView = down_one;
-                ans = topTen * downOne + Integer.parseInt(carrying_ten.getText().toString());
+                operand1TV = topTenTV;
+                operand2TV = downOneTV;
+                ans = topTen * downOne + Integer.parseInt(carryingTenTV.getText().toString());
 
                 if (ans < 10) {
                     //받아올림이 없으면 입력은 하나만...
-                    input1TextView = null;
+                    input1TV = null;
                 } else {
-                    input1TextView = carrying_hundred;
+                    input1TV = carryingHundredTV;
                 }
-                input2TextView = ans_top_ten;
+                input2TV = ansTopTenTV;
                 break;
 
             case 3:
-                operand1TextView = top_hundred;
-                operand2TextView = down_one;
-                ans = topHundred * downOne + Integer.parseInt(carrying_hundred.getText().toString());
+                operand1TV = topHundredTV;
+                operand2TV = downOneTV;
+                ans = topHundred * downOne + Integer.parseInt(carryingHundredTV.getText().toString());
 
                 if (ans < 10) {
                     //곱셈 결과가 백의 자리 밖에 되지 않는다면 입력은 하나만...
-                    input1TextView = null;
+                    input1TV = null;
                 } else {
-                    input1TextView = ans_top_thousand;
+                    input1TV = ansTopThousandTV;
                 }
 
-                input2TextView = ans_top_hundred;
+                input2TV = ansTopHundredTV;
                 break;
 
             case 4:
                 //십의 자리 곱셈을 하기 전 받아올림 내용을 삭제
-                carrying_hundred.setText("0");
-                carrying_hundred.setTextColor(Color.WHITE);
-                carrying_ten.setText("0");
-                carrying_ten.setTextColor(Color.WHITE);
+                carryingHundredTV.setText("0");
+                carryingHundredTV.setTextColor(Color.WHITE);
+                carryingTenTV.setText("0");
+                carryingTenTV.setTextColor(Color.WHITE);
 
                 //곱셈 결과를 천의 자리가 0이면 지우기
-                if (Integer.parseInt(ans_top_thousand.getText().toString()) == 0) {
-                    ans_top_thousand.setTextColor(Color.WHITE);
+                if (Integer.parseInt(ansTopThousandTV.getText().toString()) == 0) {
+                    ansTopThousandTV.setTextColor(Color.WHITE);
                 }
 //                else {
-//                    ans_top_thousand.setTextColor(Color.GRAY);
+//                    ansTopThousandTV.setTextColor(Color.GRAY);
 //                }
-//                ans_top_hundred.setTextColor(Color.GRAY);
-//                ans_top_ten.setTextColor(Color.GRAY);
-//                ans_top_one.setTextColor(Color.GRAY);
+//                ansTopHundredTV.setTextColor(Color.GRAY);
+//                ansTopTenTV.setTextColor(Color.GRAY);
+//                ansTopOneTV.setTextColor(Color.GRAY);
 
-                operand1TextView = top_one;
-                operand2TextView = down_ten;
+                operand1TV = topOneTV;
+                operand2TV = downTenTV;
                 ans = topOne * downTen;
 
                 if (ans < 10) {
                     //받아올림이 없으면 입력은 하나만...
-                    input1TextView = null;
+                    input1TV = null;
                 } else {
-                    input1TextView = carrying_ten;
+                    input1TV = carryingTenTV;
                 }
-                input2TextView = ans_down_one;
+                input2TV = ansDownOneTV;
                 break;
 
             case 5:
-                operand1TextView = top_ten;
-                operand2TextView = down_ten;
-                ans = topTen * downTen + Integer.parseInt(carrying_ten.getText().toString());
+                operand1TV = topTenTV;
+                operand2TV = downTenTV;
+                ans = topTen * downTen + Integer.parseInt(carryingTenTV.getText().toString());
 
                 if (ans < 10) {
                     //받아올림이 없으면 입력은 하나만...
-                    input1TextView = null;
+                    input1TV = null;
                 } else {
-                    input1TextView = carrying_hundred;
+                    input1TV = carryingHundredTV;
                 }
-                input2TextView = ans_down_ten;
+                input2TV = ansDownTenTV;
                 break;
 
             case 6:
-                operand1TextView = top_hundred;
-                operand2TextView = down_ten;
-                ans = topHundred * downTen + Integer.parseInt(carrying_hundred.getText().toString());
+                operand1TV = topHundredTV;
+                operand2TV = downTenTV;
+                ans = topHundred * downTen + Integer.parseInt(carryingHundredTV.getText().toString());
 
                 if (ans < 10) {
                     //곱셈 결과 백의 자리 밖에 되지 않는다면 입력은 하나만
-                    input1TextView = null;
+                    input1TV = null;
                 } else {
-                    input1TextView = ans_down_thousand;
+                    input1TV = ansDownThousandTV;
                 }
-                input2TextView = ans_down_hundred;
+                input2TV = ansDownHundredTV;
                 break;
 
             case 7:
                 //곱셈 결과를 더하기 전에 받아올림 내용을 삭제
-                carrying_hundred.setText("0");
-                carrying_hundred.setTextColor(Color.WHITE);
-                carrying_ten.setText("0");
-                carrying_ten.setTextColor(Color.WHITE);
+                carryingHundredTV.setText("0");
+                carryingHundredTV.setTextColor(Color.WHITE);
+                carryingTenTV.setText("0");
+                carryingTenTV.setTextColor(Color.WHITE);
 
                 //곱셈 결과를 천의 자리가 0이면 지우기
-                if (Integer.parseInt(ans_down_thousand.getText().toString()) == 0) {
-                    ans_down_thousand.setTextColor(Color.WHITE);
+                if (Integer.parseInt(ansDownThousandTV.getText().toString()) == 0) {
+                    ansDownThousandTV.setTextColor(Color.WHITE);
                 }
 //                else {
-//                    ans_down_thousand.setTextColor(Color.GRAY);
+//                    ansDownThousandTV.setTextColor(Color.GRAY);
 //                }
-//                ans_down_hundred.setTextColor(Color.GRAY);
-//                ans_down_ten.setTextColor(Color.GRAY);
-//                ans_down_one.setTextColor(Color.GRAY);
+//                ansDownHundredTV.setTextColor(Color.GRAY);
+//                ansDownTenTV.setTextColor(Color.GRAY);
+//                ansDownOneTV.setTextColor(Color.GRAY);
 
                 //곱셈 결과를 더하기 전에 아래 선 긋기
-                ans_line.setBackgroundColor(Color.GRAY);
+                ansLineV.setBackgroundColor(Color.GRAY);
 
-                operand1TextView = ans_top_one;
-                operand2TextView = null;
-                ans = Integer.parseInt(ans_top_one.getText().toString());
-                input1TextView = null;
-                input2TextView = ans_one;
+                operand1TV = ansTopOneTV;
+                operand2TV = null;
+                ans = Integer.parseInt(ansTopOneTV.getText().toString());
+                input1TV = null;
+                input2TV = ansOneTV;
                 break;
 
             case 8:
-                operand1TextView = ans_top_ten;
-                operand2TextView = ans_down_one;
-                ans = Integer.parseInt(ans_top_ten.getText().toString())
-                        + Integer.parseInt(ans_down_one.getText().toString());
+                operand1TV = ansTopTenTV;
+                operand2TV = ansDownOneTV;
+                ans = Integer.parseInt(ansTopTenTV.getText().toString())
+                        + Integer.parseInt(ansDownOneTV.getText().toString());
 
                 if (ans < 10) {
                     //받아올림이 없는 경우 입력은 하나만...
-                    input1TextView = null;
+                    input1TV = null;
                 } else {
-                    input1TextView = ans_carrying_hundred;
+                    input1TV = ansCarryingHundredTV;
                 }
-                input2TextView = ans_ten;
+                input2TV = ansTenTV;
                 break;
 
             case 9:
-                operand1TextView = ans_top_hundred;
-                operand2TextView = ans_down_ten;
-                ans = Integer.parseInt(ans_top_hundred.getText().toString())
-                        + Integer.parseInt(ans_down_ten.getText().toString())
-                        + Integer.parseInt(ans_carrying_hundred.getText().toString());
+                operand1TV = ansTopHundredTV;
+                operand2TV = ansDownTenTV;
+                ans = Integer.parseInt(ansTopHundredTV.getText().toString())
+                        + Integer.parseInt(ansDownTenTV.getText().toString())
+                        + Integer.parseInt(ansCarryingHundredTV.getText().toString());
 
                 if (ans < 10) {
                     //덧셈 결과 받아올림이 없으면 입력은 하나만...
-                    input1TextView = null;
+                    input1TV = null;
                 } else {
-                    input1TextView = ans_carrying_thousand;
+                    input1TV = ansCarryingThousandTV;
                 }
-                input2TextView = ans_hundred;
+                input2TV = ansHundredTV;
                 break;
 
             case 10:
-                if (Integer.parseInt(ans_top_thousand.getText().toString()) == 0) {
-                    operand1TextView = null;
+                if (Integer.parseInt(ansTopThousandTV.getText().toString()) == 0) {
+                    operand1TV = null;
                 } else {
-                    operand1TextView = ans_top_thousand;
+                    operand1TV = ansTopThousandTV;
                 }
-                operand2TextView = ans_down_hundred;
-                ans = Integer.parseInt(ans_top_thousand.getText().toString())
-                        + Integer.parseInt(ans_down_hundred.getText().toString())
-                        + Integer.parseInt(ans_carrying_thousand.getText().toString());
+                operand2TV = ansDownHundredTV;
+                ans = Integer.parseInt(ansTopThousandTV.getText().toString())
+                        + Integer.parseInt(ansDownHundredTV.getText().toString())
+                        + Integer.parseInt(ansCarryingThousandTV.getText().toString());
 
                 if (ans < 10) {
                     //덧셈 결과 받아올림이 없으면 입력은 하나만...
-                    input1TextView = null;
+                    input1TV = null;
 
-                    if (Integer.parseInt(ans_down_thousand.getText().toString()) == 0) {
+                    if (Integer.parseInt(ansDownThousandTV.getText().toString()) == 0) {
                         //받아올림이 없고 두번째 곱셈 결과 천의 자리가 0이면 여기서 연산 종료
                         isFinal = true;
                     }
                 } else {
-                    input1TextView = ans_carrying_tenthousand;
+                    input1TV = ansCarryingTenThousandTV;
                 }
-                input2TextView = ans_thousand;
+                input2TV = ansThousandTV;
                 break;
 
             case 11:
-                operand1TextView = null;
+                operand1TV = null;
                 //두번째 곱셈 결과 천의 자리가 0이면 두번째 곱셈 결과 천의 자리 '0'을 붉게 표시하지 않는다.
-                if (Integer.parseInt(ans_down_thousand.getText().toString()) == 0) {
-                    operand2TextView = null;
+                if (Integer.parseInt(ansDownThousandTV.getText().toString()) == 0) {
+                    operand2TV = null;
                 } else {
-                    operand2TextView = ans_down_thousand;
+                    operand2TV = ansDownThousandTV;
                 }
-                ans = Integer.parseInt(ans_down_thousand.getText().toString())
-                        + Integer.parseInt(ans_carrying_tenthousand.getText().toString());
-                input1TextView = null;
-                input2TextView = ans_tenthousand;
+                ans = Integer.parseInt(ansDownThousandTV.getText().toString())
+                        + Integer.parseInt(ansCarryingTenThousandTV.getText().toString());
+                input1TV = null;
+                input2TV = ansTenThousandTV;
                 isFinal = true;
                 break;
 
@@ -372,24 +369,24 @@ public class Multiply32Fragment extends ProblemFragment {
         markOperandAndInput();
 
 //        //곱셈할 각 자리수를 빨간색으로 표시
-//        if (operand1TextView != null) {
-//            operand1TextView.setTextColor(Color.RED);
+//        if (operand1TV != null) {
+//            operand1TV.setTextColor(Color.RED);
 //        }
-//        if (operand2TextView != null) {
-//            operand2TextView.setTextColor(Color.RED);
+//        if (operand2TV != null) {
+//            operand2TV.setTextColor(Color.RED);
 //        }
 //
 //        //입력할 텍스트 뷰를 임시로 'A'와 'B'로 표시
-//        if (input1TextView != null) {
-//            input1TextView.setText("?");
-//            input1TextView.setTextColor(Color.BLUE);
+//        if (input1TV != null) {
+//            input1TV.setText("?");
+//            input1TV.setTextColor(Color.BLUE);
 //        }
-//        if (input2TextView != null) {
-//            input2TextView.setText("?");
-//            input2TextView.setTextColor(Color.BLUE);
+//        if (input2TV != null) {
+//            input2TV.setText("?");
+//            input2TV.setTextColor(Color.BLUE);
 //        }
 //
-//        if (input1TextView != null && input2TextView != null) {
+//        if (input1TV != null && input2TV != null) {
 //            multiInput = true;
 //        } else {
 //            multiInput = false;
@@ -397,9 +394,9 @@ public class Multiply32Fragment extends ProblemFragment {
 
 //        if (currentStage < 7) {
 //            //세 자리 수 중 하나가 0이거나 곱셈 결과가 받아올림이 없는 경우
-//            if (Integer.parseInt(operand1TextView.getText().toString()) == 0 || ans < 10) {
-//                input1TextView.setText("0");
-//                input1TextView.setTextColor(Color.WHITE);
+//            if (Integer.parseInt(operand1TV.getText().toString()) == 0 || ans < 10) {
+//                input1TV.setText("0");
+//                input1TV.setTextColor(Color.WHITE);
 //                multiInput = true;
 //            } else {
 //                multiInput = false;
@@ -407,14 +404,14 @@ public class Multiply32Fragment extends ProblemFragment {
 //        } else {
 //            //곱셈 결과를 더하는 과정에서 받아올림이 없는 경우
 //            if (ans < 10) {
-//                if (operand1TextView == null && operand2TextView == null) {
+//                if (operand1TV == null && operand2TV == null) {
 //                    finalStage();
 //                    nextStage();
 //                }
 //
-//                if (input1TextView != null) {
-//                    input1TextView.setText("0");
-//                    input1TextView.setTextColor(Color.WHITE);
+//                if (input1TV != null) {
+//                    input1TV.setText("0");
+//                    input1TV.setTextColor(Color.WHITE);
 //                }
 //                //carrying = false;
 //                multiInput = true;
@@ -428,11 +425,11 @@ public class Multiply32Fragment extends ProblemFragment {
 //        int temp = 0, temp1 = 0, temp2 = 0;
 //
 //        //temp1에 사용자의 첫번째 입력 값 저장
-//        if (input1TextView == null) {
+//        if (input1TV == null) {
 //            temp1 = 0;
 //        } else {
 //            try {
-//                temp1 = Integer.parseInt(input1TextView.getText().toString());
+//                temp1 = Integer.parseInt(input1TV.getText().toString());
 //                Log.v(LOG_TAG, "temp1 : " + String.valueOf(temp1));
 //            } catch (NumberFormatException nfe) {
 //                nfe.printStackTrace();
@@ -440,11 +437,11 @@ public class Multiply32Fragment extends ProblemFragment {
 //        }
 //
 //        //temp2에 사용자의 두번째 입력 값 저장
-//        if (input2TextView == null) {
+//        if (input2TV == null) {
 //            temp2 = 0;
 //        } else {
 //            try {
-//                temp2 = Integer.parseInt(input2TextView.getText().toString());
+//                temp2 = Integer.parseInt(input2TV.getText().toString());
 //                Log.v(LOG_TAG, "temp2 : " + String.valueOf(temp2));
 //            } catch (NumberFormatException nfe) {
 //                nfe.printStackTrace();
@@ -464,14 +461,14 @@ public class Multiply32Fragment extends ProblemFragment {
 ////        } else {
 ////
 ////            //사용자가 입력한 값을 temp에 저장
-////            if (input2TextView == null) {
+////            if (input2TV == null) {
 ////                temp = temp1;
 //////                try {
-//////                    temp = Integer.parseInt(input1TextView.getText().toString());
+//////                    temp = Integer.parseInt(input1TV.getText().toString());
 //////                    Log.v(LOG_TAG, "ans : " + String.valueOf(ans));
 //////                    Log.v(LOG_TAG, "temp : " + String.valueOf(temp));
 //////                } catch (NumberFormatException nfe) {
-//////                    return wrongAnswer(input1TextView.getText().toString());
+//////                    return wrongAnswer(input1TV.getText().toString());
 //////                }
 ////            } else {
 ////                temp = temp1 * 10 + temp2;
@@ -483,19 +480,19 @@ public class Multiply32Fragment extends ProblemFragment {
 //            flashText(true);
 //
 //            //연산했던 자리수를 다시 회색으로 되돌리기
-//            if (operand1TextView != null) {
-//                operand1TextView.setTextColor(Color.GRAY);
+//            if (operand1TV != null) {
+//                operand1TV.setTextColor(Color.GRAY);
 //            }
-//            if (operand2TextView != null) {
-//                operand2TextView.setTextColor(Color.GRAY);
+//            if (operand2TV != null) {
+//                operand2TV.setTextColor(Color.GRAY);
 //            }
 //
 //            //입력했던 내용 회색으로 되돌리기
-//            if (input1TextView != null) {
-//                input1TextView.setTextColor(Color.GRAY);
+//            if (input1TV != null) {
+//                input1TV.setTextColor(Color.GRAY);
 //            }
-//            if (input2TextView != null) {
-//                input2TextView.setTextColor(Color.GRAY);
+//            if (input2TV != null) {
+//                input2TV.setTextColor(Color.GRAY);
 //            }
 //
 //            //모든 연산이 끝나면
@@ -517,19 +514,19 @@ public class Multiply32Fragment extends ProblemFragment {
 //            flashText(false);
 //
 //            //사용자가 입력할 텍스트 뷰를 다시 'A'와 'B'로 되돌림
-//            if (input1TextView != null) {
-//                input1TextView.setText("?");
-//                input1TextView.setTextColor(Color.BLUE);
+//            if (input1TV != null) {
+//                input1TV.setText("?");
+//                input1TV.setTextColor(Color.BLUE);
 //            }
-//            if (input2TextView != null) {
-//                input2TextView.setText("?");
-//                input2TextView.setTextColor(Color.BLUE);
+//            if (input2TV != null) {
+//                input2TV.setText("?");
+//                input2TV.setTextColor(Color.BLUE);
 //            }
 ////
 ////            if (multiInput) {
-////                if (input1TextView != null) {
-////                    input1TextView.setText("0");
-////                    input1TextView.setTextColor(Color.WHITE);
+////                if (input1TV != null) {
+////                    input1TV.setText("0");
+////                    input1TV.setTextColor(Color.WHITE);
 ////                }
 ////            }
 //
@@ -613,61 +610,61 @@ public class Multiply32Fragment extends ProblemFragment {
 //    }
 
 //    private void initNumbers() {
-////        if (operand1TextView != null) {
-////            operand1TextView.setTextColor(Color.GRAY);
+////        if (operand1TV != null) {
+////            operand1TV.setTextColor(Color.GRAY);
 ////        }
-////        if (operand2TextView != null) {
-////            operand2TextView.setTextColor(Color.GRAY);
+////        if (operand2TV != null) {
+////            operand2TV.setTextColor(Color.GRAY);
 ////        }
-//        top_hundred.setTextColor(Color.GRAY);
-//        top_ten.setTextColor(Color.GRAY);
-//        top_one.setTextColor(Color.GRAY);
+//        topHundredTV.setTextColor(Color.GRAY);
+//        topTenTV.setTextColor(Color.GRAY);
+//        topOneTV.setTextColor(Color.GRAY);
 //
-//        down_ten.setTextColor(Color.GRAY);
-//        down_one.setTextColor(Color.GRAY);
+//        downTenTV.setTextColor(Color.GRAY);
+//        downOneTV.setTextColor(Color.GRAY);
 //
-//        carrying_hundred.setText(String.valueOf("0"));
-//        carrying_hundred.setTextColor(Color.WHITE);
-//        carrying_ten.setText(String.valueOf("0"));
-//        carrying_ten.setTextColor(Color.WHITE);
+//        carryingHundredTV.setText(String.valueOf("0"));
+//        carryingHundredTV.setTextColor(Color.WHITE);
+//        carryingTenTV.setText(String.valueOf("0"));
+//        carryingTenTV.setTextColor(Color.WHITE);
 //
-//        ans_carrying_tenthousand.setText(String.valueOf("0"));
-//        ans_carrying_tenthousand.setTextColor(Color.WHITE);
-//        ans_carrying_thousand.setText(String.valueOf("0"));
-//        ans_carrying_thousand.setTextColor(Color.WHITE);
-//        ans_carrying_hundred.setText(String.valueOf("0"));
-//        ans_carrying_hundred.setTextColor(Color.WHITE);
+//        ansCarryingTenThousandTV.setText(String.valueOf("0"));
+//        ansCarryingTenThousandTV.setTextColor(Color.WHITE);
+//        ansCarryingThousandTV.setText(String.valueOf("0"));
+//        ansCarryingThousandTV.setTextColor(Color.WHITE);
+//        ansCarryingHundredTV.setText(String.valueOf("0"));
+//        ansCarryingHundredTV.setTextColor(Color.WHITE);
 //
-//        ans_top_one.setText(String.valueOf("0"));
-//        ans_top_one.setTextColor(Color.WHITE);
-//        ans_top_ten.setText(String.valueOf("0"));
-//        ans_top_ten.setTextColor(Color.WHITE);
-//        ans_top_hundred.setText(String.valueOf("0"));
-//        ans_top_hundred.setTextColor(Color.WHITE);
-//        ans_top_thousand.setText(String.valueOf("0"));
-//        ans_top_thousand.setTextColor(Color.WHITE);
+//        ansTopOneTV.setText(String.valueOf("0"));
+//        ansTopOneTV.setTextColor(Color.WHITE);
+//        ansTopTenTV.setText(String.valueOf("0"));
+//        ansTopTenTV.setTextColor(Color.WHITE);
+//        ansTopHundredTV.setText(String.valueOf("0"));
+//        ansTopHundredTV.setTextColor(Color.WHITE);
+//        ansTopThousandTV.setText(String.valueOf("0"));
+//        ansTopThousandTV.setTextColor(Color.WHITE);
 //
-//        ans_down_one.setText(String.valueOf("0"));
-//        ans_down_one.setTextColor(Color.WHITE);
-//        ans_down_ten.setText(String.valueOf("0"));
-//        ans_down_ten.setTextColor(Color.WHITE);
-//        ans_down_hundred.setText(String.valueOf("0"));
-//        ans_down_hundred.setTextColor(Color.WHITE);
-//        ans_down_thousand.setText(String.valueOf("0"));
-//        ans_down_thousand.setTextColor(Color.WHITE);
+//        ansDownOneTV.setText(String.valueOf("0"));
+//        ansDownOneTV.setTextColor(Color.WHITE);
+//        ansDownTenTV.setText(String.valueOf("0"));
+//        ansDownTenTV.setTextColor(Color.WHITE);
+//        ansDownHundredTV.setText(String.valueOf("0"));
+//        ansDownHundredTV.setTextColor(Color.WHITE);
+//        ansDownThousandTV.setText(String.valueOf("0"));
+//        ansDownThousandTV.setTextColor(Color.WHITE);
 //
-//        ans_line.setBackgroundColor(Color.WHITE);
+//        ansLineV.setBackgroundColor(Color.WHITE);
 //
-//        ans_one.setText(String.valueOf("0"));
-//        ans_one.setTextColor(Color.WHITE);
-//        ans_ten.setText(String.valueOf("0"));
-//        ans_ten.setTextColor(Color.WHITE);
-//        ans_hundred.setText(String.valueOf("0"));
-//        ans_hundred.setTextColor(Color.WHITE);
-//        ans_thousand.setText(String.valueOf("0"));
-//        ans_thousand.setTextColor(Color.WHITE);
-//        ans_tenthousand.setText(String.valueOf("0"));
-//        ans_tenthousand.setTextColor(Color.WHITE);
+//        ansOneTV.setText(String.valueOf("0"));
+//        ansOneTV.setTextColor(Color.WHITE);
+//        ansTenTV.setText(String.valueOf("0"));
+//        ansTenTV.setTextColor(Color.WHITE);
+//        ansHundredTV.setText(String.valueOf("0"));
+//        ansHundredTV.setTextColor(Color.WHITE);
+//        ansThousandTV.setText(String.valueOf("0"));
+//        ansThousandTV.setTextColor(Color.WHITE);
+//        ansTenThousandTV.setText(String.valueOf("0"));
+//        ansTenThousandTV.setTextColor(Color.WHITE);
 //    }
 
 //    @Override
@@ -675,21 +672,21 @@ public class Multiply32Fragment extends ProblemFragment {
 //
 //        /* 버튼이 클릭되었을 때 처리 */
 //        if (!multiInput) {
-//            if (input2TextView != null) {
-//                input2TextView.setText(String.valueOf(number));
+//            if (input2TV != null) {
+//                input2TV.setText(String.valueOf(number));
 //            }
 //
 //        } else {
 //            //사용자 입력 처리 : 첫번째 입력인 경우 input1TextView에 값을 입력함
 //            if (carrying) {
-//                if (input1TextView != null) {
-//                    input1TextView.setText(String.valueOf(number));
+//                if (input1TV != null) {
+//                    input1TV.setText(String.valueOf(number));
 //                }
 //                carrying = false;
 //            } else {
 //                //두번째 입력인 경우 input2TextView에 값을 입력함
-//                if (input2TextView != null) {
-//                    input2TextView.setText(String.valueOf(number));
+//                if (input2TV != null) {
+//                    input2TV.setText(String.valueOf(number));
 //                }
 //                carrying = true;
 //            }
@@ -699,25 +696,25 @@ public class Multiply32Fragment extends ProblemFragment {
 ////            //세 자리 수 중 하나가 0이거나 곱셈 결과가 받아올림이 없는 경우 0을 입력하는 수고를 덜도록
 ////            //사용자는 input2TextView에만 값을 입력함
 ////            if (multiInput) {
-////                input2TextView.setText(String.valueOf(number));
+////                input2TV.setText(String.valueOf(number));
 ////            } else {
 ////                //사용자 입력 처리 : 첫번째 입력인 경우 input1TextView에 값을 입력함
 ////                if (carrying) {
-////                    input1TextView.setText(String.valueOf(number));
+////                    input1TV.setText(String.valueOf(number));
 ////                    carrying = false;
 ////                } else {
 ////                    //두번째 입력인 경우 input2TextView에 값을 입력함
-////                    input2TextView.setText(String.valueOf(number));
+////                    input2TV.setText(String.valueOf(number));
 ////                    carrying = true;
 ////                }
 ////            }
 ////        } else {
 ////
-////            if (input1TextView != null) {
-////                input1TextView.setText(String.valueOf(number));
+////            if (input1TV != null) {
+////                input1TV.setText(String.valueOf(number));
 ////            }
-////            if (input2TextView != null) {
-////                input2TextView.setText(String.valueOf(number));
+////            if (input2TV != null) {
+////                input2TV.setText(String.valueOf(number));
 ////            }
 ////        }
 //        Log.v(LOG_TAG, "carrying : " + String.valueOf(carrying));
@@ -731,13 +728,13 @@ public class Multiply32Fragment extends ProblemFragment {
 ////        nextStage();
 //
 //        //사용자가 입력할 텍스트 뷰를 다시 'A'와 'B'로 되돌림
-//        if (input1TextView != null) {
-//            input1TextView.setText("?");
-//            input1TextView.setTextColor(Color.BLUE);
+//        if (input1TV != null) {
+//            input1TV.setText("?");
+//            input1TV.setTextColor(Color.BLUE);
 //        }
-//        if (input2TextView != null) {
-//            input2TextView.setText("?");
-//            input2TextView.setTextColor(Color.BLUE);
+//        if (input2TV != null) {
+//            input2TV.setText("?");
+//            input2TV.setTextColor(Color.BLUE);
 //        }
 //        carrying = true;
 ////        Log.v(LOG_TAG, "carrying : " + carrying);
@@ -745,13 +742,13 @@ public class Multiply32Fragment extends ProblemFragment {
 //    }
 //
 //    public void onOKClicked() {
-//        if (input1TextView == null) {
-//            if (input2TextView.getText().toString().matches("[0-9]")) {
+//        if (input1TV == null) {
+//            if (input2TV.getText().toString().matches("[0-9]")) {
 //                if (result()) {
 //                    nextStage();
 //                }            }
 //        } else {
-//            if (input1TextView.getText().toString().matches("[0-9]") && input2TextView.getText().toString().matches("[0-9]"))
+//            if (input1TV.getText().toString().matches("[0-9]") && input2TV.getText().toString().matches("[0-9]"))
 //                if (result()) {
 //                    nextStage();
 //                }        }

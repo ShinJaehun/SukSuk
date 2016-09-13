@@ -21,11 +21,11 @@ public class HelpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
         Intent intent = getIntent();
-        String help = intent.getStringExtra("help");
+        String operation = intent.getStringExtra("operation");
         String url = null;
 
         if (intent != null) {
-            switch (help) {
+            switch (operation) {
                 case "multiply22" :
                     url = "https://www.youtube.com/embed/wNkOkrOGURk";
                     break;

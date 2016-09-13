@@ -18,7 +18,7 @@ import org.w3c.dom.Text;
 public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
-    DialogMain dialogMain;
+    private DialogMain dialogMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         //메인화면으로 한번 나갔다오면 continueCounter가 다시 0으로 초기화된다.
 
         //records에 기록을 남기는 날짜를 저장하기 위해 MainActivity가 실행될 때 CurrentRecords를 생성한다.
-        Log.v(LOG_TAG, "today of currentRecords in MainActivity : " + currentRecords.getToday());
+//        Log.v(LOG_TAG, "today of currentRecords in MainActivity : " + currentRecords.getToday());
 
         FrameLayout problemBT = (FrameLayout)findViewById(R.id.main_problem);
         problemBT.setOnClickListener(new ImageButton.OnClickListener() {
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK) {
             if(requestCode == 1) {
-                Log.v(LOG_TAG, "Test" + data.getStringExtra("result"));
+//                Log.v(LOG_TAG, "Test" + data.getStringExtra("result"));
             }
         }
     }

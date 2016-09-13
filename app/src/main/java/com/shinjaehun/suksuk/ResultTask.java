@@ -58,12 +58,12 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
         asyncDialog.setMessage("결과를 받아옵니다...");
         asyncDialog.show();
         super.onPreExecute();
-        Log.v("AsyncTask", "onPreExecute");
+//        Log.v("AsyncTask", "onPreExecute");
     }
 
     @Override
     protected Void doInBackground(Void... params) {
-        Log.v(LOG_TAG, "In ResultTask");
+//        Log.v(LOG_TAG, "In ResultTask");
 //        achievementDAO = new AchievementDAO(context);
         resultMessages = new ArrayList<>();
 
@@ -114,12 +114,12 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
 
             }
 
-            for (RecordMap rmot : recordMapList) {
-                Log.v(LOG_TAG, "Day " + rmot.getDay());
-                for (String operation : rmot.getRecordsMap().keySet()) {
-                    Log.v(LOG_TAG, "recordsMap " + operation + " : " + rmot.getRecordsMap().get(operation));
-                }
-            }
+//            for (RecordMap rmot : recordMapList) {
+//                Log.v(LOG_TAG, "Day " + rmot.getDay());
+//                for (String operation : rmot.getRecordsMap().keySet()) {
+//                    Log.v(LOG_TAG, "recordsMap " + operation + " : " + rmot.getRecordsMap().get(operation));
+//                }
+//            }
 
         } else {
             //여길 실행해버리면 문제가 있지... currentRecord를 DB에 저장했으니 records에는 최소한 currentRecord가 들어 있어야 한다.
@@ -337,7 +337,7 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
 
         //maximum 구하기
         for (RecordMap rmot : recordMapList) {
-            Log.v(LOG_TAG, rmot.getDay() + " : " + rmot.getTotal() + " 문제");
+//            Log.v(LOG_TAG, rmot.getDay() + " : " + rmot.getTotal() + " 문제");
             if (!rmot.getDay().equals(recordMapOfToday.getDay())) {
                 if (rmot.getTotal() > total) {
                     total = rmot.getTotal();
@@ -454,7 +454,7 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
                 }
 
                 currentRecords.setContinueCounter(0);
-                Log.v(LOG_TAG, "바뀐 continueCount는 " + currentRecords.getContinueCounter());
+//                Log.v(LOG_TAG, "바뀐 continueCount는 " + currentRecords.getContinueCounter());
 
             }
         }

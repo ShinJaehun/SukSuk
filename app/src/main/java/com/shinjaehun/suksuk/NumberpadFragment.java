@@ -2,9 +2,7 @@ package com.shinjaehun.suksuk;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.BinderThread;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +15,9 @@ import android.widget.ImageButton;
 public class NumberpadFragment extends Fragment{
     private NumberpadClickListener listener;
 
-    Button button1, button2, button3;
-    Button button0, button4, button5, button6, button7, button8, button9;
-    ImageButton buttonClear, buttonOK;
+    Button number1BTN, number2BTN, number3BTN;
+    Button number0BTN, number4BTN, number5BTN, number6BTN, number7BTN, number8BTN, number9BTN;
+    ImageButton clearIB, OKIB;
 //    int num;
 
 
@@ -29,96 +27,96 @@ public class NumberpadFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_numberpad, container);
 
-        button0 = (Button)v.findViewById(R.id.button_0);
-        button0.setOnClickListener(new View.OnClickListener() {
+        number0BTN = (Button)v.findViewById(R.id.button_0);
+        number0BTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onNumberClicked(v);
             }
         });
 
-        button1 = (Button)v.findViewById(R.id.button_1);
-        button1.setOnClickListener(new View.OnClickListener() {
+        number1BTN = (Button)v.findViewById(R.id.button_1);
+        number1BTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onNumberClicked(v);
             }
         });
 
-        button2 = (Button)v.findViewById(R.id.button_2);
-        button2.setOnClickListener(new View.OnClickListener() {
+        number2BTN = (Button)v.findViewById(R.id.button_2);
+        number2BTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onNumberClicked(v);
             }
         });
 
-        button3 = (Button)v.findViewById(R.id.button_3);
-        button3.setOnClickListener(new View.OnClickListener() {
+        number3BTN = (Button)v.findViewById(R.id.button_3);
+        number3BTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onNumberClicked(v);
             }
         });
 
-        button4 = (Button)v.findViewById(R.id.button_4);
-        button4.setOnClickListener(new View.OnClickListener() {
+        number4BTN = (Button)v.findViewById(R.id.button_4);
+        number4BTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onNumberClicked(v);
             }
         });
 
-        button5 = (Button)v.findViewById(R.id.button_5);
-        button5.setOnClickListener(new View.OnClickListener() {
+        number5BTN = (Button)v.findViewById(R.id.button_5);
+        number5BTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onNumberClicked(v);
             }
         });
 
-        button6 = (Button)v.findViewById(R.id.button_6);
-        button6.setOnClickListener(new View.OnClickListener() {
+        number6BTN = (Button)v.findViewById(R.id.button_6);
+        number6BTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onNumberClicked(v);
             }
         });
 
-        button7 = (Button)v.findViewById(R.id.button_7);
-        button7.setOnClickListener(new View.OnClickListener() {
+        number7BTN = (Button)v.findViewById(R.id.button_7);
+        number7BTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onNumberClicked(v);
             }
         });
 
-        button8 = (Button)v.findViewById(R.id.button_8);
-        button8.setOnClickListener(new View.OnClickListener() {
+        number8BTN = (Button)v.findViewById(R.id.button_8);
+        number8BTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onNumberClicked(v);
             }
         });
 
-        button9 = (Button)v.findViewById(R.id.button_9);
-        button9.setOnClickListener(new View.OnClickListener() {
+        number9BTN = (Button)v.findViewById(R.id.button_9);
+        number9BTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onNumberClicked(v);
             }
         });
 
-        buttonClear = (ImageButton)v.findViewById(R.id.button_clear);
-        buttonClear.setOnClickListener(new View.OnClickListener() {
+        clearIB = (ImageButton)v.findViewById(R.id.button_clear);
+        clearIB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onClearClicked();
             }
         });
 
-        buttonOK = (ImageButton)v.findViewById(R.id.button_enter);
-        buttonOK.setOnClickListener(new View.OnClickListener() {
+        OKIB = (ImageButton)v.findViewById(R.id.button_enter);
+        OKIB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onOKClicked();

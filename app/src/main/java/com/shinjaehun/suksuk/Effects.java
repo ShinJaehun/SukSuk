@@ -13,7 +13,6 @@ import java.util.HashMap;
  */
 public class Effects {
 
-
     private static final String TAG = Effects.class.toString();
 
     private static final Effects INSTANCE = new Effects();

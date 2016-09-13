@@ -39,7 +39,7 @@ public class ProblemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_problems);
         Intent intent = getIntent();
         operation = intent.getStringExtra("operation");
-        currentRecords = (CurrentRecords)intent.getSerializableExtra("today");
+        currentRecords = (CurrentRecords)intent.getSerializableExtra("currentRecords");
 
 //        initSound();
 

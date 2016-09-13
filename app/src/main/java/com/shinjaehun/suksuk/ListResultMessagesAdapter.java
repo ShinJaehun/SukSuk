@@ -19,7 +19,7 @@ public class ListResultMessagesAdapter extends BaseAdapter {
     //FieldTrip에서 사용하던 BaseAdapter와 거의 동일하게 구현했다.
     //물론 최적화된 건지는 의문
 
-    private static final String LOG_TAG = ListResultMessagesAdapter.class.getSimpleName();
+    private final String LOG_TAG = ListResultMessagesAdapter.class.getSimpleName();
 
     private List<String> resultMessages;
     private LayoutInflater inflater;

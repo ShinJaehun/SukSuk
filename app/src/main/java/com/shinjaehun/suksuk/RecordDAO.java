@@ -55,7 +55,7 @@ public class RecordDAO implements Serializable {
                 cursor.moveToNext();
             }
             cursor.close();
-            Log.v(LOG_TAG, "DB and DBHelper has been closed successfully.");
+//            Log.v(LOG_TAG, "DB and DBHelper has been closed successfully.");
         }
         return records;
     }
