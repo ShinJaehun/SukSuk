@@ -57,6 +57,7 @@ public class DrawingChartTask extends AsyncTask<Void, Void, List<ILineDataSet>> 
     protected List<ILineDataSet> doInBackground(Void... params) {
 
         List<Record> records = recordDAO.getAllRecords();
+
         //RecordMap : 날짜에 따라 각 유형의 문제를 얼마나 풀었는지 저장하는 자료구조
         //recordMapList : records에 저장된 모든 자료를 RecordMap 형태로 저장한 ArrayList
         List<RecordMap> recordMapList = new ArrayList<>();
@@ -78,8 +79,18 @@ public class DrawingChartTask extends AsyncTask<Void, Void, List<ILineDataSet>> 
 //                Log.v(LOG_TAG, "Day : " + d);
 //            }
 
+            List<String> days30 = new ArrayList<>();
+
+            if (days.size() > 30) {
+                //표시되는 그래프는 30일 이상 되면 마지막 날짜부터 30일 전 내용까지만 표시된다.
+                days30 = days.subList(days.size() - 30, days.size());
+            } else {
+                //30일이 채 되지 않으면 해당 내용만 표시한다.
+                days30 = days;
+            }
+
             //records에서 날짜에 따라 유형별로 푼 문제 수를 RecordMap 형태로 저장해서
-            for (String day : days) {
+            for (String day : days30) {
                 RecordMap recordMap = new RecordMap();
                 recordMap.setDay(day);
 
@@ -93,6 +104,10 @@ public class DrawingChartTask extends AsyncTask<Void, Void, List<ILineDataSet>> 
                 recordMapList.add(recordMap);
 
             }
+//
+//            for (RecordMap rm : recordMapList) {
+//                Log.v(LOG_TAG, "RecordMap  : " + rm.getDay());
+//            }
 
 //            for (RecordMap rmot : recordMapList) {
 //                Log.v(LOG_TAG, "Day " + rmot.getDay());
