@@ -25,11 +25,11 @@ public class ProblemActivity extends AppCompatActivity {
 //    private Divide22Fragment divide22Fragment;
 //    private Divide32Fragment divide32Fragment;
 
-    String operation;
+//    String operation;
 
 //    private AchievementDAO achievementDAO;
-    private RecordDAO recordDAO;
-    private CurrentRecords currentRecords;
+//    private RecordDAO recordDAO;
+//    private CurrentRecords currentRecords;
 
     @Override
     protected void onCreate(Bundle saveInstanceState) {
@@ -38,8 +38,8 @@ public class ProblemActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_problems);
         Intent intent = getIntent();
-        operation = intent.getStringExtra("operation");
-        currentRecords = (CurrentRecords)intent.getSerializableExtra("currentRecords");
+        String operation = intent.getStringExtra("operation");
+        CurrentRecords currentRecords = (CurrentRecords)intent.getSerializableExtra("currentRecords");
 
 //        initSound();
 
@@ -49,7 +49,7 @@ public class ProblemActivity extends AppCompatActivity {
 
 //        achievementDAO = new AchievementDAO(this);
         //DAO 생성하면서 다시 DBHelper의 instance를 받아오고 (getInstance()),
-        recordDAO = new RecordDAO(this);
+        RecordDAO recordDAO = new RecordDAO(this);
         //DB도 받아온다. (getDB())
 
         Effects.getInstance().init(this);

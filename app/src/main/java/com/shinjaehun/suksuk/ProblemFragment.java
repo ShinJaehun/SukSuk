@@ -721,6 +721,8 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
                 }
         }
 
+        carrying = true;
+
 //      nextStage()를 바로 실행해버리면 '?' 기호가 그대로 입력되는 문제가 발생한다.
 //        if (result()) {
 //            nextStage();
