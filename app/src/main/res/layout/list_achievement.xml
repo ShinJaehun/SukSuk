@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="도전과제"
-            android:textSize="16sp"
+            android:textSize="16dp"
             android:textColor="@android:color/white"
             android:layout_gravity="center_vertical" />
 

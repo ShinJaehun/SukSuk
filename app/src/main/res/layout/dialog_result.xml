@@ -46,7 +46,7 @@
                     android:gravity="center"
                     android:text="결과"
                     android:textColor="@android:color/white"
-                    android:textSize="22sp"
+                    android:textSize="22dp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -79,7 +79,7 @@
                 android:layout_gravity="center_vertical"
                 android:text="무슨무슨"
                 android:textColor="@android:color/white"
-                android:textSize="12sp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -87,7 +87,7 @@
                 android:layout_gravity="center_vertical"
                 android:text="를 "
                 android:textColor="@android:color/white"
-                android:textSize="12sp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/text_operation_number"
@@ -96,7 +96,7 @@
                 android:layout_gravity="center_vertical"
                 android:text="몇"
                 android:textColor="@android:color/white"
-                android:textSize="12sp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -104,7 +104,7 @@
                 android:layout_gravity="center_vertical"
                 android:text=" 회 풀었습니다."
                 android:textColor="@android:color/white"
-                android:textSize="12sp"
+                android:textSize="12dp"
                 android:textIsSelectable="false" />
 
         </LinearLayout>
@@ -123,7 +123,7 @@
                 android:layout_gravity="center_vertical"
                 android:text="지금까지 "
                 android:textColor="@android:color/white"
-                android:textSize="12sp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -131,7 +131,7 @@
                 android:layout_gravity="center_vertical"
                 android:text="모두 "
                 android:textColor="@android:color/white"
-                android:textSize="12sp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/text_total_number"
@@ -140,7 +140,7 @@
                 android:layout_gravity="center_vertical"
                 android:text="몇"
                 android:textColor="@android:color/white"
-                android:textSize="12sp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -148,7 +148,7 @@
                 android:layout_gravity="center_vertical"
                 android:text=" 문제를 풀었습니다."
                 android:textColor="@android:color/white"
-                android:textSize="12sp"
+                android:textSize="12dp"
                 android:textIsSelectable="false" />
 
         </LinearLayout>

@@ -40,7 +40,7 @@
                 android:text="0"
                 android:textAlignment="center"
                 android:textColor="@color/colorBackground"
-                android:textSize="60sp" />
+                android:textSize="60dp" />
 
             <TextView
                 android:id="@+id/quotient_ten"
@@ -51,7 +51,7 @@
                 android:text="0"
                 android:textAlignment="center"
                 android:textColor="@color/colorBackground"
-                android:textSize="60sp"
+                android:textSize="60dp"
                 android:textIsSelectable="false" />
 
             <TextView
@@ -62,7 +62,7 @@
                 android:text="0"
                 android:textAlignment="center"
                 android:textColor="@color/colorBackground"
-                android:textSize="60sp" />
+                android:textSize="60dp" />
 
         </LinearLayout>
 
@@ -130,7 +130,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="0"
                                 android:textAlignment="center"
-                                android:textSize="20sp"
+                                android:textSize="20dp"
                                 android:textColor="@color/colorBackground"/>
 
                         </LinearLayout>
@@ -145,7 +145,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="0"
                                 android:textAlignment="center"
-                                android:textSize="60sp" />
+                                android:textSize="60dp" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -168,7 +168,7 @@
                                 android:text="0"
                                 android:textAlignment="center"
                                 android:textColor="@color/colorBackground"
-                                android:textSize="20sp"/>
+                                android:textSize="20dp"/>
 
                         </LinearLayout>
 
@@ -182,7 +182,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="0"
                                 android:textAlignment="center"
-                                android:textSize="60sp" />
+                                android:textSize="60dp" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -263,7 +263,7 @@
                                 android:text="0"
                                 android:textAlignment="center"
                                 android:textColor="@color/colorBackground"
-                                android:textSize="20sp"/>
+                                android:textSize="20dp"/>
 
                         </LinearLayout>
 
@@ -290,7 +290,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="0"
                                 android:textAlignment="center"
-                                android:textSize="20sp"
+                                android:textSize="20dp"
                                 android:textColor="@color/colorBackground" />
                             </LinearLayout>
 
@@ -315,7 +315,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="0"
                                 android:textAlignment="center"
-                                android:textSize="60sp" />
+                                android:textSize="60dp" />
 
                         </FrameLayout>
 
@@ -344,7 +344,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="0"
                                 android:textAlignment="center"
-                                android:textSize="20sp"
+                                android:textSize="20dp"
                                 android:textColor="@color/colorBackground"/>
 
                             <TextView
@@ -353,7 +353,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="0"
                                 android:textAlignment="center"
-                                android:textSize="20sp"
+                                android:textSize="20dp"
                                 android:textColor="@color/colorBackground"/>
 
                         </LinearLayout>
@@ -382,7 +382,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="0"
                                     android:textAlignment="center"
-                                    android:textSize="20sp"
+                                    android:textSize="20dp"
                                     android:textColor="@color/colorBackground" />
 
                                 <TextView
@@ -391,7 +391,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="0"
                                     android:textAlignment="center"
-                                    android:textSize="20sp"
+                                    android:textSize="20dp"
                                     android:textColor="@color/colorBackground" />
 
                             </LinearLayout>
@@ -415,7 +415,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="0"
                                 android:textAlignment="center"
-                                android:textSize="60sp" />
+                                android:textSize="60dp" />
                         </FrameLayout>
 
                     </LinearLayout>
@@ -441,7 +441,7 @@
                                 android:text="0"
                                 android:textAlignment="center"
                                 android:textColor="@color/colorBackground"
-                                android:textSize="20sp"/>
+                                android:textSize="20dp"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -449,7 +449,7 @@
                                 android:text="0"
                                 android:textAlignment="center"
                                 android:textColor="@color/colorBackground"
-                                android:textSize="20sp"/>
+                                android:textSize="20dp"/>
                         </LinearLayout>
 
                         <FrameLayout
@@ -475,7 +475,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="0"
                                     android:textAlignment="center"
-                                    android:textSize="20sp"
+                                    android:textSize="20dp"
                                     android:textColor="@color/colorBackground"/>
 
                                 <TextView
@@ -484,7 +484,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="0"
                                     android:textAlignment="center"
-                                    android:textSize="20sp"
+                                    android:textSize="20dp"
                                     android:textColor="@color/colorBackground"/>
 
                             </LinearLayout>
@@ -510,7 +510,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="0"
                                 android:textAlignment="center"
-                                android:textSize="60sp" />
+                                android:textSize="60dp" />
 
                         </FrameLayout>
 
@@ -535,7 +535,7 @@
                     android:text="0"
                     android:textAlignment="center"
                     android:textColor="@color/colorBackground"
-                    android:textSize="60sp" />
+                    android:textSize="60dp" />
 
                 <TextView
                     android:id="@+id/first_multiply_ten"
@@ -546,7 +546,7 @@
                     android:text="0"
                     android:textAlignment="center"
                     android:textColor="@color/colorBackground"
-                    android:textSize="60sp" />
+                    android:textSize="60dp" />
 
                 <TextView
                     android:id="@+id/first_multiply_one"
@@ -556,7 +556,7 @@
                     android:text="0"
                     android:textAlignment="center"
                     android:textColor="@color/colorBackground"
-                    android:textSize="60sp"
+                    android:textSize="60dp"
                     android:textIsSelectable="false" />
 
             </LinearLayout>
@@ -681,7 +681,7 @@
                             android:text="0"
                             android:textAlignment="center"
                             android:textColor="@color/colorBackground"
-                            android:textSize="20sp"/>
+                            android:textSize="20dp"/>
                     </LinearLayout>
 
                     <FrameLayout
@@ -707,7 +707,7 @@
                             android:layout_height="wrap_content"
                             android:text="0"
                             android:textAlignment="center"
-                            android:textSize="20sp"
+                            android:textSize="20dp"
                             android:textColor="@color/colorBackground" />
 
                         </LinearLayout>
@@ -732,7 +732,7 @@
                             android:layout_height="wrap_content"
                             android:text="0"
                             android:textAlignment="center"
-                            android:textSize="60sp"
+                            android:textSize="60dp"
                             android:textColor="@color/colorBackground"/>
 
                     </FrameLayout>
@@ -762,7 +762,7 @@
                             android:layout_height="wrap_content"
                             android:text="0"
                             android:textAlignment="center"
-                            android:textSize="20sp"
+                            android:textSize="20dp"
                             android:textColor="@color/colorBackground"/>
 
                         <TextView
@@ -771,7 +771,7 @@
                             android:layout_height="wrap_content"
                             android:text="0"
                             android:textAlignment="center"
-                            android:textSize="20sp"
+                            android:textSize="20dp"
                             android:textColor="@color/colorBackground"/>
 
                     </LinearLayout>
@@ -800,7 +800,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="0"
                                 android:textAlignment="center"
-                                android:textSize="20sp"
+                                android:textSize="20dp"
                                 android:textColor="@color/colorBackground"/>
 
                             <TextView
@@ -809,7 +809,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="0"
                                 android:textAlignment="center"
-                                android:textSize="20sp"
+                                android:textSize="20dp"
                                 android:textColor="@color/colorBackground"/>
 
                         </LinearLayout>
@@ -835,7 +835,7 @@
                             android:layout_height="wrap_content"
                             android:text="0"
                             android:textAlignment="center"
-                            android:textSize="60sp"
+                            android:textSize="60dp"
                             android:textColor="@color/colorBackground"/>
 
                     </FrameLayout>
@@ -863,7 +863,7 @@
                             android:text="0"
                             android:textAlignment="center"
                             android:textColor="@color/colorBackground"
-                            android:textSize="20sp"/>
+                            android:textSize="20dp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -871,7 +871,7 @@
                             android:text="0"
                             android:textAlignment="center"
                             android:textColor="@color/colorBackground"
-                            android:textSize="20sp"/>
+                            android:textSize="20dp"/>
                     </LinearLayout>
 
 
@@ -898,7 +898,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="0"
                                 android:textAlignment="center"
-                                android:textSize="20sp"
+                                android:textSize="20dp"
                                 android:textColor="@color/colorBackground"/>
 
                             <TextView
@@ -907,7 +907,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="0"
                                 android:textAlignment="center"
-                                android:textSize="20sp"
+                                android:textSize="20dp"
                                 android:textColor="@color/colorBackground"/>
 
                         </LinearLayout>
@@ -931,7 +931,7 @@
                             android:layout_height="wrap_content"
                             android:text="0"
                             android:textAlignment="center"
-                            android:textSize="60sp"
+                            android:textSize="60dp"
                             android:textColor="@color/colorBackground"/>
 
                     </FrameLayout>
@@ -955,7 +955,7 @@
                     android:text="0"
                     android:textAlignment="center"
                     android:textColor="@color/colorBackground"
-                    android:textSize="60sp" />
+                    android:textSize="60dp" />
 
                 <TextView
                     android:id="@+id/second_multiply_ten"
@@ -966,7 +966,7 @@
                     android:text="0"
                     android:textAlignment="center"
                     android:textColor="@color/colorBackground"
-                    android:textSize="60sp" />
+                    android:textSize="60dp" />
 
                 <TextView
                     android:id="@+id/second_multiply_one"
@@ -976,7 +976,7 @@
                     android:text="0"
                     android:textAlignment="center"
                     android:textColor="@color/colorBackground"
-                    android:textSize="60sp" />
+                    android:textSize="60dp" />
 
             </LinearLayout>
 
@@ -1003,7 +1003,7 @@
                     android:text="0"
                     android:textAlignment="center"
                     android:textColor="@color/colorBackground"
-                    android:textSize="60sp" />
+                    android:textSize="60dp" />
 
                 <TextView
                     android:id="@+id/remainder_ten"
@@ -1014,7 +1014,7 @@
                     android:text="0"
                     android:textAlignment="center"
                     android:textColor="@color/colorBackground"
-                    android:textSize="60sp" />
+                    android:textSize="60dp" />
 
                 <TextView
                     android:id="@+id/remainder_one"
@@ -1024,7 +1024,7 @@
                     android:text="0"
                     android:textAlignment="center"
                     android:textColor="@color/colorBackground"
-                    android:textSize="60sp" />
+                    android:textSize="60dp" />
 
             </LinearLayout>
 

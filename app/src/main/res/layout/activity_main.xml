@@ -97,7 +97,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
                         android:text="문제풀기"
-                        android:textSize="15sp"
+                        android:textSize="15dp"
                         android:layout_gravity="center"/>
                 </FrameLayout>
 
@@ -118,7 +118,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
                         android:text="결과보기"
-                        android:textSize="15sp"
+                        android:textSize="15dp"
                         android:layout_gravity="center"/>
 
                 </FrameLayout>
@@ -146,7 +146,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="10sp"
+        android:textSize="10dp"
         android:textColor="@color/white"
         android:text="쑥쑥수학은 신재훈이 만들었습니다."
         android:layout_alignParentBottom="true"

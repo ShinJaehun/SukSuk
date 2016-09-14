@@ -60,7 +60,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="20sp"
+                            android:textSize="20dp"
                             android:padding="10dp"
                             android:textColor="#ffffff"
                             android:text="두 자리 X 두 자리" />
@@ -92,7 +92,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="20sp"
+                            android:textSize="20dp"
                             android:padding="10dp"
                             android:textColor="#ffffff"
                             android:text="세 자리 X 두 자리"/>
@@ -133,7 +133,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="20sp"
+                            android:textSize="20dp"
                             android:padding="10dp"
                             android:textColor="#ffffff"
                             android:text="두 자리 ÷ 한 자리" />
@@ -165,7 +165,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="20sp"
+                            android:textSize="20dp"
                             android:padding="10dp"
                             android:textColor="#ffffff"
                             android:text="두 자리 ÷ 두 자리"/>
@@ -206,7 +206,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="20sp"
+                            android:textSize="20dp"
                             android:padding="10dp"
                             android:textColor="#ffffff"
                             android:text="세 자리 ÷ 두 자리" />
@@ -238,7 +238,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="20sp"
+                            android:textSize="20dp"
                             android:padding="10dp"
                             android:textColor="#ffffff"
                             android:text="도전! 문제풀기"/>
@@ -401,7 +401,7 @@
         android:layout_width="300dp"
         android:layout_height="85dp"
         android:text="처음 화면으로"
-        android:textSize="35sp" />
+        android:textSize="35dp" />
 
 </LinearLayout>
 
