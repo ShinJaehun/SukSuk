@@ -176,15 +176,15 @@ public class Divide32Fragment extends ProblemFragment {
         if (isChallenge == false) {
             challengeCounterTV.setVisibility(View.GONE);
 
-            helpBTN.setOnClickListener(new Button.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
-                    intent.putExtra("help", "divide32");
-                    startActivity(intent);
-                }
-            });
+//            helpBTN.setOnClickListener(new Button.OnClickListener() {
+//
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
+//                    intent.putExtra("help", "divide32");
+//                    startActivity(intent);
+//                }
+//            });
         } else {
 //            Log.v(LOG_TAG, "challengeNumber : " + challengeNumber);
 
@@ -245,7 +245,33 @@ public class Divide32Fragment extends ProblemFragment {
             isFullDivide = false;
         }
 
-        //피연산자 표시
+        //몫이 한 자리 수인 나누기, 몫이 두 자리 수인 나누기 구분해서 HelpActivity 실행하기
+        if (isFullDivide) {
+            //몫이 두 자리 수인 나누기
+            helpBTN.setOnClickListener(new Button.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
+                    intent.putExtra("help", "divide32");
+                    startActivity(intent);
+                }
+            });
+        } else {
+            //몫이 한 자리 수인 나누기
+            helpBTN.setOnClickListener(new Button.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
+                    intent.putExtra("help", "divide32");
+                    startActivity(intent);
+                }
+            });
+        }
+
+
+            //피연산자 표시
         dividendHundredTV.setText(String.valueOf(dividendHundred));
         dividendTenTV.setText(String.valueOf(dividendTen));
         dividendOneTV.setText(String.valueOf(dividendOne));

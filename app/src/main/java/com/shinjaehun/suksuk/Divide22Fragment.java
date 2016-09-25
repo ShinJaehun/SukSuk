@@ -113,15 +113,15 @@ public class Divide22Fragment extends ProblemFragment {
         if(isChallenge == false) {
             challengeCounterTV.setVisibility(View.GONE);
 
-            helpBTN.setOnClickListener(new Button.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
-                    intent.putExtra("help", "divide22");
-                    startActivity(intent);
-                }
-            });
+//            helpBTN.setOnClickListener(new Button.OnClickListener() {
+//
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
+//                    intent.putExtra("help", "divide22");
+//                    startActivity(intent);
+//                }
+//            });
         } else {
 //            Log.v(LOG_TAG, "challengeNumber : " + challengeNumber);
 
@@ -150,6 +150,7 @@ public class Divide22Fragment extends ProblemFragment {
 //        dividend = 868;
 //        divisor = 56;
 
+        //어쨌든 큰 수가 나뉘는 수가 되어야 한다.
         int a = (int) (Math.random() * 90) + 10;
         int b = (int) (Math.random() * 90) + 10;
 
@@ -173,6 +174,17 @@ public class Divide22Fragment extends ProblemFragment {
         divisorOne = divisor % 10;
 
         quotientOne = quotient % 10;
+
+        //다른 fragment와 통일하기 위해 helpBTN의 리스너를 여기에 달았다.
+        helpBTN.setOnClickListener(new Button.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
+                intent.putExtra("help", "divide22");
+                startActivity(intent);
+            }
+        });
 
         //피연산자 표시
         dividendTenTV.setText(String.valueOf(dividendTen));

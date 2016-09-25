@@ -100,15 +100,15 @@ public class Multiply22Fragment extends ProblemFragment {
         if (isChallenge == false) {
             challengeCounterTV.setVisibility(View.GONE);
 
-            helpBTN.setOnClickListener(new Button.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
-                    intent.putExtra("help", "multiply22");
-                    startActivity(intent);
-                }
-            });
+//            helpBTN.setOnClickListener(new Button.OnClickListener() {
+//
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
+//                    intent.putExtra("help", "multiply22");
+//                    startActivity(intent);
+//                }
+//            });
         } else {
 //            Log.v(LOG_TAG, "challengeNumber : " + challengeNumber);
 
@@ -139,6 +139,17 @@ public class Multiply22Fragment extends ProblemFragment {
 
         downTen = down / 10 % 10;
         downOne = down % 10;
+
+        //다른 fragment와 통일하기 위해 helpBTN의 리스너를 여기에 달았다.
+        helpBTN.setOnClickListener(new Button.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
+                intent.putExtra("help", "multiply22");
+                startActivity(intent);
+            }
+        });
 
         //피연산자 표시
         topTenTV.setText(String.valueOf(topTen));

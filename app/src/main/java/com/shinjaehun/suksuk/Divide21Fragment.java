@@ -124,15 +124,15 @@ public class Divide21Fragment extends ProblemFragment {
         if (isChallenge == false) {
             challengeCounterTV.setVisibility(View.GONE);
 
-            helpBTN.setOnClickListener(new Button.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
-                    intent.putExtra("help", "divide21");
-                    startActivity(intent);
-                }
-            });
+//            helpBTN.setOnClickListener(new Button.OnClickListener() {
+//
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
+//                    intent.putExtra("help", "divide21");
+//                    startActivity(intent);
+//                }
+//            });
         } else {
 //            Log.v(LOG_TAG, "challengeNumber : " + challengeNumber);
 
@@ -187,6 +187,31 @@ public class Divide21Fragment extends ProblemFragment {
 
         quotientTen = quotient / 10 % 10;
         quotientOne = quotient % 10;
+
+        //몫이 한 자리 수인 나누기, 몫이 두 자리 수인 나누기 구분해서 HelpActivity 실행하기
+        if (quotient > 0 && quotient < 10) {
+            //몫이 한 자리 수인 나누기
+            helpBTN.setOnClickListener(new Button.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
+                    intent.putExtra("help", "divide2_1");
+                    startActivity(intent);
+                }
+            });
+        } else {
+            //몫이 두 자리 수인 나누기
+            helpBTN.setOnClickListener(new Button.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
+                    intent.putExtra("help", "divide21_10");
+                    startActivity(intent);
+                }
+            });
+        }
 
 //        if (dividendTen < divisor) {
 //            isFullDivide = false;
