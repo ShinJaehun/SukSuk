@@ -105,7 +105,7 @@ public class Multiply22Fragment extends ProblemFragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
-                    intent.putExtra(operation, "multiply22");
+                    intent.putExtra("help", "multiply22");
                     startActivity(intent);
                 }
             });

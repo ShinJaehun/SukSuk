@@ -129,7 +129,7 @@ public class Divide21Fragment extends ProblemFragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
-                    intent.putExtra(operation, "divide21");
+                    intent.putExtra("help", "divide21");
                     startActivity(intent);
                 }
             });

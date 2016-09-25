@@ -181,7 +181,7 @@ public class Divide32Fragment extends ProblemFragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
-                    intent.putExtra(operation, "divide32");
+                    intent.putExtra("help", "divide32");
                     startActivity(intent);
                 }
             });

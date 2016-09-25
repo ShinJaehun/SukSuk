@@ -21,16 +21,16 @@ public class HelpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
         Intent intent = getIntent();
-        String operation = intent.getStringExtra("operation");
+        String operation = intent.getStringExtra("help");
         String url = null;
 
         if (intent != null) {
             switch (operation) {
                 case "multiply22" :
-                    url = "https://www.youtube.com/embed/wNkOkrOGURk";
+                    url = "https://www.youtube.com/embed/GDRlMTHaONk";
                     break;
                 case "multiply32" :
-                    url = "https://www.youtube.com/embed/5HXXk5H-hCs";
+                    url = "https://www.youtube.com/embed/6xaEJfQwQL8";
                     break;
                 case "divide21" :
                     url = "https://www.youtube.com/embed/ZiwXgBjDk48";

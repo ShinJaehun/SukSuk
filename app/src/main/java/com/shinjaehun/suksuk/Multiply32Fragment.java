@@ -110,7 +110,7 @@ public class Multiply32Fragment extends ProblemFragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
-                    intent.putExtra(operation, "multiply32");
+                    intent.putExtra("help", "multiply32");
                     startActivity(intent);
                 }
             });
