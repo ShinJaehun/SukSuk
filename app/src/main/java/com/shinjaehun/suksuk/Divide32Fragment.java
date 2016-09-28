@@ -187,6 +187,7 @@ public class Divide32Fragment extends ProblemFragment {
 //            });
         } else {
 //            Log.v(LOG_TAG, "challengeNumber : " + challengeNumber);
+            helpBTN.setVisibility(View.GONE);
 
             challengeCounterTV.setVisibility(View.VISIBLE);
             challengeCounterTV.setText(String.valueOf(challengeNumber));
@@ -253,7 +254,7 @@ public class Divide32Fragment extends ProblemFragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
-                    intent.putExtra("help", "divide32");
+                    intent.putExtra("help", "divide32_10");
                     startActivity(intent);
                 }
             });
@@ -264,7 +265,7 @@ public class Divide32Fragment extends ProblemFragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
-                    intent.putExtra("help", "divide32");
+                    intent.putExtra("help", "divide32_1");
                     startActivity(intent);
                 }
             });

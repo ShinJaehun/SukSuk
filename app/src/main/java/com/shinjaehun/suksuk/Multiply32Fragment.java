@@ -116,6 +116,7 @@ public class Multiply32Fragment extends ProblemFragment {
 //            });
         } else {
 //            Log.v(LOG_TAG, "challengeNumber : " + challengeNumber);
+            helpBTN.setVisibility(View.GONE);
 
             challengeCounterTV.setVisibility(View.VISIBLE);
             challengeCounterTV.setText(String.valueOf(challengeNumber));

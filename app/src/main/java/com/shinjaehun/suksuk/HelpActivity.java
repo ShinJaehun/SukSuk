@@ -33,16 +33,19 @@ public class HelpActivity extends AppCompatActivity {
                     url = "https://www.youtube.com/embed/6xaEJfQwQL8";
                     break;
                 case "divide21_1" :
-                    url = "https://www.youtube.com/embed/ZiwXgBjDk48";
+                    url = "https://www.youtube.com/embed/p1FWxV7sCZk";
                     break;
                 case "divide21_10" :
                     url = "https://www.youtube.com/embed/hGqlRzL8oWg";
                     break;
                 case "divide22" :
-                    url = "https://www.youtube.com/embed/ZiwXgBjDk48";
+                    url = "https://www.youtube.com/embed/Jq1jjld0sOk";
                     break;
-                case "divide32" :
-                    url = "https://www.youtube.com/embed/pIXC7Zxg-m0";
+                case "divide32_1" :
+                    url = "https://www.youtube.com/embed/vu2C_dRymYw";
+                    break;
+                case "divide32_10" :
+                    url = "https://www.youtube.com/embed/mrBB0qVxO-s";
                     break;
                 default:
                     break;

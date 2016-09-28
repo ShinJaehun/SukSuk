@@ -139,6 +139,7 @@ public class Divide21Fragment extends ProblemFragment {
 //            helpBTN.setBackgroundColor(0x9E9E9E);
 //            helpBTN.setText(String.valueOf(challengeNumber));
 //            helpBTN.setClickable(false);
+            helpBTN.setVisibility(View.GONE);
 
             challengeCounterTV.setVisibility(View.VISIBLE);
             challengeCounterTV.setText(String.valueOf(challengeNumber));
@@ -196,7 +197,7 @@ public class Divide21Fragment extends ProblemFragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity().getApplicationContext(), HelpActivity.class);
-                    intent.putExtra("help", "divide2_1");
+                    intent.putExtra("help", "divide21_1");
                     startActivity(intent);
                 }
             });
