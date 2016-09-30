@@ -412,7 +412,7 @@ public class ResultTask extends AsyncTask<Void, Void, Void> {
             case "multiply32":
                 return "세 자리 수 곱하기 두 자리수 문제";
             case "multiply22":
-                return "두 자리 수 곱하기 세 자리수 문제";
+                return "두 자리 수 곱하기 두 자리수 문제";
             case "divide21":
                 return "두 자리 수 나누기 한 자리수 문제";
             case "divide22":
