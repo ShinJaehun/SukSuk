@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private DialogMain dialogMain;
+    private CurrentRecords currentRecords;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 //        final Record record = new Record(System.currentTimeMillis());
-        final CurrentRecords currentRecords = CurrentRecords.getInstance();
+        currentRecords = CurrentRecords.getInstance();
         currentRecords.setContinueCounter(0);
         //currentRecords의 continueCounter를 여기서 초기화해줘야
         //메인화면으로 한번 나갔다오면 continueCounter가 다시 0으로 초기화된다.
@@ -137,5 +140,25 @@ public class MainActivity extends AppCompatActivity {
 //                Log.v(LOG_TAG, "Test" + data.getStringExtra("result"));
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+//        return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_debug:
+                DialogDebug dialogDebug = new DialogDebug(MainActivity.this, currentRecords);
+                dialogDebug.show();
+                return true;
+            case R.id.action_insert_dummy:
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
