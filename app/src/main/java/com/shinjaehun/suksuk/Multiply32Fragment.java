@@ -1,6 +1,8 @@
 package com.shinjaehun.suksuk;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -134,9 +136,19 @@ public class Multiply32Fragment extends ProblemFragment {
             Log.v(LOG_TAG, String.valueOf(top));
         }*/
 
-        top = (int) (Math.random() * 900) + 100;
-        down = (int) (Math.random() * 90) + 10;
+        SharedPreferences debug = getActivity().getSharedPreferences("debug", Context.MODE_PRIVATE);
 
+        if (debug.getBoolean("isDebugging", false)) {
+            top = debug.getInt("firstNumber", 0);
+            down = debug.getInt("secondNumber", 0);
+            SharedPreferences.Editor editor = debug.edit();
+            editor.clear();
+            editor.commit();
+
+        } else {
+            top = (int) (Math.random() * 900) + 100;
+            down = (int) (Math.random() * 90) + 10;
+        }
 //        top = 100;
 //        down = 11;
 

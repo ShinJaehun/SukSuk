@@ -1,6 +1,8 @@
 package com.shinjaehun.suksuk;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -150,19 +152,29 @@ public class Divide22Fragment extends ProblemFragment {
 //        } while (dividend < divisor);
 //        dividend = 868;
 //        divisor = 56;
+        SharedPreferences debug = getActivity().getSharedPreferences("debug", Context.MODE_PRIVATE);
 
-        //어쨌든 큰 수가 나뉘는 수가 되어야 한다.
-        int a = (int) (Math.random() * 90) + 10;
-        int b = (int) (Math.random() * 90) + 10;
+        if (debug.getBoolean("isDebugging", false)) {
+            dividend = debug.getInt("firstNumber", 0);
+            divisor = debug.getInt("secondNumber", 0);
+            SharedPreferences.Editor editor = debug.edit();
+            editor.clear();
+            editor.commit();
 
-        if (a > b) {
-            dividend = a;
-            divisor = b;
         } else {
-            dividend = b;
-            divisor = a;
-        }
 
+            //어쨌든 큰 수가 나뉘는 수가 되어야 한다.
+            int a = (int) (Math.random() * 90) + 10;
+            int b = (int) (Math.random() * 90) + 10;
+
+            if (a > b) {
+                dividend = a;
+                divisor = b;
+            } else {
+                dividend = b;
+                divisor = a;
+            }
+        }
         quotient = dividend / divisor;
 
 //        top = 798;

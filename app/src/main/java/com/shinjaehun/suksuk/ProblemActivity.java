@@ -16,6 +16,9 @@ public class ProblemActivity extends AppCompatActivity {
     private NumberpadFragment numberpadFragment;
     private ProblemFragment problemFragment;
 
+    int firstNumber;
+    int secondNumber;
+
 //    private SoundPool soundPool;
 //    private int soundBeep;
 
@@ -42,7 +45,6 @@ public class ProblemActivity extends AppCompatActivity {
         CurrentRecords currentRecords = (CurrentRecords)intent.getSerializableExtra("currentRecords");
 
 //        initSound();
-
 
 //        List<Record> records = new ArrayList<Record>();
 //        List<Record> records = CurrentRecords.getInstance().getRecords();
@@ -115,13 +117,12 @@ public class ProblemActivity extends AppCompatActivity {
 //                    break;
 //            }
         }
-        ft.add(R.id.fragment_container, problemFragment).commit();
 
+        ft.add(R.id.fragment_container, problemFragment).commit();
 
     }
 
-
-//    private void initSound() {
+    //    private void initSound() {
 //        soundPool = new SoundPool(1, AudioManager.STREAM_ALARM, 0);
 //        soundBeep = soundPool.load(getApplicationContext(), R.raw.beep, 1);
 //    }

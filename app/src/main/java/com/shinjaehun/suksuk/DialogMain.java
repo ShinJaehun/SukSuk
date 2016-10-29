@@ -52,7 +52,6 @@ public class DialogMain extends Dialog {
                 Intent intent = new Intent(context, ProblemActivity.class);
                 intent.putExtra("operation", "multiply32");
                 intent.putExtra("currentRecords", currentRecords);
-
                 context.startActivity(intent);
                 destroyDialog();
             }

@@ -6,7 +6,7 @@
 
     <item
         android:id="@+id/action_debug"
-        android:title="debug"
+        android:title="debugging"
         app:showAsAction="never" />
 
     <item

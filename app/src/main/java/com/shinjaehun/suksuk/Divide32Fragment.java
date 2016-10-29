@@ -1,6 +1,8 @@
 package com.shinjaehun.suksuk;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -205,9 +207,19 @@ public class Divide32Fragment extends ProblemFragment {
             Log.v(LOG_TAG, String.valueOf(top));
         }*/
 
-        dividend = (int) (Math.random() * 900) + 100;
-        divisor = (int) (Math.random() * 90) + 10;
+        SharedPreferences debug = getActivity().getSharedPreferences("debug", Context.MODE_PRIVATE);
 
+        if (debug.getBoolean("isDebugging", false)) {
+            dividend = debug.getInt("firstNumber", 0);
+            divisor = debug.getInt("secondNumber", 0);
+            SharedPreferences.Editor editor = debug.edit();
+            editor.clear();
+            editor.commit();
+        } else {
+
+            dividend = (int) (Math.random() * 900) + 100;
+            divisor = (int) (Math.random() * 90) + 10;
+        }
 ////
 //        int a = (int) (Math.random() * 90) + 10;
 //        int b = (int) (Math.random() * 90) + 10;

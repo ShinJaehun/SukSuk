@@ -1,10 +1,11 @@
 package com.shinjaehun.suksuk;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -129,9 +130,19 @@ public class Multiply22Fragment extends ProblemFragment {
             Log.v(LOG_TAG, String.valueOf(top));
         }*/
 
-        top = (int) (Math.random() * 90) + 10;
-        down = (int) (Math.random() * 90) + 10;
+        SharedPreferences debug = getActivity().getSharedPreferences("debug", Context.MODE_PRIVATE);
 
+        if (debug.getBoolean("isDebugging", false)) {
+            top = debug.getInt("firstNumber", 0);
+            down = debug.getInt("secondNumber", 0);
+            SharedPreferences.Editor editor = debug.edit();
+            editor.clear();
+            editor.commit();
+
+        } else {
+            top = (int) (Math.random() * 90) + 10;
+            down = (int) (Math.random() * 90) + 10;
+        }
 //        top = 14;
 //        down = 67;
 
