@@ -454,7 +454,6 @@ public class ProblemFragment extends Fragment implements NumberpadClickListener 
 
     private void finish() {
 
-
 //        isChallenge = false;
 
         //타~다~

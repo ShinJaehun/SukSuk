@@ -16,9 +16,6 @@ public class ProblemActivity extends AppCompatActivity {
     private NumberpadFragment numberpadFragment;
     private ProblemFragment problemFragment;
 
-    int firstNumber;
-    int secondNumber;
-
 //    private SoundPool soundPool;
 //    private int soundBeep;
 
