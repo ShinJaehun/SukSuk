@@ -404,7 +404,6 @@ public class MainActivity extends AppCompatActivity {
 //        recordDAO.insertRecord("divide22", "2016. 10. 2", 0, 0);
 //        recordDAO.insertRecord("multiply32", "2016. 10. 2", 0, 0);
 
-
         recordDAO.close();
 
     }
