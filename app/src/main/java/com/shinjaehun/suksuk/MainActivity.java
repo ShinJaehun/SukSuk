@@ -221,188 +221,188 @@ public class MainActivity extends AppCompatActivity {
         recordDAO.insertRecord("divide21", "2016. 9. 7", 0, 0);
         recordDAO.insertRecord("divide21", "2016. 9. 7", 0, 0);
         recordDAO.insertRecord("divide32", "2016. 9. 7", 0, 0);
-//
-//        recordDAO.insertRecord("divide22", "2016. 9. 8", 0, 0);
-//        recordDAO.insertRecord("multiply32", "2016. 9. 8", 0, 0);
-//        recordDAO.insertRecord("multiply32", "2016. 9. 8", 0, 1);
-//        recordDAO.insertRecord("multiply32", "2016. 9. 8", 0, 1);
-//        recordDAO.insertRecord("divide32", "2016. 9. 8", 0, 0);
-//        recordDAO.insertRecord("divide32", "2016. 9. 8", 0, 0);
-//        recordDAO.insertRecord("divide32", "2016. 9. 8", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 8", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 8", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 8", 0, 0);
-//
-//        recordDAO.insertRecord("divide22", "2016. 9. 9", 0, 0);
-//        recordDAO.insertRecord("divide22", "2016. 9. 9", 0, 0);
-//        recordDAO.insertRecord("divide22", "2016. 9. 9", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 9", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 9", 0, 0);
-//        recordDAO.insertRecord("multiply32", "2016. 9. 9", 0, 0);
-//        recordDAO.insertRecord("multiply32", "2016. 9. 9", 0, 1);
-//        recordDAO.insertRecord("multiply32", "2016. 9. 9", 0, 1);
-//        recordDAO.insertRecord("multiply32", "2016. 9. 9", 0, 0);
-//        recordDAO.insertRecord("multiply22", "2016. 9. 9", 0, 1);
-//        recordDAO.insertRecord("multiply22", "2016. 9. 9", 0, 1);
-//        recordDAO.insertRecord("divide32", "2016. 9. 9", 0, 0);
-//        recordDAO.insertRecord("divide32", "2016. 9. 9", 0, 0);
-//        recordDAO.insertRecord("divide32", "2016. 9. 9", 0, 0);
-//        recordDAO.insertRecord("divide32", "2016. 9. 9", 0, 0);
-//
-//        recordDAO.insertRecord("divide21", "2016. 9. 10", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 10", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 10", 0, 0);
-//        recordDAO.insertRecord("divide22", "2016. 9. 10", 0, 0);
-//        recordDAO.insertRecord("divide22", "2016. 9. 10", 0, 0);
-//        recordDAO.insertRecord("divide22", "2016. 9. 10", 0, 0);
-//
-//        recordDAO.insertRecord("multiply32", "2016. 9. 11", 0, 1);
-//        recordDAO.insertRecord("multiply32", "2016. 9. 11", 0, 1);
-//        recordDAO.insertRecord("multiply32", "2016. 9. 11", 0, 1);
-//        recordDAO.insertRecord("divide32", "2016. 9. 11", 0, 0);
-//        recordDAO.insertRecord("divide32", "2016. 9. 11", 0, 0);
-//        recordDAO.insertRecord("divide22", "2016. 9. 11", 0, 0);
-//
-//        recordDAO.insertRecord("divide21", "2016. 9. 12", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 12", 0, 0);
-//        recordDAO.insertRecord("divide32", "2016. 9. 12", 0, 0);
-//        recordDAO.insertRecord("divide32", "2016. 9. 12", 0, 1);
-//        recordDAO.insertRecord("divide22", "2016. 9. 12", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 12", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 12", 0, 0);
-//        recordDAO.insertRecord("divide32", "2016. 9. 12", 0, 0);
-//
-//        recordDAO.insertRecord("divide32", "2016. 9. 13", 0, 1);
-//        recordDAO.insertRecord("divide22", "2016. 9. 13", 0, 0);
-//        recordDAO.insertRecord("multiply32", "2016. 9. 13", 0, 0);
-//
-//        recordDAO.insertRecord("divide21", "2016. 9. 14", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 14", 0, 0);
-//        recordDAO.insertRecord("divide32", "2016. 9. 14", 0, 0);
-//        recordDAO.insertRecord("divide32", "2016. 9. 14", 0, 1);
-//        recordDAO.insertRecord("divide22", "2016. 9. 14", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 14", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 14", 0, 0);
-//        recordDAO.insertRecord("divide32", "2016. 9. 14", 0, 0);
-//
-//        recordDAO.insertRecord("divide22", "2016. 9. 15", 0, 0);
-//        recordDAO.insertRecord("multiply32", "2016. 9. 15", 0, 0);
-//        recordDAO.insertRecord("multiply32", "2016. 9. 15", 0, 1);
-//        recordDAO.insertRecord("multiply32", "2016. 9. 15", 0, 1);
-//        recordDAO.insertRecord("divide32", "2016. 9. 15", 0, 0);
-//        recordDAO.insertRecord("divide32", "2016. 9. 15", 0, 0);
-//        recordDAO.insertRecord("divide32", "2016. 9. 15", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 15", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 15", 0, 0);
-//
-//        recordDAO.insertRecord("multiply22", "2016. 9. 16", 0, 1);
-//        recordDAO.insertRecord("multiply22", "2016. 9. 16", 0, 1);
-//        recordDAO.insertRecord("multiply32", "2016. 9. 16", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 16", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 16", 0, 0);
-//        recordDAO.insertRecord("divide32", "2016. 9. 16", 0, 0);
-//        recordDAO.insertRecord("divide32", "2016. 9. 16", 0, 1);
-//        recordDAO.insertRecord("divide22", "2016. 9. 16", 0, 0);
-//        recordDAO.insertRecord("multiply32", "2016. 9. 16", 0, 0);
-//
-//        recordDAO.insertRecord("multiply32", "2016. 9. 17", 0, 1);
-//        recordDAO.insertRecord("multiply32", "2016. 9. 17", 0, 1);
-//        recordDAO.insertRecord("divide32", "2016. 9. 17", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 17", 0, 0);
-//        recordDAO.insertRecord("multiply32", "2016. 9. 17", 0, 1);
-//        recordDAO.insertRecord("multiply32", "2016. 9. 17", 0, 1);
-//        recordDAO.insertRecord("divide32", "2016. 9. 17", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 17", 0, 0);
-//        recordDAO.insertRecord("multiply32", "2016. 9. 17", 0, 1);
-//        recordDAO.insertRecord("multiply32", "2016. 9. 17", 0, 1);
-//        recordDAO.insertRecord("divide32", "2016. 9. 17", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 17", 0, 0);
-//
-//        recordDAO.insertRecord("multiply22", "2016. 9. 18", 0, 1);
-//        recordDAO.insertRecord("multiply22", "2016. 9. 18", 0, 1);
-//
-//        recordDAO.insertRecord("multiply32", "2016. 9. 19", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 19", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 19", 0, 0);
-//        recordDAO.insertRecord("divide32", "2016. 9. 19", 0, 0);
-//
-//        recordDAO.insertRecord("divide32", "2016. 9. 20", 0, 1);
-//        recordDAO.insertRecord("divide22", "2016. 9. 20", 0, 0);
-//        recordDAO.insertRecord("multiply32", "2016. 9. 20", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 20", 0, 0);
-//        recordDAO.insertRecord("divide32", "2016. 9. 20", 0, 0);
-//
-//        recordDAO.insertRecord("divide32", "2016. 9. 21", 0, 1);
-//        recordDAO.insertRecord("multiply22", "2016. 9. 21", 0, 0);
-//        recordDAO.insertRecord("multiply32", "2016. 9. 21", 0, 0);
-//
-//        recordDAO.insertRecord("divide32", "2016. 9. 22", 0, 1);
-//        recordDAO.insertRecord("divide22", "2016. 9. 22", 0, 0);
-//        recordDAO.insertRecord("multiply32", "2016. 9. 22", 0, 0);
-//
-//        recordDAO.insertRecord("divide21", "2016. 9. 23", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 23", 0, 0);
-//        recordDAO.insertRecord("divide32", "2016. 9. 23", 0, 0);
-//        recordDAO.insertRecord("divide32", "2016. 9. 23", 0, 1);
-//        recordDAO.insertRecord("divide22", "2016. 9. 23", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 23", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 23", 0, 0);
-//        recordDAO.insertRecord("divide32", "2016. 9. 23", 0, 0);
-//
-//        recordDAO.insertRecord("divide22", "2016. 9. 24", 0, 0);
-//        recordDAO.insertRecord("divide22", "2016. 9. 24", 0, 0);
-//        recordDAO.insertRecord("divide22", "2016. 9. 24", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 24", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 24", 0, 0);
-//
-//        recordDAO.insertRecord("multiply32", "2016. 9. 25", 0, 0);
-//        recordDAO.insertRecord("multiply32", "2016. 9. 25", 0, 1);
-//        recordDAO.insertRecord("multiply32", "2016. 9. 25", 0, 1);
-//        recordDAO.insertRecord("multiply32", "2016. 9. 25", 0, 0);
-//        recordDAO.insertRecord("multiply22", "2016. 9. 25", 0, 1);
-//        recordDAO.insertRecord("multiply22", "2016. 9. 25", 0, 1);
-//        recordDAO.insertRecord("divide32", "2016. 9. 25", 0, 0);
-//        recordDAO.insertRecord("divide32", "2016. 9. 25", 0, 0);
-//        recordDAO.insertRecord("divide32", "2016. 9. 25", 0, 0);
-//        recordDAO.insertRecord("divide32", "2016. 9. 25", 0, 0);
-//
-//        recordDAO.insertRecord("divide21", "2016. 9. 26", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 26", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 26", 0, 0);
-//        recordDAO.insertRecord("divide22", "2016. 9. 26", 0, 0);
-//        recordDAO.insertRecord("divide22", "2016. 9. 26", 0, 0);
-//        recordDAO.insertRecord("divide22", "2016. 9. 26", 0, 0);
-//
-//        recordDAO.insertRecord("multiply32", "2016. 9. 27", 0, 1);
-//        recordDAO.insertRecord("multiply32", "2016. 9. 27", 0, 1);
-//        recordDAO.insertRecord("multiply32", "2016. 9. 27", 0, 1);
-//        recordDAO.insertRecord("divide32", "2016. 9. 27", 0, 0);
-//        recordDAO.insertRecord("divide32", "2016. 9. 27", 0, 0);
-//        recordDAO.insertRecord("divide22", "2016. 9. 27", 0, 0);
-//
-//        recordDAO.insertRecord("divide21", "2016. 9. 28", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 28", 0, 0);
-//        recordDAO.insertRecord("divide32", "2016. 9. 28", 0, 0);
-//        recordDAO.insertRecord("divide32", "2016. 9. 28", 0, 1);
-//        recordDAO.insertRecord("divide22", "2016. 9. 28", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 28", 0, 0);
-//
-//        recordDAO.insertRecord("divide21", "2016. 9. 29", 0, 0);
-//        recordDAO.insertRecord("divide32", "2016. 9. 29", 0, 0);
-//
-//        recordDAO.insertRecord("multiply22", "2016. 9. 30", 0, 1);
-//        recordDAO.insertRecord("multiply22", "2016. 9. 30", 0, 1);
-//        recordDAO.insertRecord("divide22", "2016. 9. 30", 0, 0);
-//        recordDAO.insertRecord("divide21", "2016. 9. 30", 0, 1);
-//
-//        recordDAO.insertRecord("multiply22", "2016. 10. 1", 0, 1);
-//        recordDAO.insertRecord("multiply22", "2016. 10. 1", 0, 0);
-//
-//        recordDAO.insertRecord("multiply32", "2016. 10. 2", 0, 0);
-//        recordDAO.insertRecord("multiply32", "2016. 10. 2", 0, 0);
-//        recordDAO.insertRecord("divide32", "2016. 10. 2", 0, 1);
-//        recordDAO.insertRecord("divide22", "2016. 10. 2", 0, 0);
-//        recordDAO.insertRecord("multiply32", "2016. 10. 2", 0, 0);
+
+        recordDAO.insertRecord("divide22", "2016. 9. 8", 0, 0);
+        recordDAO.insertRecord("multiply32", "2016. 9. 8", 0, 0);
+        recordDAO.insertRecord("multiply32", "2016. 9. 8", 0, 1);
+        recordDAO.insertRecord("multiply32", "2016. 9. 8", 0, 1);
+        recordDAO.insertRecord("divide32", "2016. 9. 8", 0, 0);
+        recordDAO.insertRecord("divide32", "2016. 9. 8", 0, 0);
+        recordDAO.insertRecord("divide32", "2016. 9. 8", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 8", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 8", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 8", 0, 0);
+
+        recordDAO.insertRecord("divide22", "2016. 9. 9", 0, 0);
+        recordDAO.insertRecord("divide22", "2016. 9. 9", 0, 0);
+        recordDAO.insertRecord("divide22", "2016. 9. 9", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 9", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 9", 0, 0);
+        recordDAO.insertRecord("multiply32", "2016. 9. 9", 0, 0);
+        recordDAO.insertRecord("multiply32", "2016. 9. 9", 0, 1);
+        recordDAO.insertRecord("multiply32", "2016. 9. 9", 0, 1);
+        recordDAO.insertRecord("multiply32", "2016. 9. 9", 0, 0);
+        recordDAO.insertRecord("multiply22", "2016. 9. 9", 0, 1);
+        recordDAO.insertRecord("multiply22", "2016. 9. 9", 0, 1);
+        recordDAO.insertRecord("divide32", "2016. 9. 9", 0, 0);
+        recordDAO.insertRecord("divide32", "2016. 9. 9", 0, 0);
+        recordDAO.insertRecord("divide32", "2016. 9. 9", 0, 0);
+        recordDAO.insertRecord("divide32", "2016. 9. 9", 0, 0);
+
+        recordDAO.insertRecord("divide21", "2016. 9. 10", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 10", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 10", 0, 0);
+        recordDAO.insertRecord("divide22", "2016. 9. 10", 0, 0);
+        recordDAO.insertRecord("divide22", "2016. 9. 10", 0, 0);
+        recordDAO.insertRecord("divide22", "2016. 9. 10", 0, 0);
+
+        recordDAO.insertRecord("multiply32", "2016. 9. 11", 0, 1);
+        recordDAO.insertRecord("multiply32", "2016. 9. 11", 0, 1);
+        recordDAO.insertRecord("multiply32", "2016. 9. 11", 0, 1);
+        recordDAO.insertRecord("divide32", "2016. 9. 11", 0, 0);
+        recordDAO.insertRecord("divide32", "2016. 9. 11", 0, 0);
+        recordDAO.insertRecord("divide22", "2016. 9. 11", 0, 0);
+
+        recordDAO.insertRecord("divide21", "2016. 9. 12", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 12", 0, 0);
+        recordDAO.insertRecord("divide32", "2016. 9. 12", 0, 0);
+        recordDAO.insertRecord("divide32", "2016. 9. 12", 0, 1);
+        recordDAO.insertRecord("divide22", "2016. 9. 12", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 12", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 12", 0, 0);
+        recordDAO.insertRecord("divide32", "2016. 9. 12", 0, 0);
+
+        recordDAO.insertRecord("divide32", "2016. 9. 13", 0, 1);
+        recordDAO.insertRecord("divide22", "2016. 9. 13", 0, 0);
+        recordDAO.insertRecord("multiply32", "2016. 9. 13", 0, 0);
+
+        recordDAO.insertRecord("divide21", "2016. 9. 14", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 14", 0, 0);
+        recordDAO.insertRecord("divide32", "2016. 9. 14", 0, 0);
+        recordDAO.insertRecord("divide32", "2016. 9. 14", 0, 1);
+        recordDAO.insertRecord("divide22", "2016. 9. 14", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 14", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 14", 0, 0);
+        recordDAO.insertRecord("divide32", "2016. 9. 14", 0, 0);
+
+        recordDAO.insertRecord("divide22", "2016. 9. 15", 0, 0);
+        recordDAO.insertRecord("multiply32", "2016. 9. 15", 0, 0);
+        recordDAO.insertRecord("multiply32", "2016. 9. 15", 0, 1);
+        recordDAO.insertRecord("multiply32", "2016. 9. 15", 0, 1);
+        recordDAO.insertRecord("divide32", "2016. 9. 15", 0, 0);
+        recordDAO.insertRecord("divide32", "2016. 9. 15", 0, 0);
+        recordDAO.insertRecord("divide32", "2016. 9. 15", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 15", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 15", 0, 0);
+
+        recordDAO.insertRecord("multiply22", "2016. 9. 16", 0, 1);
+        recordDAO.insertRecord("multiply22", "2016. 9. 16", 0, 1);
+        recordDAO.insertRecord("multiply32", "2016. 9. 16", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 16", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 16", 0, 0);
+        recordDAO.insertRecord("divide32", "2016. 9. 16", 0, 0);
+        recordDAO.insertRecord("divide32", "2016. 9. 16", 0, 1);
+        recordDAO.insertRecord("divide22", "2016. 9. 16", 0, 0);
+        recordDAO.insertRecord("multiply32", "2016. 9. 16", 0, 0);
+
+        recordDAO.insertRecord("multiply32", "2016. 9. 17", 0, 1);
+        recordDAO.insertRecord("multiply32", "2016. 9. 17", 0, 1);
+        recordDAO.insertRecord("divide32", "2016. 9. 17", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 17", 0, 0);
+        recordDAO.insertRecord("multiply32", "2016. 9. 17", 0, 1);
+        recordDAO.insertRecord("multiply32", "2016. 9. 17", 0, 1);
+        recordDAO.insertRecord("divide32", "2016. 9. 17", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 17", 0, 0);
+        recordDAO.insertRecord("multiply32", "2016. 9. 17", 0, 1);
+        recordDAO.insertRecord("multiply32", "2016. 9. 17", 0, 1);
+        recordDAO.insertRecord("divide32", "2016. 9. 17", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 17", 0, 0);
+
+        recordDAO.insertRecord("multiply22", "2016. 9. 18", 0, 1);
+        recordDAO.insertRecord("multiply22", "2016. 9. 18", 0, 1);
+
+        recordDAO.insertRecord("multiply32", "2016. 9. 19", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 19", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 19", 0, 0);
+        recordDAO.insertRecord("divide32", "2016. 9. 19", 0, 0);
+
+        recordDAO.insertRecord("divide32", "2016. 9. 20", 0, 1);
+        recordDAO.insertRecord("divide22", "2016. 9. 20", 0, 0);
+        recordDAO.insertRecord("multiply32", "2016. 9. 20", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 20", 0, 0);
+        recordDAO.insertRecord("divide32", "2016. 9. 20", 0, 0);
+
+        recordDAO.insertRecord("divide32", "2016. 9. 21", 0, 1);
+        recordDAO.insertRecord("multiply22", "2016. 9. 21", 0, 0);
+        recordDAO.insertRecord("multiply32", "2016. 9. 21", 0, 0);
+
+        recordDAO.insertRecord("divide32", "2016. 9. 22", 0, 1);
+        recordDAO.insertRecord("divide22", "2016. 9. 22", 0, 0);
+        recordDAO.insertRecord("multiply32", "2016. 9. 22", 0, 0);
+
+        recordDAO.insertRecord("divide21", "2016. 9. 23", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 23", 0, 0);
+        recordDAO.insertRecord("divide32", "2016. 9. 23", 0, 0);
+        recordDAO.insertRecord("divide32", "2016. 9. 23", 0, 1);
+        recordDAO.insertRecord("divide22", "2016. 9. 23", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 23", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 23", 0, 0);
+        recordDAO.insertRecord("divide32", "2016. 9. 23", 0, 0);
+
+        recordDAO.insertRecord("divide22", "2016. 9. 24", 0, 0);
+        recordDAO.insertRecord("divide22", "2016. 9. 24", 0, 0);
+        recordDAO.insertRecord("divide22", "2016. 9. 24", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 24", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 24", 0, 0);
+
+        recordDAO.insertRecord("multiply32", "2016. 9. 25", 0, 0);
+        recordDAO.insertRecord("multiply32", "2016. 9. 25", 0, 1);
+        recordDAO.insertRecord("multiply32", "2016. 9. 25", 0, 1);
+        recordDAO.insertRecord("multiply32", "2016. 9. 25", 0, 0);
+        recordDAO.insertRecord("multiply22", "2016. 9. 25", 0, 1);
+        recordDAO.insertRecord("multiply22", "2016. 9. 25", 0, 1);
+        recordDAO.insertRecord("divide32", "2016. 9. 25", 0, 0);
+        recordDAO.insertRecord("divide32", "2016. 9. 25", 0, 0);
+        recordDAO.insertRecord("divide32", "2016. 9. 25", 0, 0);
+        recordDAO.insertRecord("divide32", "2016. 9. 25", 0, 0);
+
+        recordDAO.insertRecord("divide21", "2016. 9. 26", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 26", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 26", 0, 0);
+        recordDAO.insertRecord("divide22", "2016. 9. 26", 0, 0);
+        recordDAO.insertRecord("divide22", "2016. 9. 26", 0, 0);
+        recordDAO.insertRecord("divide22", "2016. 9. 26", 0, 0);
+
+        recordDAO.insertRecord("multiply32", "2016. 9. 27", 0, 1);
+        recordDAO.insertRecord("multiply32", "2016. 9. 27", 0, 1);
+        recordDAO.insertRecord("multiply32", "2016. 9. 27", 0, 1);
+        recordDAO.insertRecord("divide32", "2016. 9. 27", 0, 0);
+        recordDAO.insertRecord("divide32", "2016. 9. 27", 0, 0);
+        recordDAO.insertRecord("divide22", "2016. 9. 27", 0, 0);
+
+        recordDAO.insertRecord("divide21", "2016. 9. 28", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 28", 0, 0);
+        recordDAO.insertRecord("divide32", "2016. 9. 28", 0, 0);
+        recordDAO.insertRecord("divide32", "2016. 9. 28", 0, 1);
+        recordDAO.insertRecord("divide22", "2016. 9. 28", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 28", 0, 0);
+
+        recordDAO.insertRecord("divide21", "2016. 9. 29", 0, 0);
+        recordDAO.insertRecord("divide32", "2016. 9. 29", 0, 0);
+
+        recordDAO.insertRecord("multiply22", "2016. 9. 30", 0, 1);
+        recordDAO.insertRecord("multiply22", "2016. 9. 30", 0, 1);
+        recordDAO.insertRecord("divide22", "2016. 9. 30", 0, 0);
+        recordDAO.insertRecord("divide21", "2016. 9. 30", 0, 1);
+
+        recordDAO.insertRecord("multiply22", "2016. 10. 1", 0, 1);
+        recordDAO.insertRecord("multiply22", "2016. 10. 1", 0, 0);
+
+        recordDAO.insertRecord("multiply32", "2016. 10. 2", 0, 0);
+        recordDAO.insertRecord("multiply32", "2016. 10. 2", 0, 0);
+        recordDAO.insertRecord("divide32", "2016. 10. 2", 0, 1);
+        recordDAO.insertRecord("divide22", "2016. 10. 2", 0, 0);
+        recordDAO.insertRecord("multiply32", "2016. 10. 2", 0, 0);
 
         recordDAO.close();
 
