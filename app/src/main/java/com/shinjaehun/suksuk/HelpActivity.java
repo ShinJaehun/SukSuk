@@ -1,6 +1,8 @@
 package com.shinjaehun.suksuk;
 
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -77,7 +79,19 @@ public class HelpActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         try {
-            Class.forName("MainActivity").getMethod("onPause", (Class[])null).invoke(displayYoutubeVideo, (Object[]) null);
+//            Class.forName("MainActivity").getMethod("onPause", (Class[])null).invoke(displayYoutubeVideo, (Object[]) null);
+            Class.forName("android.webkit.WebView").getMethod("onPause", (Class[])null).invoke(displayYoutubeVideo, (Object[]) null);
+//            ((AudioManager)mContext.getSystemService(Context.AUDIO_SERVICE)).requestAudioFocus(new AudioManager.OnAudioFocusChangeListener() { @Override public void onAudioFocusChange(int focusChange) {} }, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        try {
+            Class.forName("android.webkit.WebView").getMethod("onResume", (Class[])null).invoke(displayYoutubeVideo, (Object[])null);
         } catch (Exception e) {
             e.printStackTrace();
         }
