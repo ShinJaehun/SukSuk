@@ -8,8 +8,9 @@ android {
         applicationId "com.shinjaehun.suksuk"
         minSdkVersion 29
         targetSdkVersion 29
-        versionCode 3
-        versionName "1.6"
+        versionCode 4
+        versionName "1.8"
+        multiDexEnabled true
     }
     buildTypes {
         release {
