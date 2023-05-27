@@ -1,4 +1,4 @@
-#개인정보처리방침
+# 개인정보처리방침
 ---
 이 앱은 어떠한 개인 정보도 수집하거나 저장하지 않습니다.  
 This application does not collect or store personal data.  
