@@ -70,12 +70,12 @@
                 android:hint="첫번째 수"
                 android:textColorHint="@android:color/darker_gray"
                 android:textColor="@android:color/white"
-                android:gravity="left|center_vertical"
+                android:gravity="start|center_vertical"
                 android:inputType="number"
                 android:digits="0123456789"
                 android:maxLength="3"
                 android:maxLines="1"
-                android:textAlignment="center"
+                android:textAlignment="viewStart"
                 android:textSize="12dp"
                 android:layout_height="40dp" />
 
@@ -109,12 +109,12 @@
                 android:hint="두번째 수"
                 android:textColorHint="@android:color/darker_gray"
                 android:textColor="@android:color/white"
-                android:gravity="left|center_vertical"
+                android:gravity="start|center_vertical"
                 android:inputType="number"
                 android:digits="0123456789"
                 android:maxLength="3"
                 android:maxLines="1"
-                android:textAlignment="center"
+                android:textAlignment="viewStart"
                 android:textSize="12dp"
                 android:layout_height="40dp" />
 

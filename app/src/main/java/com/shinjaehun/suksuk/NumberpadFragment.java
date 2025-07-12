@@ -130,46 +130,73 @@ public class NumberpadFragment extends Fragment{
     public void unSetClickListener() { this.listener = null; }
 
     public void onNumberClicked(View v) {
-        switch (v.getId()) {
-            case R.id.button_1:
-                buttonClicked(1);
-                break;
-            case R.id.button_2:
-                buttonClicked(2);
-                break;
-            case R.id.button_3:
-                buttonClicked(3);
-                break;
-            case R.id.button_4:
-                buttonClicked(4);
-                break;
-            case R.id.button_5:
-                buttonClicked(5);
-                break;
-            case R.id.button_6:
-                buttonClicked(6);
-                break;
-            case R.id.button_7:
-                buttonClicked(7);
-                break;
-            case R.id.button_8:
-                buttonClicked(8);
-                break;
-            case R.id.button_9:
-                buttonClicked(9);
-                break;
-            case R.id.button_0:
-                buttonClicked(0);
-                break;
-            case R.id.button_clear:
-                onClearClicked();
-                break;
-            case R.id.button_enter:
-                onOKClicked();
-                break;
-            default:
-                break;
+//        switch (v.getId()) {
+//            case R.id.button_1:
+//                buttonClicked(1);
+//                break;
+//            case R.id.button_2:
+//                buttonClicked(2);
+//                break;
+//            case R.id.button_3:
+//                buttonClicked(3);
+//                break;
+//            case R.id.button_4:
+//                buttonClicked(4);
+//                break;
+//            case R.id.button_5:
+//                buttonClicked(5);
+//                break;
+//            case R.id.button_6:
+//                buttonClicked(6);
+//                break;
+//            case R.id.button_7:
+//                buttonClicked(7);
+//                break;
+//            case R.id.button_8:
+//                buttonClicked(8);
+//                break;
+//            case R.id.button_9:
+//                buttonClicked(9);
+//                break;
+//            case R.id.button_0:
+//                buttonClicked(0);
+//                break;
+//            case R.id.button_clear:
+//                onClearClicked();
+//                break;
+//            case R.id.button_enter:
+//                onOKClicked();
+//                break;
+//            default:
+//                break;
+//        }
+        int id = v.getId();
+        if (id == R.id.button_1) {
+            buttonClicked(1);
+        } else if (id == R.id.button_2) {
+            buttonClicked(2);
+        } else if (id == R.id.button_3) {
+            buttonClicked(3);
+        } else if (id == R.id.button_4) {
+            buttonClicked(4);
+        } else if (id == R.id.button_5) {
+            buttonClicked(5);
+        } else if (id == R.id.button_6) {
+            buttonClicked(6);
+        } else if (id == R.id.button_7) {
+            buttonClicked(7);
+        } else if (id == R.id.button_8) {
+            buttonClicked(8);
+        } else if (id == R.id.button_9) {
+            buttonClicked(9);
+        } else if (id == R.id.button_0) {
+            buttonClicked(0);
+        } else if (id == R.id.button_clear) {
+            onClearClicked();
+        } else if (id == R.id.button_enter) {
+            onOKClicked();
         }
+
     }
 
     public void buttonClicked(int num) {

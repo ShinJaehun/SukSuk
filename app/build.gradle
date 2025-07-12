@@ -1,29 +1,43 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 34
-    buildToolsVersion '29.0.2'
+    compileSdkVersion 35
 
     defaultConfig {
         applicationId "com.shinjaehun.suksuk"
         minSdkVersion 29
-        targetSdkVersion 34
-        versionCode 6
+        targetSdkVersion 35
+        versionCode 9
         versionName "1.91"
         multiDexEnabled true
     }
+    signingConfigs {
+        release {
+            storeFile file("gunsmoke.jks")
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias "suksuk"
+            keyPassword RELEASE_KEY_PASSWORD
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            signingConfig signingConfigs.release
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     namespace 'com.shinjaehun.suksuk'
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    testImplementation 'junit:junit:4.12'
+
+    testImplementation 'junit:junit:4.13.2'
     //noinspection GradleCompatible
 
 //    implementation 'com.android.support:appcompat-v7:29.0.2'
